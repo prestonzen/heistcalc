@@ -34,6 +34,12 @@ npm run preview   # build + wrangler dev
 npm run deploy    # build + deploy to Cloudflare
 ```
 
+## Deployment
+
+- Every push to `main` builds and deploys automatically via Cloudflare Workers Builds.
+- `src/data/weekly.ts` is refreshed every Thursday after GTA Online's weekly reset by a scheduled Claude Code routine, which commits straight to `main`.
+- D1 schema changes live in `migrations/` and are applied with `npx wrangler d1 migrations apply heistcalc --remote`.
+
 ## Project layout
 
 ```
