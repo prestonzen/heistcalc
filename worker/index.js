@@ -9,6 +9,8 @@ const ADS_TXT = "https://srv.adstxtmanager.com/19390/heistcalc.com";
 const SITE = "https://heistcalc.com";
 // Search Console HTML-file verification (served by the Worker because static assets 307 away from .html).
 const GSC_FILES = ["googled57078d3b0c41bb7.html"];
+// IndexNow (Bing, Yandex, Seznam, Naver): the key file must be served at /<key>.txt.
+const INDEXNOW_KEY = "1d2d41c2967e7f085c877da42aced1ea";
 const WEBHOOK_RE = /^https:\/\/(?:ptb\.|canary\.)?discord(?:app)?\.com\/api\/webhooks\/(\d{17,20})\/([\w-]{60,80})$/;
 const MAX_PENDING = 20;
 const MAX_AHEAD = 8 * 86_400_000;
@@ -214,6 +216,7 @@ export default {
     }
     if (url.pathname === "/ads.txt") return Response.redirect(ADS_TXT, 301);
     const file = url.pathname.slice(1);
+    if (file === `${INDEXNOW_KEY}.txt`) return new Response(INDEXNOW_KEY, { headers: { "content-type": "text/plain; charset=utf-8" } });
     if (GSC_FILES.includes(file)) return new Response(`google-site-verification: ${file}`, { headers: { "content-type": "text/html; charset=utf-8" } });
     if (url.pathname.startsWith("/api/")) {
       const handler = ROUTES[`${request.method} ${url.pathname}`];
