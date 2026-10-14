@@ -1,0 +1,106 @@
+---
+import Article from "../layouts/Article.astro";
+import { WEEKLY_BONUS, SOURCES, DATA_AS_OF } from "../data/heists";
+
+const groups = [...new Set(WEEKLY_BONUS.map((w) => w.group))];
+const faq = [
+  { q: "When does the GTA Online weekly reset happen?", a: "Every Thursday at 2:00 AM Pacific / 5:00 AM Eastern. That's 09:00 UTC while US daylight saving time is in effect and 10:00 UTC the rest of the year. Rockstar's timing can occasionally slip." },
+  { q: "What is the first-of-the-week heist bonus?", a: "Since Title Update 1.73 (July 2026), the first time a host completes a given heist finale after the Thursday reset, it pays more: about 1.86x for the Diamond Casino Heist, 4x for the Kortz Center, 1.5x for the original heists and about 1.22x for the Doomsday Heist." },
+  { q: "Does every crew member get the weekly bonus?", a: "The bonus is tied to the host's first finale of the week. In a crew, take turns hosting so each person gets their own first-of-week payout." },
+  { q: "Does Cayo Perico have a weekly bonus?", a: "No. Cayo Perico isn't part of the weekly bonus system, but its high-value targets reset on the same Thursday schedule." },
+];
+---
+<Article
+  title="GTA Online Weekly Heist Bonus Checklist (Auto-Resets)"
+  h1="Weekly Heist Bonus Checklist"
+  description="Track which GTA Online heists you've done for this week's first-run bonus. Auto-resets every Thursday with a live countdown. Saved on your device."
+  published="2026-10-15"
+  updated={DATA_AS_OF}
+  faq={faq}
+  tool={{ name: "GTA Online Weekly Heist Bonus Checklist" }}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.gtaGuide, SOURCES.rockstarSupport173]}
+>
+  <section slot="tool" class="calc" id="weekly">
+    <div class="weekly-head">
+      <div>
+        <h2>This week's bonus runs</h2>
+        <p class="muted-sm">Resets in <b id="reset-in">–</b> · <span id="reset-local"></span></p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><span id="bar"></span></div>
+        <p class="muted-sm"><b id="done-count">0</b> of {WEEKLY_BONUS.length} done</p>
+      </div>
+    </div>
+    {groups.map((g) => (
+      <>
+        <h3>{g}</h3>
+        <ul class="checklist">
+          {WEEKLY_BONUS.filter((w) => w.group === g).map((w) => (
+            <li>
+              <label>
+                <input type="checkbox" data-id={w.id} />
+                <span class="ck-name">{w.name}</span>
+                <span class="ck-meta"><b>{w.mult}</b> · {w.pay}{w.players !== "—" && ` · ${w.players}p`}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))}
+    <div class="btn-row">
+      <button type="button" class="btn-ghost" id="clear">Uncheck all</button>
+      <a class="btn-ghost" href="/timers/">Set a Cayo cooldown timer →</a>
+    </div>
+    <p class="muted-sm">Saved in this browser only. Payouts shown are the host's first-of-week take on the hardest difficulty, before crew cuts.</p>
+  </section>
+
+  <p>Since July 2026, the smartest money in GTA Online is <strong>timing</strong>. Title Update 1.73 lowered repeat heist payouts but added a bonus for the host's first finale of each heist after the Thursday reset. This checklist tracks which ones you've cashed in this week and clears itself when the week rolls over.</p>
+
+  <h2>How to use it</h2>
+  <ol>
+    <li>After the Thursday reset, work down the list, starting with the biggest bonuses (Casino and Kortz Center).</li>
+    <li>Tick each finale when you finish it as host. Your list is saved on this device.</li>
+    <li>Playing with a crew? Rotate the host. Each player's first finale as host gets the bonus.</li>
+    <li>Between bonus runs, grind <a href="/cayo-perico-calculator/">Cayo Perico</a>. It has no weekly bonus but repeats every 144 minutes solo.</li>
+  </ol>
+  <p>Full numbers for every job: <a href="/gta-online-heist-payouts/">all GTA Online heist payouts</a>.</p>
+
+  <script>
+    import { nextReset, lastReset, formatDuration } from "../scripts/reset";
+    const KEY = "hc-weekly";
+    const boxes = [...document.querySelectorAll<HTMLInputElement>("#weekly input[data-id]")];
+
+    type State = { week: number; done: string[] };
+    function load(): State {
+      const week = lastReset();
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY) || "null") as State | null;
+        if (s && s.week === week) return s;
+      } catch {}
+      return { week, done: [] };
+    }
+    function save(s: State) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
+
+    let state = load();
+    function render() {
+      boxes.forEach((b) => { b.checked = state.done.includes(b.dataset.id!); b.closest("li")!.classList.toggle("done", b.checked); });
+      document.getElementById("done-count")!.textContent = String(state.done.length);
+      (document.getElementById("bar") as HTMLElement).style.width = `${(state.done.length / boxes.length) * 100}%`;
+    }
+    boxes.forEach((b) => b.addEventListener("change", () => {
+      const id = b.dataset.id!;
+      state.done = b.checked ? [...new Set([...state.done, id])] : state.done.filter((x) => x !== id);
+      save(state); render();
+    }));
+    document.getElementById("clear")!.addEventListener("click", () => { state.done = []; save(state); render(); });
+
+    const fmt = new Intl.DateTimeFormat(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" });
+    function tick() {
+      if (lastReset() !== state.week) { state = { week: lastReset(), done: [] }; save(state); render(); }
+      const next = nextReset();
+      document.getElementById("reset-in")!.textContent = formatDuration(next - Date.now());
+      document.getElementById("reset-local")!.textContent = `${fmt.format(next)} your time`;
+    }
+    render(); tick(); setInterval(tick, 1000);
+  </script>
+</Article>

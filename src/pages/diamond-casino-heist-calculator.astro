@@ -1,5 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
+import Share from "../components/Share.astro";
 import { CASINO, SOURCES, DATA_AS_OF, money } from "../data/heists";
 
 const pct = (n: number) => `${Math.round(n * 100)}%`;
@@ -60,6 +61,7 @@ const faq = [
     <div class="table-scroll" style="margin-top:14px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="r-split"></tbody></table></div>
     <p class="warn" id="min-warn" hidden>Under $150,000 stolen and the finale fails.</p>
     <p style="color:var(--muted);font-size:.85rem;margin:8px 0 0">Assumes Lester, crew and buyer percentages all come off the take. Data as of TU 1.73.</p>
+    <Share target="casino" />
   </section>
 
   <div class="callout"><p><strong>Payouts changed in July 2026.</strong> Title Update 1.73 cut every Casino Heist vault value by 30% but added a weekly bonus: the host's first finale after the Thursday reset pays about 1.86x. If a calculator still says $3.6M max, it's out of date.</p></div>

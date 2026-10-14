@@ -1,5 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
+import Share from "../components/Share.astro";
 
 const faq = [
   { q: "What is the minimum cut in a GTA Online heist?", a: "In the Diamond Casino Heist and the Cayo Perico Heist every player must receive at least 15% of the take, and cuts move in 5% steps. The leader sets the split on the final planning screen." },
@@ -26,6 +27,7 @@ const faq = [
     <div class="calc-grid" id="cuts" style="margin-top:14px"></div>
     <p class="warn" id="cut-warn" hidden></p>
     <div class="table-scroll" style="margin-top:16px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="split-body"></tbody></table></div>
+    <Share target="cut-calc" />
   </section>
 
   <p>Every GTA Online heist ends the same way: the leader opens the final planning board and someone in voice chat asks "so what are the cuts?" This calculator answers that in one screen. It works for any heist in any GTA game because it only needs three things: the total take, the fees that come off the top, and each player's percentage.</p>
@@ -51,10 +53,10 @@ const faq = [
   <h2>Heist-specific calculators</h2>
   <p>For heists with loot and bag-space mechanics, use the dedicated tools: the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a> handles primary targets, secondary loot and bag space, and the <a href="/diamond-casino-heist-calculator/">Diamond Casino Heist calculator</a> handles buyer fees and support crew. The <a href="/gta-online-heist-payouts/">full heist payout table</a> lists every heist side by side.</p>
 
-  <script>
-    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
-    const money = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
-    const DEFAULTS: Record<number, number[]> = { 1: [100], 2: [50, 50], 3: [40, 30, 30], 4: [25, 25, 25, 25] };
+  <script is:inline>
+    const $ = (id) => document.getElementById(id);
+    const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+    const DEFAULTS = { 1: [100], 2: [50, 50], 3: [40, 30, 30], 4: [25, 25, 25, 25] };
 
     function buildCuts() {
       const n = +$("crew").value;
@@ -69,12 +71,12 @@ const faq = [
       const net = Math.max(0, +$("take").value) * (1 - Math.min(100, Math.max(0, +$("fees").value)) / 100);
       const cuts = Array.from({ length: n }, (_, i) => +$("cut" + i).value || 0);
       const total = cuts.reduce((a, b) => a + b, 0);
-      const warn = document.getElementById("cut-warn")!;
+      const warn = document.getElementById("cut-warn");
       const msgs = [];
       if (total !== 100) msgs.push(`Cuts add up to ${total}%, not 100%.`);
       if (n > 1 && cuts.some((c) => c < 15)) msgs.push("Newer heists require at least 15% per player.");
       warn.hidden = !msgs.length; warn.textContent = msgs.join(" ");
-      document.getElementById("split-body")!.innerHTML =
+      document.getElementById("split-body").innerHTML =
         `<tr><td>Net take after fees</td><td class="num">${100}%</td><td class="num">${money(net)}</td></tr>` +
         cuts.map((c, i) => `<tr><td>${i === 0 ? "Leader" : "Player " + (i + 1)}</td><td class="num">${c}%</td><td class="num">${money(net * c / 100)}</td></tr>`).join("");
     }

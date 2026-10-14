@@ -1,0 +1,61 @@
+---
+// "Share this plan" for a calculator: encodes every input in the target container into the URL,
+// and restores them when someone opens the link.
+interface Props { target: string; label?: string }
+const { target, label = "Share this plan" } = Astro.props;
+---
+<div class="share-row" data-share={target}>
+  <button type="button" class="btn-ghost" data-share-btn>🔗 {label}</button>
+  <p class="muted-sm" data-share-msg aria-live="polite">Send your crew a link with these exact settings.</p>
+</div>
+<script>
+  type Field = HTMLInputElement | HTMLSelectElement;
+  const fields = (root: Element) =>
+    [...root.querySelectorAll<Field>("input[id], select[id]")].filter((f) => f.type !== "submit");
+
+  function setField(f: Field, v: string) {
+    if (f instanceof HTMLInputElement && f.type === "checkbox") f.checked = v === "1";
+    else f.value = v;
+    f.dispatchEvent(new Event("input", { bubbles: true }));
+    f.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-share]").forEach((row) => {
+    const root = document.getElementById(row.dataset.share!);
+    if (!root) return;
+
+    // Restore from URL. Two passes: some fields (e.g. per-player cuts) only exist after others change.
+    const params = new URLSearchParams(location.search);
+    if ([...params.keys()].length) {
+      const pending = new Map(params);
+      for (let pass = 0; pass < 2 && pending.size; pass++) {
+        for (const [k, v] of [...pending]) {
+          const f = root.querySelector<Field>(`#${CSS.escape(k)}`);
+          if (f) { setField(f, v); pending.delete(k); }
+        }
+      }
+    }
+
+    const msg = row.querySelector<HTMLElement>("[data-share-msg]")!;
+    row.querySelector("[data-share-btn]")!.addEventListener("click", async () => {
+      const q = new URLSearchParams();
+      for (const f of fields(root)) {
+        const v = f instanceof HTMLInputElement && f.type === "checkbox" ? (f.checked ? "1" : "0") : f.value;
+        if (v !== "") q.set(f.id, v);
+      }
+      const url = `${location.origin}${location.pathname}?${q}`;
+      history.replaceState(null, "", url);
+      try {
+        if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+          await navigator.share({ title: document.title, url });
+          msg.textContent = "Shared.";
+        } else {
+          await navigator.clipboard.writeText(url);
+          msg.textContent = "Link copied. Paste it in your crew's Discord.";
+        }
+      } catch {
+        msg.textContent = "Copy this link: " + url;
+      }
+    });
+  });
+</script>

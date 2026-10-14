@@ -138,6 +138,26 @@ export const OTHER_EARNERS = [
   { name: "Auto Shop Robbery Contracts", repeat: "$153,000–$337,500 (leader)", firstWeekly: "No weekly bonus", note: "Not affected by TU 1.73. Union Depository pays the most." },
 ] as const;
 
+/* ---------------- First-of-the-week bonus checklist (TU 1.73) ---------------- */
+// Host's first finale of each job after the Thursday reset. Cayo Perico has no weekly bonus.
+
+export const WEEKLY_BONUS = [
+  { id: "casino", group: "Big heists", name: "Diamond Casino Heist", mult: "~1.86x", pay: "Up to $4.71M (Hard Diamonds)", players: "2–4" },
+  { id: "kortz", group: "Big heists", name: "The Kortz Center Heist", mult: "4x", pay: "$1.22M–$1.93M", players: "—" },
+  { id: "doomsday1", group: "Doomsday Heist", name: "Act I: The Data Breaches", mult: "~1.22x", pay: "$1.34M (Hard)", players: "2–4" },
+  { id: "doomsday2", group: "Doomsday Heist", name: "Act II: The Bogdan Problem", mult: "~1.22x", pay: "$1.96M (Hard)", players: "2–4" },
+  { id: "doomsday3", group: "Doomsday Heist", name: "Act III: The Doomsday Scenario", mult: "~1.22x", pay: "$2.47M (Hard)", players: "2–4" },
+  { id: "fleeca", group: "Original heists", name: "The Fleeca Job", mult: "1.5x", pay: "$377k (Hard)", players: "2" },
+  { id: "prison", group: "Original heists", name: "The Prison Break", mult: "1.5x", pay: "$1.31M (Hard)", players: "4" },
+  { id: "humane", group: "Original heists", name: "The Humane Labs Raid", mult: "1.5x", pay: "$1.77M (Hard)", players: "4" },
+  { id: "seriesa", group: "Original heists", name: "Series A Funding", mult: "1.5x", pay: "$1.33M (Hard)", players: "4" },
+  { id: "pacific", group: "Original heists", name: "The Pacific Standard Job", mult: "1.5x", pay: "$2.81M (Hard)", players: "4" },
+  { id: "titan", group: "Other jobs", name: "The Titan Job (Oscar Guzman)", mult: "1.5x", pay: "$1.13M (Hard)", players: "—" },
+  { id: "dre", group: "Other jobs", name: "The Contract (Dr. Dre)", mult: "~1.22x", pay: "$1.10M", players: "1–4" },
+  { id: "cluckin", group: "Other jobs", name: "The Cluckin' Bell Farm Raid", mult: "1.5x", pay: "$600k", players: "1–4" },
+  { id: "knoway", group: "Other jobs", name: "KnoWay Out: A Clean Break", mult: "~1.86x", pay: "$684k (Hard)", players: "—" },
+] as const;
+
 /* ---------------- GTA V story mode ---------------- */
 
 export const STORY_HEISTS = [

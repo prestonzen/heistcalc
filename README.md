@@ -7,6 +7,11 @@ Plan a Cayo Perico run, split a Diamond Casino take, or compare every GTA Online
 ## Features
 
 - **Calculators** that run entirely client-side: heist cut splitter, Cayo Perico loot optimizer, Diamond Casino Heist cuts
+- **Cooldown timers** with browser notifications: Cayo Perico cooldown, the 48-minute Hard Mode window, custom timers, and a DST-aware weekly reset countdown
+- **Weekly bonus checklist** for the post-TU 1.73 first-run bonuses that auto-clears at the Thursday reset
+- **Shareable plans**: every calculator input round-trips through the URL, so a crew can open the exact same plan
+- **Installable PWA** with offline support (service worker, manifest, app shortcuts)
+- **No accounts**: all user state lives in `localStorage`
 - **Sourced data**: payout values live in typed data files with source URLs and a last-checked date
 - **SEO by default**: per-page titles and descriptions, canonical URLs, Open Graph, JSON-LD (`Article`, `WebApplication`, `FAQPage`, `BreadcrumbList`), sitemap, and fast static HTML
 - **Ads-ready**: Ezoic integration behind one flag (`EZOIC_ENABLED` in `src/config.ts`), with ads.txt served via the Worker

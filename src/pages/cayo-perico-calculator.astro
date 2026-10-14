@@ -1,5 +1,6 @@
 ---
 import Article from "../layouts/Article.astro";
+import Share from "../components/Share.astro";
 import { CAYO, SOURCES, DATA_AS_OF, money } from "../data/heists";
 
 const pct = (n: number) => `${Math.round(n * 1000) / 10}%`;
@@ -62,6 +63,7 @@ const faq = [
     <div class="table-scroll" style="margin-top:14px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="r-split"></tbody></table></div>
     <div class="table-scroll"><table><thead><tr><th>Bag plan (best loot first)</th><th class="num">Stacks</th><th class="num">Bag space</th><th class="num">Value</th></tr></thead><tbody id="r-bags"></tbody></table></div>
     <p style="color:var(--muted);font-size:.85rem;margin:8px 0 0">Values are averages; each stack's real value varies slightly. Taking damage costs you secondary loot. Data as of TU 1.73.</p>
+    <Share target="cayo" />
   </section>
 
   <div class="callout"><p><strong>July 2026 payout cut:</strong> Title Update 1.73 lowered every Cayo Perico primary target except the Panther Statue, cut all secondary loot by 10%, and made the high-value targets reset weekly instead of every 72 hours. Calculators built before July 2026 overestimate your take by 20–40%.</p></div>

@@ -51,6 +51,8 @@ const siteSchema = {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#120a1c" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -82,5 +84,6 @@ const siteSchema = {
     </div>
     <p class="wrap legal">HeistCalc is an unofficial fan site and is not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Grand Theft Auto, GTA and related marks are trademarks of Take-Two Interactive Software, Inc. In-game values can change with game updates; always double-check in game.</p>
   </footer>
+  <script is:inline>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));</script>
 </body>
 </html>

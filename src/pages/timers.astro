@@ -1,0 +1,169 @@
+---
+import Article from "../layouts/Article.astro";
+import { CAYO, SOURCES } from "../data/heists";
+
+const faq = [
+  { q: "How long is the Cayo Perico cooldown?", a: `${CAYO.cooldownMinutes.solo} real minutes (3 in-game days) after a solo finale, and ${CAYO.cooldownMinutes.crew} minutes (1 in-game day) after a finale with at least one other player. The timer keeps running while you're offline.` },
+  { q: "How does the Cayo Perico Hard Mode window work?", a: `When the cooldown ends, Pavel texts you. If you pay the $100,000 setup fee at the Kosatka within ${CAYO.hardModeWindowMinutes} real minutes, the next run is Hard Mode: +10% on the primary target and a $100,000 Elite bonus. Miss the window and only Normal is available.` },
+  { q: "Will I get alerts if I close the tab?", a: "Alerts fire while HeistCalc is open in a browser tab, even in the background. If you close the tab, your timers are saved and pick up where they left off when you come back. Install HeistCalc to your home screen to keep it one tap away." },
+];
+---
+<Article
+  title="GTA Online Heist Cooldown Timer & Hard Mode Alarm"
+  h1="Heist Cooldown Timers"
+  description="Never miss Cayo Perico Hard Mode again. Start a cooldown timer when your finale ends and get an alert when Pavel's ready, plus the weekly reset countdown."
+  published="2026-10-15"
+  faq={faq}
+  tool={{ name: "GTA Online Heist Cooldown Timer" }}
+  sources={[SOURCES.wikiCayoFinale, SOURCES.gtaboomCayo]}
+>
+  <section slot="tool" class="calc" id="timers">
+    <div class="weekly-head">
+      <h2>Cayo Perico</h2>
+      <button type="button" class="btn-alerts" id="alerts">🔔 Enable alerts</button>
+    </div>
+    <p class="muted-sm" id="alerts-note">Turn on alerts to get a notification when a timer ends.</p>
+    <div class="btn-row">
+      <button type="button" class="btn-main" data-cayo="solo">I just finished solo ({CAYO.cooldownMinutes.solo} min)</button>
+      <button type="button" class="btn-main" data-cayo="crew">I just finished with a crew ({CAYO.cooldownMinutes.crew} min)</button>
+    </div>
+
+    <h3>Your timers</h3>
+    <ul class="timer-list" id="list"></ul>
+    <p class="muted-sm" id="empty">No timers running. Start one above, or add your own below.</p>
+
+    <h3>Custom timer</h3>
+    <form class="calc-grid" id="custom">
+      <div class="field"><label for="c-name">Name</label><input id="c-name" placeholder="e.g. Nightclub stock" maxlength="40" /></div>
+      <div class="field"><label for="c-min">Minutes</label><input id="c-min" type="number" min="1" max="10080" value="60" /></div>
+      <div class="field"><span class="label">&nbsp;</span><button type="submit" class="btn-ghost" style="width:100%">Add timer</button></div>
+    </form>
+
+    <div class="stat" style="margin-top:18px"><span>Weekly reset (Thu 2:00 AM PT)</span><b id="reset-in">–</b></div>
+    <label class="check" style="margin-top:12px"><input type="checkbox" id="sound" checked /> Play a sound when a timer ends</label>
+  </section>
+
+  <p>Since July 2026, Cayo Perico money depends on timing. The solo cooldown is <strong>{CAYO.cooldownMinutes.solo} minutes</strong>, and once it ends you have <strong>{CAYO.hardModeWindowMinutes} minutes</strong> to pay the setup fee if you want Hard Mode's extra 10% and the $100,000 Elite bonus. It's easy to get distracted and miss it. Tap a button when your finale ends and HeistCalc will remind you.</p>
+
+  <h2>What the timers do</h2>
+  <ul>
+    <li><strong>Cooldown:</strong> counts down until you can set up Cayo Perico again.</li>
+    <li><strong>Hard Mode window:</strong> starts when the cooldown ends. You'll get a warning 10 minutes before it closes.</li>
+    <li><strong>Custom timers:</strong> anything else you're waiting on, like business stock, a contract cooldown, or a friend's session.</li>
+    <li><strong>Weekly reset:</strong> when this week's first-run heist bonuses refresh. Track them in the <a href="/weekly-checklist/">weekly checklist</a>.</li>
+  </ul>
+  <p>Timers are saved in your browser, so you can close the tab and come back. Alerts need the page open, even in the background.</p>
+
+  <script>
+    import { nextReset, formatDuration } from "../scripts/reset";
+
+    type Timer = { id: string; name: string; end: number; warn?: number; warned?: boolean; done?: boolean; note?: string };
+    const KEY = "hc-timers";
+    const MIN = 60_000;
+    const SOLO = 144 * MIN, CREW = 48 * MIN, HARD_WINDOW = 48 * MIN;
+
+    let timers: Timer[] = [];
+    try { timers = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch {}
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(timers)); } catch {} };
+    const $ = (id: string) => document.getElementById(id)!;
+    const sound = $("sound") as HTMLInputElement;
+    try { sound.checked = localStorage.getItem("hc-sound") !== "0"; } catch {}
+    sound.addEventListener("change", () => { try { localStorage.setItem("hc-sound", sound.checked ? "1" : "0"); } catch {} });
+
+    // --- Alerts ---
+    const alertsBtn = $("alerts") as HTMLButtonElement;
+    function renderAlerts() {
+      if (!("Notification" in window)) { alertsBtn.hidden = true; $("alerts-note").textContent = "Your browser doesn't support notifications. You'll still hear the sound and see the tab title change."; return; }
+      const p = Notification.permission;
+      alertsBtn.textContent = p === "granted" ? "🔔 Alerts on" : "🔔 Enable alerts";
+      alertsBtn.disabled = p !== "default";
+      $("alerts-note").textContent = p === "granted" ? "You'll get a notification when a timer ends, as long as this page is open."
+        : p === "denied" ? "Notifications are blocked for this site. Allow them in your browser's site settings." : "Turn on alerts to get a notification when a timer ends.";
+    }
+    alertsBtn.addEventListener("click", async () => { await Notification.requestPermission(); renderAlerts(); });
+
+    let audio: AudioContext | undefined;
+    function beep() {
+      if (!sound.checked) return;
+      try {
+        audio ??= new AudioContext();
+        [0, 0.25, 0.5].forEach((t) => {
+          const o = audio!.createOscillator(), g = audio!.createGain();
+          o.frequency.value = 880; o.connect(g); g.connect(audio!.destination);
+          g.gain.setValueAtTime(0.2, audio!.currentTime + t); g.gain.exponentialRampToValueAtTime(0.001, audio!.currentTime + t + 0.2);
+          o.start(audio!.currentTime + t); o.stop(audio!.currentTime + t + 0.2);
+        });
+      } catch {}
+    }
+    async function notify(title: string, body: string, tag: string) {
+      beep();
+      if (!("Notification" in window) || Notification.permission !== "granted") return;
+      try {
+        const reg = await navigator.serviceWorker?.getRegistration();
+        if (reg) await reg.showNotification(title, { body, tag, icon: "/icon-192.png", badge: "/icon-192.png" });
+        else new Notification(title, { body, tag, icon: "/icon-192.png" });
+      } catch {}
+    }
+
+    // --- Timers ---
+    const uid = () => Math.random().toString(36).slice(2, 9);
+    document.querySelectorAll<HTMLButtonElement>("[data-cayo]").forEach((b) => b.addEventListener("click", () => {
+      const now = Date.now();
+      const cool = b.dataset.cayo === "solo" ? SOLO : CREW;
+      timers = timers.filter((t) => !t.id.startsWith("cayo-"));
+      timers.push({ id: "cayo-cool", name: "Cayo Perico cooldown", end: now + cool, note: "Pavel will text you. Pay the setup fee within 48 minutes for Hard Mode." });
+      timers.push({ id: "cayo-hard", name: "Hard Mode window", end: now + cool + HARD_WINDOW, warn: 10 * MIN, note: "Pay the $100k setup fee before this ends to keep Hard Mode." });
+      save(); render(); beepPrime();
+    }));
+    function beepPrime() { if (sound.checked) { try { audio ??= new AudioContext(); audio.resume(); } catch {} } }
+
+    $("custom").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = ($("c-name") as HTMLInputElement).value.trim() || "Custom timer";
+      const mins = Math.max(1, Math.min(10080, +($("c-min") as HTMLInputElement).value || 0));
+      timers.push({ id: uid(), name, end: Date.now() + mins * MIN });
+      save(); render(); beepPrime();
+    });
+
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
+    function render() {
+      timers.sort((a, b) => a.end - b.end);
+      $("empty").hidden = timers.length > 0;
+      $("list").innerHTML = timers.map((t) =>
+        `<li data-id="${t.id}"><div><b>${esc(t.name)}</b>${t.note ? `<small>${esc(t.note)}</small>` : ""}</div><span class="t-left"></span><button type="button" class="t-del" aria-label="Remove ${esc(t.name)}">✕</button></li>`).join("");
+      $("list").querySelectorAll<HTMLButtonElement>(".t-del").forEach((b) => b.addEventListener("click", () => {
+        const id = b.closest("li")!.dataset.id!;
+        timers = timers.filter((t) => id.startsWith("cayo-") ? !t.id.startsWith("cayo-") : t.id !== id);
+        save(); render();
+      }));
+      tick();
+    }
+
+    function tick() {
+      const now = Date.now();
+      let changed = false;
+      for (const t of timers) {
+        const left = t.end - now;
+        if (t.warn && !t.warned && !t.done && left <= t.warn && left > 0) {
+          t.warned = true; changed = true;
+          notify(`${t.name}: ${Math.ceil(left / MIN)} min left`, t.note || "", t.id + "-warn");
+        }
+        if (!t.done && left <= 0) {
+          t.done = true; changed = true;
+          notify(t.id === "cayo-cool" ? "Cayo Perico is ready" : t.id === "cayo-hard" ? "Hard Mode window closed" : `${t.name} is done`, t.note || "Timer finished.", t.id);
+        }
+        const li = document.querySelector(`#list li[data-id="${t.id}"]`);
+        if (li) {
+          li.classList.toggle("done", left <= 0);
+          li.querySelector(".t-left")!.textContent = left > 0 ? formatDuration(left) : "Done";
+        }
+      }
+      if (changed) save();
+      const next = timers.filter((t) => t.end > now)[0];
+      document.title = next ? `${formatDuration(next.end - now, false)} · ${next.name} | HeistCalc` : "Heist Cooldown Timers | HeistCalc";
+      $("reset-in").textContent = formatDuration(nextReset() - now);
+    }
+
+    renderAlerts(); render(); setInterval(tick, 1000);
+  </script>
+</Article>

@@ -16,6 +16,8 @@ export const NAV = [
   { href: "/cayo-perico-calculator/", label: "Cayo Perico" },
   { href: "/diamond-casino-heist-calculator/", label: "Casino Heist" },
   { href: "/gta-online-heist-payouts/", label: "All Heists" },
+  { href: "/timers/", label: "Timers" },
+  { href: "/weekly-checklist/", label: "Weekly" },
   { href: "/gta-6/", label: "GTA 6" },
   { href: "/guides/", label: "Guides" },
 ];
