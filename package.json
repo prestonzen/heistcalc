@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "npm run build && wrangler dev --port 8788",
-    "deploy": "npm run build && wrangler deploy"
+    "preview": "wrangler dev --port 8788",
+    "deploy": "wrangler deploy"
   },
   "type": "module",
   "dependencies": {

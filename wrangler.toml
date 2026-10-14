@@ -2,6 +2,10 @@ name = "heistcalc"
 main = "worker/index.js"
 compatibility_date = "2025-09-01"
 workers_dev = true
+
+# Build the Astro site before every deploy (also used by Cloudflare Workers Builds).
+[build]
+command = "npm run build"
 routes = [
   { pattern = "heistcalc.com", custom_domain = true },
   { pattern = "www.heistcalc.com", custom_domain = true },
