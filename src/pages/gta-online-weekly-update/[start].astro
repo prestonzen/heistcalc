@@ -12,7 +12,7 @@ const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-US"
 const range = `${fmt(week.start)}–${fmt(week.end)}`;
 ---
 <Article
-  title={`GTA Online Weekly Update ${week.start}: ${week.title}`}
+  title={`GTA Online Weekly Update: ${week.start}`}
   h1={`GTA Online Weekly Update: ${range}`}
   description={`What was on in GTA Online the week of ${range}: ${week.title}. Bonuses, heist notes, discounts and vehicles.`}
   published={week.start}
