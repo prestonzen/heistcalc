@@ -7,6 +7,8 @@ import { WEEKS } from "../src/data/weekly.ts";
 
 const ADS_TXT = "https://srv.adstxtmanager.com/19390/heistcalc.com";
 const SITE = "https://heistcalc.com";
+// Search Console HTML-file verification (served by the Worker because static assets 307 away from .html).
+const GSC_FILES = ["googled57078d3b0c41bb7.html"];
 const WEBHOOK_RE = /^https:\/\/(?:ptb\.|canary\.)?discord(?:app)?\.com\/api\/webhooks\/(\d{17,20})\/([\w-]{60,80})$/;
 const MAX_PENDING = 20;
 const MAX_AHEAD = 8 * 86_400_000;
@@ -211,6 +213,8 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
     if (url.pathname === "/ads.txt") return Response.redirect(ADS_TXT, 301);
+    const file = url.pathname.slice(1);
+    if (GSC_FILES.includes(file)) return new Response(`google-site-verification: ${file}`, { headers: { "content-type": "text/html; charset=utf-8" } });
     if (url.pathname.startsWith("/api/")) {
       const handler = ROUTES[`${request.method} ${url.pathname}`];
       if (!handler) return bad("Not found.", 404);
