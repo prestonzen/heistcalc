@@ -1,0 +1,183 @@
+---
+import Article from "../layouts/Article.astro";
+import { CAYO, SOURCES, DATA_AS_OF, money } from "../data/heists";
+
+const pct = (n: number) => `${Math.round(n * 1000) / 10}%`;
+const fullBag = (s: (typeof CAYO.secondary)[number]) => s.avg / s.bag;
+const byDensity = [...CAYO.secondary].sort((a, b) => fullBag(b) - fullBag(a));
+
+const faq = [
+  { q: "How much does Cayo Perico pay in 2026?", a: `After Title Update 1.73 (July 2026), a solo Hard Mode run with the Pink Diamond, a full bag of cocaine and an average safe grosses about ${money(CAYO.primaries[3].hard + 360_450 + 58_500)}. That's roughly ${money((CAYO.primaries[3].hard + 360_450 + 58_500) * 0.88 - CAYO.setupFee)} after the 12% fees and the $100,000 setup fee, plus a $100,000 Elite bonus. A Tequila repeat run pays far less, around ${money((CAYO.primaries[0].hard + 360_450 + 58_500) * 0.88 - CAYO.setupFee)}.` },
+  { q: "What is the best secondary loot at Cayo Perico?", a: "Gold is worth the most per bag (about $447k for a full bag) but needs at least two players. Solo, cocaine is best (about $360k a bag), then weed, then paintings, then cash." },
+  { q: "How much is the Cayo Perico setup fee and the fees on the take?", a: "Every run after your first costs $100,000 to set up, paid by the leader. Pavel then takes 2% and the fence takes 10% of the whole take, so 12% total." },
+  { q: "What is the Cayo Perico cooldown?", a: "144 real minutes (3 in-game days) after a solo finale, or 48 minutes after a finale with a crew. Pay the setup fee within 48 minutes of Pavel's text to unlock Hard Mode, which adds 10% to the primary target." },
+  { q: "Why do I keep getting the Tequila?", a: "Since TU 1.73, the high-value targets reset weekly. On your first scope after the Thursday reset there's a 40% chance of Ruby, 40% Bonds and 20% Pink Diamond. On repeat runs that week, Tequila shows up 80% of the time." },
+  { q: "Does Hard Mode increase secondary loot?", a: "No. Hard Mode adds 10% to the primary target only, and doubles the Elite Challenge bonus from $50,000 to $100,000." },
+];
+---
+<Article
+  title="Cayo Perico Calculator 2026: Payout, Loot & Cuts"
+  h1="Cayo Perico Heist Calculator"
+  description="Exact Cayo Perico payout after the 2026 cuts. Pick your target, auto-fill bags with the best loot, and see each player's cut after Pavel and fencing fees."
+  published="2026-10-14"
+  updated={DATA_AS_OF}
+  faq={faq}
+  tool={{ name: "Cayo Perico Heist Calculator" }}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.gtaboomCayo, SOURCES.gtaGuide, SOURCES.wikiCayoFinale, SOURCES.rockstarSupport173]}
+>
+  <section slot="tool" class="calc" id="cayo">
+    <h2>Plan your run</h2>
+    <div class="calc-grid">
+      <div class="field"><label for="target">Primary target</label>
+        <select id="target">{CAYO.primaries.map((p) => <option value={p.id} selected={p.id === "pinkDiamond"}>{p.name}</option>)}</select></div>
+      <div class="field"><label for="diff">Difficulty</label>
+        <select id="diff"><option value="normal">Normal</option><option value="hard" selected>Hard (+10% primary)</option></select></div>
+      <div class="field"><label for="crew">Players</label>
+        <select id="crew"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      <div class="field"><label for="safe">Office safe ($)</label><input id="safe" type="number" min={CAYO.safe.min} max={CAYO.safe.max} step="1000" value="58500" /><small>Random, {money(CAYO.safe.min)}–{money(CAYO.safe.max)}</small></div>
+    </div>
+    <div class="calc-grid" style="margin-top:12px">
+      <label class="check"><input type="checkbox" id="first" /> First-ever run (no fees, no setup cost)</label>
+      <label class="check"><input type="checkbox" id="elite" checked /> Elite Challenge completed</label>
+    </div>
+
+    <h3>Secondary loot on your island <small style="color:var(--muted);font-weight:400">(stacks you can reach)</small></h3>
+    <div class="calc-grid">
+      {byDensity.map((s) => (
+        <div class="field"><label for={`av-${s.id}`}>{s.name} <small>{money(fullBag(s))}/full bag</small></label>
+          <input id={`av-${s.id}`} data-loot={s.id} type="number" min="0" max="20" step="1" value={{ gold: 2, cocaine: 3, weed: 3, paintings: 2, cash: 4 }[s.id]} /></div>
+      ))}
+    </div>
+    <p class="warn" id="gold-warn" hidden>Gold needs at least 2 players (it's behind two keycard doors), so it's ignored for solo runs.</p>
+
+    <div id="cuts" class="calc-grid" style="margin-top:12px"></div>
+    <p class="warn" id="cut-warn" hidden></p>
+
+    <div class="results">
+      <div class="stat"><span>Primary target</span><b id="r-primary">–</b></div>
+      <div class="stat"><span>Secondary loot</span><b id="r-secondary">–</b></div>
+      <div class="stat"><span>Fees (Pavel + fence)</span><b id="r-fees">–</b></div>
+      <div class="stat hero"><span>Net take</span><b id="r-net">–</b></div>
+    </div>
+    <div class="table-scroll" style="margin-top:14px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="r-split"></tbody></table></div>
+    <div class="table-scroll"><table><thead><tr><th>Bag plan (best loot first)</th><th class="num">Stacks</th><th class="num">Bag space</th><th class="num">Value</th></tr></thead><tbody id="r-bags"></tbody></table></div>
+    <p style="color:var(--muted);font-size:.85rem;margin:8px 0 0">Values are averages; each stack's real value varies slightly. Taking damage costs you secondary loot. Data as of TU 1.73.</p>
+  </section>
+
+  <div class="callout"><p><strong>July 2026 payout cut:</strong> Title Update 1.73 lowered every Cayo Perico primary target except the Panther Statue, cut all secondary loot by 10%, and made the high-value targets reset weekly instead of every 72 hours. Calculators built before July 2026 overestimate your take by 20–40%.</p></div>
+
+  <h2>Cayo Perico primary target values (2026)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Target</th><th class="num">Normal</th><th class="num">Hard</th><th class="num">Before TU 1.73</th></tr></thead>
+    <tbody>{CAYO.primaries.map((p) => <tr><td>{p.name}</td><td class="num">{money(p.normal)}</td><td class="num">{p.id === "madrazoFiles" ? "–" : money(p.hard)}</td><td class="num">{money(p.prev)}</td></tr>)}</tbody>
+  </table></div>
+  <p>The Panther Statue only appears during Rockstar events, and the Madrazo Files are fixed for your first playthrough. Hard Mode multiplies the primary target by 1.1. To get it, pay the setup fee within {CAYO.hardModeWindowMinutes} real minutes of Pavel's text.</p>
+
+  <h2>Which target will you get?</h2>
+  <p>Since July 2026, the expensive targets reset every Thursday. The first time you scope the island after the reset, you can't get the Tequila:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Target</th><th class="num">First scope after reset</th><th class="num">Repeat runs that week</th></tr></thead>
+    <tbody>
+      <tr><td>Pink Diamond</td><td class="num">{pct(CAYO.odds.firstAfterReset.pinkDiamond)}</td><td class="num">{pct(CAYO.odds.repeatSameWeek.pinkDiamond)}</td></tr>
+      <tr><td>Bearer Bonds</td><td class="num">{pct(CAYO.odds.firstAfterReset.bonds)}</td><td class="num">{pct(CAYO.odds.repeatSameWeek.bonds)}</td></tr>
+      <tr><td>Ruby Necklace</td><td class="num">{pct(CAYO.odds.firstAfterReset.ruby)}</td><td class="num">{pct(CAYO.odds.repeatSameWeek.ruby)}</td></tr>
+      <tr><td>Sinsimito Tequila</td><td class="num">{pct(CAYO.odds.firstAfterReset.tequila)}</td><td class="num">{pct(CAYO.odds.repeatSameWeek.tequila)}</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Takeaway:</strong> make your first run of the week count. After that, expect Tequila most of the time.</p>
+
+  <h2>Secondary loot values and bag space</h2>
+  <p>Every player has one bag. Each stack fills a fixed share of it, and you can grab part of a stack. What matters is <strong>value per full bag</strong>, so the calculator fills bags in this order:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Loot</th><th class="num">Per stack</th><th class="num">Bag per stack</th><th class="num">Full bag worth</th><th>Solo?</th></tr></thead>
+    <tbody>{byDensity.map((s) => <tr><td>{s.name}</td><td class="num">{money(s.min)}–{money(s.max)}</td><td class="num">{pct(s.bag)}</td><td class="num">{money(fullBag(s))}</td><td>{s.needsTwo ? "No (2+ players)" : "Yes"}</td></tr>)}</tbody>
+  </table></div>
+  <p>Gold only spawns behind the compound's dual-keycard doors, so solo players can't take it. Paintings in the office are solo-friendly, but compound paintings also need two keycards. The office safe ({money(CAYO.safe.min)}–{money(CAYO.safe.max)}) takes no bag space.</p>
+
+  <h2>How the Cayo Perico payout is calculated</h2>
+  <ol>
+    <li><strong>Gross take</strong> = primary target + secondary loot + office safe.</li>
+    <li><strong>Fees:</strong> Pavel takes 2% and the fence 10%, so 12% comes off the gross. Neither applies on your very first run.</li>
+    <li><strong>Cuts:</strong> the leader splits the net take. Every player gets at least 15%, so the leader's maximum is 85% with two players, 70% with three, and 55% with four.</li>
+    <li><strong>Setup fee:</strong> the leader paid {money(CAYO.setupFee)} up front, so subtract it from the leader's cut.</li>
+    <li><strong>Elite Challenge:</strong> {money(CAYO.elite.normal)} on Normal or {money(CAYO.elite.hard)} on Hard, paid to each player on top of their cut. You need to finish in under 15 minutes, with every bag full and no failed hacks.</li>
+  </ol>
+
+  <h2>Cooldowns</h2>
+  <p>After a solo finale you wait <strong>{CAYO.cooldownMinutes.solo} real minutes</strong> before you can set up again; after a crew finale it's <strong>{CAYO.cooldownMinutes.crew} minutes</strong>. Logging off doesn't pause the timer. Want the full solo route? Read the <a href="/guides/cayo-perico-solo-guide/">Cayo Perico solo guide</a>, or compare it with every other job in <a href="/gta-online-heist-payouts/">all GTA Online heist payouts</a>.</p>
+
+  <script is:inline define:vars={{ CAYO }}>
+    const $ = (id) => document.getElementById(id);
+    const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+    const DEFAULT_CUTS = { 1: [100], 2: [50, 50], 3: [40, 30, 30], 4: [25, 25, 25, 25] };
+    const loot = [...CAYO.secondary].sort((a, b) => b.avg / b.bag - a.avg / a.bag);
+
+    function buildCuts() {
+      const n = +$("crew").value;
+      $("cuts").innerHTML = n === 1 ? "" : DEFAULT_CUTS[n].map((v, i) =>
+        `<div class="field"><label for="cut${i}">${i ? "Player " + (i + 1) : "Leader"} cut (%)</label><input id="cut${i}" type="number" min="15" max="85" step="5" value="${v}"></div>`).join("");
+      $("cuts").querySelectorAll("input").forEach((el) => el.addEventListener("input", calc));
+      calc();
+    }
+
+    function calc() {
+      const crew = +$("crew").value;
+      const target = CAYO.primaries.find((p) => p.id === $("target").value);
+      const madrazo = target.id === "madrazoFiles";
+      if (madrazo) $("first").checked = true;
+      $("diff").disabled = madrazo;
+      const hard = !madrazo && $("diff").value === "hard";
+      const first = $("first").checked;
+      const primary = hard ? target.hard : target.normal;
+      const safe = Math.min(CAYO.safe.max, Math.max(0, +$("safe").value || 0));
+
+      // Fractional knapsack: fill crew bags with the most valuable loot per bag first.
+      let space = crew;
+      let secondary = 0, lo = 0, hi = 0;
+      const rows = [];
+      $("gold-warn").hidden = !(crew === 1 && +$("av-gold").value > 0);
+      for (const s of loot) {
+        let avail = Math.max(0, +$("av-" + s.id).value || 0);
+        if (s.needsTwo && crew < 2) avail = 0;
+        const stacks = Math.min(avail, space / s.bag);
+        if (stacks <= 0) continue;
+        space -= stacks * s.bag;
+        secondary += stacks * s.avg; lo += stacks * s.min; hi += stacks * s.max;
+        rows.push(`<tr><td>${s.name}</td><td class="num">${(Math.round(stacks * 100) / 100).toString()}</td><td class="num">${Math.round(stacks * s.bag * 100)}%</td><td class="num">${money(stacks * s.avg)}</td></tr>`);
+        if (space <= 1e-9) break;
+      }
+      const used = crew - space;
+      rows.push(`<tr><td><strong>Total</strong> (${crew} bag${crew > 1 ? "s" : ""})</td><td></td><td class="num">${Math.round(used / crew * 100)}% full</td><td class="num"><strong>${money(secondary)}</strong></td></tr>`);
+      $("r-bags").innerHTML = rows.join("");
+
+      const gross = primary + secondary + safe;
+      const feeRate = first ? 0 : CAYO.fees.pavel + CAYO.fees.fencing;
+      const net = gross * (1 - feeRate);
+      const elite = $("elite").checked ? (hard ? CAYO.elite.hard : CAYO.elite.normal) : 0;
+      const setup = first ? 0 : CAYO.setupFee;
+
+      $("r-primary").textContent = money(primary);
+      $("r-secondary").textContent = money(secondary);
+      $("r-fees").textContent = first ? "$0" : "−" + money(gross * feeRate);
+      $("r-net").textContent = money(net);
+
+      const cuts = crew === 1 ? [100] : Array.from({ length: crew }, (_, i) => +($("cut" + i)?.value) || 0);
+      const total = cuts.reduce((a, b) => a + b, 0);
+      const msgs = [];
+      if (total !== 100) msgs.push(`Cuts add up to ${total}%, not 100%.`);
+      if (crew > 1 && cuts.some((c) => c < 15)) msgs.push("Every player needs at least 15%.");
+      $("cut-warn").hidden = !msgs.length; $("cut-warn").textContent = msgs.join(" ");
+
+      $("r-split").innerHTML = cuts.map((c, i) => {
+        const share = net * c / 100;
+        const pay = share + elite - (i === 0 ? setup : 0);
+        const note = [i === 0 && setup ? `−${money(setup)} setup` : "", elite ? `+${money(elite)} elite` : ""].filter(Boolean).join(", ");
+        return `<tr><td>${i ? "Player " + (i + 1) : crew === 1 ? "You" : "Leader"}${note ? `<br><small style="color:var(--muted)">${note}</small>` : ""}</td><td class="num">${c}%</td><td class="num">${money(pay)}</td></tr>`;
+      }).join("") + `<tr><td colspan="2" style="color:var(--muted)">Range from loot value variance</td><td class="num" style="color:var(--muted)">${money((primary + lo + safe) * (1 - feeRate))}–${money((primary + hi + safe) * (1 - feeRate))} net</td></tr>`;
+    }
+
+    document.querySelectorAll("#cayo input, #cayo select:not(#crew)").forEach((el) => el.addEventListener("input", calc));
+    $("crew").addEventListener("change", buildCuts);
+    buildCuts();
+  </script>
+</Article>

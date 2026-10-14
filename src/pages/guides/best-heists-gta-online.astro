@@ -1,0 +1,54 @@
+---
+import Article from "../../layouts/Article.astro";
+import { CAYO, CASINO, ORIGINAL_HEISTS, DOOMSDAY, SOURCES, DATA_AS_OF, money } from "../../data/heists";
+
+const pinkSolo = (CAYO.primaries[3].hard + 360_450 + 58_500) * 0.88 - CAYO.setupFee;
+const tequilaSolo = (CAYO.primaries[0].hard + 360_450 + 58_500) * 0.88 - CAYO.setupFee;
+const faq = [
+  { q: "What is the best heist in GTA Online right now?", a: "For one big payout, the Diamond Casino Heist on your first finale of the week. For solo players who want to repeat something, Cayo Perico. If you own a Mansion with the Art Studio, the Kortz Center Heist's 4x first-of-week bonus is excellent." },
+  { q: "What is the best solo heist in GTA Online?", a: `Cayo Perico. Solo runs repeat every 144 minutes and pay roughly ${money(tequilaSolo)} (Tequila) to ${money(pinkSolo)} (Pink Diamond) after fees and setup, plus a $100,000 Hard Mode Elite bonus.` },
+  { q: "Is the Doomsday Heist still worth it?", a: "Yes, as a weekly bonus run with a crew. Act III pays about $2.47M on Hard for the first completion each week, but it's long and needs 2–4 players." },
+];
+---
+<Article
+  title="Best Heists in GTA Online (2026), Ranked"
+  h1="The Best Heists in GTA Online (2026)"
+  description="The best GTA Online heists after the July 2026 payout changes, ranked for solo players, crews and the new first-of-the-week bonus, with real 2026 payouts."
+  published="2026-10-14"
+  updated={DATA_AS_OF}
+  crumbs={[{ href: "/guides/", label: "Guides" }]}
+  faq={faq}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.gtaGuide, SOURCES.gtaboomAll, SOURCES.rockstarSupport173]}
+>
+  <p>Title Update 1.73 (July 2026) changed what "best" means in GTA Online. Repeat payouts went down across the board, and the <strong>host's first finale of each heist per week</strong> now pays a bonus. The smart play is to run each big heist once a week for the bonus, then fall back on the best repeatable heist for the rest of the week.</p>
+
+  <h2>1. Diamond Casino Heist: biggest single payout</h2>
+  <p><strong>{money(CASINO.targets[2].hard)}</strong> for Hard Gold on a repeat run, or about <strong>{money(CASINO.targets[2].hard * CASINO.firstWeeklyMultiplier)}</strong> on your first finale of the week. Event-week Diamonds go higher. You need 2–4 players and an Arcade. Lester and your support crew take 13–30%. <a href="/diamond-casino-heist-calculator/">Calculate your take →</a></p>
+
+  <h2>2. Cayo Perico: best solo heist</h2>
+  <p>Cayo Perico doesn't get the weekly bonus, but it's still the only big heist you can repeat <strong>solo every {CAYO.cooldownMinutes.solo} minutes</strong>. A solo Hard run nets about {money(tequilaSolo)} with the Tequila and {money(pinkSolo)} with the Pink Diamond, after fees and setup, plus {money(CAYO.elite.hard)} for the Elite Challenge. Your first scope after the Thursday reset can't roll the Tequila. <a href="/cayo-perico-calculator/">Plan your run →</a> · <a href="/guides/cayo-perico-solo-guide/">Solo guide →</a></p>
+
+  <h2>3. Kortz Center Heist: best weekly bonus</h2>
+  <p>The newest heist (July 2026) pays <strong>4x on the first run of the week</strong>: $1.2M–$1.9M depending on the artwork, then $304k–$481k on repeats. Playable solo, but you need a Mansion with the Art Studio upgrade, and each run costs $100,000 to plan.</p>
+
+  <h2>4. Doomsday Heist: best crew grind for the weekly bonus</h2>
+  <p>Act III pays {money(DOOMSDAY.acts[2].hard)} on Hard, or about {money(DOOMSDAY.acts[2].hard * DOOMSDAY.firstWeeklyMultiplier)} on the first completion of the week. It's long and needs a reliable crew, but the payout holds up.</p>
+
+  <h2>5. Original heists: Pacific Standard and the $10M challenge</h2>
+  <p>Pacific Standard pays {money(ORIGINAL_HEISTS.heists[4].hard)} on Hard ({money(ORIGINAL_HEISTS.heists[4].hard * ORIGINAL_HEISTS.firstWeeklyMultiplier)} for the first of the week), split between four players. The real prize is the one-time <strong>Criminal Mastermind</strong> challenge: $10,000,000 for completing every original heist in order, with the same crew, on Hard, without anyone dying.</p>
+
+  <h2>Honorable mentions</h2>
+  <ul>
+    <li><strong>The Titan Job (Oscar Guzman):</strong> $750,000 on Hard, $1,125,000 on the first of the week. Unaffected by the cuts.</li>
+    <li><strong>The Contract (Dr. Dre):</strong> $900,000, about $1.1M on the first of the week.</li>
+    <li><strong>Cluckin' Bell Farm Raid:</strong> $400,000 ($600,000 first of the week). Easy to solo.</li>
+  </ul>
+
+  <h2>A simple weekly plan</h2>
+  <ol>
+    <li>After the Thursday reset, host one finale of each big heist you own: Casino, Kortz Center, Doomsday, and the Titan Job.</li>
+    <li>In a crew, rotate the host so everyone gets their first-of-week bonus.</li>
+    <li>Fill the rest of the week with solo Cayo Perico runs between cooldowns.</li>
+  </ol>
+  <p>Full numbers for every job: <a href="/gta-online-heist-payouts/">all GTA Online heist payouts</a>.</p>
+</Article>

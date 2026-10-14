@@ -1,0 +1,21 @@
+---
+import { GTA6_RELEASE } from "../config";
+const { year, month, day } = GTA6_RELEASE;
+---
+<div class="countdown" data-countdown data-y={year} data-m={month} data-d={day} aria-live="polite">
+  <div><b data-u="d">--</b><span>days</span></div>
+  <div><b data-u="h">--</b><span>hours</span></div>
+  <div><b data-u="m">--</b><span>min</span></div>
+  <div><b data-u="s">--</b><span>sec</span></div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-countdown]").forEach((el) => {
+    const t = new Date(+el.dataset.y!, +el.dataset.m! - 1, +el.dataset.d!, 0, 0, 0).getTime();
+    const set = (u: string, v: number) => (el.querySelector(`[data-u="${u}"]`)!.textContent = String(v).padStart(u === "d" ? 1 : 2, "0"));
+    const tick = () => {
+      const s = Math.max(0, Math.floor((t - Date.now()) / 1000));
+      set("d", Math.floor(s / 86400)); set("h", Math.floor(s / 3600) % 24); set("m", Math.floor(s / 60) % 60); set("s", s % 60);
+    };
+    tick(); setInterval(tick, 1000);
+  });
+</script>

@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+---
+<Base title="About HeistCalc" description="Who builds HeistCalc, where our numbers come from, and how we keep them up to date.">
+  <article class="article prose">
+    <h1>About HeistCalc</h1>
+    <p>HeistCalc started from a simple annoyance: every time we planned a Cayo Perico run or argued about Casino Heist cuts, someone had to open a spreadsheet. So we built the calculators we wanted, made them fast on a phone, and put them in one place.</p>
+    <h2>Where the numbers come from</h2>
+    <p>Payout values come from in-game testing, Rockstar's official Newswire posts and patch notes, and long-standing community references such as the GTA Wiki. Every calculator page lists its sources and the date its values were last checked. When Rockstar changes a payout, we update the calculator and note the change.</p>
+    <h2>GTA 6</h2>
+    <p>Grand Theft Auto VI launches November 19, 2026. We'll add GTA 6 calculators and guides as soon as we can verify real values in game. Until then, we won't publish guessed numbers.</p>
+    <h2>Who we are</h2>
+    <p>We're a small team of GTA players who have spent far too many hours in Los Santos and on Cayo Perico. HeistCalc is independent, free, and funded by ads.</p>
+    <p>Found a wrong number? <a href={`mailto:${SITE.email}`}>Email us</a> and we'll fix it.</p>
+  </article>
+</Base>

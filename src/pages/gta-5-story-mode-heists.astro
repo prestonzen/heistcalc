@@ -1,0 +1,58 @@
+---
+import Article from "../layouts/Article.astro";
+import { STORY_HEISTS } from "../data/heists";
+
+const faq = [
+  { q: "Which GTA 5 story heist pays the most?", a: "The Big Score, by far. It grosses $201.6 million. With the Obvious approach and a good crew, Michael, Franklin and Trevor each walk away with about $41.7 million." },
+  { q: "Should I pick Obvious or Subtle for the Big Score?", a: "Obvious pays more: about $41.7M each in the best case versus about $35.6M for Subtle. Both start from the same $201.6M gross, but Subtle requires a $300,000 bribe and ends up with a smaller share per character." },
+  { q: "What is the best crew for the Big Score?", a: "Use Taliana Martinez (5%) and Karim Denz (8%) as drivers if you recruited them. The pilot matters most: if the pilot crashes or dies, you lose half the gold." },
+  { q: "Why do I get so little from the Jewel Store Job?", a: "$2.5 million of it goes to Martin Madrazo to pay off Michael's debt, Lester takes 14%, and the crew takes a cut. A poor gunman or driver also drops jewels." },
+  { q: "Do story mode heist payouts affect GTA Online?", a: "No. Story mode money is separate from GTA Online and doesn't change with online updates." },
+];
+---
+<Article
+  title="GTA 5 Story Heists: Payouts, Best Approach & Crew"
+  h1="GTA 5 Story Mode Heists: Payouts and Best Choices"
+  description="How much every GTA 5 story mode heist pays, the best approach and crew for each, and how to get the maximum $41.7M per character from the Big Score."
+  published="2026-10-14"
+  faq={faq}
+  sources={[
+    { href: "https://gta.fandom.com/wiki/The_Big_Score_(GTA_V)", label: "GTA Wiki: The Big Score" },
+    { href: "https://gta.fandom.com/wiki/The_Jewel_Store_Job", label: "GTA Wiki: The Jewel Store Job" },
+    { href: "https://gta.fandom.com/wiki/The_Paleto_Score", label: "GTA Wiki: The Paleto Score" },
+    { href: "https://gta.fandom.com/wiki/The_Bureau_Raid", label: "GTA Wiki: The Bureau Raid" },
+    { href: "https://gta.fandom.com/wiki/Heist_Crew_Members_in_GTA_V", label: "GTA Wiki: heist crew members in GTA V" },
+  ]}
+>
+  <p>GTA 5's single-player campaign has five heists, and the choices you make (approach and crew) change how much Michael, Franklin and Trevor take home. Story mode payouts don't change with updates, so these numbers are final.</p>
+
+  <h2>Every GTA 5 story heist payout</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Heist</th><th>Approaches</th><th>Take</th><th>Best case per character</th></tr></thead>
+    <tbody>{STORY_HEISTS.map((h) => <tr><td>{h.name}</td><td>{h.approaches}</td><td>{h.take}</td><td>{h.best}</td></tr>)}</tbody>
+  </table></div>
+
+  <h2>How crew choice affects your take</h2>
+  <p>Every heist except Merryweather lets you pick crew members. Each takes a fixed cut:</p>
+  <ul>
+    <li><strong>Drivers:</strong> 5–14%</li>
+    <li><strong>Gunmen:</strong> 6–14%</li>
+    <li><strong>Hackers:</strong> 4–15%</li>
+    <li><strong>Lester:</strong> 12% (14% on the Jewel Store Job)</li>
+  </ul>
+  <p>Cheap crew members aren't always cheaper in the end. A poor gunman or driver can drop loot or get killed, and the money they were carrying goes with them. Crew members you survive a heist with also level up, so cheap recruits from early heists like the Jewel Store Job become solid picks for the Big Score.</p>
+
+  <h2>Heist-by-heist tips</h2>
+  <h3>The Jewel Store Job</h3>
+  <p>Up to about $4.95M gross, but $2.5M goes to Madrazo. A good hacker buys more time before the alarm. With a poor gunman (Smart approach) or poor driver (Loud), dropped jewels cut the take to around $4.5M. Best case: Michael about $1.22M, Franklin about $294k.</p>
+  <h3>The Merryweather Heist</h3>
+  <p>No money. The device is handed over either way, so pick the approach you'll enjoy.</p>
+  <h3>The Paleto Score</h3>
+  <p>$8.02M gross, but the FIB takes 78%. Take Daryl (9%) over Norm (10.5%) for about $464k each instead of $456k.</p>
+  <h3>The Bureau Raid</h3>
+  <p>A small payout ($332k total) and Michael gets nothing. Franklin takes up to about $242k depending on crew.</p>
+  <h3>The Big Score</h3>
+  <p>The one that matters. The Obvious approach pays the most, up to $41.7M per character. Subtle costs a $300,000 bribe and tops out around $35.6M each. <strong>Protect the pilot.</strong> If they crash or die, half the gold is lost.</p>
+
+  <p>Playing online? See <a href="/gta-online-heist-payouts/">every GTA Online heist payout</a>, or get ready for <a href="/gta-6/heists/">heists in GTA 6</a>.</p>
+</Article>

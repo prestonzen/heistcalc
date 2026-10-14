@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heistcalc.com/sitemap-index.xml

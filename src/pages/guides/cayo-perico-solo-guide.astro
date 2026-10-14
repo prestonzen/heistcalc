@@ -1,0 +1,65 @@
+---
+import Article from "../../layouts/Article.astro";
+import { CAYO, SOURCES, DATA_AS_OF, money } from "../../data/heists";
+
+const bag = { cocaine: 360_450, weed: 318_600, paintings: 303_750, cash: 291_600 };
+const run = (primary: number, loot: number, safe = 58_500) => (primary + loot + safe) * 0.88 - CAYO.setupFee;
+const faq = [
+  { q: "Can you do Cayo Perico solo?", a: "Yes. Cayo Perico is fully soloable. The only thing you can't take alone is gold (and compound paintings), which sit behind doors that need two keycards at the same time." },
+  { q: "How much does a solo Cayo Perico run make in 2026?", a: `On Hard with a full bag of cocaine and an average safe: about ${money(run(CAYO.primaries[0].hard, bag.cocaine))} with the Tequila, ${money(run(CAYO.primaries[1].hard, bag.cocaine))} with the Ruby, ${money(run(CAYO.primaries[2].hard, bag.cocaine))} with the Bonds and ${money(run(CAYO.primaries[3].hard, bag.cocaine))} with the Pink Diamond, after fees and setup. Add $100,000 for the Elite Challenge.` },
+  { q: "What should I put in my bag solo?", a: "Cocaine first (two stacks fill a bag), then weed, then paintings, then cash. If there's no cocaine, weed is close behind." },
+  { q: "How long is the solo cooldown?", a: "144 real minutes after a solo finale. Pay the next setup fee within 48 minutes of Pavel's text to get Hard Mode." },
+];
+---
+<Article
+  title="Cayo Perico Solo Guide (2026): Max Payout Every Run"
+  h1="Cayo Perico Solo Guide"
+  description="Get the most from every solo Cayo Perico run after the 2026 changes: target odds, Hard Mode timing, what to bag, Elite Challenge and the cooldown loop."
+  published="2026-10-14"
+  updated={DATA_AS_OF}
+  crumbs={[{ href: "/guides/", label: "Guides" }]}
+  faq={faq}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.gtaboomCayo, SOURCES.gtaGuide, SOURCES.wikiCayoFinale]}
+>
+  <p>Cayo Perico is still the best heist you can repeat alone, even after the July 2026 cuts. Solo payouts now depend on three things: <strong>which target you roll</strong>, <strong>whether you hit Hard Mode</strong>, and <strong>how well you fill your one bag</strong>. Here's how to get each one right.</p>
+
+  <h2>1. Make your first scope of the week count</h2>
+  <p>Since TU 1.73, the high-value targets reset every Thursday. Your first scope after the reset has a 40% chance of the Ruby, 40% Bonds, 20% Pink Diamond, and <strong>no chance of the Tequila</strong>. After that, Tequila shows up 80% of the time for the rest of the week. Plan your best run (time, focus, Elite) for right after the reset.</p>
+
+  <h2>2. Always run Hard Mode</h2>
+  <p>When the cooldown ends, Pavel texts you. Pay the {money(CAYO.setupFee)} setup fee at the Kosatka within <strong>{CAYO.hardModeWindowMinutes} real minutes</strong> and the run is Hard. That adds 10% to the primary target and doubles the Elite bonus to {money(CAYO.elite.hard)}. The trade-off is that guards only show on your radar up close, and fingerprint hacks get longer.</p>
+
+  <h2>3. Fill your bag in this order</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Loot</th><th class="num">Full bag worth</th><th>How much fills a bag</th></tr></thead>
+    <tbody>
+      <tr><td>Cocaine</td><td class="num">{money(bag.cocaine)}</td><td>2 stacks</td></tr>
+      <tr><td>Weed</td><td class="num">{money(bag.weed)}</td><td>2⅔ stacks</td></tr>
+      <tr><td>Paintings</td><td class="num">{money(bag.paintings)}</td><td>2 paintings</td></tr>
+      <tr><td>Cash</td><td class="num">{money(bag.cash)}</td><td>4 stacks</td></tr>
+    </tbody>
+  </table></div>
+  <p>You can grab part of a stack, so top off with whatever's left. Gold isn't an option solo: it's behind dual-keycard doors. The office safe ({money(CAYO.safe.min)}–{money(CAYO.safe.max)}) takes no bag space, so always grab it. Avoid taking damage on the way out, because getting hit drops secondary loot.</p>
+
+  <h2>4. Get the Elite Challenge</h2>
+  <p>Worth {money(CAYO.elite.hard)} on Hard, paid on top of your take. You need all three:</p>
+  <ul>
+    <li>Finish the finale in under 15 minutes</li>
+    <li>A full loot bag</li>
+    <li>No failed fingerprint hacks</li>
+  </ul>
+  <p>Quick restarts and getting detected void it. Don't chase every last stack if it costs you the 15-minute timer: the Elite bonus is worth more than a partial stack of cash.</p>
+
+  <h2>What a solo run pays (Hard, full bag of cocaine, average safe)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Target</th><th class="num">Gross</th><th class="num">After fees &amp; setup</th><th class="num">With Elite</th></tr></thead>
+    <tbody>{CAYO.primaries.slice(0, 4).map((p) => {
+      const gross = p.hard + bag.cocaine + 58_500;
+      return <tr><td>{p.name}</td><td class="num">{money(gross)}</td><td class="num">{money(run(p.hard, bag.cocaine))}</td><td class="num">{money(run(p.hard, bag.cocaine) + CAYO.elite.hard)}</td></tr>;
+    })}</tbody>
+  </table></div>
+  <p>Tweak these numbers for your island in the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a>.</p>
+
+  <h2>5. Run the cooldown loop</h2>
+  <p>Solo cooldown is <strong>{CAYO.cooldownMinutes.solo} real minutes</strong>, and logging off doesn't pause it. Use the gap for other income: your weekly first-of-the-week heist bonuses (see <a href="/guides/best-heists-gta-online/">the best heists in 2026</a>), businesses, or contracts. Then jump back in when Pavel texts, so you don't miss the 48-minute Hard Mode window.</p>
+</Article>

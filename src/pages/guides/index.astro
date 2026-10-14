@@ -1,0 +1,20 @@
+---
+import Base from "../../layouts/Base.astro";
+const guides = [
+  { href: "/guides/best-heists-gta-online/", tag: "Ranking", title: "Best heists in GTA Online (2026)", text: "Which heists are worth your time after the July 2026 payout changes, for solo players and crews." },
+  { href: "/guides/cayo-perico-solo-guide/", tag: "Guide", title: "Cayo Perico solo guide", text: "Get the most from every solo run: targets, Hard Mode, bag priority, Elite and the cooldown loop." },
+  { href: "/gta-online-heist-payouts/", tag: "Data", title: "Every GTA Online heist payout", text: "All heists side by side by difficulty, with the new first-of-the-week bonus." },
+  { href: "/gta-5-story-mode-heists/", tag: "Guide", title: "GTA 5 story mode heists", text: "Payouts, best approach and crew for every single-player heist." },
+  { href: "/gta-6/heists/", tag: "GTA 6", title: "Heists in GTA 6: what's confirmed", text: "What Rockstar has shown about robberies in GTA 6, and what's still speculation." },
+  { href: "/gta-6/release-date/", tag: "GTA 6", title: "GTA 6 release date and unlock times", text: "Countdown and unlock times for every region." },
+];
+---
+<Base title="GTA Heist Guides" description="GTA heist guides: the best heists in GTA Online for 2026, a Cayo Perico solo guide, GTA 5 story heist payouts and GTA 6 heist news.">
+  <section class="hero">
+    <h1>Heist guides</h1>
+    <p>Strategy and payout guides for every GTA, updated for the July 2026 payout changes.</p>
+  </section>
+  <div class="cards">
+    {guides.map((g) => <a class="card" href={g.href}><span class="tag">{g.tag}</span><h3>{g.title}</h3><p>{g.text}</p></a>)}
+  </div>
+</Base>

@@ -1,0 +1,61 @@
+---
+import Base from "../layouts/Base.astro";
+import Countdown from "../components/Countdown.astro";
+import Ad from "../components/Ad.astro";
+import { SITE } from "../config";
+
+const calculators = [
+  { href: "/cayo-perico-calculator/", tag: "Most popular", title: "Cayo Perico Heist Calculator", text: "Pick your primary target, fill your bags with the best secondary loot, and see every player's cut after Pavel and fencing fees." },
+  { href: "/diamond-casino-heist-calculator/", tag: "Calculator", title: "Diamond Casino Heist Calculator", text: "Target, buyer, support crew and cuts. Find out what the Diamond Casino Heist actually pays out." },
+  { href: "/heist-cut-calculator/", tag: "Calculator", title: "Heist Cut Calculator", text: "Split any heist take between up to four players. Works for every GTA game, including GTA 6 on day one." },
+  { href: "/gta-online-heist-payouts/", tag: "Data", title: "Every GTA Online Heist Payout", text: "Fleeca to Cayo Perico and the Doomsday Heist, side by side by difficulty, with setup costs and bonuses." },
+];
+const guides = [
+  { href: "/guides/best-heists-gta-online/", title: "Best heists in GTA Online (2026), ranked after the payout changes" },
+  { href: "/guides/cayo-perico-solo-guide/", title: "Cayo Perico solo guide: max payout every run" },
+  { href: "/gta-5-story-mode-heists/", title: "GTA 5 story mode heists: best approach and crew for max take" },
+  { href: "/gta-6/heists/", title: "Heists in GTA 6: everything confirmed so far" },
+];
+const faq = [
+  { q: "Is HeistCalc free?", a: "Yes. Every calculator is free, runs in your browser, and needs no account." },
+  { q: "Are the payout values up to date?", a: "Each calculator lists the date its values were last checked and links to its sources. Rockstar changes payouts in updates, so we re-check after every major patch." },
+  { q: "Will there be GTA 6 calculators?", a: "Yes. GTA 6 launches November 19, 2026. We'll add GTA 6 heist calculators once we can verify the real payouts in game." },
+];
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+}];
+---
+<Base title={SITE.name} description={SITE.description} schema={schema}>
+  <section class="hero">
+    <span class="tag">GTA Online · GTA 5 · GTA 6</span>
+    <h1>Know your take before the heist starts.</h1>
+    <p>Free, fast heist payout calculators for Grand Theft Auto. Plan the loot, set the cuts, and stop arguing in voice chat.</p>
+  </section>
+
+  <div class="cards">
+    {calculators.map((c) => (
+      <a class="card" href={c.href}><span class={c.tag === "Most popular" ? "tag gold" : "tag"}>{c.tag}</span><h3>{c.title}</h3><p>{c.text}</p></a>
+    ))}
+  </div>
+
+  <Ad />
+
+  <section class="calc" style="margin-top:32px">
+    <span class="tag gold">GTA 6 · Nov 19, 2026</span>
+    <h2 style="margin-top:8px">GTA 6 unlocks in</h2>
+    <Countdown />
+    <p style="color:var(--muted);margin:0">GTA 6 heist calculators go live once we verify real payouts. Meanwhile: <a href="/gta-6/release-date/">unlock times by region</a> · <a href="/gta-6/heists/">heists in GTA 6</a> · <a href="/gta-6/cheat-codes/">cheat codes</a></p>
+  </section>
+
+  <section>
+    <h2>Guides</h2>
+    <ul>{guides.map((g) => <li><a href={g.href}>{g.title}</a></li>)}</ul>
+  </section>
+
+  <section class="faq">
+    <h2>FAQ</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+</Base>

@@ -1,0 +1,67 @@
+---
+import Article from "../../layouts/Article.astro";
+import Countdown from "../../components/Countdown.astro";
+
+const faq = [
+  { q: "When does GTA 6 come out?", a: "Grand Theft Auto VI releases on November 19, 2026 for PlayStation 5 and Xbox Series X|S. Rockstar moved it from its earlier May 26, 2026 date in November 2025." },
+  { q: "What time does GTA 6 unlock?", a: "PlayStation Store listings show the game unlocking at midnight local time in each region, starting in New Zealand. Rockstar has not officially confirmed unlock times, so treat them as provisional." },
+  { q: "Is GTA 6 coming to PC?", a: "No PC version has been officially announced. Reports point to a later PC release, but nothing is confirmed by Rockstar." },
+  { q: "Can I preload GTA 6?", a: "Digital pre-orders are expected to be able to preload about a week before launch, around November 12, 2026. That date comes from store data rather than an official announcement." },
+  { q: "How much does GTA 6 cost?", a: "In the US the Standard Edition is $79.99 and the Ultimate Edition $99.99. In Japan they are 9,800 yen and 12,280 yen." },
+];
+const regions = [
+  ["New Zealand", "Nov 19, 12:00 AM NZDT", "Nov 18, 11:00 UTC"],
+  ["Australia (East)", "Nov 19, 12:00 AM AEDT", "Nov 18, 13:00 UTC"],
+  ["Japan / South Korea", "Nov 19, 12:00 AM JST/KST", "Nov 18, 15:00 UTC"],
+  ["Central Europe", "Nov 19, 12:00 AM CET", "Nov 18, 23:00 UTC"],
+  ["United Kingdom", "Nov 19, 12:00 AM GMT", "Nov 19, 00:00 UTC"],
+  ["United States & Canada", "Nov 19, 12:00 AM ET (9:00 PM PT Nov 18)", "Nov 19, 05:00 UTC"],
+];
+---
+<Article
+  title="GTA 6 Release Date & Unlock Times by Region"
+  h1="GTA 6 Release Date and Unlock Times"
+  description="GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Live countdown, unlock times for every region, preload date, price and PC status."
+  published="2026-10-14"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://mp1st.com/news/gta-6-unlock-times-revealed", label: "MP1st: GTA 6 unlock times" },
+    { href: "https://www.invenglobal.com/articles/25691/gta6-unlocks-at-midnight-nov-19-in-korea-14-hours-ahead-of-the-us", label: "Inven Global: Korea unlocks 14 hours ahead of the US" },
+    { href: "https://automaton-media.com/articles/newsjp/20260625-451698/", label: "AUTOMATON: Japanese pricing" },
+  ]}
+>
+  <section slot="tool" class="calc">
+    <h2>Time until GTA 6 unlocks for you</h2>
+    <Countdown />
+    <p class="warn" style="color:var(--muted)">Counting down to midnight November 19 in your own time zone.</p>
+  </section>
+
+  <p><strong>Grand Theft Auto VI comes out on Thursday, November 19, 2026</strong>, on PlayStation 5 and Xbox Series X|S. That's after two delays: Rockstar first targeted fall 2025, then May 26, 2026, before settling on November in an announcement in November 2025.</p>
+
+  <h2>GTA 6 unlock times by region</h2>
+  <p>GTA 6 isn't a single worldwide launch. PlayStation Store listings show it unlocking at midnight local time, region by region, over roughly 19 hours. New Zealand gets it first. These times come from store data, not an official Rockstar announcement.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Region</th><th>Local unlock</th><th>UTC</th></tr></thead>
+    <tbody>{regions.map(([r, l, u]) => <tr><td>{r}</td><td>{l}</td><td>{u}</td></tr>)}</tbody>
+  </table></div>
+  <div class="callout"><p><strong>Your PSN account's region decides your unlock time</strong>, not where you physically are. A US account unlocks with the US window even if you play from Tokyo.</p></div>
+
+  <h2>Preload date</h2>
+  <p>Digital pre-orders are expected to preload around <strong>November 12, 2026</strong>, one week before launch. In some regions the boxed edition contains a download code rather than a disc, so plan for the full download either way.</p>
+
+  <h2>Price</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Edition</th><th class="num">US</th><th class="num">Japan</th></tr></thead>
+    <tbody>
+      <tr><td>Standard</td><td class="num">$79.99</td><td class="num">¥9,800</td></tr>
+      <tr><td>Ultimate</td><td class="num">$99.99</td><td class="num">¥12,280</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Is GTA 6 on PC?</h2>
+  <p>Not at launch. Rockstar hasn't announced a PC version. GTA 5 took about 19 months to reach PC; recent reports suggest the wait could be shorter this time, but nothing is confirmed.</p>
+
+  <h2>Get ready for launch</h2>
+  <p>While you wait, sharpen your money-making in GTA Online with the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a>, or read <a href="/gta-6/heists/">everything confirmed about heists in GTA 6</a>.</p>
+</Article>

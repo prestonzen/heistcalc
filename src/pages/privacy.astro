@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+---
+<Base title="Privacy Policy" description="How HeistCalc handles data, cookies and advertising.">
+  <article class="article prose">
+    <h1>Privacy Policy</h1>
+    <p class="byline">Last updated October 14, 2026</p>
+    <p>HeistCalc ("we", "us") runs heistcalc.com. This policy explains what information is collected when you use the site and how it is used.</p>
+
+    <h2>Information we collect</h2>
+    <p>The calculators run entirely in your browser. Numbers you type into them are not sent to us or stored on our servers.</p>
+    <p>Like most websites, our hosting provider (Cloudflare) automatically processes technical data such as your IP address, browser type and the pages you visit, in order to deliver and protect the site. We use aggregate, anonymous statistics to understand which pages are popular.</p>
+
+    <h2>Cookies and advertising</h2>
+    <p>We use third-party advertising partners, including Ezoic and Google, to show ads that keep the site free. These partners may use cookies, web beacons and similar technologies to collect information about your visits to this and other websites in order to show relevant ads and measure their performance.</p>
+    <ul>
+      <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visits to this and other sites. You can opt out of personalized advertising at <a href="https://www.google.com/settings/ads" rel="nofollow noopener">Google Ads Settings</a>.</li>
+      <li>You can opt out of many third-party vendors' use of cookies for personalized advertising at <a href="https://www.aboutads.info/choices/" rel="nofollow noopener">aboutads.info</a> or <a href="https://www.youronlinechoices.eu/" rel="nofollow noopener">youronlinechoices.eu</a>.</li>
+      <li>Visitors in the EEA, UK and certain US states are shown a consent banner and can change their choices at any time.</li>
+    </ul>
+    <span id="ezoic-privacy-policy-embed"></span>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you live (for example under the GDPR or the California Consumer Privacy Act), you may have the right to access, delete or object to the processing of personal data, and to opt out of the "sale" or "sharing" of personal information for advertising. Use the consent banner or contact us to exercise these rights.</p>
+
+    <h2>Children</h2>
+    <p>This site is about games rated for mature audiences and is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+    <h2>External links</h2>
+    <p>We link to other websites, such as news sources and official game pages. We are not responsible for their content or privacy practices.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </article>
+</Base>

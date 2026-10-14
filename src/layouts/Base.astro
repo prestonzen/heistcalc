@@ -1,0 +1,86 @@
+---
+import "../styles/global.css";
+import { SITE, NAV, EZOIC_ENABLED } from "../config";
+
+interface Props {
+  title: string;
+  description: string;
+  type?: "website" | "article";
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const { title, description, type = "website", schema = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const fullTitle = Astro.url.pathname === "/" ? `${SITE.name}: ${SITE.tagline}` : `${title} | ${SITE.name}`;
+const ogImage = new URL("/og.png", SITE.url).toString();
+const path = Astro.url.pathname;
+
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
+  publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  {EZOIC_ENABLED && (
+    <>
+      <script is:inline data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
+      <script is:inline data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
+      <script is:inline async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+      <script is:inline>window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];</script>
+      <script is:inline src="//ezoicanalytics.com/analytics.js"></script>
+    </>
+  )}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content={SITE.locale} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json" set:html={JSON.stringify([siteSchema, ...schema])} />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="logo" href="/" aria-label={`${SITE.name} home`}><span class="logo-mark">$</span>Heist<b>Calc</b></a>
+      <nav aria-label="Main">
+        {NAV.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <slot />
+  </main>
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div>
+        <a class="logo" href="/"><span class="logo-mark">$</span>Heist<b>Calc</b></a>
+        <p>Free heist calculators and money guides for Grand Theft Auto.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
+      </nav>
+    </div>
+    <p class="wrap legal">HeistCalc is an unofficial fan site and is not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Grand Theft Auto, GTA and related marks are trademarks of Take-Two Interactive Software, Inc. In-game values can change with game updates; always double-check in game.</p>
+  </footer>
+</body>
+</html>

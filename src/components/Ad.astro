@@ -1,0 +1,8 @@
+---
+import { EZOIC_ENABLED } from "../config";
+---
+{EZOIC_ENABLED && (
+  <div class="ad-slot">
+    <script is:inline>ezstandalone.cmd.push(function () { ezstandalone.showAds({}); });</script>
+  </div>
+)}

@@ -1,0 +1,83 @@
+---
+import Article from "../layouts/Article.astro";
+import { CAYO, CASINO, ORIGINAL_HEISTS, DOOMSDAY, OTHER_EARNERS, SOURCES, DATA_AS_OF, money } from "../data/heists";
+
+const faq = [
+  { q: "Which GTA Online heist pays the most in 2026?", a: `Per run, the Diamond Casino Heist is still the biggest: Hard Diamonds is ${money(CASINO.targets[3].hard)} and about ${money(CASINO.targets[3].hard * CASINO.firstWeeklyMultiplier)} on your first finale of the week. For solo players, Cayo Perico remains the best repeatable heist, and the Kortz Center Heist pays up to $1.9M on its first run each week.` },
+  { q: "Did Rockstar nerf heist payouts?", a: "Yes. Title Update 1.73 (July 14, 2026) cut repeat payouts for Cayo Perico, the Diamond Casino Heist, the Doomsday Heist and several newer jobs. In exchange, the host's first finale of each week now pays a bonus: 1.5x to about 4x depending on the job." },
+  { q: "What is the weekly heist bonus in GTA Online?", a: "Since TU 1.73, the first time a host completes a given heist finale in each Thursday-to-Thursday week, it pays more: about 1.86x for the Casino Heist, 1.5x for the original heists, about 1.22x for Doomsday and 4x for the Kortz Center. Cayo Perico doesn't get this bonus." },
+  { q: "Were the original 2015 heists changed?", a: "Their base payouts stayed the same, and they now get a 1.5x bonus on the first completion each week. Setup mission rewards were also raised." },
+];
+---
+<Article
+  title="All GTA Online Heist Payouts (2026 Update)"
+  h1="Every GTA Online Heist Payout (2026)"
+  description="Every GTA Online heist payout after the July 2026 changes: Cayo Perico, Casino, Doomsday, original heists and newer jobs, plus the weekly bonus."
+  published="2026-10-14"
+  updated={DATA_AS_OF}
+  faq={faq}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.rockstarintel173, SOURCES.rockstarintelBacklash, SOURCES.gtaGuide, SOURCES.gtaboomAll, SOURCES.gtaboomDoomsday, SOURCES.wikiHeists, SOURCES.rockstarSupport173]}
+>
+  <div class="callout"><p><strong>What changed in July 2026:</strong> Title Update 1.73 cut most repeat heist payouts and added a <strong>first-of-the-week bonus</strong> for the host's first finale after each Thursday reset. Rockstar confirmed the changes but not the numbers; the figures below come from datamined game files, cross-checked across several sites.</p></div>
+
+  <h2>Biggest heists at a glance</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Heist</th><th class="num">Best repeat (Hard)</th><th class="num">First of week</th><th>Players</th></tr></thead>
+    <tbody>
+      <tr><td><a href="/diamond-casino-heist-calculator/">Diamond Casino (Diamonds)</a></td><td class="num">{money(CASINO.targets[3].hard)}</td><td class="num">{money(CASINO.targets[3].hard * CASINO.firstWeeklyMultiplier)}</td><td>2–4</td></tr>
+      <tr><td><a href="/cayo-perico-calculator/">Cayo Perico (Panther, events)</a></td><td class="num">{money(CAYO.primaries[4].hard)}</td><td class="num">No bonus</td><td>1–4</td></tr>
+      <tr><td>Doomsday Act III</td><td class="num">{money(DOOMSDAY.acts[2].hard)}</td><td class="num">{money(DOOMSDAY.acts[2].hard * DOOMSDAY.firstWeeklyMultiplier)}</td><td>2–4</td></tr>
+      <tr><td>Pacific Standard</td><td class="num">{money(ORIGINAL_HEISTS.heists[4].hard)}</td><td class="num">{money(ORIGINAL_HEISTS.heists[4].hard * ORIGINAL_HEISTS.firstWeeklyMultiplier)}</td><td>4</td></tr>
+      <tr><td>Kortz Center</td><td class="num">up to $481,250</td><td class="num">up to $1,925,000</td><td>1–4</td></tr>
+    </tbody>
+  </table></div>
+  <p>These are gross takes before fees and crew cuts. Use the <a href="/heist-cut-calculator/">heist cut calculator</a> to split any of them.</p>
+
+  <h2>Cayo Perico Heist</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Primary target</th><th class="num">Normal</th><th class="num">Hard</th></tr></thead>
+    <tbody>{CAYO.primaries.map((p) => <tr><td>{p.name}</td><td class="num">{money(p.normal)}</td><td class="num">{p.id === "madrazoFiles" ? "–" : money(p.hard)}</td></tr>)}</tbody>
+  </table></div>
+  <p>Plus secondary loot (up to about $447k per bag with gold) and the office safe. 12% in fees and a $100,000 setup fee per run. Full breakdown: <a href="/cayo-perico-calculator/">Cayo Perico calculator</a>.</p>
+
+  <h2>Diamond Casino Heist</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Vault target</th><th class="num">Normal</th><th class="num">Hard</th><th class="num">Hard, first of week</th></tr></thead>
+    <tbody>{CASINO.targets.map((t) => <tr><td>{t.name}</td><td class="num">{money(t.normal)}</td><td class="num">{money(t.hard)}</td><td class="num">{money(t.hard * CASINO.firstWeeklyMultiplier)}</td></tr>)}</tbody>
+  </table></div>
+  <p>Minus Lester (5%), your gunman, driver and hacker (13–30% combined) and possibly a buyer fee. Run the numbers in the <a href="/diamond-casino-heist-calculator/">Casino Heist calculator</a>.</p>
+
+  <h2>The Doomsday Heist</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Act</th><th class="num">Normal</th><th class="num">Hard</th><th class="num">Hard, first of week</th><th class="num">Hard before TU 1.73</th></tr></thead>
+    <tbody>{DOOMSDAY.acts.map((a) => <tr><td>{a.name}</td><td class="num">{money(a.normal)}</td><td class="num">{money(a.hard)}</td><td class="num">{money(a.hard * DOOMSDAY.firstWeeklyMultiplier)}</td><td class="num">{money(a.prevHard)}</td></tr>)}</tbody>
+  </table></div>
+  <p>Doomsday was first cut 40% in TU 1.73. After player backlash, a server-side fix two days later left it 10% below its old values. Elite Challenge: {money(DOOMSDAY.elite)} per act. Sources disagree on setup costs ($25,000 per act vs. $65k / $95k / $120k), so check in game.</p>
+
+  <h2>Original heists (2015)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Heist</th><th class="num">Easy</th><th class="num">Normal</th><th class="num">Hard</th><th class="num">Setup</th></tr></thead>
+    <tbody>{ORIGINAL_HEISTS.heists.map((h) => <tr><td>{h.name} <small style="color:var(--muted)">({h.players}p)</small></td><td class="num">{money(h.easy)}</td><td class="num">{money(h.normal)}</td><td class="num">{money(h.hard)}</td><td class="num">{money(h.setup)}</td></tr>)}</tbody>
+  </table></div>
+  <p>Base payouts are unchanged, and the first completion of each heist per week pays 1.5x. These are total finale takes for the whole crew, before cuts.</p>
+  <h3>One-time heist challenge bonuses</h3>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Challenge</th><th class="num">Bonus</th><th>Requirement</th></tr></thead>
+    <tbody>{ORIGINAL_HEISTS.bonuses.map((b) => <tr><td>{b.name}</td><td class="num">{money(b.amount)}</td><td>{b.req}</td></tr>)}</tbody>
+  </table></div>
+  <p>Criminal Mastermind's $10 million is still one of the biggest one-time payouts in GTA Online, but it needs a committed four-player crew and zero deaths across every heist.</p>
+
+  <h2>Newer heists and heist-style jobs</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Job</th><th>Repeat (host)</th><th>First of week</th><th>Notes</th></tr></thead>
+    <tbody>{OTHER_EARNERS.map((o) => <tr><td>{o.name}</td><td>{o.repeat}</td><td>{o.firstWeekly}</td><td>{o.note}</td></tr>)}</tbody>
+  </table></div>
+
+  <h2>How to make the most of the weekly bonus</h2>
+  <ol>
+    <li><strong>Host each heist's finale once per week.</strong> The bonus applies per heist, per host, after the Thursday reset.</li>
+    <li><strong>Take turns hosting.</strong> In a crew, each member's first-of-week finale as host gets the bonus, so rotate who leads.</li>
+    <li><strong>Grind Cayo Perico between bonus runs.</strong> It has no weekly bonus, but solo players can repeat it every 144 minutes.</li>
+  </ol>
+  <p>For a ranked list, see <a href="/guides/best-heists-gta-online/">the best heists in GTA Online</a>.</p>
+</Article>

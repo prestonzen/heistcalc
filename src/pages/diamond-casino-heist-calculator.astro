@@ -1,0 +1,144 @@
+---
+import Article from "../layouts/Article.astro";
+import { CASINO, SOURCES, DATA_AS_OF, money } from "../data/heists";
+
+const pct = (n: number) => `${Math.round(n * 100)}%`;
+const cheapest = CASINO.lester + CASINO.gunmen[0].cut + CASINO.drivers[0].cut + CASINO.hackers[0].cut;
+const faq = [
+  { q: "How much does the Diamond Casino Heist pay in 2026?", a: `Title Update 1.73 cut vault values by 30%. On Hard, Cash is now ${money(CASINO.targets[0].hard)}, Artwork ${money(CASINO.targets[1].hard)}, Gold ${money(CASINO.targets[2].hard)} and Diamonds ${money(CASINO.targets[3].hard)}. The host's first finale each week pays about 1.86x, so Hard Diamonds can reach about ${money(CASINO.targets[3].hard * CASINO.firstWeeklyMultiplier)}.` },
+  { q: "What is the max take for the Diamond Casino Heist?", a: `The old $3,619,000 cap no longer applies. A repeat Hard Diamonds run tops out at ${money(CASINO.targets[3].hard)}, and the first run of the week at about ${money(CASINO.targets[3].hard * CASINO.firstWeeklyMultiplier)}, before Lester, crew and buyer cuts.` },
+  { q: "Which hacker is best for the Casino Heist?", a: "Avi Schwartzman (10%) gives the longest vault time, 3:30 undetected, and Paige Harris (9%) gives 3:25. With a big target, the extra vault time is usually worth more than the cheaper hackers save. Rickie Lukens (3%) only gives 2:26." },
+  { q: "Who are the cheapest gunman and driver?", a: `Karl Abolaji (gunman, 5%) and Karim Denz (driver, 5%). With Lester's 5% and Rickie Lukens at 3%, the cheapest possible crew takes ${pct(cheapest)} of the take.` },
+  { q: "Does the Casino Heist approach change the payout?", a: "No. Silent & Sneaky, The Big Con and Aggressive all have the same vault values. The approach changes how the heist plays and which Elite Challenge you need. You can't repeat the same approach twice in a row." },
+];
+---
+<Article
+  title="Diamond Casino Heist Calculator 2026"
+  h1="Diamond Casino Heist Calculator"
+  description="Diamond Casino Heist payout after the 2026 changes. Pick target, difficulty, gunman, driver, hacker and buyer to see what each player takes home."
+  published="2026-10-14"
+  updated={DATA_AS_OF}
+  faq={faq}
+  tool={{ name: "Diamond Casino Heist Calculator" }}
+  sources={[SOURCES.rockstarintelCuts, SOURCES.gtabaseCasino, SOURCES.wikiCasinoCrew, SOURCES.gtaGuide, SOURCES.wikiHeists]}
+>
+  <section slot="tool" class="calc" id="casino">
+    <h2>Plan your score</h2>
+    <div class="calc-grid">
+      <div class="field"><label for="target">Vault target</label>
+        <select id="target">{CASINO.targets.map((t) => <option value={t.id} selected={t.id === "gold"}>{t.name}</option>)}</select></div>
+      <div class="field"><label for="diff">Difficulty</label>
+        <select id="diff"><option value="normal">Normal</option><option value="hard" selected>Hard (+10%)</option></select></div>
+      <div class="field"><label for="grab">Share of the vault you grab (%)</label><input id="grab" type="number" min="0" max="100" step="5" value="100" /><small>Lower if you run out of vault time or take damage</small></div>
+      <div class="field"><label for="crew">Players</label>
+        <select id="crew"><option>2</option><option>3</option><option>4</option></select></div>
+    </div>
+    <div class="calc-grid" style="margin-top:12px">
+      <div class="field"><label for="gunman">Gunman</label>
+        <select id="gunman">{CASINO.gunmen.map((c, i) => <option value={i}>{c.name} ({pct(c.cut)}, {c.skill})</option>)}</select></div>
+      <div class="field"><label for="driver">Driver</label>
+        <select id="driver">{CASINO.drivers.map((c, i) => <option value={i}>{c.name} ({pct(c.cut)}, {c.skill})</option>)}</select></div>
+      <div class="field"><label for="hacker">Hacker</label>
+        <select id="hacker">{CASINO.hackers.map((c, i) => <option value={i} selected={i === 4}>{c.name} ({pct(c.cut)}, {c.vault} vault)</option>)}</select></div>
+      <div class="field"><label for="buyer">Buyer</label>
+        <select id="buyer"><option value="low">Low level (−10%)</option><option value="mid">Mid level (−5%)</option><option value="high" selected>High level (no fee)</option></select><small>Community values, not officially confirmed</small></div>
+    </div>
+    <div class="calc-grid" style="margin-top:12px">
+      <label class="check"><input type="checkbox" id="weekly" /> Host's first finale this week (~1.86x)</label>
+      <label class="check"><input type="checkbox" id="elite" /> Elite Challenge completed</label>
+      <label class="check"><input type="checkbox" id="first" /> First-ever run (no setup cost)</label>
+    </div>
+
+    <div id="cuts" class="calc-grid" style="margin-top:12px"></div>
+    <p class="warn" id="cut-warn" hidden></p>
+
+    <div class="results">
+      <div class="stat"><span>Take</span><b id="r-take">–</b></div>
+      <div class="stat"><span>Lester, crew &amp; buyer</span><b id="r-ded">–</b></div>
+      <div class="stat hero"><span>Net for players</span><b id="r-net">–</b></div>
+    </div>
+    <div class="table-scroll" style="margin-top:14px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="r-split"></tbody></table></div>
+    <p class="warn" id="min-warn" hidden>Under $150,000 stolen and the finale fails.</p>
+    <p style="color:var(--muted);font-size:.85rem;margin:8px 0 0">Assumes Lester, crew and buyer percentages all come off the take. Data as of TU 1.73.</p>
+  </section>
+
+  <div class="callout"><p><strong>Payouts changed in July 2026.</strong> Title Update 1.73 cut every Casino Heist vault value by 30% but added a weekly bonus: the host's first finale after the Thursday reset pays about 1.86x. If a calculator still says $3.6M max, it's out of date.</p></div>
+
+  <h2>Diamond Casino Heist vault values (2026)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Target</th><th class="num">Normal</th><th class="num">Hard</th><th class="num">Hard, first of week</th><th class="num">Hard before TU 1.73</th></tr></thead>
+    <tbody>{CASINO.targets.map((t) => <tr><td>{t.name}</td><td class="num">{money(t.normal)}</td><td class="num">{money(t.hard)}</td><td class="num">{money(t.hard * CASINO.firstWeeklyMultiplier)}</td><td class="num">{money(t.prevHard)}</td></tr>)}</tbody>
+  </table></div>
+  <p>Diamonds only show up during event weeks. The first-of-week multiplier comes from datamined game files; Rockstar confirmed the bonus but didn't publish the number.</p>
+
+  <h2>Support crew cuts and vault time</h2>
+  <p>Your gunman, driver and hacker each take a percentage of the take. The hacker matters most, because their skill sets how long you have inside the vault before reinforcements arrive. Run out of time and you leave money behind.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Hacker</th><th class="num">Cut</th><th class="num">Vault time</th><th class="num">If detected</th></tr></thead>
+    <tbody>{CASINO.hackers.map((h) => <tr><td>{h.name} ({h.skill})</td><td class="num">{pct(h.cut)}</td><td class="num">{h.vault}</td><td class="num">{h.vaultDetected}</td></tr>)}</tbody>
+  </table></div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Gunman</th><th class="num">Cut</th><th>Driver</th><th class="num">Cut</th></tr></thead>
+    <tbody>{CASINO.gunmen.map((g, i) => <tr><td>{g.name} ({g.skill})</td><td class="num">{pct(g.cut)}</td><td>{CASINO.drivers[i].name} ({CASINO.drivers[i].skill})</td><td class="num">{pct(CASINO.drivers[i].cut)}</td></tr>)}</tbody>
+  </table></div>
+  <p><strong>Value pick:</strong> the cheapest gunman and driver are fine for most runs because they don't affect the vault. Spend on the hacker: Avi or Paige when the target is Gold or Diamonds.</p>
+
+  <h2>Fees and cuts</h2>
+  <ul>
+    <li><strong>Lester</strong> takes {pct(CASINO.lester)} of the take.</li>
+    <li><strong>Buyer:</strong> the community consensus is 10% for a low-level buyer, 5% mid, and nothing for high. High-level buyers are farther away, so the drive is longer. We couldn't confirm these percentages from an official source.</li>
+    <li><strong>Setup:</strong> the leader pays {money(CASINO.setupFee)} per run (free the first time). You need an Arcade and to be a CEO, VIP or MC President.</li>
+    <li><strong>Player cuts:</strong> minimum 15% each; the leader sets the split.</li>
+    <li><strong>Elite Challenge:</strong> {money(CASINO.elite.normal)} on Normal, {money(CASINO.elite.hard)} on Hard. Every approach needs under 15 minutes and nobody wasted, plus: undetected with no failed hacks (Silent &amp; Sneaky), undetected (Big Con), or 80 headshots (Aggressive).</li>
+  </ul>
+  <p>Comparing jobs? See <a href="/gta-online-heist-payouts/">every GTA Online heist payout</a> or the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a>.</p>
+
+  <script is:inline define:vars={{ CASINO }}>
+    const $ = (id) => document.getElementById(id);
+    const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+    const DEFAULT_CUTS = { 2: [50, 50], 3: [40, 30, 30], 4: [25, 25, 25, 25] };
+
+    function buildCuts() {
+      const n = +$("crew").value;
+      $("cuts").innerHTML = DEFAULT_CUTS[n].map((v, i) =>
+        `<div class="field"><label for="cut${i}">${i ? "Player " + (i + 1) : "Leader"} cut (%)</label><input id="cut${i}" type="number" min="15" max="85" step="5" value="${v}"></div>`).join("");
+      $("cuts").querySelectorAll("input").forEach((el) => el.addEventListener("input", calc));
+      calc();
+    }
+
+    function calc() {
+      const t = CASINO.targets.find((x) => x.id === $("target").value);
+      const hard = $("diff").value === "hard";
+      const grab = Math.min(100, Math.max(0, +$("grab").value || 0)) / 100;
+      const take = (hard ? t.hard : t.normal) * ($("weekly").checked ? CASINO.firstWeeklyMultiplier : 1) * grab;
+      const rate = CASINO.lester + CASINO.gunmen[$("gunman").value].cut + CASINO.drivers[$("driver").value].cut
+        + CASINO.hackers[$("hacker").value].cut + CASINO.buyerFee[$("buyer").value];
+      const net = take * (1 - rate);
+      const elite = $("elite").checked ? (hard ? CASINO.elite.hard : CASINO.elite.normal) : 0;
+      const setup = $("first").checked ? 0 : CASINO.setupFee;
+
+      $("r-take").textContent = money(take);
+      $("r-ded").textContent = `−${money(take * rate)} (${Math.round(rate * 100)}%)`;
+      $("r-net").textContent = money(net);
+      $("min-warn").hidden = take >= CASINO.minTake;
+
+      const n = +$("crew").value;
+      const cuts = Array.from({ length: n }, (_, i) => +($("cut" + i)?.value) || 0);
+      const total = cuts.reduce((a, b) => a + b, 0);
+      const msgs = [];
+      if (total !== 100) msgs.push(`Cuts add up to ${total}%, not 100%.`);
+      if (cuts.some((c) => c < 15)) msgs.push("Every player needs at least 15%.");
+      $("cut-warn").hidden = !msgs.length; $("cut-warn").textContent = msgs.join(" ");
+
+      $("r-split").innerHTML = cuts.map((c, i) => {
+        const pay = net * c / 100 + elite - (i === 0 ? setup : 0);
+        const note = [i === 0 && setup ? `−${money(setup)} setup` : "", elite ? `+${money(elite)} elite` : ""].filter(Boolean).join(", ");
+        return `<tr><td>${i ? "Player " + (i + 1) : "Leader"}${note ? `<br><small style="color:var(--muted)">${note}</small>` : ""}</td><td class="num">${c}%</td><td class="num">${money(pay)}</td></tr>`;
+      }).join("");
+    }
+
+    document.querySelectorAll("#casino input, #casino select:not(#crew)").forEach((el) => el.addEventListener("input", calc));
+    $("crew").addEventListener("change", buildCuts);
+    buildCuts();
+  </script>
+</Article>

@@ -1,0 +1,85 @@
+---
+import Article from "../layouts/Article.astro";
+
+const faq = [
+  { q: "What is the minimum cut in a GTA Online heist?", a: "In the Diamond Casino Heist and the Cayo Perico Heist every player must receive at least 15% of the take, and cuts move in 5% steps. The leader sets the split on the final planning screen." },
+  { q: "What is the fairest way to split a heist?", a: "An even split is fairest when everyone does similar work. Many crews give the leader extra (for example 40/30/30) because the leader paid for setups and did the scope-out and preps solo." },
+  { q: "Do fees come out before or after cuts?", a: "Fees such as fencing fees, buyer fees and support crew cuts are taken off the total take first. Player cuts are percentages of what's left." },
+];
+---
+<Article
+  title="GTA Heist Cut Calculator: Split Any Take Fairly"
+  h1="Heist Cut Calculator"
+  description="Split any GTA heist take between up to four players. Enter the take, fees and each player's percentage to see exactly what everyone walks away with."
+  published="2026-10-14"
+  faq={faq}
+  tool={{ name: "GTA Heist Cut Calculator" }}
+>
+  <section slot="tool" class="calc" id="cut-calc">
+    <h2>Split the take</h2>
+    <div class="calc-grid">
+      <div class="field"><label for="take">Total take ($)</label><input id="take" type="number" min="0" step="1000" value="1500000" inputmode="numeric" /></div>
+      <div class="field"><label for="fees">Fees taken first (%)</label><input id="fees" type="number" min="0" max="100" step="1" value="12" /><small>e.g. 10% fencing + 2% Pavel at Cayo Perico</small></div>
+      <div class="field"><label for="crew">Players</label>
+        <select id="crew"><option>1</option><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+    <div class="calc-grid" id="cuts" style="margin-top:14px"></div>
+    <p class="warn" id="cut-warn" hidden></p>
+    <div class="table-scroll" style="margin-top:16px"><table class="split-table"><thead><tr><th>Player</th><th class="num">Cut</th><th class="num">Payout</th></tr></thead><tbody id="split-body"></tbody></table></div>
+  </section>
+
+  <p>Every GTA Online heist ends the same way: the leader opens the final planning board and someone in voice chat asks "so what are the cuts?" This calculator answers that in one screen. It works for any heist in any GTA game because it only needs three things: the total take, the fees that come off the top, and each player's percentage.</p>
+
+  <h2>How heist cuts work in GTA Online</h2>
+  <ol>
+    <li><strong>The take is calculated first.</strong> That's the value of the primary target plus any secondary loot you carried out.</li>
+    <li><strong>Fees come off the top.</strong> At Cayo Perico that's a 10% fencing fee and Pavel's 2%. In the Diamond Casino Heist it's Lester, the buyer and your support crew.</li>
+    <li><strong>Players split what's left.</strong> The leader assigns percentages, in 5% steps, with a 15% minimum per player in the newer heists.</li>
+  </ol>
+
+  <h2>Common cut splits</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Crew</th><th>Even split</th><th>Leader bonus split</th></tr></thead>
+    <tbody>
+      <tr><td>2 players</td><td>50 / 50</td><td>60 / 40</td></tr>
+      <tr><td>3 players</td><td>35 / 35 / 30</td><td>40 / 30 / 30</td></tr>
+      <tr><td>4 players</td><td>25 / 25 / 25 / 25</td><td>40 / 20 / 20 / 20</td></tr>
+    </tbody>
+  </table></div>
+  <p>Three-player crews can't split exactly evenly in 5% steps, so someone gets 35%. Most crews give the extra 5% to whoever did the setups.</p>
+
+  <h2>Heist-specific calculators</h2>
+  <p>For heists with loot and bag-space mechanics, use the dedicated tools: the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a> handles primary targets, secondary loot and bag space, and the <a href="/diamond-casino-heist-calculator/">Diamond Casino Heist calculator</a> handles buyer fees and support crew. The <a href="/gta-online-heist-payouts/">full heist payout table</a> lists every heist side by side.</p>
+
+  <script>
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const money = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
+    const DEFAULTS: Record<number, number[]> = { 1: [100], 2: [50, 50], 3: [40, 30, 30], 4: [25, 25, 25, 25] };
+
+    function buildCuts() {
+      const n = +$("crew").value;
+      $("cuts").innerHTML = DEFAULTS[n].map((v, i) =>
+        `<div class="field"><label for="cut${i}">${i === 0 ? "Leader" : "Player " + (i + 1)} cut (%)</label><input id="cut${i}" type="number" min="0" max="100" step="5" value="${v}" /></div>`
+      ).join("");
+      $("cuts").querySelectorAll("input").forEach((el) => el.addEventListener("input", calc));
+      calc();
+    }
+    function calc() {
+      const n = +$("crew").value;
+      const net = Math.max(0, +$("take").value) * (1 - Math.min(100, Math.max(0, +$("fees").value)) / 100);
+      const cuts = Array.from({ length: n }, (_, i) => +$("cut" + i).value || 0);
+      const total = cuts.reduce((a, b) => a + b, 0);
+      const warn = document.getElementById("cut-warn")!;
+      const msgs = [];
+      if (total !== 100) msgs.push(`Cuts add up to ${total}%, not 100%.`);
+      if (n > 1 && cuts.some((c) => c < 15)) msgs.push("Newer heists require at least 15% per player.");
+      warn.hidden = !msgs.length; warn.textContent = msgs.join(" ");
+      document.getElementById("split-body")!.innerHTML =
+        `<tr><td>Net take after fees</td><td class="num">${100}%</td><td class="num">${money(net)}</td></tr>` +
+        cuts.map((c, i) => `<tr><td>${i === 0 ? "Leader" : "Player " + (i + 1)}</td><td class="num">${c}%</td><td class="num">${money(net * c / 100)}</td></tr>`).join("");
+    }
+    ["take", "fees"].forEach((id) => $(id).addEventListener("input", calc));
+    $("crew").addEventListener("change", buildCuts);
+    buildCuts();
+  </script>
+</Article>

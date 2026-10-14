@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+---
+<Base title="Contact" description="Contact the HeistCalc team about corrections, feedback or partnerships.">
+  <article class="article prose">
+    <h1>Contact</h1>
+    <p>Spotted an outdated payout, have an idea for a calculator, or want to work together? Email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    <p>For corrections, include the heist, the value you saw in game, and the platform you play on. We usually update within a few days.</p>
+  </article>
+</Base>
