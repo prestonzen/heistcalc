@@ -23,6 +23,7 @@ const faq = [
       <button type="button" class="btn-alerts" id="alerts">🔔 Enable alerts</button>
     </div>
     <p class="muted-sm" id="alerts-note">Turn on alerts to get a notification when a timer ends.</p>
+    <p class="muted-sm" id="discord-status"></p>
     <div class="btn-row">
       <button type="button" class="btn-main" data-cayo="solo">I just finished solo ({CAYO.cooldownMinutes.solo} min)</button>
       <button type="button" class="btn-main" data-cayo="crew">I just finished with a crew ({CAYO.cooldownMinutes.crew} min)</button>
@@ -56,8 +57,9 @@ const faq = [
 
   <script>
     import { nextReset, formatDuration } from "../scripts/reset";
+    import { getConn, scheduleAlerts, cancelAlerts } from "../scripts/discord";
 
-    type Timer = { id: string; name: string; end: number; warn?: number; warned?: boolean; done?: boolean; note?: string };
+    type Timer = { id: string; name: string; end: number; warn?: number; warned?: boolean; done?: boolean; note?: string; sid?: string[] };
     const KEY = "hc-timers";
     const MIN = 60_000;
     const SOLO = 144 * MIN, CREW = 48 * MIN, HARD_WINDOW = 48 * MIN;
@@ -110,10 +112,16 @@ const faq = [
     document.querySelectorAll<HTMLButtonElement>("[data-cayo]").forEach((b) => b.addEventListener("click", () => {
       const now = Date.now();
       const cool = b.dataset.cayo === "solo" ? SOLO : CREW;
+      cancelAlerts(timers.filter((t) => t.id.startsWith("cayo-")).flatMap((t) => t.sid ?? []));
       timers = timers.filter((t) => !t.id.startsWith("cayo-"));
-      timers.push({ id: "cayo-cool", name: "Cayo Perico cooldown", end: now + cool, note: "Pavel will text you. Pay the setup fee within 48 minutes for Hard Mode." });
+      const coolTimer: Timer = { id: "cayo-cool", name: "Cayo Perico cooldown", end: now + cool, note: "Pavel will text you. Pay the setup fee within 48 minutes for Hard Mode." };
+      timers.push(coolTimer);
       timers.push({ id: "cayo-hard", name: "Hard Mode window", end: now + cool + HARD_WINDOW, warn: 10 * MIN, note: "Pay the $100k setup fee before this ends to keep Hard Mode." });
       save(); render(); beepPrime();
+      scheduleAlerts([
+        { fireAt: now + cool, title: "Cayo Perico is ready", body: "Your cooldown is over. Pay the setup fee at the Kosatka within 48 minutes to keep Hard Mode." },
+        { fireAt: now + cool + HARD_WINDOW - 10 * MIN, title: "Hard Mode window: 10 minutes left", body: "Pay the $100k Cayo Perico setup fee now or you'll drop to Normal." },
+      ]).then((ids) => { coolTimer.sid = ids; save(); });
     }));
     function beepPrime() { if (sound.checked) { try { audio ??= new AudioContext(); audio.resume(); } catch {} } }
 
@@ -121,8 +129,10 @@ const faq = [
       e.preventDefault();
       const name = ($("c-name") as HTMLInputElement).value.trim() || "Custom timer";
       const mins = Math.max(1, Math.min(10080, +($("c-min") as HTMLInputElement).value || 0));
-      timers.push({ id: uid(), name, end: Date.now() + mins * MIN });
+      const t: Timer = { id: uid(), name, end: Date.now() + mins * MIN };
+      timers.push(t);
       save(); render(); beepPrime();
+      scheduleAlerts([{ fireAt: t.end, title: `${name} is done`, body: "Your HeistCalc timer just finished." }]).then((ids) => { t.sid = ids; save(); });
     });
 
     const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
@@ -133,7 +143,9 @@ const faq = [
         `<li data-id="${t.id}"><div><b>${esc(t.name)}</b>${t.note ? `<small>${esc(t.note)}</small>` : ""}</div><span class="t-left"></span><button type="button" class="t-del" aria-label="Remove ${esc(t.name)}">✕</button></li>`).join("");
       $("list").querySelectorAll<HTMLButtonElement>(".t-del").forEach((b) => b.addEventListener("click", () => {
         const id = b.closest("li")!.dataset.id!;
-        timers = timers.filter((t) => id.startsWith("cayo-") ? !t.id.startsWith("cayo-") : t.id !== id);
+        const remove = (t: Timer) => id.startsWith("cayo-") ? t.id.startsWith("cayo-") : t.id === id;
+        cancelAlerts(timers.filter(remove).flatMap((t) => t.sid ?? []));
+        timers = timers.filter((t) => !remove(t));
         save(); render();
       }));
       tick();
@@ -164,6 +176,10 @@ const faq = [
       $("reset-in").textContent = formatDuration(nextReset() - now);
     }
 
+    const conn = getConn();
+    $("discord-status").innerHTML = conn?.timers
+      ? `Discord alerts on: new timers also ping your channel. <a href="/discord-alerts/">Manage</a>`
+      : `Want alerts on your phone, even when it's locked? <a href="/discord-alerts/">Connect Discord</a>`;
     renderAlerts(); render(); setInterval(tick, 1000);
   </script>
 </Article>

@@ -1,0 +1,24 @@
+---
+import Article from "../../layouts/Article.astro";
+import WeekView from "../../components/WeekView.astro";
+import { WEEKS, type Week } from "../../data/weekly";
+
+export function getStaticPaths() {
+  // The newest week lives at /gta-online-weekly-update/; archive pages are for past weeks.
+  return WEEKS.slice(1).map((week) => ({ params: { start: week.start }, props: { week } }));
+}
+const { week } = Astro.props as { week: Week };
+const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+const range = `${fmt(week.start)}–${fmt(week.end)}`;
+---
+<Article
+  title={`GTA Online Weekly Update ${week.start}: ${week.title}`}
+  h1={`GTA Online Weekly Update: ${range}`}
+  description={`What was on in GTA Online the week of ${range}: ${week.title}. Bonuses, heist notes, discounts and vehicles.`}
+  published={week.start}
+  crumbs={[{ href: "/gta-online-weekly-update/", label: "Weekly update" }]}
+  sources={week.sources.map((href) => ({ href, label: new URL(href).hostname.replace(/^www\./, "") }))}
+>
+  <div class="callout"><p>This is an archived week. <a href="/gta-online-weekly-update/">See this week's update →</a></p></div>
+  <WeekView week={week} />
+</Article>

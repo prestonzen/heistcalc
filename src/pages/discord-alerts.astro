@@ -1,0 +1,109 @@
+---
+import Article from "../layouts/Article.astro";
+
+const faq = [
+  { q: "Can HeistCalc send GTA Online alerts to Discord?", a: "Yes. Paste a Discord webhook URL for any channel you manage, and HeistCalc will post your cooldown timer alerts there, plus a heads-up at every GTA Online weekly reset. No account needed." },
+  { q: "How do I create a Discord webhook?", a: "In Discord, open Server Settings, then Integrations, then Webhooks, and click New Webhook. Pick the channel, then Copy Webhook URL. Paste it into HeistCalc." },
+  { q: "Can I get alerts in my DMs instead of a server?", a: "Webhooks post to server channels. For private alerts, make a free server just for yourself (it takes about 10 seconds) and use a webhook in it. Discord will notify your phone." },
+  { q: "What does HeistCalc store?", a: "Only your webhook URL, whether you want weekly reset messages, and any timer alerts you've scheduled. Alerts are deleted after they're sent. Click Disconnect to delete everything, or delete the webhook in Discord and we'll remove it automatically." },
+];
+---
+<Article
+  title="GTA Online Discord Alerts for Cooldowns & Reset"
+  h1="Discord Alerts"
+  description="Get your GTA Online heist cooldown alerts and the weekly reset in Discord. Paste a webhook URL and HeistCalc pings your channel. Free, no account."
+  published="2026-10-15"
+  faq={faq}
+  tool={{ name: "HeistCalc Discord Alerts", category: "UtilitiesApplication" }}
+>
+  <section slot="tool" class="calc" id="discord">
+    <div id="d-setup">
+      <h2>Connect a Discord channel</h2>
+      <form id="d-form">
+        <div class="field"><label for="d-webhook">Discord webhook URL</label>
+          <input id="d-webhook" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://discord.com/api/webhooks/…" required /></div>
+        <div class="calc-grid" style="margin-top:12px">
+          <label class="check"><input type="checkbox" id="d-timers" checked /> Send my timer alerts</label>
+          <label class="check"><input type="checkbox" id="d-weekly" checked /> Weekly reset heads-up (Thursdays)</label>
+        </div>
+        <div class="btn-row"><button type="submit" class="btn-main" id="d-connect">Connect &amp; send test message</button></div>
+      </form>
+    </div>
+    <div id="d-connected" hidden>
+      <h2>✅ Discord connected</h2>
+      <p class="muted-sm">Alerts go to the channel you connected. Your connection is saved in this browser.</p>
+      <div class="calc-grid" style="margin-top:12px">
+        <label class="check"><input type="checkbox" id="c-timers" /> Send my timer alerts</label>
+        <label class="check"><input type="checkbox" id="c-weekly" /> Weekly reset heads-up (Thursdays)</label>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn-ghost" id="c-test">Send a test alert</button>
+        <a class="btn-main" href="/timers/">Start a timer →</a>
+        <button type="button" class="btn-ghost" id="c-disconnect">Disconnect</button>
+      </div>
+    </div>
+    <p class="warn" id="d-msg" aria-live="polite" hidden></p>
+  </section>
+
+  <p>Browser alerts only work while HeistCalc is open. Discord alerts reach your phone even when it's locked. Connect a channel once, and every Cayo Perico cooldown or custom timer you start on the <a href="/timers/">timers page</a> will ping Discord when it ends, along with a warning before the Hard Mode window closes.</p>
+
+  <h2>How to set it up (1 minute)</h2>
+  <ol>
+    <li><strong>Open your server settings.</strong> In Discord, right-click your server and choose <em>Server Settings → Integrations → Webhooks</em>. You need the Manage Webhooks permission.</li>
+    <li><strong>Create a webhook.</strong> Click <em>New Webhook</em>, choose the channel (a #heist-alerts channel works well), and click <em>Copy Webhook URL</em>.</li>
+    <li><strong>Paste it above</strong> and click Connect. You'll get a test message in the channel right away.</li>
+    <li><strong>Start a timer</strong> on the <a href="/timers/">timers page</a>. When it ends, Discord pings the channel.</li>
+  </ol>
+  <div class="callout"><p><strong>Want alerts just for you?</strong> Create a free private server with only yourself in it and use a webhook there. Discord will notify your phone like any other message.</p></div>
+
+  <h2>What you'll get</h2>
+  <ul>
+    <li><strong>Cayo Perico ready:</strong> when your cooldown ends and Pavel's ready for setup.</li>
+    <li><strong>Hard Mode warning:</strong> 10 minutes before the 48-minute Hard Mode window closes.</li>
+    <li><strong>Custom timers:</strong> anything you set on the timers page.</li>
+    <li><strong>Weekly reset:</strong> every Thursday at 2 AM Pacific, a reminder that your first-run heist bonuses are back, plus the week's highlights when available. See the <a href="/weekly-checklist/">weekly checklist</a> and <a href="/gta-online-weekly-update/">this week's update</a>.</li>
+  </ul>
+
+  <h2>Privacy</h2>
+  <p>A webhook URL lets anyone who has it post into that channel, so treat it like a password. HeistCalc stores it only to send your alerts, never shows it again, and deletes it when you disconnect or delete the webhook in Discord. See the <a href="/privacy/">privacy policy</a>.</p>
+
+  <script>
+    import { getConn, connect, updateSettings, disconnect, sendTest } from "../scripts/discord";
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const msg = (text: string, ok = false) => { const m = $("d-msg"); m.hidden = !text; m.textContent = text; m.style.color = ok ? "var(--money)" : ""; };
+
+    function render() {
+      const c = getConn();
+      $("d-setup").hidden = !!c;
+      $("d-connected").hidden = !c;
+      if (c) { $<HTMLInputElement>("c-timers").checked = c.timers; $<HTMLInputElement>("c-weekly").checked = c.weekly; }
+    }
+
+    $("d-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = $<HTMLButtonElement>("d-connect");
+      btn.disabled = true; btn.textContent = "Connecting…"; msg("");
+      try {
+        await connect($<HTMLInputElement>("d-webhook").value, $<HTMLInputElement>("d-weekly").checked, $<HTMLInputElement>("d-timers").checked);
+        $<HTMLInputElement>("d-webhook").value = "";
+        msg("Connected. Check your Discord channel for the test message.", true);
+        render();
+      } catch (err) {
+        msg((err as Error).message);
+      } finally {
+        btn.disabled = false; btn.textContent = "Connect & send test message";
+      }
+    });
+    $("c-timers").addEventListener("change", (e) => updateSettings({ timers: (e.target as HTMLInputElement).checked }));
+    $("c-weekly").addEventListener("change", async (e) => {
+      try { await updateSettings({ weekly: (e.target as HTMLInputElement).checked }); msg("Saved.", true); } catch (err) { msg((err as Error).message); render(); }
+    });
+    $("c-test").addEventListener("click", async () => {
+      try { await sendTest(); msg("Test alert sent.", true); } catch (err) { msg((err as Error).message); render(); }
+    });
+    $("c-disconnect").addEventListener("click", async () => {
+      await disconnect(); msg("Disconnected. Your webhook was deleted from HeistCalc.", true); render();
+    });
+    render();
+  </script>
+</Article>

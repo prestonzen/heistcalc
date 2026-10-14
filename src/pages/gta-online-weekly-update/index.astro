@@ -1,0 +1,44 @@
+---
+import Article from "../../layouts/Article.astro";
+import WeekView from "../../components/WeekView.astro";
+import { WEEKS } from "../../data/weekly";
+
+const current = WEEKS[0];
+const past = WEEKS.slice(1);
+const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
+const range = current ? `${fmt(current.start)}–${fmt(current.end)}` : "";
+const faq = [
+  { q: "When does the GTA Online weekly update come out?", a: "Every Thursday at the weekly reset, 2:00 AM Pacific / 5:00 AM Eastern. New bonuses, discounts and vehicles go live then and last until the next Thursday." },
+  { q: "Is the Panther Statue available at Cayo Perico this week?", a: current?.pantherGuaranteed ? "Yes. Rockstar has made the Panther Statue the guaranteed primary target this week." : "Not as a guaranteed target this week. The Panther Statue only appears during special Rockstar events." },
+  { q: "How do I get notified when the weekly update drops?", a: "Connect Discord on HeistCalc's Discord alerts page and we'll post a heads-up in your channel at every weekly reset." },
+];
+---
+<Article
+  title={current ? `GTA Online Weekly Update (${range}): Bonuses & Discounts` : "GTA Online Weekly Update: Bonuses & Discounts"}
+  h1={current ? `GTA Online Weekly Update: ${range}` : "GTA Online Weekly Update"}
+  description={current ? `This week in GTA Online (${range}): ${current.title}. Every money bonus, heist note, discount and vehicle, updated each Thursday.` : "This week's GTA Online bonuses, discounts and vehicles, updated every Thursday after the weekly reset."}
+  published="2026-10-15"
+  updated={current?.start ?? "2026-10-15"}
+  faq={faq}
+  sources={current?.sources.map((href) => ({ href, label: new URL(href).hostname.replace(/^www\./, "") })) ?? []}
+>
+  <div slot="tool" class="calc">
+    <span class="tag gold">Updated every Thursday</span>
+    <h2 style="margin-top:8px">{current ? current.title : "This week's update is on the way"}</h2>
+    <p class="muted-sm">Get a heads-up at every weekly reset: <a href="/discord-alerts/">Discord alerts</a> · <a href="/weekly-checklist/">weekly bonus checklist</a></p>
+  </div>
+
+  {current ? <WeekView week={current} /> : (
+    <p>Rockstar publishes the new week's bonuses at the Thursday reset. Check back shortly, and in the meantime track your first-run heist bonuses on the <a href="/weekly-checklist/">weekly checklist</a>.</p>
+  )}
+
+  <h2>Don't forget the weekly heist bonuses</h2>
+  <p>Separately from the event, every heist pays a bonus on the host's first finale of the week. Tick them off on the <a href="/weekly-checklist/">weekly checklist</a>, and run <a href="/cayo-perico-calculator/">Cayo Perico</a> between bonus runs.</p>
+
+  {past.length > 0 && (
+    <>
+      <h2>Previous weeks</h2>
+      <ul>{past.map((w) => <li><a href={`/gta-online-weekly-update/${w.start}/`}>{fmt(w.start)}–{fmt(w.end)}: {w.title}</a></li>)}</ul>
+    </>
+  )}
+</Article>

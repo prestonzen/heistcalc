@@ -12,3 +12,12 @@ directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
 run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "heistcalc"
+database_id = "88411821-e4db-4713-9b66-ab48a7d79d99"
+migrations_dir = "migrations"
+
+[triggers]
+crons = ["* * * * *"]

@@ -1,0 +1,68 @@
+---
+import type { Week } from "../data/weekly";
+interface Props { week: Week }
+const { week } = Astro.props;
+---
+<p>{week.summary}</p>
+{week.confirmedBy === "third-party" ? (
+  <div class="callout"><p>These details come from community reports. Rockstar's official Newswire post hadn't been checked against them yet.</p></div>
+) : week.thirdParty?.length ? (
+  <div class="callout"><p><strong>Heads up:</strong> most of this week comes from Rockstar's Newswire. These items were only reported by community sites: {week.thirdParty.join("; ")}.</p></div>
+) : null}
+
+{week.bonuses.length > 0 && (
+  <>
+    <h2>Money &amp; RP bonuses</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Activity</th><th>Reward</th></tr></thead>
+      <tbody>{week.bonuses.map((b) => <tr><td>{b.activity}</td><td>{b.reward}</td></tr>)}</tbody>
+    </table></div>
+  </>
+)}
+
+{(week.heistNotes.length > 0 || week.pantherGuaranteed !== null) && (
+  <>
+    <h2>Heists this week</h2>
+    <ul>
+      {week.pantherGuaranteed !== null && (
+        <li><strong>Cayo Perico Panther Statue:</strong> {week.pantherGuaranteed ? "guaranteed this week. Plan your run in the Cayo Perico calculator." : "not guaranteed this week."}</li>
+      )}
+      {week.heistNotes.map((n) => <li>{n}</li>)}
+    </ul>
+  </>
+)}
+
+{week.events.length > 0 && (
+  <>
+    <h2>Events &amp; limited-time content</h2>
+    <ul>{week.events.map((e) => <li>{e}</li>)}</ul>
+  </>
+)}
+
+{week.discounts.length > 0 && (
+  <>
+    <h2>Discounts</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Item</th><th class="num">Off</th></tr></thead>
+      <tbody>{week.discounts.map((d) => <tr><td>{d.item}</td><td class="num">{d.off}</td></tr>)}</tbody>
+    </table></div>
+  </>
+)}
+
+{(week.podium || week.prizeRide || week.salvageYard.length > 0) && (
+  <>
+    <h2>Vehicles</h2>
+    <ul>
+      {week.podium && <li><strong>Podium vehicle (Lucky Wheel):</strong> {week.podium}</li>}
+      {week.prizeRide && <li><strong>Prize Ride:</strong> {week.prizeRide}</li>}
+      {week.salvageYard.length > 0 && <li><strong>Salvage Yard robbery targets:</strong> {week.salvageYard.join(", ")}</li>}
+    </ul>
+  </>
+)}
+
+{week.gtaPlus.length > 0 && (
+  <>
+    <h2>GTA+ members</h2>
+    <ul>{week.gtaPlus.map((g) => <li>{g}</li>)}</ul>
+  </>
+)}
