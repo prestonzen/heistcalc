@@ -17,7 +17,6 @@ interface Props {
 }
 const { title, description, h1 = title, published, updated = published, crumbs = [], faq = [], tool, sources = [] } = Astro.props;
 const url = new URL(Astro.url.pathname, SITE.url).toString();
-const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 
 const schema: Record<string, unknown>[] = [
   {
@@ -67,7 +66,7 @@ if (tool) {
     <header class="article-head">
       <h1>{h1}</h1>
       <p class="lede">{description}</p>
-      <p class="byline">By {SITE.author} · Updated <time datetime={updated}>{fmt(updated)}</time></p>
+      <p class="byline">By {SITE.author}</p>
     </header>
     <Ad />
     <slot name="tool" />
