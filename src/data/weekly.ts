@@ -23,6 +23,156 @@ export interface Week {
 
 export const WEEKS: Week[] = [
   {
+    "start": "2026-10-15",
+    "end": "2026-10-21",
+    "title": "Halloween Event Week 3: New Kortz Center Targets",
+    "summary": "The Halloween event enters its third week with triple payouts still running on Slasher, the Halloween Survivals and the race series. A new trio of Kortz Center Heist primary targets rotates in, and the Lucky Wheel podium car is the LSCM Cheetah Classic.",
+    "bonuses": [
+      {
+        "activity": "Slasher modes in the Halloween Featured Series (incl. Ramius – Slasher)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Halloween Survivals (Ludendorff Cemetery, Cayo Perico, Alien Survivals)",
+        "reward": "3X GTA$ and RP (6X for GTA+)"
+      },
+      {
+        "activity": "San Andreas Super Sport Series (Hotring and Random Transform Races)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Community Race Series",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Bail Office Standard and Most Wanted Targets",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Dispatch Work",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "UFO Business Battles",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Jack O' Lanterns",
+        "reward": "2X GTA$ and RP (4X for GTA+)"
+      },
+      {
+        "activity": "Ghosts Exposed",
+        "reward": "2X GTA$ (4X for GTA+)"
+      },
+      {
+        "activity": "Weekly Challenge: win three Races",
+        "reward": "Orange Glow Skeleton Onesie + GTA$100,000"
+      },
+      {
+        "activity": "Complete \"Don't F* With Dre\" by Oct 21",
+        "reward": "GTA$500,000"
+      },
+      {
+        "activity": "Complete all five October Weekly Challenges by Nov 4",
+        "reward": "GTA$2,000,000 extra"
+      }
+    ],
+    "heistNotes": [
+      "Kortz Center Heist primary targets this week: Twindifference, Teckels, and A Cast of Characters.",
+      "FIB Priority File of the week: The Brute Force File."
+    ],
+    "discounts": [
+      {
+        "item": "LCC Sanctus",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Brigham",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Lurcher",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Fränken Stange",
+        "off": "40%"
+      },
+      {
+        "item": "Declasse Tornado Rat Rod",
+        "off": "40%"
+      },
+      {
+        "item": "Agency properties (incl. upgrades and modifications)",
+        "off": "40%"
+      },
+      {
+        "item": "Annis Hardy",
+        "off": "30%"
+      },
+      {
+        "item": "BF Raptor",
+        "off": "30%"
+      },
+      {
+        "item": "Buckingham Miljet",
+        "off": "30%"
+      },
+      {
+        "item": "Buckingham Tug",
+        "off": "30%"
+      },
+      {
+        "item": "Dinka Sugoi",
+        "off": "30%"
+      },
+      {
+        "item": "Karin Calico GTF",
+        "off": "30%"
+      },
+      {
+        "item": "Nagasaki Weaponized Dinghy",
+        "off": "30%"
+      },
+      {
+        "item": "Vapid Winky",
+        "off": "30%"
+      },
+      {
+        "item": "Western Company Annihilator",
+        "off": "30%"
+      }
+    ],
+    "podium": "Grotti LSCM Cheetah Classic",
+    "prizeRide": "Dinka Kanjo SJ: place top 5 in the LS Car Meet Series",
+    "salvageYard": [
+      "The Gangbanger Robbery: Grotti Itali RSX",
+      "The Podium Robbery: Albany Fränken Stange",
+      "The Cargo Ship Robbery: BF Weevil"
+    ],
+    "events": [
+      "Halloween event (Oct 1 – Nov 4) continues: Slashers, Phantom Car, Jack O' Lantern and Ghosts Exposed collectibles, Peyote Plants",
+      "Free Butchery and Other Hobbies T-Shirt for playing through Oct 21",
+      "Gun Van: The Shocker free, Service Carbine 30% off",
+      "Test Track: Declasse Vamos, Dewbauchee Seven-70, Ocelot Locust; Hao's Special Works Test Ride: Maibatsu MonstroCiti"
+    ],
+    "gtaPlus": [
+      "Free Pegassi Oppressor with the limited Skulls livery",
+      "6X GTA$ and RP on Halloween Survivals; 4X on Jack O' Lanterns and Ghosts Exposed",
+      "50% off Up-n-Atomizer, Widowmaker and Unholy Hellbringer at the Gun Van",
+      "Free MTL Brickade 6x6 and Acid Lab Supplies, Red/Orange Flip Chameleon paints, and Halloween outfits"
+    ],
+    "pantherGuaranteed": null,
+    "confirmedBy": "third-party",
+    "sources": [
+      "https://rockstarintel.com/gta-online-event-week-halloween-event-continues-october-15th-21st/",
+      "https://www.sportskeeda.com/gta/gta-online-weekly-update-october-15-21-2026",
+      "https://www.pcquest.com/gaming/gta-online-halloween-update-continues-for-october-15-to-21-2026-get-3x-gta-money-12677656",
+      "https://www.gtaboss.gg/gta-5-online/gta-online-weekly-updates",
+      "https://holdtoreset.com/gta-online-weekly-reset/"
+    ]
+  },
+  {
     "start": "2026-10-08",
     "end": "2026-10-14",
     "title": "Halloween Event Week 2: New Kortz Center Targets",
