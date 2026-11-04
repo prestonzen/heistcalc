@@ -1,0 +1,63 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "What radio stations are in GTA 6?", a: "Rockstar has confirmed six so far: Cocoteo FM (modern Latin), Back Country Radio (country), AfroBank FM (African music), The Chamber 106.6 (metal), Flash FM (pop) and Dirty South Classics (Southern rap). More stations, including talk radio and classic rock, are coming but haven't been detailed." },
+  { q: "Is Flash FM back in GTA 6?", a: "Yes. Flash FM, the Vice City pop station from GTA: Vice City and Vice City Stories, returns in GTA 6, hosted by Robyn and Alex." },
+  { q: "Who made the GTA 6 score?", a: "French duo Justice (Gaspard Augé and Xavier de Rosnay) composed the adaptive original score. The 30-track Grand Theft Auto VI: Original Score album releases December 11, 2026." },
+  { q: "What song is in the GTA 6 launch trailer?", a: "\"Flower in a Hurricane\" by Justice featuring Tame Impala, SZA and King Gizzard & The Lizard Wizard. It's on the Original Score album." },
+  { q: "Does GTA 6 have podcasts?", a: "Yes. For the first time in the series, Jason and Lucia can listen to on-demand podcasts, and radio and podcasts can play on foot through in-game headphones connected to their phones." },
+];
+
+const stations = [
+  ["Cocoteo FM", "Modern Latin: bachata, merengue, dembow, reggaeton", "El Martillo & La Gata"],
+  ["Back Country Radio", "Country", "MW & Delta Dawne (with Mud Dog Mike reporting)"],
+  ["AfroBank FM", "African music, classics to amapiano and 3-step", "Burna & Palmsy"],
+  ["The Chamber 106.6", "Metal", "DJ Kerry & DJ Tom"],
+  ["Flash FM", "Pop (returning Vice City station)", "Robyn & Alex"],
+  ["Dirty South Classics", "Southern rap and hip-hop", "Trick & Trina"],
+];
+---
+<Article
+  title="GTA 6 Radio Stations, Soundtrack & Score: Full List So Far"
+  h1="GTA 6 Radio Stations and Soundtrack: Everything Confirmed"
+  description="Every confirmed GTA 6 radio station and host, the return of Flash FM, the first-ever podcasts, The Album (34 tracks) and Justice's 30-track score out December 11."
+  published="2026-11-05"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.rockstargames.com/newswire/article/o3982oa93a23k4/the-music-of-grand-theft-auto-vi-in-game-radio-stations", label: "Rockstar Newswire: In-game radio stations (Oct 8, 2026)" },
+    { href: "https://www.rockstargames.com/newswire/article/39ak8a12395591/grand-theft-auto-vi-original-score-by-justice", label: "Rockstar Newswire: Original Score by Justice (Oct 29, 2026)" },
+    { href: "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10", label: "Rockstar Newswire: poster and map download (Nov 3, 2026)" },
+  ]}
+>
+  <p>Rockstar says GTA 6 has <strong>the biggest and widest-ranging radio selection in the series</strong>. Six stations are confirmed so far, Flash FM is back, and for the first time you can listen to podcasts and wear headphones on foot. This page will grow as more stations are revealed.</p>
+
+  <h2>Confirmed GTA 6 radio stations</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Station</th><th>Music</th><th>Hosts</th></tr></thead>
+    <tbody>{stations.map(([s, m, h]) => <tr><td><strong>{s}</strong></td><td>{m}</td><td>{h}</td></tr>)}</tbody>
+  </table></div>
+  <p>Rockstar's description mentions stations covering "everything from Classic Rock to Talk Radio", so expect at least a rock station and a talk station beyond these six. You can hear previews of the confirmed stations in the Music section of Rockstar's official GTA VI site.</p>
+
+  <h2>New: podcasts and headphones</h2>
+  <p>GTA 6 adds <strong>on-demand podcasts</strong> alongside the radio, a first for the series. Radio and podcasts play in vehicles and, for the first time, <strong>on foot</strong> through headphones and earbuds connected to Jason's and Lucia's phones. Expect the soundtrack to follow you through heists, not just car chases.</p>
+
+  <h2>Grand Theft Auto VI: The Album</h2>
+  <p>A separate album of <strong>34 original tracks</strong> by a range of artists, released alongside the game on November 19. It's available to pre-save, and on vinyl and CD.</p>
+
+  <h2>Original score by Justice</h2>
+  <ul>
+    <li><strong>Composer:</strong> Grammy-winning French duo Justice (Gaspard Augé and Xavier de Rosnay).</li>
+    <li><strong>Adaptive:</strong> the score shifts with how you play, which suits heists that go loud or stay quiet.</li>
+    <li><strong>Album:</strong> 30 tracks, out <strong>December 11, 2026</strong> on streaming, CD and vinyl, plus digital bonus tracks.</li>
+    <li><strong>Launch trailer song:</strong> "Flower in a Hurricane" featuring Tame Impala, SZA and King Gizzard &amp; The Lizard Wizard.</li>
+    <li><strong>Single:</strong> "Pusher" featuring Gesaffelstein.</li>
+  </ul>
+
+  <h2>Free map and poster on launch day</h2>
+  <p>On November 19 Rockstar is adding a free printable GTA VI cover art poster and map of Leonida to the official site. A double-sided physical version follows from the Rockstar Store for $0.99, or free with any Rockstar Store purchase.</p>
+
+  <h2>More GTA 6</h2>
+  <p><a href="/gta-6/release-date/">Unlock times by region</a> · <a href="/gta-6/preload/">Preload guide</a> · <a href="/gta-6/heists/">Heists in GTA 6</a></p>
+</Article>

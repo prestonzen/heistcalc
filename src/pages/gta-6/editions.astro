@@ -1,0 +1,80 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "How much is GTA 6 Standard vs Ultimate?", a: "In the US, the Standard Edition is $79.99 and the Ultimate Edition is $99.99 on PlayStation Store. The $20 difference buys the Ultimate Edition Upgrade: 16 extra vehicles, weapons, outfits and in-game businesses." },
+  { q: "Is the GTA 6 Ultimate Edition worth it?", a: "Only if you want the bonus cars, weapons and businesses from day one. Everything in it is cosmetic or convenience content spread through the story, and Standard owners can buy the Ultimate Edition Upgrade separately later, so starting with Standard costs you nothing if you change your mind." },
+  { q: "Is there a physical disc version of GTA 6?", a: "No disc. The Standard Edition comes as a digital download or as a code-in-box version: the box holds a download code, and you still download the whole game. The Ultimate Edition is digital only." },
+  { q: "Do I get the pre-order bonus if I buy after launch?", a: "Yes, if you buy before November 20, 2026. Rockstar says all pre-orders and purchases before November 20 get the Vintage Vice City Pack, including launch-day purchases." },
+  { q: "How do I claim the free month of GTA+?", a: "Pre-order the digital version from PlayStation Store before November 20, 2026, then open the GTA+ product page and follow the steps. You have until March 31, 2027 to claim it, it works once per account, and it auto-renews as a paid subscription unless you cancel." },
+];
+
+const upgrade = [
+  "'95 Grotti Cheetah", "Hawk & Little Morgan Revolvers", "Personalized Weapon Variants", "Vice City Styles",
+  "Jason's Safehouse Vehicles", "Ganado Retro Build", "Rideout Customs Mod Shop", "Sara's Unisex Salon",
+  "Shitzu Squalo", "Stock 305 Clothing Store", "'67 Vapid Dominator Buggy & Garage", "Electric Fang Tattoo Parlor",
+  "One-Eyed Willie's Mod Shop", "Goodtime Gear", "PTT Youngin$ store", "Classic Car Collection",
+];
+---
+<Article
+  title="GTA 6 Editions: Standard vs Ultimate, Is It Worth $20?"
+  h1="GTA 6 Standard vs Ultimate Edition: Which Should You Buy?"
+  description="GTA 6 Standard ($79.99) vs Ultimate ($99.99): every Ultimate item, the Vintage Vice City pre-order bonus, the free GTA+ month catch, and which edition to buy."
+  published="2026-11-05"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.rockstargames.com/VI/editions", label: "Rockstar Games: GTA VI editions" },
+    { href: "https://www.playstation.com/en-us/games/grand-theft-auto-vi/", label: "PlayStation: GTA VI editions, prices and GTA+ offer terms" },
+    { href: "https://www.rockstargames.com/newswire/article/5171972o3ak5oa/pre-order-grand-theft-auto-vi-on-june-25", label: "Rockstar Newswire: pre-order announcement" },
+    { href: "https://www.dlcompare.com/gaming-news/gta-6-editions-compared-standard-vs-ultimate-85365", label: "DLCompare: GTA 6 editions compared" },
+  ]}
+>
+  <p><strong>Short answer: buy the Standard Edition unless you specifically want the bonus cars and businesses on day one.</strong> The Ultimate Edition adds no story missions, no extra areas and no online perks, and Standard owners can upgrade later. Here's exactly what the extra $20 gets you.</p>
+
+  <h2>Price and format at a glance</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th></th><th>Standard</th><th>Ultimate</th></tr></thead>
+    <tbody>
+      <tr><td>US price (PS Store)</td><td class="num">$79.99</td><td class="num">$99.99</td></tr>
+      <tr><td>Format</td><td>Digital or code-in-box</td><td>Digital only</td></tr>
+      <tr><td>Base game</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Ultimate Edition Upgrade (16 items)</td><td>Sold separately</td><td>Included</td></tr>
+      <tr><td>Vintage Vice City Pack</td><td>If bought before Nov 20</td><td>If bought before Nov 20</td></tr>
+      <tr><td>1 month of GTA+</td><td>Digital pre-orders only</td><td>Digital pre-orders only</td></tr>
+      <tr><td>Preload from Nov 10</td><td>Yes (digital)</td><td>Yes</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><p><strong>There's no disc.</strong> The boxed Standard Edition contains a download code, so you'll download the full game either way. Plan your storage around the <a href="/gta-6/preload/">212 GB preload</a>.</p></div>
+
+  <h2>Everything in the Ultimate Edition Upgrade</h2>
+  <p>Rockstar lists 16 items. About half are vehicles and weapons. The rest are mostly in-game shops and businesses (mod garages, a salon, a tattoo parlor, clothing stores) plus clothing styles.</p>
+  <ul>{upgrade.map((u) => <li>{u}</li>)}</ul>
+  <p>Rockstar describes this content as threaded through Jason and Lucia's story, so don't expect all 16 items the moment you start. You unlock them as you progress, much like normal story rewards.</p>
+
+  <h2>Is the Ultimate Edition worth it?</h2>
+  <p>Roughly $1.25 per item sounds fair, but the question is whether you'd notice the difference. Some things to weigh:</p>
+  <ul>
+    <li><strong>It's all single-player.</strong> GTA 6 launches as a single-player game. Nothing in the upgrade carries over to an online mode, because Rockstar hasn't announced one yet. <a href="/gta-6/online/">More on GTA 6 online</a>.</li>
+    <li><strong>You can buy it later.</strong> The upgrade is listed as a separate add-on for Standard owners. If you finish the first chapters and want more cars and shops, you can add it then.</li>
+    <li><strong>Ultimate is digital only.</strong> If you want a code-in-box to gift someone, Standard is your only option.</li>
+    <li><strong>Story missions aren't affected.</strong> Nothing in the list adds missions, areas or characters.</li>
+  </ul>
+  <p><strong>Our pick:</strong> Standard Edition for most players. Ultimate makes sense if you're a collector, a completionist, or someone who'd buy the upgrade anyway, since buying it bundled is the simplest way.</p>
+
+  <h2>Pre-order bonus: the Vintage Vice City Pack</h2>
+  <p>Both editions get the Vintage Vice City Pack, including '55 Vapid Stanier sedan with a garage, retro outfits and hairstyles, and an exclusive weapon pattern. Despite the "pre-order" label, Rockstar says <strong>all pre-orders and purchases before November 20, 2026</strong> qualify, so buying on launch day still gets you the pack.</p>
+
+  <h2 id="gta-plus">The free month of GTA+ (read the fine print)</h2>
+  <p>Digital pre-orders also include one month of GTA+. On PlayStation the rules are:</p>
+  <ul>
+    <li>Pre-order the <strong>digital</strong> Standard or Ultimate Edition from PlayStation Store before November 20, 2026.</li>
+    <li>Claim it on the GTA+ product page by <strong>March 31, 2027</strong>.</li>
+    <li>It's <strong>once per account</strong>, however many copies you buy.</li>
+    <li>It <strong>auto-renews</strong> into a paid monthly subscription. If you don't want that, cancel under Subscriptions Management before the renewal date.</li>
+  </ul>
+  <p>Code-in-box copies don't include the GTA+ month, so digital is the better deal if you want it.</p>
+
+  <h2>Before launch</h2>
+  <p>Check the <a href="/gta-6/release-date/">unlock time for your region</a>, read the <a href="/gta-6/preload/">preload guide</a> to make sure your console is ready on November 10, and keep the <a href="/heist-cut-calculator/">heist cut calculator</a> handy for your first big score.</p>
+</Article>

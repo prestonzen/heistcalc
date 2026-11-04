@@ -1,0 +1,73 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "When can I preload GTA 6?", a: "Digital preloading starts Tuesday, November 10, 2026. On PS5 it begins at midnight local time. On Xbox Series X|S it begins everywhere at once at 12:00 AM GMT on November 10, which is 7:00 PM ET / 4:00 PM PT on November 9 in the US." },
+  { q: "How big is the GTA 6 download?", a: "Rockstar says the preload needs up to 212 GB of free space, depending on your device. A day-one patch could add more, so leave extra room." },
+  { q: "Can I play GTA 6 as soon as the preload finishes?", a: "No. Preloading only downloads the game. It stays locked until launch on November 19, 2026, which store listings show as midnight local time in each region." },
+  { q: "Can I preload the code-in-box version?", a: "Yes, once you have the box. Code-in-box copies reach retailers from November 12. Redeem the code and the download starts, so you'll be a couple of days behind digital pre-orders." },
+  { q: "Will GTA 6 fit on an Xbox Series S?", a: "Barely. The 512 GB Series S has about 364 GB usable, so a 212 GB download takes most of it. Clear space or use expansion storage before November 10." },
+];
+
+const usable = [
+  ["PS5 (original, 825 GB)", "~667 GB"],
+  ["PS5 Slim (1 TB)", "~848 GB"],
+  ["Xbox Series X (1 TB)", "~802 GB"],
+  ["Xbox Series S (512 GB)", "~364 GB"],
+];
+const xbox = [
+  ["US West (PT)", "Mon Nov 9, 4:00 PM"],
+  ["US East (ET)", "Mon Nov 9, 7:00 PM"],
+  ["UK (GMT)", "Tue Nov 10, 12:00 AM"],
+  ["Central Europe (CET)", "Tue Nov 10, 1:00 AM"],
+  ["Japan (JST)", "Tue Nov 10, 9:00 AM"],
+  ["Australia East (AEDT)", "Tue Nov 10, 11:00 AM"],
+];
+---
+<Article
+  title="GTA 6 Preload: Nov 10 Start Times, 212 GB Size & Setup"
+  h1="GTA 6 Preload Guide: Start Times, File Size and How to Prepare"
+  description="GTA 6 preload starts November 10: PS5 at local midnight, Xbox at 12 AM GMT (7 PM ET Nov 9). 212 GB size, usable storage per console and a setup checklist."
+  published="2026-11-05"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10", label: "Rockstar Newswire: GTA VI pre-load begins on November 10 (Nov 3, 2026)" },
+    { href: "https://www.playstation.com/en-us/games/grand-theft-auto-vi/", label: "PlayStation: GTA VI pre-load and editions" },
+  ]}
+>
+  <p><strong>GTA 6 preloading starts Tuesday, November 10, 2026</strong>, nine days before launch. The download needs up to <strong>212 GB</strong>. Rockstar moved the preload two days earlier on November 3, so guides that say November 12 are out of date. November 12 is now the day boxed copies hit stores.</p>
+
+  <h2>Preload start times</h2>
+  <p><strong>PS5:</strong> midnight local time on November 10, in your own time zone.</p>
+  <p><strong>Xbox Series X|S:</strong> everyone at once, at 12:00 AM GMT on November 10. In the Americas that's the evening of November 9:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Region</th><th>Xbox preload opens</th></tr></thead>
+    <tbody>{xbox.map(([r, t]) => <tr><td>{r}</td><td>{t}</td></tr>)}</tbody>
+  </table></div>
+  <div class="callout"><p>Preloading only downloads the game. It unlocks at launch on <strong>November 19</strong>. See <a href="/gta-6/release-date/">unlock times by region</a> with a live countdown.</p></div>
+
+  <h2>How much space do you need?</h2>
+  <p>Rockstar's number is "up to 212 GB depending on your device." That's the space needed to start the preload, not a promise of the final install size, and launch-day patches usually add to it. Aim for <strong>250 GB free</strong> to be safe. Approximate usable space by console:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Console</th><th class="num">Usable storage (approx.)</th></tr></thead>
+    <tbody>{usable.map(([c, s]) => <tr><td>{c}</td><td class="num">{s}</td></tr>)}</tbody>
+  </table></div>
+  <p>An original PS5 or a Series X can hold GTA 6 plus a few other games. On a <strong>Series S</strong>, GTA 6 alone takes most of the drive, so plan on uninstalling or moving games to an expansion card.</p>
+
+  <h2>Preload checklist</h2>
+  <ol>
+    <li><strong>Pre-order the digital version</strong> on the account you'll play on. <a href="/gta-6/editions/">Standard or Ultimate?</a></li>
+    <li><strong>Free up 250 GB</strong> on the internal SSD or a compatible M.2 or expansion drive.</li>
+    <li><strong>Turn on automatic downloads.</strong> On PS5: Settings → System → Power Saving → Features Available in Rest Mode → Stay Connected to the Internet, plus automatic downloads under Saved Data and Game/App Settings. On Xbox: turn on automatic updates and use the "Sleep" power mode.</li>
+    <li><strong>Leave the console in Rest Mode or Sleep</strong> the night of November 9/10 so the download starts on its own.</li>
+    <li><strong>Use a wired connection if you can.</strong> At 100 Mbps, 212 GB takes about 5 hours. At 25 Mbps, closer to 19 hours.</li>
+    <li><strong>Check your PSN or Xbox account region.</strong> Store listings tie the launch unlock to your account's region, so a US account unlocks with the US window wherever you are.</li>
+  </ol>
+
+  <h2>Boxed copies</h2>
+  <p>The code-in-box Standard Edition reaches retailers from <strong>November 12</strong>. There's no disc inside. Redeem the code and the same 212 GB download starts. You'll still have a week before launch, but you'll miss the first two days of the digital preload window.</p>
+
+  <h2>While it downloads</h2>
+  <p>GTA Online keeps running alongside GTA 6. Put the preload wait to use with the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a> and this week's <a href="/gta-online-weekly-update/">GTA Online bonuses</a>.</p>
+</Article>
