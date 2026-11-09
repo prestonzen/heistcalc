@@ -1,0 +1,50 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "Is GTA 6 coming to PC?", a: "No PC version has been announced. Rockstar has only confirmed PlayStation 5 and Xbox Series X|S for the November 19, 2026 launch." },
+  { q: "When will GTA 6 come out on PC?", a: "There's no official date. GTA V reached PC about 19 months after its console launch, and Red Dead Redemption 2 took about 12 months. Rumors of an early 2027 release aren't confirmed by Rockstar." },
+  { q: "What are the GTA 6 PC system requirements?", a: "None have been published, because no PC version has been announced. Any requirements list you see now is a guess." },
+  { q: "Can I play GTA 6 on PC at launch?", a: "Only by streaming from a PS5 you own, using the PS Remote Play app on your PC. The game still runs on the console, so you need a PS5 and a copy of the game." },
+  { q: "Is there a GTA 6 PC download?", a: "No. There's no legitimate PC download of GTA 6. Sites and videos offering one are scams or malware." },
+];
+
+const gaps = [
+  ["GTA IV", "Apr 2008", "Dec 2008", "~8 months"],
+  ["GTA V", "Sep 2013", "Apr 2015", "~19 months"],
+  ["Red Dead Redemption 2", "Oct 2018", "Nov 2019", "~12 months"],
+  ["GTA VI", "Nov 2026", "Not announced", "?"],
+];
+---
+<Article
+  title="GTA 6 on PC: Release Date, Requirements & How to Play"
+  h1="Is GTA 6 Coming to PC? Everything We Know"
+  description="GTA 6 launches on PS5 and Xbox only. What's known about a PC release date, how long past Rockstar PC ports took, system requirements, and how to play on PC now."
+  published="2026-11-10"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.rockstargames.com/newswire/article/5171972o3ak5oa/pre-order-grand-theft-auto-vi-on-june-25", label: "Rockstar Newswire: PS5 and Xbox Series X|S launch" },
+    { href: "https://support.rockstargames.com/articles/29jV3Cv2cCgvwM1XgtMO5o/grand-theft-auto-vi-regional-pre-load-and-release-times-on-playstation-5-and-xbox-series-x-or-s", label: "Rockstar Support: launch platforms and times" },
+  ]}
+>
+  <p><strong>GTA 6 isn't confirmed for PC.</strong> Rockstar has only announced PlayStation 5 and Xbox Series X|S for the November 19, 2026 launch. A PC version is very likely eventually, given Rockstar's history, but there's no date, no requirements list and no store page.</p>
+
+  <h2>How long has Rockstar taken before?</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Game</th><th>Console launch</th><th>PC launch</th><th>Wait</th></tr></thead>
+    <tbody>{gaps.map(([g, c, p, w]) => <tr><td>{g}</td><td>{c}</td><td>{p}</td><td>{w}</td></tr>)}</tbody>
+  </table></div>
+  <p>Going by those three games, a PC version would land somewhere between mid-2027 and mid-2028. Reports of an early 2027 release come from unnamed sources, and Rockstar hasn't commented on them, so treat them as rumor.</p>
+
+  <h2>System requirements</h2>
+  <p>Rockstar hasn't published any, since no PC version exists yet. Any "official" spec sheet floating around now is made up, so don't buy hardware based on one.</p>
+
+  <h2>How to play on PC at launch</h2>
+  <p>You can't run GTA 6 natively, but if you own a PS5 you can stream it to your PC with Sony's free <strong>PS Remote Play</strong> app. The game runs on your console and video comes over your network, so a wired connection on both devices makes a big difference.</p>
+
+  <div class="callout"><p><strong>Watch out for scams.</strong> There's no legitimate GTA 6 download for PC. "Early PC builds", "free keys", "emulators" and cracked installers are malware or phishing. Don't run them or enter your account details.</p></div>
+
+  <h2>While you wait</h2>
+  <p>PC players can keep busy in GTA Online Enhanced. Plan your runs with the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a> and see <a href="/gta-online-weekly-update/">this week's bonuses</a>. For everything else about the launch, visit the <a href="/gta-6/">GTA 6 hub</a>.</p>
+</Article>

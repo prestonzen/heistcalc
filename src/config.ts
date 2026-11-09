@@ -22,5 +22,5 @@ export const NAV = [
   { href: "/guides/", label: "Guides" },
 ];
 
-// GTA VI unlock: midnight local time Nov 19, 2026 (per PS Store listings).
+// GTA VI unlock: midnight local time Nov 19, 2026 (per Rockstar Support).
 export const GTA6_RELEASE = { year: 2026, month: 11, day: 19 };

@@ -23,6 +23,145 @@ export interface Week {
 
 export const WEEKS: Week[] = [
   {
+    "start": "2026-11-05",
+    "end": "2026-11-11",
+    "title": "Heist Event: 2X First-Time Bonuses and a Guaranteed Panther Statue",
+    "summary": "This week is all about heists. First-time completion bonuses are doubled on the Original Heists, The Doomsday Heist and The Diamond Casino Heist, the Panther Statue is guaranteed at Cayo Perico on your first approach, and The Kortz Center Heist gets its first Heist Event.",
+    "bonuses": [
+      {
+        "activity": "Original Heists (first-time completion bonuses)",
+        "reward": "2X GTA$"
+      },
+      {
+        "activity": "The Doomsday Heist (first-time completion bonuses)",
+        "reward": "2X GTA$"
+      },
+      {
+        "activity": "The Diamond Casino Heist (first-time completion bonuses)",
+        "reward": "2X GTA$"
+      },
+      {
+        "activity": "KnoWay Out (first completion)",
+        "reward": "2X GTA$"
+      },
+      {
+        "activity": "Mansion Raid",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Community Series",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Weekly Challenge: win an Adversary Mode",
+        "reward": "GTA$100,000"
+      }
+    ],
+    "heistNotes": [
+      "The Kortz Center Heist: The Outcome of Endeavour is guaranteed, a painting that was previously limited to Elitist status in the summer Fine Art Collector program.",
+      "Kortz Center primary targets this week: The Outcome of Endeavour, To Beat About the Bush, Hare Oneself Think and True Love.",
+      "Doubled completion bonuses only apply to your first completion, so finish each heist once before repeating any.",
+      "Find a crew in #the-heist-board on the Rockstar Games Discord."
+    ],
+    "discounts": [
+      {
+        "item": "High-End Apartments",
+        "off": "40%"
+      },
+      {
+        "item": "Casino Penthouse",
+        "off": "40%"
+      },
+      {
+        "item": "Facilities",
+        "off": "40%"
+      },
+      {
+        "item": "Casino Penthouse Upgrades and Modifications",
+        "off": "40%"
+      },
+      {
+        "item": "Facility Upgrades and Modifications",
+        "off": "40%"
+      },
+      {
+        "item": "Grotti Veleno GT (first ever sale)",
+        "off": "25%"
+      },
+      {
+        "item": "Benefactor Vorschlaghammer",
+        "off": "30%"
+      },
+      {
+        "item": "Cheval Taipan",
+        "off": "30%"
+      },
+      {
+        "item": "Dinka Blista Kanjo",
+        "off": "30%"
+      },
+      {
+        "item": "Grotti Cheetah",
+        "off": "30%"
+      },
+      {
+        "item": "HVY Insurgent",
+        "off": "30%"
+      },
+      {
+        "item": "Invetero Coquette D5",
+        "off": "30%"
+      },
+      {
+        "item": "Maibatsu Penumbra FF",
+        "off": "30%"
+      },
+      {
+        "item": "Pegassi Reaper",
+        "off": "30%"
+      },
+      {
+        "item": "Western Company Besra",
+        "off": "30%"
+      },
+      {
+        "item": "Western Rampant Rocket",
+        "off": "30%"
+      }
+    ],
+    "podium": "Överflöd Entity XXR",
+    "prizeRide": "Annis Hellion: place top 5 in the LS Car Meet Series three days in a row",
+    "salvageYard": [
+      "The Podium Robbery: Annis Hellion",
+      "The Cargo Ship Robbery: Truffade Z-Type",
+      "The McTony Robbery: Lampadati Cinquemila"
+    ],
+    "events": [
+      "Free Mansion painting: play any time through November 11 to get The Great Circle Back.",
+      "Coming November 12 to December 2: Contact Missions pay 2X GTA$ and RP (4X for GTA+), Freemode Challenges pay 4X, the Stunt Race Series pays 3X, Sumo (Remix) pays 2X and the Community Series pays 3X."
+    ],
+    "gtaPlus": [
+      "Grotti Itali RSX, free to claim through December 9",
+      "Monthly GTA$500,000 deposit",
+      "Gun Van: 40% off the Compact EMP Launcher and 80% off Armor"
+    ],
+    "pantherGuaranteed": true,
+    "confirmedBy": "newswire",
+    "sources": [
+      "https://www.rockstargames.com/newswire/article/4k17a844oakk5o/take-down-the-kortz-center-and-more-high-value-targets-in-this-week-s",
+      "https://www.gtabase.com/gta-online/weekly-update-bonuses-discounts",
+      "https://www.gtaboom.com/gta-online-heists-week-november-2026"
+    ],
+    "thirdParty": [
+      "Mansion Raid and Community Series multipliers",
+      "Weekly Challenge reward",
+      "Kortz Center target list",
+      "30% vehicle discounts",
+      "podium, Prize Ride and Salvage Yard vehicles",
+      "Gun Van discounts"
+    ]
+  },
+  {
     "start": "2026-10-15",
     "end": "2026-10-21",
     "title": "Halloween Event Week 3: New Kortz Center Targets",

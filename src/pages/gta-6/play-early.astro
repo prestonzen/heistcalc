@@ -1,0 +1,66 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "Can you play GTA 6 early?", a: "Not officially. Rockstar has no early access period, and says the game releases at midnight local time on November 19, 2026 in all regions. Guides describe an unofficial New Zealand trick that relies on New Zealand reaching midnight first." },
+  { q: "Does the New Zealand trick work for GTA 6?", a: "Nobody can confirm it until the game unlocks in New Zealand on November 18 at 11:00 UTC. It's a method that has worked for other games with local-midnight launches, and Rockstar and the platform holders haven't endorsed it." },
+  { q: "How early would the New Zealand trick get you into GTA 6?", a: "New Zealand reaches midnight about 18 hours before US Eastern time, 13 hours before the UK and 4 hours before Japan." },
+  { q: "Can you use the New Zealand trick on PS5?", a: "Only with a separate New Zealand PSN account and a second copy bought on that account. A PSN account's region can't be changed, and a game bought on your home-region account won't move over." },
+  { q: "Can you get banned for the New Zealand trick?", a: "No platform has announced bans for it, but neither Sony, Microsoft nor Rockstar has approved it either. Creating an account with a false region can break a platform's terms, so the risk is yours." },
+];
+
+const lead = [
+  ["New Zealand", "Nov 18, 11:00 UTC", "First"],
+  ["Australia (East)", "Nov 18, 13:00 UTC", "2 hours later"],
+  ["Japan / South Korea", "Nov 18, 15:00 UTC", "4 hours later"],
+  ["Central Europe", "Nov 18, 23:00 UTC", "12 hours later"],
+  ["United Kingdom", "Nov 19, 00:00 UTC", "13 hours later"],
+  ["US Eastern", "Nov 19, 05:00 UTC", "18 hours later"],
+];
+---
+<Article
+  title="Can You Play GTA 6 Early? The New Zealand Trick Explained"
+  h1="Can You Play GTA 6 Early? What the New Zealand Trick Really Involves"
+  description="GTA 6 has no official early access. How the New Zealand trick is supposed to work on Xbox and PS5, how many hours it would save, and the catches to weigh first."
+  published="2026-11-10"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://support.rockstargames.com/articles/29jV3Cv2cCgvwM1XgtMO5o/grand-theft-auto-vi-regional-pre-load-and-release-times-on-playstation-5-and-xbox-series-x-or-s", label: "Rockstar Support: regional pre-load and release times" },
+    { href: "https://www.dexerto.com/wikis/gta-6/how-to-play-gta-6-early/", label: "Dexerto: How to play GTA 6 early" },
+    { href: "https://gamerant.com/gta-6-play-early-new-zealand-trick/", label: "Game Rant: New Zealand trick" },
+  ]}
+>
+  <p><strong>There's no official way to play GTA 6 early.</strong> Rockstar says it releases at midnight local time on November 19, 2026 in all regions, with no early access tier for either edition. The so-called New Zealand trick is a workaround that takes advantage of New Zealand reaching midnight first. It's <strong>untested on GTA 6</strong> until launch night, and on PS5 it means buying the game twice.</p>
+
+  <h2>Why New Zealand?</h2>
+  <p>With a local-midnight launch, the first places to reach November 19 get the game first. New Zealand is at the front of the line:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Region</th><th>Midnight Nov 19 arrives</th><th>Versus New Zealand</th></tr></thead>
+    <tbody>{lead.map(([r, u, g]) => <tr><td>{r}</td><td>{u}</td><td>{g}</td></tr>)}</tbody>
+  </table></div>
+  <p>Exact unlock times for the rest of the US are still unclear. See <a href="/gta-6/release-date/">unlock times by region</a>.</p>
+
+  <h2>Xbox: what guides describe</h2>
+  <p>Guides say Xbox owners can change the console's location to New Zealand under Settings → System → Language &amp; location, then restart. No second account or second copy is reported to be needed. Because Xbox has already handled preloading on a single global schedule, this is the simpler of the two methods.</p>
+  <div class="callout"><p><strong>Before you try it:</strong> changing your console's location can change the store and content you see. Preload first, keep your location as it is until launch night, and change it back afterwards. If it doesn't unlock, you've lost nothing but a restart.</p></div>
+
+  <h2>PS5: why it's a bad deal</h2>
+  <p>A PSN account's region is fixed when it's created, so the PS5 method means:</p>
+  <ul>
+    <li>Creating a <strong>new New Zealand account</strong>.</li>
+    <li><strong>Buying GTA 6 again</strong> through the New Zealand store, which needs a payment method that store accepts. A copy on your main account won't carry over.</li>
+    <li>Your saves and trophies from those early hours sit on the <strong>New Zealand account</strong>.</li>
+  </ul>
+  <p>That's $80 or more to play a few hours sooner, while possibly breaking PlayStation's terms if you register with false details. <strong>We'd skip it.</strong></p>
+
+  <h2>What actually gets you playing fastest</h2>
+  <ol>
+    <li><a href="/gta-6/preload/">Preload it</a> so the full download is done before launch night.</li>
+    <li>Leave the console on or in Rest Mode or Sleep on launch night, so any patch installs automatically.</li>
+    <li>Check the countdown on the game's page on your own console in the days before launch.</li>
+  </ol>
+
+  <h2>Avoid spoilers</h2>
+  <p>New Zealand and Australian players will be streaming story beats hours before most of the world. If you want to go in clean, mute "GTA 6" keywords on social media and stay away from livestreams on launch night.</p>
+</Article>

@@ -69,6 +69,16 @@ const siteSchema = {
       </nav>
     </div>
   </header>
+  <a class="launch-bar" id="launch-bar" href="/gta-6/preload/"><span id="launch-msg">How to preload GTA 6: start times, 212 GB, and setup</span><b>Read guide</b></a>
+  <script is:inline>
+    (() => {
+      const now = Date.now(), launch = new Date(2026, 10, 19).getTime(), open = new Date(2026, 10, 10).getTime();
+      const bar = document.getElementById("launch-bar"), msg = document.getElementById("launch-msg");
+      if (now >= launch) { bar.href = "/gta-6/"; msg.textContent = "GTA 6 is out. Guides and calculators"; bar.lastElementChild.textContent = "Open hub"; return; }
+      const days = Math.ceil((launch - now) / 86400000);
+      msg.textContent = now >= open ? `GTA 6 preload is open. ${days} day${days === 1 ? "" : "s"} to launch.` : "GTA 6 preload opens November 10. Get your console ready.";
+    })();
+  </script>
   <main id="main" class="wrap">
     <slot />
   </main>

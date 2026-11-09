@@ -138,3 +138,7 @@ section.hero { padding: 48px 16px 28px; margin: 0 -16px; background: radial-grad
 .t-del:hover { color: var(--text); }
 .share-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
 .share-row .muted-sm { margin: 0; }
+
+.launch-bar { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 4px 14px; padding: 9px 16px; background: var(--panel-2); border-bottom: 1px solid var(--line); color: var(--text); font-size: .92rem; text-align: center; text-decoration: none; }
+.launch-bar b { color: var(--accent); font-weight: 600; }
+.launch-bar:hover b { text-decoration: underline; }

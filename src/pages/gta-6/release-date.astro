@@ -4,7 +4,7 @@ import Countdown from "../../components/Countdown.astro";
 
 const faq = [
   { q: "When does GTA 6 come out?", a: "Grand Theft Auto VI releases on November 19, 2026 for PlayStation 5 and Xbox Series X|S. Rockstar moved it from its earlier May 26, 2026 date in November 2025." },
-  { q: "What time does GTA 6 unlock?", a: "PlayStation Store listings show the game unlocking at midnight local time in each region, starting in New Zealand. Rockstar has not officially confirmed unlock times, so treat them as provisional." },
+  { q: "What time does GTA 6 unlock?", a: "Rockstar says it releases at midnight local time on November 19, 2026 in all regions, on both PS5 and Xbox Series X|S. New Zealand reaches midnight first. PlayStation Store listings point to the whole US unlocking together at midnight Eastern, which would be 9:00 PM Pacific on November 18, but Rockstar hasn't spelled out how US time zones work." },
   { q: "Is GTA 6 coming to PC?", a: "No PC version has been officially announced. Reports point to a later PC release, but nothing is confirmed by Rockstar." },
   { q: "Can I preload GTA 6?", a: "Yes. Rockstar confirmed digital preloading starts November 10, 2026: midnight local time on PS5, and 12:00 AM GMT on Xbox Series X|S (7:00 PM ET on November 9). The preload needs up to 212 GB." },
   { q: "How much does GTA 6 cost?", a: "In the US the Standard Edition is $79.99 and the Ultimate Edition $99.99. In Japan they are 9,800 yen and 12,280 yen." },
@@ -15,7 +15,7 @@ const regions = [
   ["Japan / South Korea", "Nov 19, 12:00 AM JST/KST", "Nov 18, 15:00 UTC"],
   ["Central Europe", "Nov 19, 12:00 AM CET", "Nov 18, 23:00 UTC"],
   ["United Kingdom", "Nov 19, 12:00 AM GMT", "Nov 19, 00:00 UTC"],
-  ["United States & Canada", "Nov 19, 12:00 AM ET (9:00 PM PT Nov 18)", "Nov 19, 05:00 UTC"],
+  ["United States & Canada (Eastern)", "Nov 19, 12:00 AM ET", "Nov 19, 05:00 UTC"],
 ];
 ---
 <Article
@@ -23,10 +23,11 @@ const regions = [
   h1="GTA 6 Release Date and Unlock Times"
   description="GTA 6 launches November 19, 2026 on PS5 and Xbox Series X|S. Live countdown, unlock times for every region, preload date, price and PC status."
   published="2026-10-14"
-  updated="2026-11-05"
+  updated="2026-11-10"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
   sources={[
+    { href: "https://support.rockstargames.com/articles/29jV3Cv2cCgvwM1XgtMO5o/grand-theft-auto-vi-regional-pre-load-and-release-times-on-playstation-5-and-xbox-series-x-or-s", label: "Rockstar Support: regional pre-load and release times" },
     { href: "https://mp1st.com/news/gta-6-unlock-times-revealed", label: "MP1st: GTA 6 unlock times" },
     { href: "https://www.invenglobal.com/articles/25691/gta6-unlocks-at-midnight-nov-19-in-korea-14-hours-ahead-of-the-us", label: "Inven Global: Korea unlocks 14 hours ahead of the US" },
     { href: "https://automaton-media.com/articles/newsjp/20260625-451698/", label: "AUTOMATON: Japanese pricing" },
@@ -42,12 +43,12 @@ const regions = [
   <p><strong>Grand Theft Auto VI comes out on Thursday, November 19, 2026</strong>, on PlayStation 5 and Xbox Series X|S. That's after two delays: Rockstar first targeted fall 2025, then May 26, 2026, before settling on November in an announcement in November 2025.</p>
 
   <h2>GTA 6 unlock times by region</h2>
-  <p>GTA 6 isn't a single worldwide launch. PlayStation Store listings show it unlocking at midnight local time, region by region, over roughly 19 hours. New Zealand gets it first. These times come from store data, not an official Rockstar announcement.</p>
+  <p>GTA 6 isn't a single worldwide launch. <strong>Rockstar confirms it releases at midnight local time on November 19 in all regions</strong>, on both PS5 and Xbox Series X|S, so it rolls out over roughly 18 hours. New Zealand gets it first. The times below are midnight in each region.</p>
   <div class="table-scroll"><table>
     <thead><tr><th>Region</th><th>Local unlock</th><th>UTC</th></tr></thead>
     <tbody>{regions.map(([r, l, u]) => <tr><td>{r}</td><td>{l}</td><td>{u}</td></tr>)}</tbody>
   </table></div>
-  <div class="callout"><p><strong>Your PSN account's region decides your unlock time</strong>, not where you physically are. A US account unlocks with the US window even if you play from Tokyo.</p></div>
+  <div class="callout"><p><strong>US players:</strong> PlayStation Store listings put the whole US at 05:00 UTC, which is midnight Eastern and 9:00 PM Pacific on November 18. Rockstar only says "local time", so West Coast players could instead unlock at midnight Pacific. Check the countdown on the game's page on your console. If you play abroad, store listings are set per region, so your account's region is likely what counts.</p></div>
 
   <h2>Preload date</h2>
   <p>Rockstar confirmed digital preloading starts <strong>November 10, 2026</strong>: midnight local time on PS5, and 12:00 AM GMT everywhere on Xbox Series X|S. The download needs up to <strong>212 GB</strong>. The boxed edition is a download code, not a disc, and reaches stores November 12. Full details in the <a href="/gta-6/preload/">GTA 6 preload guide</a>.</p>
@@ -60,10 +61,11 @@ const regions = [
       <tr><td>Ultimate</td><td class="num">$99.99</td><td class="num">¥12,280</td></tr>
     </tbody>
   </table></div>
+  <p>Want a head start? Read about <a href="/gta-6/play-early/">the New Zealand trick</a> first.</p>
   <p>Not sure which to get? See <a href="/gta-6/editions/">Standard vs Ultimate Edition</a>.</p>
 
   <h2>Is GTA 6 on PC?</h2>
-  <p>Not at launch. Rockstar hasn't announced a PC version. GTA 5 took about 19 months to reach PC; recent reports suggest the wait could be shorter this time, but nothing is confirmed.</p>
+  <p>Not at launch. <a href="/gta-6/pc/">Rockstar hasn't announced a PC version</a>. GTA 5 took about 19 months to reach PC; recent reports suggest the wait could be shorter this time, but nothing is confirmed.</p>
 
   <h2>Get ready for launch</h2>
   <p>While you wait, sharpen your money-making in GTA Online with the <a href="/cayo-perico-calculator/">Cayo Perico calculator</a>, or read <a href="/gta-6/heists/">everything confirmed about heists in GTA 6</a>.</p>
