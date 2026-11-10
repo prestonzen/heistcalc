@@ -162,6 +162,303 @@ export const WEEKS: Week[] = [
     ]
   },
   {
+    "start": "2026-10-29",
+    "end": "2026-11-04",
+    "title": "Halloween Finale: 10-Wave Survival Challenge and Last Week of 40% Off Agencies",
+    "summary": "The Halloween event wraps up with triple payouts still running on Survivals and Slasher. A no-death Survival challenge is the last step toward the GTA$2,000,000 October bonus, and Agencies are 40% off for the final week.",
+    "bonuses": [
+      {
+        "activity": "Halloween Survivals (Ludendorff Cemetery, Cayo Perico, Alien Survivals)",
+        "reward": "3X GTA$ and RP (6X for GTA+)"
+      },
+      {
+        "activity": "Halloween Featured Series (Slasher, including Ramius Slasher)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "San Andreas Super Sport Series (Hotring and Random Transform Races)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Community Mission Series",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Bail Office Standard and Most Wanted Targets",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Dispatch Work",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "UFO Business Battles",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Jack O' Lanterns",
+        "reward": "2X GTA$ and RP (4X for GTA+)"
+      },
+      {
+        "activity": "Ghosts Exposed",
+        "reward": "2X GTA$ (4X for GTA+)"
+      },
+      {
+        "activity": "Weekly Challenge: survive 10 waves of any Survival without dying",
+        "reward": "GTA$250,000 + Slasher Clown Outfit"
+      },
+      {
+        "activity": "Complete every October Weekly Challenge",
+        "reward": "GTA$2,000,000 (within 72 hours)"
+      }
+    ],
+    "heistNotes": [
+      "Kortz Center primary targets this week: I, Fruit, Until Death and Gone To Seed."
+    ],
+    "discounts": [
+      {
+        "item": "Agencies, including upgrades and modifications",
+        "off": "40%"
+      },
+      {
+        "item": "LCC Sanctus",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Brigham",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Lurcher",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Fränken Stange",
+        "off": "40%"
+      },
+      {
+        "item": "Declasse Tornado Rat Rod",
+        "off": "40%"
+      },
+      {
+        "item": "Vapid FMJ",
+        "off": "30%"
+      },
+      {
+        "item": "MTL Dune",
+        "off": "30%"
+      },
+      {
+        "item": "Vapid Firebolt ASP",
+        "off": "30%"
+      },
+      {
+        "item": "Karin Futo GTX",
+        "off": "30%"
+      },
+      {
+        "item": "Invetero Coquette D10",
+        "off": "30%"
+      },
+      {
+        "item": "Pegassi Infernus Classic",
+        "off": "30%"
+      },
+      {
+        "item": "Übermacht Zion Classic",
+        "off": "30%"
+      },
+      {
+        "item": "Shitzu Keitora",
+        "off": "30%"
+      },
+      {
+        "item": "Bravado Gauntlet Classic",
+        "off": "30%"
+      },
+      {
+        "item": "Gun Van: Service Carbine",
+        "off": "30%"
+      }
+    ],
+    "podium": "Progen GP1",
+    "prizeRide": "Karin Previon: place top 5 in the LS Car Meet Series two days in a row",
+    "salvageYard": [
+      "The Duggan Robbery: Albany Fränken Stange",
+      "The Podium Robbery: Karin Boor",
+      "The Gangbanger Robbery: Lampadati Cinquemila"
+    ],
+    "events": [
+      "Final week of the October Halloween event.",
+      "Login rewards: Brown Vintage Skull Mask, Halloween Chute Bag and Día de Muertos gifts.",
+      "Gun Van: The Shocker is free."
+    ],
+    "gtaPlus": [
+      "Gun Van: 50% off the Widowmaker, Up-n-Atomizer and Unholy Hellbringer"
+    ],
+    "pantherGuaranteed": null,
+    "confirmedBy": "third-party",
+    "sources": [
+      "https://timesaver.gg/blog/gta-online-weekly-update-october-29-november-4-2026",
+      "https://www.rockstargames.com/newswire/article/39a22k25434a53/experience-halloween-thrills-all-throughout-october-in-gta-online"
+    ]
+  },
+  {
+    "start": "2026-10-22",
+    "end": "2026-10-28",
+    "title": "Halloween Event Week 4: Short Trips Bonus and New Kortz Center Targets",
+    "summary": "The Halloween event enters its fourth week with triple payouts on Survivals, Slasher and the race series. Finishing all three Short Trips pays a GTA$500,000 bonus, Agencies are 40% off, and three new Kortz Center Heist targets rotate in.",
+    "bonuses": [
+      {
+        "activity": "Halloween Survivals (Ludendorff Cemetery, Cayo Perico, Alien Survivals)",
+        "reward": "3X GTA$ and RP (6X for GTA+)"
+      },
+      {
+        "activity": "Halloween Featured Series (Slasher, including Ramius Slasher)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "San Andreas Super Sport Series (Hotring and Random Transform Races)",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Halloween Community Race Series",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Eight Community Missions",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "The Fine Art File (FIB Priority File)",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Bail Office Standard and Most Wanted Targets",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Dispatch Work",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "UFO Business Battles",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Jack O' Lanterns",
+        "reward": "2X GTA$ and RP (4X for GTA+)"
+      },
+      {
+        "activity": "Ghosts Exposed",
+        "reward": "2X GTA$ (4X for GTA+)"
+      },
+      {
+        "activity": "Weekly Challenge: complete all waves of a Survival",
+        "reward": "GTA$150,000 + Gray Space Interloper Outfit"
+      },
+      {
+        "activity": "Complete Seed Capital, Fire It Up and OG Kush (Short Trips)",
+        "reward": "GTA$500,000 (within 72 hours)"
+      }
+    ],
+    "heistNotes": [
+      "Kortz Center primary targets this week: Stacks Study V, Trust and Brother Brother."
+    ],
+    "discounts": [
+      {
+        "item": "Agencies, including upgrades and modifications",
+        "off": "40%"
+      },
+      {
+        "item": "LCC Sanctus",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Brigham",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Lurcher",
+        "off": "40%"
+      },
+      {
+        "item": "Albany Fränken Stange",
+        "off": "40%"
+      },
+      {
+        "item": "Declasse Tornado Rat Rod",
+        "off": "40%"
+      },
+      {
+        "item": "Pfister Astron",
+        "off": "30%"
+      },
+      {
+        "item": "Bravado Dorado",
+        "off": "30%"
+      },
+      {
+        "item": "Karin Boor",
+        "off": "30%"
+      },
+      {
+        "item": "HVY Dump",
+        "off": "30%"
+      },
+      {
+        "item": "Annis Euros X32",
+        "off": "30%"
+      },
+      {
+        "item": "Canis Freecrawler",
+        "off": "30%"
+      },
+      {
+        "item": "Dinka Veto Classic",
+        "off": "30%"
+      },
+      {
+        "item": "Ocelot Swinger",
+        "off": "30%"
+      },
+      {
+        "item": "Vapid Desert Raid",
+        "off": "30%"
+      },
+      {
+        "item": "Vulcar Nebula Turbo",
+        "off": "30%"
+      },
+      {
+        "item": "Gun Van: Service Carbine",
+        "off": "30%"
+      }
+    ],
+    "podium": "Pfister Comet S2",
+    "prizeRide": "Grotti Itali Classic: place top 2 in the LS Car Meet Series two days in a row",
+    "salvageYard": [
+      "The Duggan Robbery: Ocelot Virtue",
+      "The Cargo Ship Robbery: Albany Fränken Stange",
+      "The McTony Robbery: Vapid Caracara 4x4"
+    ],
+    "events": [
+      "Fourth week of the October Halloween event.",
+      "Play by October 28 for the White & Red Tech Demon Mask.",
+      "Gun Van: The Shocker is free."
+    ],
+    "gtaPlus": [
+      "Gun Van: 50% off the Up-n-Atomizer, Unholy Hellbringer and Widowmaker"
+    ],
+    "pantherGuaranteed": null,
+    "confirmedBy": "third-party",
+    "sources": [
+      "https://timesaver.gg/blog/gta-online-weekly-update-october-22-28-2026",
+      "https://www.sportskeeda.com/gta/gta-online-weekly-update-october-22-28-2026",
+      "https://www.rockstargames.com/newswire/article/39a22k25434a53/experience-halloween-thrills-all-throughout-october-in-gta-online"
+    ]
+  },
+  {
     "start": "2026-10-15",
     "end": "2026-10-21",
     "title": "Halloween Event Week 3: New Kortz Center Targets",
