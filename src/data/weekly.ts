@@ -23,6 +23,107 @@ export interface Week {
 
 export const WEEKS: Week[] = [
   {
+    "start": "2026-11-12",
+    "end": "2026-11-18",
+    "title": "Last Event Week Before GTA VI: 4X Freemode Challenges and New Kortz Center Targets",
+    "summary": "Freemode Challenges pay quadruple, Stunt Races and the Community Series pay triple, and Contact Missions stay doubled. The Kortz Center Heist rotates to a new set of primary targets.",
+    "bonuses": [
+      {
+        "activity": "Freemode Challenges",
+        "reward": "4X GTA$ and RP"
+      },
+      {
+        "activity": "Stunt Race Series",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Community Series",
+        "reward": "3X GTA$ and RP"
+      },
+      {
+        "activity": "Contact Missions (through December 2)",
+        "reward": "2X GTA$ and RP (4X for GTA+)"
+      },
+      {
+        "activity": "Sumo (Remix)",
+        "reward": "2X GTA$ and RP"
+      },
+      {
+        "activity": "Weekly Challenge: win two Stunt Races",
+        "reward": "GTA$100,000"
+      }
+    ],
+    "heistNotes": [
+      "The Kortz Center Heist primary targets this week: In Excess of Success, What are Melons? and Breathless.",
+      "One report says the first-completion bonus resets this week and that finishing the Kortz Center Heist without dying adds GTA$400,000."
+    ],
+    "discounts": [
+      {
+        "item": "Canis Castigator",
+        "off": "30%"
+      },
+      {
+        "item": "Declasse Hotring Sabre",
+        "off": "30%"
+      },
+      {
+        "item": "Declasse Impaler LX",
+        "off": "30%"
+      },
+      {
+        "item": "Declasse Tahoma Coupe",
+        "off": "30%"
+      },
+      {
+        "item": "Dewbauchee Vagner",
+        "off": "30%"
+      },
+      {
+        "item": "Karin Vivanite",
+        "off": "30%"
+      },
+      {
+        "item": "MTL Wastelander",
+        "off": "30%"
+      },
+      {
+        "item": "Obey I-Wagen",
+        "off": "30%"
+      },
+      {
+        "item": "Obey Tailgater S",
+        "off": "30%"
+      },
+      {
+        "item": "Übermacht Rebla GTS",
+        "off": "30%"
+      }
+    ],
+    "podium": "Karin Everon",
+    "prizeRide": "Western Powersurge: place top 4 in an LS Car Meet Race two days in a row",
+    "salvageYard": [
+      "The Gangbanger Robbery: Canis Seminole Frontier",
+      "The McTony Robbery: Karin Hotring Everon",
+      "The Cargo Ship Robbery: Grotti Stinger TT"
+    ],
+    "events": [
+      "FIB Priority File: The Brute Force File, paying double.",
+      "Premium Test Ride: Weeny Issi Rally.",
+      "Premium Race: Down the Drain. Time Trial: Calafia Way. HSW Time Trial: Sandy Shores to La Puerta.",
+      "Gun Van: Baseball Bat and Knife free, Tactical SMG 40% off."
+    ],
+    "gtaPlus": [
+      "Gun Van: 40% off the Combat Shotgun and 80% off Armor",
+      "Two Lucky Wheel spins per 24 hours"
+    ],
+    "pantherGuaranteed": null,
+    "confirmedBy": "third-party",
+    "sources": [
+      "https://www.gtabase.com/gta-online/this-week-bonuses-discounts/",
+      "https://rockstarintel.com/gta-online-event-week-the-heist-event-november-12th-18th/"
+    ]
+  },
+  {
     "start": "2026-11-05",
     "end": "2026-11-11",
     "title": "Heist Event: 2X First-Time Bonuses and a Guaranteed Panther Statue",
