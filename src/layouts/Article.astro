@@ -2,6 +2,7 @@
 import Base from "./Base.astro";
 import Ad from "../components/Ad.astro";
 import { SITE } from "../config";
+import { articles } from "../data/articles";
 
 export interface Faq { q: string; a: string }
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
   sources?: { href: string; label: string }[];
 }
 const { title, description, h1 = title, published, updated = published, crumbs = [], faq = [], tool, sources = [] } = Astro.props;
+const tags = articles.find(a => a.href === Astro.url.pathname)?.tags ?? [];
 const url = new URL(Astro.url.pathname, SITE.url).toString();
 
 const schema: Record<string, unknown>[] = [
@@ -67,6 +69,7 @@ if (tool) {
       <h1>{h1}</h1>
       <p class="lede">{description}</p>
       <p class="byline">By {SITE.author}</p>
+      <nav aria-label="Article tags">{tags.map(tag => <a class="tag" style="margin-right:8px" href={`/guides/?tag=${encodeURIComponent(tag)}#articles`}>{tag}</a>)}</nav>
     </header>
     <Ad />
     <slot name="tool" />

@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import Countdown from "../components/Countdown.astro";
+import LaunchBanner from "../components/LaunchBanner.astro";
 import Ad from "../components/Ad.astro";
 import { SITE } from "../config";
 
@@ -33,6 +33,7 @@ const schema = [{
 }];
 ---
 <Base title={SITE.name} description={SITE.description} schema={schema}>
+  <LaunchBanner />
   <section class="hero">
     <span class="tag">GTA Online · GTA 5 · GTA 6</span>
     <h1>Know your take before the heist starts.</h1>
@@ -46,13 +47,6 @@ const schema = [{
   </div>
 
   <Ad />
-
-  <section class="calc" style="margin-top:32px">
-    <span class="tag gold">GTA 6 · Nov 19, 2026</span>
-    <h2 style="margin-top:8px">GTA 6 unlocks in</h2>
-    <Countdown />
-    <p style="color:var(--muted);margin:0">GTA 6 heist calculators go live once we verify real payouts. Meanwhile: <a href="/gta-6/release-date/">unlock times by region</a> · <a href="/gta-6/preload/">how to preload</a> · <a href="/gta-6/editions/">Standard vs Ultimate</a> · <a href="/gta-6/online/">online at launch?</a> · <a href="/gta-6/heists/">heists in GTA 6</a></p>
-  </section>
 
   <section>
     <h2>Guides</h2>

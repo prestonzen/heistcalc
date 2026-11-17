@@ -1,0 +1,42 @@
+<section class="launch-banner" data-launch-banner hidden aria-label="GTA 6 launch">
+  <span class="tag gold">Next stop: Leonida</span>
+  <h2 data-launch-title>GTA 6 is almost here.</h2>
+  <p data-launch-note>U.S. Eastern countdown · November 19, 2026, 12:00 a.m. EST</p>
+  <div class="launch-clock" data-launch-clock role="timer" aria-label="Time until GTA 6 U.S. Eastern release">
+    {['days', 'hours', 'minutes', 'seconds'].map(unit => <div><b data-digit>00</b><span>{unit}</span></div>)}
+  </div>
+  <a class="launch-cta" href="/gta-6/?tag=GTA+6#articles">Explore GTA 6 guides →</a>
+  <p class="launch-detail">Midnight local unlock varies by region. <a href="/gta-6/release-date/">Check your unlock time</a>.</p>
+</section>
+<noscript><p><a href="/gta-6/?tag=GTA+6#articles">GTA 6 guides and release information →</a></p></noscript>
+<script>
+  import { launchState, remaining } from '../data/launch.mjs';
+  const banner = document.querySelector<HTMLElement>('[data-launch-banner]');
+  if (banner) {
+    const tick = () => {
+      const state = launchState();
+      banner.hidden = state === 'expired';
+      if (state === 'expired') return;
+      const released = state === 'released';
+      banner.querySelector<HTMLElement>('[data-launch-clock]')!.hidden = released;
+      banner.querySelector('[data-launch-title]')!.textContent = released ? 'Welcome to GTA 6.' : 'GTA 6 is almost here.';
+      banner.querySelector('[data-launch-note]')!.textContent = released ? 'The U.S. Eastern launch countdown is over. Find every GTA 6 article in one place.' : 'U.S. Eastern countdown · November 19, 2026, 12:00 a.m. EST';
+      banner.querySelectorAll('[data-digit]').forEach((el, i) => { el.textContent = String(remaining()[i]).padStart(2, '0'); });
+    };
+    tick();
+    const timer = setInterval(() => { tick(); if (launchState() === 'expired') clearInterval(timer); }, 1000);
+    document.addEventListener('visibilitychange', tick);
+  }
+</script>
+<style>
+  .launch-banner { margin: 28px 0; padding: clamp(24px, 5vw, 56px); border: 1px solid #a44083; border-radius: 24px; background: radial-gradient(ellipse at top right, #71365788, transparent 65%), linear-gradient(135deg, #251537, #181c38); text-align: center; }
+  .launch-banner[hidden], .launch-clock[hidden] { display: none; }
+  h2 { font-size: clamp(2rem, 6vw, 4rem); margin: 16px 0; }
+  p { color: var(--muted); }
+  .launch-clock { display: flex; justify-content: center; gap: clamp(12px, 4vw, 48px); margin: 28px 0; }
+  .launch-clock b { display: block; font-size: clamp(2rem, 8vw, 5.5rem); line-height: 1; font-variant-numeric: tabular-nums; color: var(--money); }
+  .launch-clock span { font-size: clamp(.7rem, 2vw, .9rem); text-transform: uppercase; letter-spacing: .08em; }
+  .launch-cta { display: inline-block; padding: 12px 22px; background: var(--accent); color: #fff; border-radius: 999px; font-weight: 700; text-decoration: none; }
+  .launch-cta:hover { background: #b51b61; }
+  .launch-detail { font-size: .85rem; margin-bottom: 0; }
+</style>

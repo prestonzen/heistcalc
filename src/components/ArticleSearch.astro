@@ -1,0 +1,66 @@
+---
+import { articles } from '../data/articles';
+const { defaultTag = '' } = Astro.props;
+const tags = [...new Set(articles.flatMap(a => a.tags))].sort();
+---
+<section id="articles" data-article-search data-default-tag={defaultTag}>
+  <h2>Find an article</h2>
+  <form role="search">
+    <label>Search articles<input name="q" type="search" placeholder="Heists, preload, payouts…" autocomplete="off" /></label>
+    <label>Filter by tag<select name="tag"><option value="">All topics</option>{tags.map(tag => <option selected={tag === defaultTag} value={tag}>{tag}</option>)}</select></label>
+    <button type="submit">Search</button><button type="button" data-clear>Clear</button>
+  </form>
+  <p data-result-count aria-live="polite"></p>
+  <p data-empty hidden>No articles match. Try another search or clear the filters.</p>
+  <div class="cards">
+    {articles.map(a => <a class="card" href={a.href} data-article data-tags={JSON.stringify(a.tags)} data-search={`${a.title} ${a.text} ${a.tags.join(' ')}`.toLowerCase()}>
+      <span class="tag">{a.tags.join(' · ')}</span><h3>{a.title}</h3><p>{a.text}</p>
+    </a>)}
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-article-search]').forEach(root => {
+    const form = root.querySelector('form')!;
+    const query = form.querySelector<HTMLInputElement>('[name=q]')!;
+    const tag = form.querySelector<HTMLSelectElement>('[name=tag]')!;
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-article]')];
+    const filter = () => {
+      const terms = query.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let count = 0;
+      cards.forEach(card => {
+        const tags = JSON.parse(card.dataset.tags!);
+        card.hidden = !(terms.every(term => card.dataset.search!.includes(term)) && (!tag.value || tags.includes(tag.value)));
+        if (!card.hidden) count++;
+      });
+      root.querySelector('[data-result-count]')!.textContent = `${count} article${count === 1 ? '' : 's'}`;
+      root.querySelector<HTMLElement>('[data-empty]')!.hidden = count !== 0;
+    };
+    const read = () => {
+      const params = new URLSearchParams(location.search);
+      query.value = params.get('q') || '';
+      const selected = params.get('tag') ?? root.dataset.defaultTag ?? '';
+      tag.value = [...tag.options].some(o => o.value === selected) ? selected : '';
+      filter();
+    };
+    const save = (push = false) => {
+      const url = new URL(location.href);
+      query.value.trim() ? url.searchParams.set('q', query.value.trim()) : url.searchParams.delete('q');
+      // Keep the explicit empty tag so Clear overrides the GTA 6 default on reload.
+      url.searchParams.set('tag', tag.value);
+      history[push ? 'pushState' : 'replaceState']({}, '', url);
+      filter();
+    };
+    form.addEventListener('submit', event => { event.preventDefault(); save(true); });
+    query.addEventListener('input', () => save());
+    tag.addEventListener('change', () => save(true));
+    root.querySelector('[data-clear]')!.addEventListener('click', () => { query.value = ''; tag.value = ''; save(true); query.focus(); });
+    window.addEventListener('popstate', read);
+    read();
+  });
+</script>
+<style>
+  form { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+  label { display: grid; gap: 6px; flex: 1 1 200px; }
+  input, select { width: 100%; }
+  .card[hidden], [data-empty][hidden] { display: none; }
+</style>

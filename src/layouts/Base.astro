@@ -69,7 +69,7 @@ const siteSchema = {
       </nav>
     </div>
   </header>
-  <a class="launch-bar" id="launch-bar" href="/gta-6/preload/"><span id="launch-msg">How to preload GTA 6: start times, 212 GB, and setup</span><b>Read guide</b></a>
+  <a hidden={Astro.url.pathname === "/"} class="launch-bar" id="launch-bar" href="/gta-6/preload/"><span id="launch-msg">How to preload GTA 6: start times, 212 GB, and setup</span><b>Read guide</b></a>
   <script is:inline>
     (() => {
       const now = Date.now(), launch = new Date(2026, 10, 19).getTime(), open = new Date(2026, 10, 10).getTime();

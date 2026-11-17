@@ -59,3 +59,17 @@ HeistCalc is an unofficial fan project. It is not affiliated with or endorsed by
 ## License
 
 Code: MIT. Written content and data compilation © HeistCalc.
+
+## Launch banner and article discovery
+
+The homepage counts down to **November 19, 2026, 00:00 U.S. Eastern (EST)**,
+then links to `/gta-6/?tag=GTA+6#articles`. It hides on **December 19, 2026,
+00:00 EST**, one calendar month later. These boundaries are centralized in
+`src/data/launch.mjs`; the banner updates without a rebuild. Rockstar confirms
+midnight local unlocks, so the banner labels Eastern explicitly and links to
+regional times: https://support.rockstargames.com/articles/29jV3Cv2cCgvwM1XgtMO5o/grand-theft-auto-vi-regional-pre-load-and-release-times-on-playstation-5-and-xbox-series-x-or-s
+
+Add new articles and tags to `src/data/articles.ts`; weekly updates are included
+automatically from `WEEKS`. `/guides/?tag=GTA+6&q=heists` demonstrates shareable
+filter/search state. The GTA 6 hub defaults to GTA 6 but permits clearing filters.
+Run launch boundary tests with `node --test tests/launch.test.mjs`.
