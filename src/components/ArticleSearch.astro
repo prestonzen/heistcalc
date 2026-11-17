@@ -62,5 +62,9 @@ const tags = [...new Set(articles.flatMap(a => a.tags))].sort();
   form { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
   label { display: grid; gap: 6px; flex: 1 1 200px; }
   input, select { width: 100%; }
+  input, select, button { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--text); padding: 10px 14px; font: inherit; }
+  button { cursor: pointer; font-weight: 600; }
+  button[type="submit"] { background: var(--accent); border-color: var(--accent); color: white; }
+  :is(input, select, button):focus-visible { outline: 2px solid var(--money); outline-offset: 3px; }
   .card[hidden], [data-empty][hidden] { display: none; }
 </style>
