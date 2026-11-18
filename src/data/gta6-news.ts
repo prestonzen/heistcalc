@@ -12,6 +12,14 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-13",
+    title: "Pre-launch update 1.002.000 (about 1 GB) rolls out on PS5 and Xbox",
+    summary: "A roughly 1 GB update, version 1.002.000, reached consoles on November 13, reportedly in waves, with the first half of players getting it about 11 hours before the rest. Rockstar has not published patch notes, so what it changes is unconfirmed; the size reported for Xbox differs between outlets.",
+    confirmed: "reported",
+    sources: ["https://comicbook.com/gaming/news/gta-6-update-patch-notes-1002000/", "https://mp1st.com/?p=318409", "https://www.keengamer.com/articles/news/gta-6-update-1-002-starts-rolling-out-on-ps5-and-xbox-ahead-of-launch/"],
+    href: "/gta-6/preload/",
+  },
+  {
     date: "2026-11-18",
     title: "GTA 6 starts unlocking around the world, beginning in New Zealand",
     summary: "Rockstar confirmed GTA 6 releases at midnight local time on November 19 in every region, so New Zealand gets it first at 11:00 UTC on November 18, with the US Eastern unlock about 18 hours later.",
