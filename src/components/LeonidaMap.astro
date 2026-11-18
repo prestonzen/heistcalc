@@ -42,7 +42,8 @@ import { REGIONS } from "../data/leonida";
     maxBoundsViscosity: 0.8,
   });
   const Tiles = L.TileLayer.extend({
-    getTileUrl: (c: L.Coords) => `/maps/leonida/${c.z}/${c.z},${c.y},${c.x}.jpg`,
+    // Commas pre-encoded: Cloudflare's asset server 307-redirects raw commas to %2C.
+    getTileUrl: (c: L.Coords) => `/maps/leonida/${c.z}/${c.z}%2C${c.y}%2C${c.x}.jpg`,
   });
   // Ocean-only tiles aren't stored; the canvas background is the same ocean blue.
   new (Tiles as any)("", {
