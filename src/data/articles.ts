@@ -39,6 +39,34 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/map/",
+    "title": "GTA 6 Map: Interactive Leonida Map, Regions & Search",
+    "text": "Interactive GTA 6 map of Leonida: zoom in, search 890+ places, show transport hubs, and explore all six regions, from Vice City to Mount Kalaga.",
+    "tags": [
+      "GTA 6",
+      "Maps",
+      "Tools"
+    ]
+  },
+  {
+    "href": "/gta-6/map-size/",
+    "title": "GTA 6 Map Size: Leonida vs GTA 5 & RDR2 in km²",
+    "text": "GTA 6's Leonida is about 83.6 km² of land by our measurement. Compare it to GTA 5, RDR2 and GTA 4 to scale, and see why sites quote such different numbers.",
+    "tags": [
+      "GTA 6",
+      "Maps",
+      "Tools"
+    ]
+  },
+  {
+    "href": "/gta-6/characters/",
+    "title": "GTA 6 Characters: Jason, Lucia & Every Confirmed Name",
+    "text": "Every confirmed GTA 6 character: Jason Duval, Lucia Caminos, Boobie Ike, Dre'Quan Priest, Real Dimez, Raul Bautista and Brian Heder, and how they connect.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/60-fps/",
     "title": "GTA 6 60 FPS? Frame Rate, PS5 Pro & Series S Explained",
     "text": "GTA 6 is expected at 30 FPS on consoles at launch, with 60 FPS undecided. What Rockstar has said, PS5 Pro and Series S expectations, and PS5 DualSense features.",

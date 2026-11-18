@@ -1,0 +1,148 @@
+---
+// Zoomable Leonida map. Base layer: YANIS GTA VI Community Map v18 via gtadb.org (CC BY 4.0),
+// with the legend/credits panel painted out. Places: gtadb.org landmarks (CC BY 4.0).
+// Game coordinates: 32,768-unit world centred on (0,0); tiles are 256 px, 1,024 px wide at zoom 0.
+import "leaflet/dist/leaflet.css";
+import { REGIONS } from "../data/leonida";
+---
+<div class="lmap" data-leonida-map>
+  <div class="lmap-bar">
+    <label class="lmap-search">
+      <span class="sr-only">Search Leonida</span>
+      <input type="search" placeholder="Search 890+ places, e.g. Ocean Beach, airport, Kortz…" autocomplete="off" data-lmap-q />
+    </label>
+    <label class="lmap-toggle"><input type="checkbox" data-lmap-transport /> Transport hubs</label>
+    <button type="button" class="lmap-btn" data-lmap-full aria-pressed="false">Full screen</button>
+  </div>
+  <ul class="lmap-results" data-lmap-results hidden></ul>
+  <div class="lmap-regions" role="group" aria-label="Jump to region">
+    {REGIONS.map((r) => <button type="button" class="lmap-chip" data-lmap-region={r.id}>{r.name}</button>)}
+  </div>
+  <div class="lmap-canvas" data-lmap-canvas role="application" aria-label="Interactive map of Leonida. Drag to pan, scroll or pinch to zoom."></div>
+  <p class="lmap-credit">Community map, not Rockstar's. Base map: <a href="https://map.gtadb.org" rel="noopener">YANIS GTA VI Community Map v18 via gtadb.org</a> (<a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>), legend panel removed. Place data: <a href="https://map.gtadb.org" rel="noopener">gtadb.org</a> and contributors (CC BY 4.0), filtered to named places.</p>
+</div>
+
+<script define:vars={{ regions: REGIONS }}>
+  window.__LEONIDA_REGIONS = regions;
+</script>
+<script>
+  import L from "leaflet";
+
+  const root = document.querySelector<HTMLElement>("[data-leonida-map]")!;
+  const regions = (window as any).__LEONIDA_REGIONS as { id: string; name: string; x: number; y: number; zoom: number }[];
+  // Game (x, y) -> Leaflet lat/lng at zoom 0 (1,024 px across a 32,768-unit world).
+  const ll = (x: number, y: number) => L.latLng(-(16384 - y) / 32, (x + 16384) / 32);
+
+  const map = L.map(root.querySelector<HTMLElement>("[data-lmap-canvas]")!, {
+    crs: L.CRS.Simple,
+    minZoom: 0,
+    maxZoom: 7,
+    zoomSnap: 0.25,
+    attributionControl: false,
+    maxBoundsViscosity: 0.8,
+  });
+  const Tiles = L.TileLayer.extend({
+    getTileUrl: (c: L.Coords) => `/maps/leonida/${c.z}/${c.z},${c.y},${c.x}.jpg`,
+  });
+  // Ocean-only tiles aren't stored; the canvas background is the same ocean blue.
+  new (Tiles as any)("", {
+    minZoom: 0, maxZoom: 7, maxNativeZoom: 5, tileSize: 256, noWrap: true,
+    bounds: L.latLngBounds(ll(-10400, -9400), ll(3700, 10200)),
+    errorTileUrl: "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+  }).addTo(map);
+  // Fit after layout so Leaflet measures the real container size, then limit panning.
+  const ISLAND = L.latLngBounds(ll(-9900, -8600), ll(3300, 9600));
+  map.setView(ISLAND.getCenter(), 1);
+  requestAnimationFrame(() => {
+    map.invalidateSize();
+    map.fitBounds(ISLAND, { padding: [8, 8] });
+    map.setMaxBounds(L.latLngBounds(ll(-12500, -11500), ll(6500, 12500)));
+  });
+
+  // Region labels.
+  for (const r of regions) {
+    L.marker(ll(r.x, r.y), { interactive: false, keyboard: false, icon: L.divIcon({ className: "lmap-label", html: `<span>${r.name}</span>`, iconSize: [0, 0] }) }).addTo(map);
+  }
+  const flyToRegion = (id: string) => {
+    const r = regions.find((g) => g.id === id);
+    if (r) map.flyTo(ll(r.x, r.y), r.zoom, { duration: 0.8 });
+  };
+  root.querySelectorAll<HTMLButtonElement>("[data-lmap-region]").forEach((b) => b.addEventListener("click", () => flyToRegion(b.dataset.lmapRegion!)));
+  document.querySelectorAll<HTMLElement>("[data-show-region]").forEach((b) => b.addEventListener("click", () => {
+    root.scrollIntoView({ behavior: "smooth", block: "start" });
+    flyToRegion(b.dataset.showRegion!);
+  }));
+
+  // Places: lazy-loaded search index.
+  type Row = [string, number, number, string, number];
+  let rows: Row[] = [];
+  const ready = fetch("/maps/leonida/places.json").then((r) => r.json()).then((d) => (rows = d.rows));
+  const pin = L.layerGroup().addTo(map);
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
+  const popup = (r: Row) => `<b>${esc(r[0].split(", ")[0])}</b><br>${esc(r[0].split(", ").slice(1).join(", "))}${r[4] ? "<br><em>Enterable</em>" : ""}`;
+  const show = (r: Row) => {
+    pin.clearLayers();
+    L.circleMarker(ll(r[1], r[2]), { radius: 9, color: "#fff", weight: 3, fillColor: "#ff3d8b", fillOpacity: 1 }).bindPopup(popup(r)).addTo(pin).openPopup();
+    map.flyTo(ll(r[1], r[2]), Math.max(map.getZoom(), 5), { duration: 0.8 });
+  };
+
+  const q = root.querySelector<HTMLInputElement>("[data-lmap-q]")!;
+  const list = root.querySelector<HTMLUListElement>("[data-lmap-results]")!;
+  let matches: Row[] = [];
+  q.addEventListener("input", async () => {
+    await ready;
+    const terms = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    matches = terms.length ? rows.filter((r) => terms.every((t) => r[0].toLowerCase().includes(t) || r[3].startsWith(t))).slice(0, 12) : [];
+    list.innerHTML = matches.map((r, i) => `<li><button type="button" data-i="${i}">${esc(r[0])}</button></li>`).join("");
+    list.hidden = matches.length === 0;
+  });
+  q.addEventListener("keydown", (e) => { if (e.key === "Enter" && matches[0]) { e.preventDefault(); show(matches[0]); list.hidden = true; } });
+  list.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-i]");
+    if (b) { show(matches[+b.dataset.i!]); list.hidden = true; }
+  });
+
+  // Transport hubs layer (airports, stations, ports, bus terminals).
+  const transport = L.layerGroup();
+  root.querySelector<HTMLInputElement>("[data-lmap-transport]")!.addEventListener("change", async (e) => {
+    const on = (e.target as HTMLInputElement).checked;
+    if (on && !transport.getLayers().length) {
+      await ready;
+      rows.filter((r) => r[3] === "transportation").forEach((r) =>
+        L.circleMarker(ll(r[1], r[2]), { radius: 6, color: "#120a1c", weight: 2, fillColor: "#ffd34d", fillOpacity: 1 }).bindPopup(popup(r)).addTo(transport));
+    }
+    on ? transport.addTo(map) : transport.remove();
+  });
+
+  // Full screen (CSS-based so it works on iOS too).
+  const full = root.querySelector<HTMLButtonElement>("[data-lmap-full]")!;
+  full.addEventListener("click", () => {
+    const on = root.classList.toggle("is-full");
+    full.setAttribute("aria-pressed", String(on));
+    full.textContent = on ? "Exit full screen" : "Full screen";
+    document.documentElement.style.overflow = on ? "hidden" : "";
+    setTimeout(() => map.invalidateSize(), 50);
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && root.classList.contains("is-full")) full.click(); });
+</script>
+
+<style is:global>
+  .lmap { margin: 8px 0 28px; }
+  .lmap-bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 8px; }
+  .lmap-search { flex: 1 1 260px; }
+  .lmap-search input { width: 100%; padding: 10px 12px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 10px; font: 1rem Inter, sans-serif; }
+  .lmap-toggle { color: var(--muted); font-size: .92rem; display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .lmap-btn, .lmap-chip { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font: 500 .9rem Inter, sans-serif; cursor: pointer; }
+  .lmap-btn:hover, .lmap-chip:hover { border-color: var(--accent); }
+  .lmap-regions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .lmap-results { list-style: none; margin: 0 0 8px; padding: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; max-height: 240px; overflow: auto; }
+  .lmap-results button { width: 100%; text-align: left; background: none; border: 0; color: var(--text); padding: 8px 10px; border-radius: 8px; font: .95rem Inter, sans-serif; cursor: pointer; }
+  .lmap-results button:hover, .lmap-results button:focus { background: var(--panel-2); }
+  .lmap-canvas { height: min(72vh, 720px); border-radius: 14px; border: 1px solid var(--line); background: #2c68a6; overflow: hidden; }
+  .lmap-credit { font-size: .78rem; color: var(--muted); margin: 8px 0 0; }
+  .lmap.is-full { position: fixed; inset: 0; z-index: 50; margin: 0; padding: 12px; background: var(--bg); display: flex; flex-direction: column; }
+  .lmap.is-full .lmap-canvas { flex: 1; height: auto; }
+  .lmap-label span { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; font: 800 13px/1 Inter, sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #fff; text-shadow: 0 0 3px #000, 0 1px 6px #000; pointer-events: none; }
+  .leaflet-popup-content { font: .92rem/1.4 Inter, sans-serif; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>

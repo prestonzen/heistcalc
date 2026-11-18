@@ -1,0 +1,58 @@
+---
+import Article from "../../layouts/Article.astro";
+import LeonidaMap from "../../components/LeonidaMap.astro";
+import { REGIONS, LAND_KM2 } from "../../data/leonida";
+
+const faq = [
+  { q: "Is there a GTA 6 map?", a: "Rockstar is adding an official printable Leonida map to its GTA VI site on November 19, 2026. Until then, the most detailed map is the YANIS community map, pieced together from trailers and screenshots, which you can zoom and search on this page." },
+  { q: "What are the regions in GTA 6?", a: "Rockstar has confirmed six: Vice City, Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia and Mount Kalaga." },
+  { q: "How big is the GTA 6 map?", a: `Rockstar hasn't given a figure in square kilometres, only that Leonida is about twice the size of GTA V's map. Measured on the latest community map, Leonida has about ${LAND_KM2} km² of land and stretches roughly 16.6 km north to south.` },
+  { q: "Is GTA 6 based on Florida?", a: "Yes. Leonida is a fictional take on Florida: Vice City mirrors Miami, the Leonida Keys mirror the Florida Keys and Grassrivers mirrors the Everglades. Rockstar has said the map isn't one-to-one life size." },
+  { q: "Where does Jason live in GTA 6?", a: "In the Leonida Keys. Rockstar says Jason ended up in the Keys working for local drug runners, living rent-free at a property owned by smuggler Brian Heder." },
+];
+---
+<Article
+  title="GTA 6 Map: Interactive Leonida Map, Regions & Search"
+  h1="GTA 6 Map: Zoom and Search All of Leonida"
+  description="Interactive GTA 6 map of Leonida: zoom in, search 890+ places, show transport hubs, and explore all six regions, from Vice City to Mount Kalaga."
+  published="2026-11-18"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  tool={{ name: "Interactive GTA 6 Leonida Map", category: "ReferenceApplication" }}
+  sources={[
+    { href: "https://www.rockstargames.com/VI/only-in-leonida", label: "Rockstar Games: Only in Leonida (official regions)" },
+    { href: "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10", label: "Rockstar Newswire: official printable map on November 19" },
+    { href: "https://map.gtadb.org", label: "gtadb.org: GTA VI landmarks and map tiles (CC BY 4.0)" },
+    { href: "https://github.com/rolux/gtadb.org", label: "gtadb.org source and data licence" },
+  ]}
+>
+  <section slot="tool">
+    <LeonidaMap />
+  </section>
+
+  <p><strong>This is the most detailed GTA 6 map available before launch:</strong> the community-built YANIS map, assembled frame by frame from every trailer and screenshot. Drag to pan, scroll or pinch to zoom, and search for any of 890+ named places. Rockstar posts its own official map on launch day, and we'll add it here.</p>
+
+  <div class="callout"><p><strong>Not official.</strong> The community map is an estimate, and some places won't match the final game. Rockstar has also said Leonida isn't drawn one-to-one with real life. Treat exact positions as approximate until people have mapped the real game.</p></div>
+
+  <h2>The six regions of Leonida</h2>
+  <p>Rockstar's official site names six regions. Here's each one in brief, with the real place it mirrors.</p>
+  {REGIONS.map((r) => (
+    <>
+      <h3 id={r.id}>{r.name}</h3>
+      <p>{r.summary} <span class="muted-sm">Real-world model: {r.inspiredBy}.</span></p>
+      <p><button type="button" class="lmap-chip" data-show-region={r.id}>Show {r.name} on the map</button></p>
+    </>
+  ))}
+
+  <h2>How big is Leonida?</h2>
+  <p>Rockstar hasn't given a number in square kilometres, only comparisons, mainly "about twice GTA V". On the community map we measure about <strong>{LAND_KM2} km² of land</strong>, roughly <strong>16.6 km from north to south</strong> and <strong>11.6 km from east to west</strong>. See the full breakdown, and why different sites quote very different figures, in our <a href="/gta-6/map-size/">GTA 6 map size comparison</a>.</p>
+
+  <h2>Getting around</h2>
+  <p>Switch on <strong>Transport hubs</strong> above to see the airports, stations, ports and bus terminals the community has identified so far. The map also shows highways, the Metrorail and Metromover lines. We'll add verified travel times between regions and fast-travel details once the game is out.</p>
+
+  <h2>Official map on launch day</h2>
+  <p>On November 19, Rockstar is adding a free printable cover-art poster and Leonida map to its GTA VI site, plus a double-sided print from the Rockstar Store. We'll add the official map here as soon as it's live, and update the community map as the real game is mapped.</p>
+
+  <h2>More GTA 6</h2>
+  <p><a href="/gta-6/characters/">Characters</a> · <a href="/gta-6/release-date/">Unlock times</a> · <a href="/gta-6/heists/">Heists in GTA 6</a> · <a href="/gta-6/preload/">Preload guide</a></p>
+</Article>

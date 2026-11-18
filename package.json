@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.8",
+    "leaflet": "^1.9.4",
     "wrangler": "^4.151.0"
   },
   "private": true
