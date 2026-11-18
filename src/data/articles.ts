@@ -39,6 +39,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/news/",
+    "title": "GTA 6 News: Live Updates, Confirmed Facts & Launch Info",
+    "text": "The latest GTA 6 news, checked hourly through launch: official Rockstar announcements, patches, map, cheats and more, each marked confirmed or reported.",
+    "tags": [
+      "GTA 6",
+      "News"
+    ]
+  },
+  {
     "href": "/gta-6/map/",
     "title": "GTA 6 Map: Interactive Leonida Map, Regions & Search",
     "text": "Interactive GTA 6 map of Leonida: zoom in, search 890+ places, show transport hubs, and explore all six regions, from Vice City to Mount Kalaga.",

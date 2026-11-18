@@ -1,0 +1,38 @@
+---
+import Article from "../../layouts/Article.astro";
+import { NEWS } from "../../data/gta6-news";
+
+const fmt = (d: string) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, "");
+const faq = [
+  { q: "How often is this GTA 6 news page updated?", a: "We check Rockstar's Newswire, support site and major gaming outlets every hour during the launch period, and add confirmed developments as soon as we find them." },
+  { q: "What's the difference between confirmed and reported?", a: "Confirmed items come straight from Rockstar, PlayStation or Xbox. Reported items come from at least two reputable outlets but haven't been confirmed by Rockstar yet." },
+];
+---
+<Article
+  title="GTA 6 News: Live Updates, Confirmed Facts & Launch Info"
+  h1="GTA 6 News: Live Updates"
+  description="The latest GTA 6 news, checked hourly through launch: official Rockstar announcements, patches, map, cheats and more, each marked confirmed or reported, with sources."
+  published="2026-11-18"
+  updated={NEWS[0]?.date}
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+>
+  <p>Every meaningful GTA 6 development, newest first. <strong>Confirmed</strong> means it came straight from Rockstar, PlayStation or Xbox. <strong>Reported</strong> means at least two reputable outlets have it, but Rockstar hasn't confirmed it. We don't post leaks or single-source rumors.</p>
+  <ol class="news-feed">
+    {NEWS.map((n) => (
+      <li>
+        <p class="news-meta"><time datetime={n.date}>{fmt(n.date)}</time> · <span class={`tag ${n.confirmed === "rockstar" ? "gold" : ""}`}>{n.confirmed === "rockstar" ? "Confirmed" : "Reported"}</span></p>
+        <h2>{n.href ? <a href={n.href}>{n.title}</a> : n.title}</h2>
+        <p>{n.summary}</p>
+        <p class="muted-sm">Source{n.sources.length > 1 ? "s" : ""}: {n.sources.map((s, i) => <>{i > 0 && " · "}<a href={s} rel="noopener">{host(s)}</a></>)}</p>
+      </li>
+    ))}
+  </ol>
+  <style>
+    .news-feed { list-style: none; padding: 0; margin: 0; }
+    .news-feed li { border-top: 1px solid var(--line); padding: 18px 0 6px; }
+    .news-feed h2 { margin: 6px 0 8px; font-size: 1.25rem; }
+    .news-meta { margin: 0; color: var(--muted); font-size: .88rem; }
+  </style>
+</Article>

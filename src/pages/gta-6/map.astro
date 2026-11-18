@@ -1,6 +1,7 @@
 ---
 import Article from "../../layouts/Article.astro";
 import LeonidaMap from "../../components/LeonidaMap.astro";
+import OfficialMap from "../../components/OfficialMap.astro";
 import { REGIONS, LAND_KM2 } from "../../data/leonida";
 
 const faq = [
@@ -50,8 +51,9 @@ const faq = [
   <h2>Getting around</h2>
   <p>Switch on <strong>Transport hubs</strong> above to see the airports, stations, ports and bus terminals the community has identified so far. The map also shows highways, the Metrorail and Metromover lines. We'll add verified travel times between regions and fast-travel details once the game is out.</p>
 
-  <h2>Official map on launch day</h2>
+  <h2 id="official-map">Rockstar's official map</h2>
   <p>On November 19, Rockstar is adding a free printable cover-art poster and Leonida map to its GTA VI site, plus a double-sided print from the Rockstar Store. We'll add the official map here as soon as it's live, and update the community map as the real game is mapped.</p>
+  <OfficialMap />
 
   <h2>More GTA 6</h2>
   <p><a href="/gta-6/characters/">Characters</a> · <a href="/gta-6/release-date/">Unlock times</a> · <a href="/gta-6/heists/">Heists in GTA 6</a> · <a href="/gta-6/preload/">Preload guide</a></p>

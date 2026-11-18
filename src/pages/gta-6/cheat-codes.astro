@@ -1,5 +1,8 @@
 ---
 import Article from "../../layouts/Article.astro";
+import { CHEATS, CHEATS_HOW } from "../../data/gta6-cheats";
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, "");
+const label = { rockstar: "Rockstar", reported: "Reported", tested: "Tested by us" };
 const faq = [
   { q: "Are there cheat codes in GTA 6?", a: "Not confirmed yet. Every mainline GTA game has had single-player cheat codes, but Rockstar hasn't said anything about GTA 6 cheats. We'll publish the verified list after launch." },
   { q: "Will GTA 6 cheats disable trophies or achievements?", a: "In GTA 5, using cheats disabled trophies, achievements and saving for that session. If GTA 6 follows the same pattern, expect the same restriction." },
@@ -14,7 +17,20 @@ const faq = [
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
 >
-  <div class="callout"><p><strong>No GTA 6 cheat codes are confirmed yet.</strong> The game launches November 19, 2026. We'll test codes on PS5 and add the verified list here. We won't post rumored or fake codes.</p></div>
+  {CHEATS.length === 0 ? (
+    <div class="callout"><p><strong>No GTA 6 cheat codes are confirmed yet.</strong> The game launches November 19, 2026. We check for new codes every hour and add them as soon as they're verified. We won't post rumored or fake codes.</p></div>
+  ) : (
+    <>
+      <h2>All verified GTA 6 cheat codes</h2>
+      {CHEATS_HOW && <p>{CHEATS_HOW}</p>}
+      <div class="table-scroll"><table>
+        <thead><tr><th>Effect</th><th>PS5</th><th>Xbox</th>{CHEATS.some((c) => c.phone) && <th>Phone</th>}<th>Status</th></tr></thead>
+        <tbody>{CHEATS.map((c) => (
+          <tr><td><strong>{c.effect}</strong>{c.notes && <><br /><small>{c.notes}</small></>}</td><td>{c.ps5 ?? "-"}</td><td>{c.xbox ?? "-"}</td>{CHEATS.some((x) => x.phone) && <td>{c.phone ?? "-"}</td>}<td>{label[c.verified]}<br /><small>{c.sources.map((u, i) => <>{i > 0 && " · "}<a href={u} rel="noopener">{host(u)}</a></>)}</small></td></tr>
+        ))}</tbody>
+      </table></div>
+    </>
+  )}
 
   <h2>Will GTA 6 have cheats?</h2>
   <p>Probably. Every mainline Grand Theft Auto game has shipped with single-player cheats, from GTA III's button codes to GTA 5's phone numbers. Rockstar hasn't confirmed anything for GTA 6 yet.</p>

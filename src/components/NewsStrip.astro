@@ -1,0 +1,15 @@
+---
+// Latest GTA 6 news on the hub. Data: src/data/gta6-news.ts (updated by the launch watcher routine).
+import { NEWS } from "../data/gta6-news";
+const latest = NEWS.slice(0, 3);
+---
+{latest.length > 0 && (
+  <section class="calc" aria-labelledby="latest-news">
+    <span class="tag gold">Checked hourly through launch</span>
+    <h2 id="latest-news" style="margin-top:8px">Latest GTA 6 news</h2>
+    <ul style="margin:0;padding-left:18px">
+      {latest.map((n) => <li style="margin:6px 0"><a href={n.href ?? "/gta-6/news/"}>{n.title}</a> <span class="muted-sm">({n.confirmed === "rockstar" ? "confirmed" : "reported"})</span></li>)}
+    </ul>
+    <p style="margin:10px 0 0"><a href="/gta-6/news/">All GTA 6 news →</a></p>
+  </section>
+)}

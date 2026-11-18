@@ -1,0 +1,31 @@
+---
+// Rockstar's official Leonida map, shown only once src/data/official-map.ts has an image we may share.
+import "leaflet/dist/leaflet.css";
+import { OFFICIAL_MAP } from "../data/official-map";
+const m = OFFICIAL_MAP;
+---
+{m.image ? (
+  <div class="omap">
+    <div class="omap-canvas" data-omap data-src={m.image} data-w={m.width} data-h={m.height} role="application" aria-label="Rockstar's official map of Leonida. Drag to pan, scroll or pinch to zoom."></div>
+    <p class="lmap-credit">{m.note} {m.page && <a href={m.page} rel="noopener">Download from Rockstar</a>}</p>
+  </div>
+) : m.page ? (
+  <p><a class="lmap-chip" href={m.page} rel="noopener">Get Rockstar's official printable map →</a></p>
+) : (
+  <p class="muted-sm">Rockstar's official map is due on launch day. It'll appear here as soon as it's out.</p>
+)}
+
+<script>
+  import L from "leaflet";
+  const el = document.querySelector<HTMLElement>("[data-omap]");
+  if (el) {
+    const w = +el.dataset.w!, h = +el.dataset.h!;
+    const map = L.map(el, { crs: L.CRS.Simple, minZoom: -5, maxZoom: 2, zoomSnap: 0.25, attributionControl: false });
+    const bounds = L.latLngBounds([0, 0], [h, w]);
+    L.imageOverlay(el.dataset.src!, bounds).addTo(map);
+    requestAnimationFrame(() => { map.invalidateSize(); map.fitBounds(bounds); map.setMaxBounds(bounds.pad(0.2)); });
+  }
+</script>
+<style is:global>
+  .omap-canvas { height: min(72vh, 720px); border-radius: 14px; border: 1px solid var(--line); background: #0e1622; }
+</style>
