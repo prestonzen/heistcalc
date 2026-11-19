@@ -10,7 +10,7 @@ const SITE = "https://heistcalc.com";
 // Search Console HTML-file verification (served by the Worker because static assets 307 away from .html).
 const GSC_FILES = ["googled57078d3b0c41bb7.html"];
 // IndexNow (Bing, Yandex, Seznam, Naver): the key file must be served at /<key>.txt.
-const INDEXNOW_KEY = "1d2d41c2967e7f085c877da42aced1ea";
+const INDEXNOW_KEY = "ff8a70bcd34dc4fdc7e5561f3b67c602";
 const WEBHOOK_RE = /^https:\/\/(?:ptb\.|canary\.)?discord(?:app)?\.com\/api\/webhooks\/(\d{17,20})\/([\w-]{60,80})$/;
 const MAX_PENDING = 20;
 const MAX_AHEAD = 8 * 86_400_000;

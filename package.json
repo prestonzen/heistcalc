@@ -4,9 +4,9 @@
   "description": "Heist payout calculators and guides for every Grand Theft Auto game.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/indexnow.mjs prepare",
     "preview": "wrangler dev --port 8788",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy && node scripts/indexnow.mjs submit"
   },
   "type": "module",
   "dependencies": {

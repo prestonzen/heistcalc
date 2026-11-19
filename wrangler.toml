@@ -1,4 +1,5 @@
 name = "heistcalc"
+account_id = "f19d27cc74917ce2597bf6b423f94aff"
 main = "worker/index.js"
 compatibility_date = "2025-09-01"
 workers_dev = true
