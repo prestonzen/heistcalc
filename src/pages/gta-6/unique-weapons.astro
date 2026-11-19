@@ -1,0 +1,100 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const found = [
+  ["Crabshack VF5 SMG", "Boathouse at the crab research outpost, Pelican Valley (code 0212 from the outpost safe)", "2+ sources"],
+  ["Assassin Nipper .38", "Derelict spy vessel at the southern tip of the southeastern Permit Keys island", "2+ sources"],
+  ["Smuggler Gorse 425 shotgun", "Abandoned smuggler boat on the northernmost Permit Keys island", "2+ sources"],
+  ["Gun Nut SMS 1 sniper", "A house in south Key Lento", "1 source"],
+  ["Patriarch DRX pistol", "Underwater by a car wreck, south of Kalaga Reservoir", "1 source"],
+  ["Marabunta Grande Hobo Shotgun", "Industrial storage building south of Hamlet (follow the screaming)", "1 source"],
+];
+const gangOps = [
+  ["Clunker 556", "Brooks Boatworks"],
+  ["Chromium W-10 SMG", "La Perle Trap House"],
+  ["Kingfishers W-22", "Fishing Shacks"],
+  ["Kolt & Associates 556", "Port Gellhorn Stash House"],
+  ["Gutterball Moreland 850", "Kingpin Bowling"],
+  ["Scrapper VF5C", "La Cascara Motel"],
+  ["Kingfishers Akulus revolver", "Sunrise RV Park"],
+  ["La Polilla Negra KZ-59", "Palmer Fishing Warehouse"],
+  ["Final Chapter KVGA-12", "Irons Building Supply"],
+  ["Shortstraw shotgun", "Hog Stars Garage"],
+  ["Ride Free H&L .38", "Biker Hideout"],
+  ["Guardia Brothers FRA", "Casa Guardia"],
+  ["Guardian ES18", "Saber Shipping Yard"],
+  ["Guardia Brothers VF5", "Saber Shipping Facility"],
+  ["San4San K17", "Sound4Sound Studio"],
+  ["PTT Youngin$ K17", "Kamar Devon Community Center"],
+  ["Marabunta Grande KZ-59 (plus a gold-plated AK)", "Nova Auto Junkyard"],
+  ["Marabunta Grande Type 9", "M7 Weed Grow"],
+];
+const bought = [
+  ["Mahi Nipper .38", "$1,160", "Only at Chuck's Tackle & Shot (Key Lento)"],
+  ["Shrewsbury SMS-01 sniper", "$2,150", "Unlocks after Bret Vogel's 9th hunting quest (questline starts in Ch. 2)"],
+  ["Nightmare KZ-59", "$2,630", "Gold on every Rodgers Ranch shooting range"],
+  ["Hillinger Boomer grenade launcher", "$12,000", "\"Expanded\" Ammu-Nations only"],
+  ["Deever Tech GLR40 grenade launcher", "$15,500", "\"Expanded\" Ammu-Nations only"],
+  ["Hauners H-AT rocket launcher", "$16,000", "\"Expanded\" Ammu-Nations only"],
+];
+const faq = [
+  { q: "How many unique weapons are in GTA 6?", a: "About 130 unique weapon variants, according to completion guides (IGN reportedly counts 127 plus 2 Ultimate Edition extras). They aren't required for 100% completion." },
+  { q: "What happens if I lose a unique weapon in GTA 6?", a: "You can get it back from the weapon locker at any Ammu-Nation. Picking up a unique weapon unlocks it for both Jason and Lucia." },
+  { q: "Can you modify unique weapons in GTA 6?", a: "No. Unique weapons are marked with a gold icon and can't be modified." },
+  { q: "Where do you get a rocket launcher in GTA 6?", a: "The Hauners H-AT is sold for $16,000 at \"Expanded\" Ammu-Nation stores, alongside two grenade launchers ($12,000 and $15,500)." },
+  { q: "Where is the Crabshack SMG in GTA 6?", a: "In the boathouse at the end of the dock at the Pelican Valley crab research outpost. The door code, 0212, is inside the outpost safe (0072)." },
+];
+---
+<Article
+  title="GTA 6 Unique Weapons: Locations & How to Get Them"
+  h1="GTA 6 Unique Weapons and Where to Find Them"
+  description="Where to find GTA 6's unique weapons: the Crabshack SMG, Permit Keys boat guns, every gang operation reward, and the launchers and snipers you can buy."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.respec.net/guide/319-gta6-gang-operations-locations-list-robbery-opportunity-rewards", label: "respec.net: gang operation rewards" },
+    { href: "https://www.noobfeed.com/articles/gta-6-early-game-guns", label: "NoobFeed: early game guns" },
+    { href: "https://www.thebiglead.com/gta-6-pelican-valley-crab-research-outpost-computer-password-keypad-codes/", label: "The Big Lead: crab research outpost" },
+    { href: "https://gamerhour.net/guides/gta-6-pelican-valley-outpost-puzzle-solution/", label: "GamerHour: Pelican Valley outpost" },
+    { href: "https://meowdb.com/gta6/weapons", label: "meowdb: GTA 6 weapons" },
+    { href: "https://games.gg/grand-theft-auto-vi/guides/gta-6-weapon-guide/", label: "games.gg: weapon guide" },
+    { href: "https://www.powerpyx.com/gta-6-how-to-get-grenade-launcher-rocket-launcher/", label: "PowerPyx: grenade and rocket launchers" },
+    { href: "https://www.powerpyx.com/gta-6-how-to-get-sniper-rifle/", label: "PowerPyx: sniper rifle" },
+    { href: "https://www.powerpyx.com/gta-6-how-to-get-ultimate-edition-rewards/", label: "PowerPyx: Ultimate Edition rewards" },
+  ]}
+>
+  <p>GTA 6 hides about 130 unique weapon variants around Leonida: guns stashed on wrecks, rewards for clearing gang operations, and a few you can only buy. Here's where the ones found so far are.</p>
+
+  <h2>How unique weapons work</h2>
+  <ul>
+    <li><strong>Gold icon:</strong> unique weapons are marked in gold and <strong>can't be modified</strong>.</li>
+    <li><strong>Shared:</strong> picking one up unlocks it for both Jason and Lucia.</li>
+    <li><strong>Lost it?</strong> Get it back from the weapon locker at any Ammu-Nation.</li>
+    <li><strong>Long guns</strong> are stored in your car's trunk.</li>
+  </ul>
+
+  <h2>Hidden in the world</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Weapon</th><th>Where</th><th>Confirmed by</th></tr></thead>
+    <tbody>{found.map(([w, l, s]) => <tr><td><strong>{w}</strong></td><td>{l}</td><td><small>{s}</small></td></tr>)}</tbody>
+  </table></div>
+
+  <h2>Gang operation rewards</h2>
+  <p>Clearing a gang operation (a robbery opportunity at a hideout) rewards a unique weapon. These come from one detailed list. Clunker 556, Chromium W-10 and Kingfishers W-22 are confirmed by a second source.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Weapon</th><th>Gang operation</th></tr></thead>
+    <tbody>{gangOps.map(([w, l]) => <tr><td><strong>{w}</strong></td><td>{l}</td></tr>)}</tbody>
+  </table></div>
+  <p>Need a hideout safe code? Brooks Boatworks is 6823, La Cascara Motel 6969 and Kingpin Bowling 0300. See all <a href="/gta-6/safe-codes/">GTA 6 safe codes</a>.</p>
+
+  <h2>Weapons you buy</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Weapon</th><th>Price</th><th>Requirement</th></tr></thead>
+    <tbody>{bought.map(([w, p, r]) => <tr><td><strong>{w}</strong></td><td>{p}</td><td>{r}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Launcher prices come from a single completion guide.</small></p>
+
+  <h2>Ultimate Edition weapons</h2>
+  <p>The Ultimate Edition adds the <strong>Hawk &amp; Little Morgan</strong> revolvers and personalized pistols for each lead: a Girardi ES9 for Jason and a Klose K17 for Lucia. Guides disagree on the pistols' names ("Duval Signature ES9" and "Caminos Signature K17" in one). Claim the pistols from the Ammu-Nation weapon locker and buy the revolvers from the clerk. See <a href="/gta-6/editions/">Standard vs Ultimate</a>.</p>
+</Article>

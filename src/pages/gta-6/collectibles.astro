@@ -1,0 +1,85 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [type, total, needed for 100%]
+const rows = [
+  ["Collectible cards", "480 (18 sets)", "15 sets"],
+  ["WAiNK scans", "Reports vary (89–108)", "100"],
+  ["Underwater discoveries", "33", "33"],
+  ["Magazines, books & comics", "34 (27 items + 7 book swaps)", "30"],
+  ["Meditation spots", "18", "15"],
+  ["Cocaine flamingos", "125", "100"],
+  ["Unique playlists", "2", "2"],
+  ["Styles", "79 (34 are luxury watches)", "70"],
+  ["Stunts", "397 (130 jumps, 202 under-bridge, 40 knife flights, 25 base jumps)", "300"],
+  ["Basketball hoops", "100", "90"],
+  ["Animals", "255", "100"],
+  ["Base vehicle models", "277", "200"],
+  ["Standard weapons", "66", "50"],
+  ["Kenton treasure sets", "7", "5"],
+  ["Bret's target decks", "15", "15"],
+  ["Challenges", "80", "70"],
+  ["Drone time trials", "42", "42"],
+  ["Shooting range golds", "42", "42"],
+  ["Unique races", "40", "30"],
+  ["Race challenge golds", "13", "10"],
+];
+const trophies = [
+  ["Don't Touch My Deck", "Complete 3 card sets"],
+  ["You WAiNKer!", "100 WAiNK scans"],
+  ["Cunning Stunts", "250 stunts"],
+  ["Positive Mental Attitude", "Every meditation spot (one in Jason's house in Ch. 1 may be missable)"],
+  ["Whip It Good", "100 vehicles"],
+  ["One Last Thing", "50 challenges"],
+  ["A Long Road (Gold)", "100% completion"],
+];
+const faq = [
+  { q: "How many collectibles are in GTA 6?", a: "The in-game progress database has around 3,000 entries, including 480 collectible cards, 397 stunts, 255 animals, 125 cocaine flamingos and 100 basketball hoops. You don't need all of them for 100%." },
+  { q: "What do you get for 100% in GTA 6?", a: "The A Long Road gold trophy. No cash or item reward for completing any collectible category has been reported." },
+  { q: "How many trophies does GTA 6 have?", a: "55: 1 Platinum (Vice Got a Price!), 2 Gold, 6 Silver and 46 Bronze. There are no online trophies. Guides estimate around 200 hours to Platinum." },
+  { q: "Can you sell GTA 6 collectible cards?", a: "Yes. Duplicate cards sell at pawn shops and you keep the original in your collection. Shooting a cocaine flamingo drops a package you can sell to a fence." },
+  { q: "Are any GTA 6 collectibles missable?", a: "One meditation spot, at Jason's house in Chapter 1, may be missable. Do it while you're there." },
+];
+---
+<Article
+  title="GTA 6 Collectibles & 100% Checklist: Every Total"
+  h1="GTA 6 Collectibles and 100% Completion"
+  description="How many collectibles GTA 6 has and how many you need for 100%: 480 cards, 125 cocaine flamingos, 397 stunts, 33 underwater finds, plus the 55-trophy list."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.powerpyx.com/gta-6-collectible-guide-progress-database/", label: "PowerPyx: collectible progress database" },
+    { href: "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/", label: "PowerPyx: 100% completion checklist" },
+    { href: "https://vicecitydb.org/collectibles", label: "Vice City DB: collectibles" },
+    { href: "https://vicecheats.com/guides/gta-6-collectibles/", label: "VICE Cheats: collectibles" },
+    { href: "https://gmtreks.com/gta6/page/01M7R0QZ7X2YFSP9GFEPQ5ADDV", label: "gmtreks: card sets" },
+    { href: "https://www.thebiglead.com/gta-6-collectibles-guide-cards-styles-meteorite-chunks-landmark-scans/", label: "The Big Lead: collectibles guide" },
+    { href: "https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/", label: "PowerPyx: trophy guide and roadmap" },
+    { href: "https://www.gtabase.com/articles/gta-6/gta-6-achievements-trophies-list-ps5-xbox-series", label: "GTABase: trophy and achievement list" },
+  ]}
+>
+  <p>GTA 6's progress database tracks around <strong>3,000 entries</strong>. The good news: 100% completion only needs part of each category. Here's every total and the number you actually need.</p>
+
+  <h2>Every collectible and what 100% needs</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Type</th><th>Total</th><th>Needed for 100%</th></tr></thead>
+    <tbody>{rows.map(([t, n, r]) => <tr><td><strong>{t}</strong></td><td>{n}</td><td>{r}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Not required for 100%: Wyman's Cars (5), Girlypop vehicles (16), standout vehicles (about 280) and unique weapon variants (about 130). Some counts differ between guides: magazines (27 vs 34 with book swaps), WAiNK scans (89 vs 108), gang operations (39 vs 40) and shooting ranges (12 vs 14).</small></p>
+
+  <h2>Collectibles that make money</h2>
+  <ul>
+    <li><strong>Cards:</strong> sell duplicates at pawn shops and keep the original. One guide puts Bronze at $20–50, Silver $100–300 and Gold $500–1,000+.</li>
+    <li><strong>Cocaine flamingos:</strong> shooting one drops a package you can sell to a fence.</li>
+    <li><strong>Shipwreck treasure:</strong> sell finds to Kenton at Island Dreams.</li>
+  </ul>
+  <p>More ways to earn: <a href="/gta-6/make-money/">GTA 6 money guide</a>.</p>
+
+  <h2>Collectible trophies</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Trophy</th><th>Requirement</th></tr></thead>
+    <tbody>{trophies.map(([t, r]) => <tr><td><strong>{t}</strong></td><td>{r}</td></tr>)}</tbody>
+  </table></div>
+  <p>GTA 6 has <strong>55 trophies</strong>: 1 Platinum (<em>Vice Got a Price!</em>), 2 Gold, 6 Silver and 46 Bronze, with no online trophies. Guides estimate about 200 hours to Platinum. Using <a href="/gta-6/cheat-codes/">cheat codes</a> disables trophies for that session.</p>
+</Article>

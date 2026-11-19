@@ -1,0 +1,60 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [method, reported payout, when it unlocks, confidence]
+const methods = [
+  ["Jewelry store robberies", "$10,000–25,000 per robbery", "Chapter 3", "2+ sources"],
+  ["Sell stolen cars to Moses", "$1,000+ per car, about a 2-minute cooldown", "Chapter 2", "2 sources"],
+  ["Security van tips from Yasmani", "About $10,000", "After robbing 2 Payday Loans stores", "1 source"],
+  ["Pay 'n' Spray car sales", "About $4,000+", "Chapter 3", "1 source"],
+  ["Randy's supercars", "$30,000+", "Mid-Chapter 3, needs the Key Cloner", "1 source"],
+  ["Bank vaults", "Reports range from about $100,000 to $205,000", "End of Chapter 4 (That's Where The Money Is…)", "Sources disagree"],
+];
+const faq = [
+  { q: "What's the fastest way to make money in GTA 6?", a: "Early on, steal untracked cars and sell them to Moses (from Chapter 2, $1,000+ each). From Chapter 3, jewelry store robberies are reported at $10,000–25,000 each. Bank vaults at the end of Chapter 4 pay the most." },
+  { q: "Do you lose money at the end of Chapter 1 in GTA 6?", a: "Yes, completion guides report that cash you carry is lost at the end of Chapter 1. Spend it on upgrades and gear before then." },
+  { q: "How much cash can you carry in GTA 6?", a: "Reportedly $20,000. Until banking unlocks with the Buck Me mission, stash extra cash under the floorboard in Jason's bedroom." },
+  { q: "Do you lose money when you die in GTA 6?", a: "Dying or being killed by police can cost you the cash you're carrying, so bank or spend it before risky jobs." },
+  { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and cheats block saving, so the cash doesn't stick. See our cheat codes page." },
+];
+---
+<Article
+  title="GTA 6 Money Guide: Best Ways to Make Money (Reported Payouts)"
+  h1="How to Make Money Fast in GTA 6"
+  description="The best ways to make money in GTA 6 by chapter: Moses car sales, jewelry stores ($10K–25K), security vans, supercars and bank vaults, plus the cash rules that cost players money."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/", label: "PowerPyx: money guide" },
+    { href: "https://vicecitydb.org/guides/best-early-money", label: "Vice City DB: best early money" },
+    { href: "https://vicecitydb.org/guides/beginner-tips", label: "Vice City DB: beginner tips" },
+    { href: "https://www.gamerbolt.com/gta-6-money-guide/", label: "GamerBolt: money guide" },
+    { href: "https://www.gamersheroes.com/game-guides/how-to-make-money-fast-in-gta-6/", label: "Gamers Heroes: how to make money fast" },
+  ]}
+>
+  <div class="callout"><p><strong>These are reported payouts, not HeistCalc-verified numbers.</strong> We only build calculators from values we've confirmed in game. Until then, this page collects what guides report, says where they disagree, and is updated as numbers settle.</p></div>
+
+  <h2>Best money methods by chapter</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Method</th><th>Reported payout</th><th>Unlocks</th><th>Confidence</th></tr></thead>
+    <tbody>{methods.map(([m, p, u, c]) => <tr><td><strong>{m}</strong></td><td>{p}</td><td>{u}</td><td><small>{c}</small></td></tr>)}</tbody>
+  </table></div>
+
+  <h2>Cash rules that cost players money</h2>
+  <ul>
+    <li><strong>Chapter 1 cash doesn't carry over.</strong> Guides report your cash is wiped at the end of Chapter 1, so spend it first.</li>
+    <li><strong>You can carry about $20,000.</strong> Before banking unlocks (the Buck Me mission), stash the rest under the floorboard in Jason's bedroom.</li>
+    <li><strong>Getting killed costs cash.</strong> Bank or spend before risky jobs.</li>
+    <li><strong>Robbery safes need codes.</strong> Look for notes, check guards, or threaten an employee. All known codes are on our <a href="/gta-6/safe-codes/">safe codes page</a>.</li>
+  </ul>
+
+  <h2>Free money on the map</h2>
+  <ul>
+    <li><strong>Crab research outpost safe</strong> (Pelican Valley): about $1,000 plus a unique SMG. Code 0072.</li>
+    <li><strong>Duplicate collectible cards</strong> sell at pawn shops, and cocaine flamingo packages sell to a fence. See <a href="/gta-6/collectibles/">collectibles</a>.</li>
+  </ul>
+
+  <h2>What about heists?</h2>
+  <p>Bank vaults are GTA 6's big scores, and reported payouts range from about $100,000 to $205,000 per vault. One guide says they repeat every 5 minutes after the story. We'll add a GTA 6 heist calculator once we've confirmed payouts ourselves. Until then, see <a href="/gta-6/heists/">everything we know about GTA 6 heists</a>.</p>
+</Article>

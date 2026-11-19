@@ -1,49 +1,77 @@
 ---
 import Article from "../../layouts/Article.astro";
-import { CHEATS, CHEATS_HOW } from "../../data/gta6-cheats";
+import { CHEATS, CHEATS_HOW, CHEATS_PENDING } from "../../data/gta6-cheats";
 const host = (u: string) => new URL(u).hostname.replace(/^www\./, "");
 const label = { rockstar: "Rockstar", reported: "Reported", tested: "Tested by us" };
+const arrow: Record<string, string> = { U: "↑", D: "↓", L: "←", R: "→" };
+const word: Record<string, string> = { U: "Up", D: "Down", L: "Left", R: "Right" };
+const arrows = (s?: string) => (s ?? "").split(/\s+/).map((k) => arrow[k] ?? k).join(" ");
+const words = (s?: string) => (s ?? "").split(/\s+/).map((k) => word[k] ?? k).join(", ");
+const categories = ["Player", "Weapons", "Vehicles", "World", "Filters"] as const;
+const allSources = [...new Set(CHEATS.flatMap((c) => c.sources))];
 const faq = [
-  { q: "Are there cheat codes in GTA 6?", a: "Not confirmed yet. Every mainline GTA game has had single-player cheat codes, but Rockstar hasn't said anything about GTA 6 cheats. We'll publish the verified list after launch." },
-  { q: "Will GTA 6 cheats disable trophies or achievements?", a: "In GTA 5, using cheats disabled trophies, achievements and saving for that session. If GTA 6 follows the same pattern, expect the same restriction." },
+  { q: "Are there cheat codes in GTA 6?", a: `Yes. GTA 6 has single-player cheats, but they only work after you finish the story, and each cheat has to be unlocked with its own challenge first. ${CHEATS.length} cheat inputs have been published so far.` },
+  { q: "How do you enter cheats in GTA 6?", a: "Press Up on the D-pad to open the phone, hold L1 + R1 on PS5 (LB + RB on Xbox), then enter the D-pad sequence. A notification confirms the cheat is on. Entering the same code again turns it off." },
+  { q: "Do GTA 6 cheats disable trophies and saving?", a: "Yes. Using a cheat disables trophies and achievements and blocks saving for the rest of that session, even if you turn the cheat off. Make a manual save first, then quit or reload to get trophies and saving back." },
+  { q: "Is there a GTA 6 money cheat?", a: "Yes, +$250,000 (Up, Right, Down, Left, Up, Left, Down, Right). It unlocks after the story, and because cheats block saving, the cash doesn't carry over to your save." },
+  { q: "Are there GTA 6 phone number cheats like GTA 5?", a: "No. GTA 6 cheats are D-pad sequences only. Phone numbers like 1-999 lists are GTA 5 codes." },
   { q: "Can you use cheats in GTA 6 online?", a: "Cheat codes have only ever worked in single player. Using third-party cheats online breaks Rockstar's terms and can get your account banned." },
 ];
 ---
 <Article
-  title="GTA 6 Cheat Codes: PS5 & Xbox (Updated at Launch)"
+  title="GTA 6 Cheat Codes: Full List for PS5 & Xbox"
   h1="GTA 6 Cheat Codes"
-  description="Every confirmed GTA 6 cheat code for PS5 and Xbox Series X|S, added as soon as they're verified. What we know so far and how cheats worked in GTA 5."
+  description={`All ${CHEATS.length} GTA 6 cheat codes with inputs for PS5 and Xbox Series X|S: money, armor, ammo, vehicles, weather and filters, plus how to unlock and enter them.`}
   published="2026-10-14"
+  updated="2026-11-20"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
+  sources={allSources.map((u) => ({ href: u, label: host(u) }))}
 >
-  {CHEATS.length === 0 ? (
-    <div class="callout"><p><strong>No GTA 6 cheat codes are confirmed yet.</strong> The game launches November 19, 2026. We check for new codes every hour and add them as soon as they're verified. We won't post rumored or fake codes.</p></div>
-  ) : (
-    <>
-      <h2>All verified GTA 6 cheat codes</h2>
-      {CHEATS_HOW && <p>{CHEATS_HOW}</p>}
-      <div class="table-scroll"><table>
-        <thead><tr><th>Effect</th><th>PS5</th><th>Xbox</th>{CHEATS.some((c) => c.phone) && <th>Phone</th>}<th>Status</th></tr></thead>
-        <tbody>{CHEATS.map((c) => (
-          <tr><td><strong>{c.effect}</strong>{c.notes && <><br /><small>{c.notes}</small></>}</td><td>{c.ps5 ?? "-"}</td><td>{c.xbox ?? "-"}</td>{CHEATS.some((x) => x.phone) && <td>{c.phone ?? "-"}</td>}<td>{label[c.verified]}<br /><small>{c.sources.map((u, i) => <>{i > 0 && " · "}<a href={u} rel="noopener">{host(u)}</a></>)}</small></td></tr>
-        ))}</tbody>
-      </table></div>
-    </>
-  )}
+  <div class="callout"><p><strong>Read this first:</strong> GTA 6 cheats only work <strong>after you finish the story</strong>, and each one is unlocked by its own challenge. Using any cheat <strong>turns off trophies and saving</strong> for the session, so save manually before you start.</p></div>
 
-  <h2>Will GTA 6 have cheats?</h2>
-  <p>Probably. Every mainline Grand Theft Auto game has shipped with single-player cheats, from GTA III's button codes to GTA 5's phone numbers. Rockstar hasn't confirmed anything for GTA 6 yet.</p>
+  <h2>How to enter cheats in GTA 6</h2>
+  <p>{CHEATS_HOW}</p>
+  <ol>
+    <li>Finish the main story, and complete the cheat's unlock challenge (check <strong>Progress &gt; Cheats</strong>).</li>
+    <li>Press <strong>Up</strong> on the D-pad to bring up the phone.</li>
+    <li>Hold <strong>L1 + R1</strong> (PS5) or <strong>LB + RB</strong> (Xbox).</li>
+    <li>Enter the D-pad sequence below. Enter it again to switch the cheat off.</li>
+  </ol>
 
-  <h2>How cheats worked in GTA 5</h2>
+  {categories.map((cat) => {
+    const list = CHEATS.filter((c) => c.category === cat);
+    return list.length > 0 && (
+      <>
+        <h2>{cat} cheats</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Cheat</th><th>D-pad input (PS5 &amp; Xbox)</th><th>How to unlock</th></tr></thead>
+          <tbody>{list.map((c) => (
+            <tr>
+              <td><strong>{c.effect}</strong>{c.notes && <><br /><small>{c.notes}</small></>}</td>
+              <td><span style="font-size:1.25em;letter-spacing:.08em;white-space:nowrap">{arrows(c.input ?? c.ps5)}</span><br /><small>{words(c.input ?? c.ps5)}</small></td>
+              <td>{c.unlock ?? "-"}<br /><small>{label[c.verified]}: {c.sources.map((u, i) => <>{i > 0 && " · "}<a href={u} rel="nofollow noopener">{host(u)}</a></>)}</small></td>
+            </tr>
+          ))}</tbody>
+        </table></div>
+      </>
+    );
+  })}
+
+  <h2>Cheats without a published input yet</h2>
+  <p>These cheats exist in the Progress menu, but no outlet has published a confirmed input yet. We add each one once two sources agree:</p>
+  <p><small>{CHEATS_PENDING.join(" · ")}</small></p>
+
+  <h2>Cheat rules worth knowing</h2>
   <ul>
-    <li><strong>Button combos</strong> entered during gameplay on console.</li>
-    <li><strong>Phone numbers</strong> dialed on the in-game phone, which made cheats easier to remember.</li>
-    <li><strong>Trophies and achievements were disabled</strong> for the session after using a cheat, and you couldn't save while cheats were active.</li>
-    <li><strong>Single player only.</strong> Cheats never worked in GTA Online.</li>
+    <li><strong>Story first.</strong> Codes do nothing until the credits roll.</li>
+    <li><strong>No saving.</strong> After any cheat, you can't save for the rest of the session, even if you turn it off. Progress after cheating is lost when you quit.</li>
+    <li><strong>Trophies come back</strong> after you quit, restart, or reload an earlier save.</li>
+    <li><strong>Single player only.</strong> Cheats don't work in GTA Online.</li>
+    <li><strong>No PC cheats yet,</strong> because GTA 6 is console-only at launch.</li>
   </ul>
 
-  <h2>What to expect at launch</h2>
-  <p>Cheat codes are usually found within hours of a GTA release. Bookmark this page. We'll add each code with the platform it works on and what it does, tested by us.</p>
+  <h2>How we verify codes</h2>
+  <p>We only list a cheat when Rockstar publishes it, or when at least two reputable outlets list the same input for the same effect. Where one outlet lists a different input, we note it under the cheat. We'll mark codes "Tested by us" as we confirm them in game.</p>
   <p>Want to make money legitimately instead? The <a href="/cayo-perico-calculator/">Cayo Perico calculator</a> and <a href="/heist-cut-calculator/">heist cut calculator</a> work today.</p>
 </Article>

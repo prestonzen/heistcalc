@@ -1,0 +1,95 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [where, context, code, what it opens]. Confirmed = 2+ independent sources list the same code.
+const story = [
+  ["Casa de Empeño pawn shop, back office", "Yasmani's Jewelry Jobs (Ch. 3)", "1680", "Buffalo skull chain"],
+  ["Richardson Jewelry", "Yasmani's Jewelry Jobs (Ch. 3)", "6815", "Diamond ring"],
+  ["Donovan Banks & Co.", "Yasmani's Jewelry Jobs (Ch. 3)", "0104", "Amethyst necklace"],
+  ["Acid lab back-room door, Key Lento", "Lab Fees (Ch. 1)", "0420", "The acid lab"],
+  ["Brian's Lockup, Key Lento", "Lab Fees (Ch. 1)", "7700", "Storage lockup"],
+];
+const freeRoam = [
+  ["Crab research outpost computer, Pelican Valley", "Free roam", "CLEAVES", "Lab files with the safe hint"],
+  ["Crab research outpost safe, Pelican Valley", "Free roam", "0072", "About $1,000 and the dock code"],
+  ["Crab research outpost dock boathouse", "Free roam", "0212", "Crabshack VF5 SMG (unique)"],
+  ["Cottonmouth Lake sandbar-island trailer", "Free roam", "44017", "Los Santos Pounders bronze card (code is on the wall)"],
+  ["Brooks Boatworks", "Gang operation", "6823", "Hideout safe"],
+  ["La Cascara Motel", "Gang operation", "6969", "Hideout safe"],
+  ["Kingpin Bowling", "Gang operation", "0300", "Hideout safe"],
+];
+const single = [
+  ["Sundown Private Airfield hangar", "The Last Mile: Passing the Torch", "3718", "Pilot Pete's stash"],
+  ["Afternoon Delight mission", "Story (Ch. 2)", "2008", "Unknown"],
+  ["Key Lento party house garage (southeast corner)", "Free roam", "092319", "Unique Invetero Spiderweb Coquette"],
+  ["Belville abandoned laundry wall safe (enter via the roof)", "Free roam", "62412", "Safe"],
+  ["Nova Auto Junkyard safe", "Free roam", "7777", "Safe"],
+  ["'74 Vamos garage", "Free roam", "2727", "Garage"],
+  ["Casa Guardia", "Gang operation", "1965", "Hideout safe"],
+  ["Saber Shipping Yard", "Gang operation", "8046", "Hideout safe"],
+  ["Sunrise RV Park dock warehouse", "Gang operation", "6769", "Hideout safe"],
+  ["Illegal sneaker trade", "Gang operation", "4124", "Hideout safe"],
+  ["Belville (Final Chapter)", "Gang operation", "2121", "Hideout safe"],
+];
+const table = (rows: string[][]) => rows;
+const faq = [
+  { q: "What is the GTA 6 crab lab safe code?", a: "0072. The computer password is CLEAVES, and the hint \"double success\" means doubling the successful specimen, 0036. The safe holds about $1,000 and the dock code 0212, which opens the boathouse with the Crabshack VF5 SMG." },
+  { q: "What is the GTA 6 acid lab code?", a: "0420, on the back-room door in Key Lento during Lab Fees in Chapter 1. Brian's Lockup in the same mission is 7700." },
+  { q: "What are the jewelry store safe codes in GTA 6?", a: "During Yasmani's Jewelry Jobs: Casa de Empeño 1680, Richardson Jewelry 6815, Donovan Banks & Co. 0104." },
+  { q: "Are GTA 6 store robbery safe codes random?", a: "Story safe codes are fixed, but safes in random store robberies are reported to be randomized. Get the code from a note on the premises, a guard, or by threatening an employee with the Safe Code prompt. Explosives also work but hurt your Criminal Profile." },
+];
+---
+<Article
+  title="GTA 6 Safe Codes, Door Codes & Passwords (All Found So Far)"
+  h1="GTA 6 Safe Codes and Door Codes"
+  description="Every GTA 6 safe code, keypad code and computer password found so far: crab lab 0072, acid lab 0420, jewelry jobs, gang hideouts and free-roam secrets."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://culturedvultures.com/gta-6-all-door-codes-and-safe-combinations/", label: "Cultured Vultures: all door codes and safe combinations" },
+    { href: "https://beebom.com/gta-6-safe-codes/", label: "Beebom: GTA 6 safe codes" },
+    { href: "https://www.pcgamer.com/games/grand-theft-auto/gta-6-safe-codes-combinations/", label: "PC Gamer: safe codes and combinations" },
+    { href: "https://www.vice.com/en/article/gta-6-chapter-2-port-gellhorn-safe-codes/", label: "VICE: Port Gellhorn safe codes" },
+    { href: "https://www.thebiglead.com/gta-6-pelican-valley-crab-research-outpost-computer-password-keypad-codes/", label: "The Big Lead: crab research outpost codes" },
+    { href: "https://gamerhour.net/guides/gta-6-pelican-valley-outpost-puzzle-solution/", label: "GamerHour: Pelican Valley outpost puzzle" },
+    { href: "https://gta6info.com/wiki/Safe_Codes", label: "gta6info: safe codes" },
+    { href: "https://vicecitydb.org/codes", label: "Vice City DB: codes" },
+  ]}
+>
+  <p>Stuck at a keypad or a safe? Here's every GTA 6 code found since launch. The first two tables list codes that at least two independent sources agree on. Codes from a single source are at the bottom, so treat those as "try it".</p>
+  <div class="callout"><p><strong>Robbery safes may be random.</strong> Story and puzzle codes are fixed. Safes in random store robberies are reported to change per save. Look for a note on the premises, check a guard, or aim at an employee and use the <strong>Safe Code?</strong> prompt.</p></div>
+
+  <h2>Story mission codes</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Where</th><th>Mission</th><th>Code</th><th>Opens</th></tr></thead>
+    <tbody>{table(story).map(([w, m, c, o]) => <tr><td>{w}</td><td>{m}</td><td><strong>{c}</strong></td><td>{o}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Some outlets call 0420 the "Moonstone Boutique room" code rather than the acid lab door. It's the same code.</small></p>
+
+  <h2>Free roam and gang hideout codes</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Where</th><th>Type</th><th>Code</th><th>Opens</th></tr></thead>
+    <tbody>{table(freeRoam).map(([w, m, c, o]) => <tr><td>{w}</td><td>{m}</td><td><strong>{c}</strong></td><td>{o}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>The three gang hideout codes are revealed by the wall map inside Brooks Boatworks. Hideout codes may vary per save.</small></p>
+
+  <h2>Crab research outpost walkthrough (CLEAVES, 0072, 0212)</h2>
+  <ol>
+    <li>Go to the abandoned outpost in the southwest of the Pelican Valley swamps, just north of the Keys.</li>
+    <li>Flip the power switch on the outside of the main house.</li>
+    <li>In a side room, examine the writing on the floor: the computer password is <strong>CLEAVES</strong>.</li>
+    <li>The computer hints the safe is <strong>"double success"</strong>. The lab notes call specimen <strong>0036</strong> the major breakthrough, so the safe is <strong>0072</strong>.</li>
+    <li>The safe holds about $1,000 and the boathouse code <strong>0212</strong>. The boathouse at the end of the dock has the unique <strong>Crabshack VF5 SMG</strong>.</li>
+  </ol>
+  <p>The orange SCOOP container in the yard needs the Cut-off Tool from a later story mission, so skip it on your first visit.</p>
+
+  <h2>Reported by one source (unconfirmed)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Where</th><th>Type</th><th>Code</th><th>Opens</th></tr></thead>
+    <tbody>{table(single).map(([w, m, c, o]) => <tr><td>{w}</td><td>{m}</td><td><strong>{c}</strong></td><td>{o}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Mount Kalaga's firewatch tower shed is reported as both 69185 and 691865, so neither is confirmed yet. Janjak's Garage hasn't been found. We move codes up once a second source confirms them.</small></p>
+
+  <p>Planning a bigger score? See <a href="/gta-6/heists/">what we know about GTA 6 heists</a> and the <a href="/gta-6/cheat-codes/">GTA 6 cheat codes</a>.</p>
+</Article>

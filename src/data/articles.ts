@@ -84,9 +84,43 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/safe-codes/",
+    "title": "GTA 6 Safe Codes, Door Codes & Passwords (All Found So Far)",
+    "text": "Every GTA 6 safe code, keypad code and computer password found so far: crab lab 0072, acid lab 0420, jewelry jobs, gang hideouts and free-roam secrets.",
+    "tags": [
+      "GTA 6",
+      "Heists"
+    ]
+  },
+  {
+    "href": "/gta-6/unique-weapons/",
+    "title": "GTA 6 Unique Weapons: Locations & How to Get Them",
+    "text": "Where to find GTA 6's unique weapons: the Crabshack SMG, Permit Keys boat guns, every gang operation reward, and the launchers and snipers you can buy.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
+    "href": "/gta-6/collectibles/",
+    "title": "GTA 6 Collectibles & 100% Checklist: Every Total",
+    "text": "How many collectibles GTA 6 has and how many you need for 100%: 480 cards, 125 cocaine flamingos, 397 stunts, 33 underwater finds, plus the 55-trophy list.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
+    "href": "/gta-6/make-money/",
+    "title": "GTA 6 Money Guide: Best Ways to Make Money (Reported Payouts)",
+    "text": "The best ways to make money in GTA 6 by chapter: Moses car sales, jewelry stores ($10K–25K), security vans, supercars and bank vaults, plus the cash rules that cost players money.",
+    "tags": [
+      "GTA 6",
+      "Heists"
+    ]
+  },
+  {
     "href": "/gta-6/cheat-codes/",
-    "title": "GTA 6 Cheat Codes: PS5 & Xbox (Updated at Launch)",
-    "text": "Every confirmed GTA 6 cheat code for PS5 and Xbox Series X|S, added as soon as they're verified. What we know so far and how cheats worked in GTA 5.",
+    "title": "GTA 6 Cheat Codes: Full List for PS5 & Xbox",
+    "text": "All 19 GTA 6 cheat codes with D-pad inputs: $250,000, armor, infinite ammo, vehicle spawns, weather and filters, plus how to unlock and enter them.",
     "tags": [
       "GTA 6"
     ]
