@@ -12,6 +12,14 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-16",
+    title: "Second pre-launch update, 1.002.001, reaches PS5 and Xbox",
+    summary: "A follow-up patch, version 01.002.001 on PS5, rolled out on November 16, three days before launch: about 602.5 MB on PS5 and about 1.59 GB on Xbox. The PS5 release was reportedly staged over 24 hours, so some players saw it later. Rockstar has not published patch notes, so what it changes is unconfirmed.",
+    confirmed: "reported",
+    sources: ["https://beebom.com/gta-6-gets-second-pre-launch-update/", "https://news.instant-gaming.com/en/articles/23055-gta-vi-update-01-002-001-is-currently-being-deployed", "https://mp1st.com/news/gta-6-update-1-002-001-released-latest-ps5-firmware-gets-cracked-days-before-release"],
+    href: "/gta-6/preload/",
+  },
+  {
     date: "2026-11-13",
     title: "Pre-launch update 1.002.000 (about 1 GB) rolls out on PS5 and Xbox",
     summary: "A roughly 1 GB update, version 1.002.000, reached consoles on November 13, reportedly in waves, with the first half of players getting it about 11 hours before the rest. Rockstar has not published patch notes, so what it changes is unconfirmed; the size reported for Xbox differs between outlets.",
