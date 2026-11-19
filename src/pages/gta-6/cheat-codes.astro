@@ -7,7 +7,7 @@ const arrow: Record<string, string> = { U: "↑", D: "↓", L: "←", R: "→" }
 const word: Record<string, string> = { U: "Up", D: "Down", L: "Left", R: "Right" };
 const arrows = (s?: string) => (s ?? "").split(/\s+/).map((k) => arrow[k] ?? k).join(" ");
 const words = (s?: string) => (s ?? "").split(/\s+/).map((k) => word[k] ?? k).join(", ");
-const categories = ["Player", "Weapons", "Vehicles", "World", "Filters"] as const;
+const categories = ["Player", "Weapons", "Vehicles", "World", "Filters", "Other"] as const;
 const allSources = [...new Set(CHEATS.flatMap((c) => c.sources))];
 const faq = [
   { q: "Are there cheat codes in GTA 6?", a: `Yes. GTA 6 has single-player cheats, but they only work after you finish the story, and each cheat has to be unlocked with its own challenge first. ${CHEATS.length} cheat inputs have been published so far.` },
@@ -40,7 +40,7 @@ const faq = [
   </ol>
 
   {categories.map((cat) => {
-    const list = CHEATS.filter((c) => c.category === cat);
+    const list = CHEATS.filter((c) => (c.category ?? "Other") === cat);
     return list.length > 0 && (
       <>
         <h2>{cat} cheats</h2>

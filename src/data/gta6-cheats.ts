@@ -4,7 +4,7 @@
 // Never add rumored, leaked-build or "might work" codes. Single-source codes stay out until a second outlet confirms.
 export interface Cheat {
   effect: string;          // e.g. "Max health and armor"
-  category: "Player" | "Weapons" | "Vehicles" | "World" | "Filters";
+  category?: "Player" | "Weapons" | "Vehicles" | "World" | "Filters"; // missing = shown under "Other"
   input?: string;          // D-pad sequence, same on PS5 and Xbox: U/D/L/R separated by spaces
   ps5?: string;            // only if the PS5 input differs from `input`
   xbox?: string;           // only if the Xbox input differs from `input`
