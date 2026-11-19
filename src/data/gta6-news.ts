@@ -12,6 +12,14 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-19",
+    title: "Rockstar's official Leonida map is out as a free download",
+    summary: "Rockstar's GTA VI media page now offers a print-ready Leonida map poster, plus a cover art poster, as free downloads. The map labels the state's counties, main roads and islands on a grid, and we've added a viewable copy to our map page.",
+    confirmed: "rockstar",
+    sources: ["https://www.rockstargames.com/VI/media", "https://www.rockstargames.com/newswire/article/39akk424a9oo53/grand-theft-auto-vi-now-available"],
+    href: "/gta-6/map/#official-map",
+  },
+  {
     date: "2026-11-16",
     title: "Second pre-launch update, 1.002.001, reaches PS5 and Xbox",
     summary: "A follow-up patch, version 01.002.001 on PS5, rolled out on November 16, three days before launch: about 602.5 MB on PS5 and about 1.59 GB on Xbox. The PS5 release was reportedly staged over 24 hours, so some players saw it later. Rockstar has not published patch notes, so what it changes is unconfirmed.",

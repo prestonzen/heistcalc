@@ -8,9 +8,9 @@ export const OFFICIAL_MAP: {
   height: number;
   note: string;          // credit/terms line shown under the viewer
 } = {
-  page: null,
-  image: null,
-  width: 0,
-  height: 0,
-  note: "",
+  page: "https://www.rockstargames.com/VI/media",
+  image: "/maps/official/leonida-official.jpg",
+  width: 5775,
+  height: 7900,
+  note: "Official map © Rockstar Games, as offered for free download on rockstargames.com.",
 };
