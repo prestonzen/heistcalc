@@ -1,0 +1,96 @@
+---
+import Article from "../../layouts/Article.astro";
+
+type Shot = { src: string; alt: string; cap: string };
+const steps: { title: string; text: string; shot?: Shot }[] = [
+  {
+    title: "1. Meet Kirk west of Key Lento",
+    text: "Kirk's marker (\"Kk\") shows up in the water west of Key Lento, by Gambit Bay and south of Cottonmouth Lake. It only starts at night. We were there just after 1 am.",
+    shot: { src: "/img/gta-6/mr-mangrove-map.webp", alt: "GTA 6 map showing Kirk's Kk marker for Help Kirk Find Mr. Mangrove west of Key Lento near Gambit Bay", cap: "Kirk's marker, 0.55 mi from Key Lento, south of Cottonmouth Lake." },
+  },
+  {
+    title: "2. Take a boat out to him",
+    text: "The meeting spot is out among the mangrove islands, so a boat is the quickest way. Follow the Kk marker on the compass.",
+    shot: { src: "/img/gta-6/mr-mangrove-boat.webp", alt: "Jason driving a boat at night toward Kirk's marker in GTA 6", cap: "Heading out by boat at night. The Kk marker is on the compass at the top." },
+  },
+  {
+    title: "3. Dart him from the helicopter",
+    text: "Kirk takes you up in a helicopter (\"The helicopter should get us a good view and flush him out\"). Use the scope and flashlight on the tranquilizer rifle to find Mr. Mangrove in the brush, then keep putting darts in him when Kirk tells you to.",
+    shot: { src: "/img/gta-6/mr-mangrove-helicopter-scope.webp", alt: "Scoped view with a flashlight from the helicopter searching for Mr. Mangrove at night", cap: "Searching the brush through the scope from the helicopter." },
+  },
+  {
+    title: "4. The frog part",
+    text: "On the ground things go wrong, and Jason ends up knocked out on the floor. For a short stretch you play as a frog (\"Find flies to eat\"). Hop around until the game hands control back, then follow the objective to find Kirk.",
+    shot: { src: "/img/gta-6/mr-mangrove-frog.webp", alt: "Playing as a frog next to Mr. Mangrove in GTA 6 after Jason is knocked out", cap: "Yes, you play as a frog. That's Mr. Mangrove lying behind it." },
+  },
+  {
+    title: "5. Bring him down for Kirk",
+    text: "Once Mr. Mangrove is down for good, Kirk is thrilled. He says he'll send you a payment and that the discovery is \"gonna make me a lot of money\". Then he has the pilot load Mr. Mangrove into the helicopter.",
+    shot: { src: "/img/gta-6/mr-mangrove-darted.webp", alt: "Jason with the tranquilizer rifle standing over the darted Mr. Mangrove in GTA 6", cap: "Mr. Mangrove darted and down. This is where Kirk promises the payment." },
+  },
+];
+const faq = [
+  { q: "How much does Kirk pay in Help Kirk Find Mr. Mangrove?", a: "$5,000, sent to BuckMe. Some launch guides say $10,000, but we got $5,000 when we finished it on stream. If your BuckMe checking is full, the payment shows as pending until there's room." },
+  { q: "What is the account Kirk talks about?", a: "There isn't one you can get into. When Kirk says the discovery is \"gonna make me a lot of money\" he means his own plan to sell Mr. Mangrove, not money for you. Your cut is the $5,000 he sends to BuckMe. Right after the mission the game shows a tip about raising your BuckMe checking limit, which is just about how much your account can hold." },
+  { q: "Can Jason do the Mr. Mangrove mission?", a: "Yes. Several guides say it's Lucia only, but we played the whole thing as Jason. It only starts at night." },
+  { q: "What happens if you shoot Mr. Mangrove?", a: "You get the payment. In our run, when we hit Mr. Mangrove while the pilot was holding him, the pilot panicked (\"I'm out!\") and abandoned him. Guides describe other endings if you shoot Kirk or don't shoot at all, and those don't pay." },
+  { q: "Do you need the tree effigies first?", a: "Yes. Kirk's quests go Search for the Skunk Ape, then Search for Tree Effigies, then this one. He texts you after a wait once the effigies are done." },
+];
+---
+<Article
+  title="GTA 6 Help Kirk Find Mr. Mangrove: Walkthrough, Ending & $5,000 Payout"
+  h1="GTA 6 Help Kirk Find Mr. Mangrove Walkthrough"
+  description="How to do Kirk's last Skunk Ape quest in GTA 6, Help Kirk Find Mr. Mangrove: where it starts, the helicopter, the frog section, the ending choice and the real $5,000 BuckMe payout, with screenshots from our playthrough."
+  published="2026-11-21"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.powerpyx.com/gta-6-help-kirk-find-mr-mangrove-walkthrough/", label: "PowerPyx: Help Kirk Find Mr. Mangrove" },
+    { href: "https://www.gtabites.com/news/gta-6-bigfoot-skunk-ape-location", label: "GTABites: Bigfoot and Mr. Mangrove" },
+    { href: "https://www.gtaboom.com/gta-6-skunk-ape-walkthrough-3a94", label: "GTA BOOM: Skunk Ape walkthrough" },
+  ]}
+>
+  <p><strong>Help Kirk Find Mr. Mangrove</strong> is the third and last quest for Kirk, the Skunk Ape hunter. You go out at night, dart the creature from a helicopter, spend a strange few minutes as a frog, and then decide what happens to Mr. Mangrove. Every screenshot below is from our own playthrough on stream.</p>
+  <div class="callout"><p><strong>Quick answer:</strong> it starts at night at Kirk's marker west of <strong>Key Lento</strong>, by Gambit Bay. Shoot Mr. Mangrove at the end for the payout: <strong>$5,000 to BuckMe</strong> (not $10,000 as some guides say). There's no secret account. Kirk's "lot of money" line is about his own plans. We played it as <strong>Jason</strong>, so it isn't Lucia only.</p></div>
+
+  <h2>Before you start</h2>
+  <ul>
+    <li>Finish <strong>Search for the Skunk Ape</strong> and <a href="/gta-6/tree-effigies/">Search for Tree Effigies</a> first. Kirk texts you about this one after a wait.</li>
+    <li>It only starts <strong>at night</strong>. Sleep or wait if the marker isn't there.</li>
+    <li>Make sure BuckMe checking has room for $5,000, or the payment sits as pending. The <a href="/gta-6/buckme/">BuckMe guide</a> explains the limits.</li>
+  </ul>
+
+  {steps.map((s) => (
+    <>
+      <h2>{s.title}</h2>
+      <p>{s.text}</p>
+      {s.shot && (
+        <figure style="margin:20px 0">
+          <img src={s.shot.src} alt={s.shot.alt} width="800" height="450" loading={s === steps[0] ? "eager" : "lazy"} decoding="async" style="border-radius:8px;width:100%" />
+          <figcaption><small>{s.shot.cap}</small></figcaption>
+        </figure>
+      )}
+    </>
+  ))}
+
+  <h2>6. The ending choice</h2>
+  <p>Mr. Mangrove doesn't stay down, and you get an <strong>Aim Weapon</strong> prompt with him as the target. Shooting him is the choice that pays.</p>
+  <ul>
+    <li><strong>Shoot Mr. Mangrove:</strong> Kirk's $5,000 goes to BuckMe. In our run, hitting him while the pilot was holding him made the pilot panic ("I'm out!") and abandon him.</li>
+    <li><strong>Shoot Kirk, or don't shoot:</strong> guides say neither pays. Mr. Mangrove takes Kirk either way.</li>
+  </ul>
+  <p>Every ending counts for the quest and the Strangers &amp; Freaks list.</p>
+  <figure style="margin:20px 0">
+    <img src="/img/gta-6/mr-mangrove-buckme-tip.webp" alt="GTA 6 tip after the Mr. Mangrove mission: progress through the story to increase your BuckMe checking account limit" width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" />
+    <figcaption><small>Right after the ending the game shows this BuckMe tip. That's the only "account" involved.</small></figcaption>
+  </figure>
+
+  <h2>Tips</h2>
+  <ul>
+    <li><strong>Save first.</strong> You can't replay it to pick a different ending.</li>
+    <li><strong>Keep the flashlight on</strong> in the scope. Mr. Mangrove is hard to see in the brush at night.</li>
+    <li><strong>Want more money?</strong> See the <a href="/gta-6/make-money/">GTA 6 money guide</a> and <a href="/gta-6/safe-codes/">every safe code</a>.</li>
+  </ul>
+  <p>More GTA 6 help: <a href="/gta-6/collectibles/">collectibles</a> and the <a href="/gta-6/missions/">full mission list</a>.</p>
+  <p><small>Played live on stream by <a href="https://www.youtube.com/@PrestonZen">prestonzen on YouTube</a>.</small></p>
+</Article>

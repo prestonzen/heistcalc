@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/mr-mangrove/",
+    "title": "GTA 6 Help Kirk Find Mr. Mangrove: Walkthrough, Ending & $5,000 Payout",
+    "text": "Kirk's last Skunk Ape quest step by step: where it starts, the helicopter, the frog section, the ending choice and the real $5,000 BuckMe payout.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/tree-effigies/",
     "title": "GTA 6 Tree Effigy Locations: All 3 for Kirk's Quest (Screenshots)",
     "text": "Where to find all 3 tree effigies in Kirk's GTA 6 side quest, with map and in-game screenshots, how to start it and how to inspect each one.",
