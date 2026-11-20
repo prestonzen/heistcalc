@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/tree-effigies/",
+    "title": "GTA 6 Tree Effigy Locations: Kirk's Search for Tree Effigies",
+    "text": "Where to find the tree effigies in Kirk's GTA 6 side quest, with map and in-game screenshots, how to start it and how to inspect each one.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/buckme/",
     "title": "GTA 6 BuckMe & Family Savings: Chapter 1 Wipe Calculator",
     "text": "What the GTA 6 Chapter 1 money wipe takes, how BuckMe checking and Family Savings work, every savings tier and checking limit, plus a calculator for what you'll keep.",
