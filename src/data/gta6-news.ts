@@ -12,6 +12,14 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-18",
+    title: "PSN sign-in outage hits PS5 players hours before GTA 6 unlocks",
+    summary: "PlayStation Network users reported widespread sign-in problems on November 18, just ahead of the global release, and PlayStation acknowledged an outage affecting its online services. Reports say it was resolved the same day. Sony has not given a cause, and any link to GTA 6 demand is speculation.",
+    confirmed: "reported",
+    sources: ["https://www.ibtimes.co.uk/psn-sign-problems-before-gta-6-release-1833247", "https://newsweek.com/playstation-users-report-access-issues-hours-before-gta-vi-launch-12736310", "https://mp1st.com/?p=318535"],
+    href: "/gta-6/release-date/",
+  },
+  {
     date: "2026-11-19",
     title: "Rockstar's official Leonida map is out as a free download",
     summary: "Rockstar's GTA VI media page now offers a print-ready Leonida map poster, plus a cover art poster, as free downloads. The map labels the state's counties, main roads and islands on a grid, and we've added a viewable copy to our map page.",
