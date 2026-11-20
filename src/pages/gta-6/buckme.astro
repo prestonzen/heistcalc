@@ -1,0 +1,115 @@
+---
+import Article from "../../layouts/Article.astro";
+import Share from "../../components/Share.astro";
+
+const tiers = [
+  ["Buckin' Broke", "$5,000", "$15,000", "None"],
+  ["BuckeDry", "$10,000", "$100,000", "20% off RydeMe"],
+  ["BuckMe Gold", "$100,000", "$500,000", "20% off garages"],
+  ["BuckMe Premium / Black", "$500,000", "$2,000,000", "10% off liveries (given free at the start of Chapter 4)"],
+  ["Rich as Buck", "$1,000,000", "$2,000,000", "None"],
+  ["Final tier", "$2,000,000", "Unknown", "Unknown"],
+];
+const faq = [
+  { q: "Do you lose your money at the end of Chapter 1 in GTA 6?", a: "Yes. When Tourist Trap plays you lose your pocket cash, your BuckMe checking balance, the cash in Jason's floor stash, the Key Lento house and your personal vehicles. Only Family Savings (up to $5,000 in Chapter 1) carries over." },
+  { q: "Can you withdraw Family Savings in GTA 6?", a: "No. Money moved into Family Savings can never be withdrawn, but it can never be lost either, including at the Chapter 1 wipe, on death or on arrest." },
+  { q: "How much can you put in Family Savings in Chapter 1?", a: "Guides report $5,000 as the most you can save during Chapter 1. The limit goes up in Chapters 2, 3 and 4, and savings goals go up to $2,000,000." },
+  { q: "How do you deposit money in BuckMe?", a: "Only at ATMs. Use the ATM Finder in the BuckMe app. You can't deposit cash from your phone. To move money into Family Savings, use Buck Yourself in the app." },
+  { q: "What happens to your money when you die in GTA 6?", a: "You lose all the cash in your pocket and a small part of your checking balance. Family Savings is never touched." },
+  { q: "What is the GTA 6 checking account limit?", a: "$15,000 to start. It rises as you hit Family Savings goals: $100,000 at $10,000 saved, $500,000 at $100,000 saved, and $2,000,000 with BuckMe Premium in Chapter 4." },
+];
+---
+<Article
+  title="GTA 6 BuckMe & Family Savings: Chapter 1 Wipe Calculator"
+  h1="GTA 6 BuckMe and Family Savings Explained"
+  description="What the GTA 6 Chapter 1 money wipe takes, how BuckMe checking and Family Savings work, every savings tier and checking limit, plus a calculator for what you'll keep."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  tool={{ name: "GTA 6 Chapter 1 Money Wipe Calculator" }}
+  sources={[
+    { href: "https://www.gtabase.com/gta-6/articles/how-to-keep-your-money-safe-in-gta-6", label: "GTABase: how to keep your money safe" },
+    { href: "https://www.gtabase.com/gta-6/missions/buck-me", label: "GTABase: Buck Me mission" },
+    { href: "https://www.powerpyx.com/gta-6-save-for-the-future-walkthrough/", label: "PowerPyx: Save for the Future" },
+    { href: "https://www.gtaboom.com/gta-6-buckme-guide-how-the-family-savings-milestones-work-2990", label: "GTABoom: Family Savings milestones" },
+    { href: "https://egamers.io/gta-6-buckme-guide-how-family-savings-checking-limits-and-perks-work/", label: "eGamers: BuckMe guide" },
+    { href: "https://www.t-minuscountdown.com/gta-6-get-rich/", label: "T-Minus: the Chapter 1 trap" },
+    { href: "https://readdork.com/features/how-do-you-manage-money-use-buckme", label: "Dork: managing money with BuckMe" },
+    { href: "https://outputlag.com/guides/gta-6-missables/", label: "OutputLag: missables" },
+    { href: "https://www.videogameschronicle.com/guide/gta-6-chapter-1-warning-read-this-before-finishing-chapter-1-of-gta-6/", label: "VGC: read this before finishing Chapter 1" },
+  ]}
+>
+  <section slot="tool" class="calc" id="wipe-calc">
+    <h2>What will you keep after Chapter 1?</h2>
+    <div class="calc-grid">
+      <div class="field"><label for="pocket">Cash in pocket ($)</label><input id="pocket" type="number" min="0" step="100" value="4000" inputmode="numeric" /></div>
+      <div class="field"><label for="checking">BuckMe checking ($)</label><input id="checking" type="number" min="0" step="100" value="6000" inputmode="numeric" /></div>
+      <div class="field"><label for="stash">Floor stash ($)</label><input id="stash" type="number" min="0" step="100" value="0" inputmode="numeric" /></div>
+      <div class="field"><label for="savings">Family Savings ($)</label><input id="savings" type="number" min="0" step="100" value="1000" inputmode="numeric" /><small>Chapter 1 limit: $5,000</small></div>
+    </div>
+    <div class="table-scroll" style="margin-top:16px"><table><tbody>
+      <tr><td>Lost at Tourist Trap</td><td class="num"><strong id="lost">-</strong></td></tr>
+      <tr><td>Kept (Family Savings)</td><td class="num"><strong id="kept">-</strong></td></tr>
+      <tr><td>Room left in Family Savings</td><td class="num" id="room">-</td></tr>
+    </tbody></table></div>
+    <p id="advice" style="margin-top:12px"></p>
+    <Share target="wipe-calc" />
+  </section>
+
+  <div class="callout"><p><strong>Short version:</strong> before the <strong>Recalibration</strong> and <strong>Tourist Trap</strong> missions at the end of Chapter 1, move up to <strong>$5,000 into Family Savings</strong> and spend the rest on things you keep, like Ammu-Nation guns. Everything else is wiped.</p></div>
+
+  <h2>What the Chapter 1 wipe takes</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Lost</th><th>Kept</th></tr></thead>
+    <tbody>
+      <tr><td>Cash in your pocket</td><td><strong>Family Savings</strong> (up to $5,000)</td></tr>
+      <tr><td>BuckMe checking balance</td><td>Guns bought at Ammu-Nation</td></tr>
+      <tr><td>Cash in Jason's floor stash</td><td>Unique weapons</td></tr>
+      <tr><td>The Key Lento house</td><td>Your relationship level with Lucia</td></tr>
+      <tr><td>Personal vehicles, including Jason's upgraded Ganado</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p><small>Cash you carry into Recalibration is also lost. Guides disagree on whether Ultimate Edition vehicles survive.</small></p>
+
+  <h2>How BuckMe works</h2>
+  <ul>
+    <li><strong>Unlock:</strong> the <strong>Buck Me</strong> mission in Chapter 1 (at the Fleeca bank in Key Lento). You get a $100 welcome deposit.</li>
+    <li><strong>Deposits:</strong> at <strong>ATMs only</strong>. The app's ATM Finder shows the nearest one. You can't deposit from your phone.</li>
+    <li><strong>Shops:</strong> pocket cash covers buys up to $999. Anything bigger is charged to BuckMe automatically.</li>
+    <li><strong>Carry limit:</strong> $20,000 in pocket cash each for Jason and Lucia.</li>
+    <li><strong>Checking:</strong> each character has their own account, starting at a <strong>$15,000 limit</strong>. When it's full, new pay is held until there's room for the whole payment.</li>
+    <li><strong>Family Savings:</strong> shared by both. Move money in with <strong>Buck Yourself</strong>. It <strong>can never be withdrawn and can never be lost</strong>, and bigger balances earn more interest.</li>
+    <li><strong>Death and arrest:</strong> you lose all your pocket cash and a small part of checking. Family Savings is safe.</li>
+    <li><strong>Before BuckMe:</strong> stash cash under the loose floorboards in Jason's bedroom. It's safe from death and arrest, but it's gone after Chapter 1.</li>
+  </ul>
+
+  <h2>Family Savings tiers and checking limits</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Tier</th><th>Savings goal</th><th>Checking limit</th><th>Perk</th></tr></thead>
+    <tbody>{tiers.map(([t, g, c, p]) => <tr><td><strong>{t}</strong></td><td>{g}</td><td>{c}</td><td>{p}</td></tr>)}</tbody>
+  </table></div>
+  <p>New goals only open up as the story progresses, so you can't rush to Gold in Chapter 1. Guides report the Family Savings limit is $5,000 during Chapter 1 and rises in Chapters 2, 3 and 4.</p>
+
+  <h2>Chapter 2: save $15,000 before Checking Out</h2>
+  <p>The next money check comes at <strong>Checking Out</strong>, the last Chapter 2 mission, where the Starlet motel stops being home. Guides say to have $15,000 ready before it, and money in BuckMe counts. See the <a href="/gta-6/missions/">full mission list</a> for every point of no return, and the <a href="/gta-6/make-money/">GTA 6 money guide</a> for the best earners by chapter.</p>
+
+  <script is:inline>
+    const $ = (id) => document.getElementById(id);
+    const money = (n) => "$" + Math.max(0, Math.round(n)).toLocaleString("en-US");
+    const CAP = 5000;
+    function calc() {
+      const v = (id) => Math.max(0, Number($(id).value) || 0);
+      const pocket = v("pocket"), checking = v("checking"), stash = v("stash"), savings = Math.min(v("savings"), CAP);
+      const atRisk = pocket + checking + stash, room = CAP - savings;
+      $("lost").textContent = money(atRisk);
+      $("kept").textContent = money(savings);
+      $("room").textContent = money(room);
+      const move = Math.min(room, atRisk);
+      $("advice").textContent = atRisk === 0 ? "Nothing at risk. You're ready for Tourist Trap." :
+        move > 0 ? `Deposit at an ATM and use Buck Yourself to move ${money(move)} into Family Savings. Spend the other ${money(atRisk - move)} on guns or gear you keep.` :
+        `Family Savings is full. Spend the ${money(atRisk)} you'd lose on Ammu-Nation guns and mods before Recalibration.`;
+    }
+    ["pocket", "checking", "stash", "savings"].forEach((id) => $(id).addEventListener("input", calc));
+    calc();
+  </script>
+</Article>

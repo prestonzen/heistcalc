@@ -1,0 +1,105 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [mission, warning]. Warnings mark points of no return and missables.
+type M = [string, string?];
+const chapters: { n: number; name: string; who: string; missions: M[]; notes: string[] }[] = [
+  { n: 1, name: "Just Like Paradise", who: "Mostly Jason (Prologue is Lucia)", missions: [
+    ["Prologue"], ["Gone Fishing"], ["Gear Up"], ["Just a Scratch"], ["Lab Fees"], ["Unwanted Attention"], ["Pipework"],
+    ["Hey Arnold!", "Your choice to kill or spare Arnold is permanent."],
+    ["Island Dreams"], ["Feng Shui"], ["Coming Home"],
+    ["Buck Me", "Unlocks BuckMe banking. Start saving in Family Savings."],
+    ["Clean Up After Donnie"],
+    ["Down to Earth", "Afterwards, accept Lucia's balcony meditation. It's gone after Chapter 1."],
+    ["Clear Skies"], ["Day Release"], ["Swamped"], ["Don Gone"],
+    ["Recalibration", "Last safe save. Cash you carry into it is lost."],
+    ["Tourist Trap", "POINT OF NO RETURN: you lose the house, pocket cash, BuckMe checking, the floor stash and your cars."],
+    ["Home Sweet Home"], ["Discharge Time"],
+  ], notes: ["Missable optional missions: Get Shirley's Rum and Steal the Scooter (some lists add Ring the Bell!).", "Lab Fees, Just a Scratch, Unwanted Attention and Pipework can come in a different order."] },
+  { n: 2, name: "Paradise Lost", who: "Mostly Lucia", missions: [
+    ["What's in the Bag?"], ["Ambulance Chaser"], ["Just Moved In"], ["Girls' Trip"],
+    ["Moses", "Unlocks selling untracked stolen cars to Moses."],
+    ["Daily Driver"], ["Slam Dunk"], ["Breakfast Run"], ["Coffee Break"], ["Afternoon Delight"],
+    ["Checking Out", "POINT OF NO RETURN: the Starlet motel stops being home. Have $15,000 saved first (BuckMe counts)."],
+  ], notes: ["Daily Driver and Slam Dunk can swap places, and Ambulance Chaser can come later."] },
+  { n: 3, name: "Tits Ass Drug Money", who: "Jason and Lucia tracks in parallel", missions: [
+    ["Welcome to Vice City"], ["Dealer's Choice"], ["Meet the Heders", "Gives you the Cut-off Tool for orange SCOOP containers."],
+    ["Dubious Provenance"], ["Mami Knows Best"], ["South Leonida Real Estate"], ["Tyrone"], ["Here, Kitty Kitty"], ["Car Service"],
+    ["Top Billing"], ["Boobie Time"], ["First Impressions"], ["Caught Slipping"], ["Crosstown Traffic"], ["Credit Check"],
+    ["Steal the Zorrusso for Randy", "Also listed as \"Clonin' Keys, Makin' GS\"."],
+    ["Sinfrontera National Bank"], ["Security Expert"], ["Ride or Die"], ["Company Property"], ["The Missing Link"], ["Safe Word"], ["Cooties"],
+    ["Bricked Up", "Don't leave without Boobie's bricks, or you miss the $3,500 payment."],
+    ["Hidden Charges"],
+    ["The Cartel Heist", "Sell stolen goods and save first. Some fences are gone after this chapter."],
+  ], notes: ["This chapter's order is very flexible. Your game may offer these in a different sequence.", "Race Against Yago is a missable, time-limited optional mission."] },
+  { n: 4, name: "Vice City, Baby", who: "Jason and Lucia", missions: [
+    ["Ocean Beach"], ["Another Life", "BuckMe Premium unlocks around here ($2,000,000 checking limit)."], ["Company Cars"], ["Lawyer Up"],
+    ["Party Hard"], ["Heavy Lifting"], ["Photo/Shoot"],
+    ["Making Gainz", "From here until VCIA Takedown, Jason and Lucia can't be seen together in public."],
+    ["Watch It"], ["Cash Injections"], ["Amateur Hour"], ["Dirty Work"], ["Too Much Baggage"], ["Adventures in Babysitting"], ["Fresh Evidence"],
+    ["Power Play", "Starting it ends the Bad Driver! side activity for good."],
+    ["Child's Play"], ["Headliners"], ["Close Surveillance"], ["Delivery Method"], ["Team Building"], ["Fully Catered"],
+    ["VCIA Takedown", "Finish the prep missions first."], ["Sunset"], ["Starting From Zero"],
+  ], notes: ["Company Cars and Lawyer Up can be done in either order. Headliners sometimes comes just before VCIA Takedown.", "This Is a Free Call From… is a missable, time-limited optional mission."] },
+  { n: 5, name: "Top of the World, Ma", who: "Jason and Lucia", missions: [
+    ["Bird in the Hand"], ["Taking Liberties"], ["VC Baby"], ["Doggie Bag"], ["Operation Savage Glory"],
+    ["Honest Abe"], ["Unfinished Business"], ["Pay Abe's Fee", "Some story missions stay locked until you have enough money."],
+    ["Protective Custody"], ["The End of the Road"],
+  ], notes: ["Honest Abe, Unfinished Business and Pay Abe's Fee don't appear on every list. VC Baby and Doggie Bag can swap."] },
+];
+const total = chapters.reduce((n, c) => n + c.missions.length, 0);
+const faq = [
+  { q: "How many story missions are in GTA 6?", a: "About 91 main story missions across 5 chapters, according to most walkthroughs. Lists that count every quest step and optional job go above 120, and Rockstar hasn't published an official count." },
+  { q: "What is the point of no return in GTA 6 Chapter 1?", a: "Tourist Trap, the Chapter 1 finale. Recalibration is the last safe save before it. Tourist Trap costs you the Key Lento house, your pocket cash, BuckMe checking, the floor stash and your personal vehicles. Only Family Savings carries over." },
+  { q: "Can you replay missions in GTA 6?", a: "No. There's no mission replay or New Game Plus, so make manual saves at the start and end of each chapter if you want to go back." },
+  { q: "How many chapters does GTA 6 have?", a: "Five: Just Like Paradise, Paradise Lost, Tits Ass Drug Money, Vice City Baby, and Top of the World Ma." },
+];
+---
+<Article
+  title="GTA 6 Mission List: All Story Missions in Order (Chapters 1-5)"
+  h1="GTA 6 Mission List: Every Story Mission in Order"
+  description="Every GTA 6 story mission in order across all 5 chapters, with each point of no return and missable flagged, including Tourist Trap and Checking Out."
+  published="2026-11-20"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.keengamer.com/articles/guides/gta-6-walkthrough-all-chapters-and-story-missions-in-order/", label: "KeenGamer: all chapters and missions in order" },
+    { href: "https://www.powerpyx.com/gta-6-full-walkthrough-all-missions/", label: "PowerPyx: full walkthrough" },
+    { href: "https://www.gtabase.com/gta-6/missions/", label: "GTABase: mission list" },
+    { href: "https://www.technerdiness.com/gta/gta-6-chapters-missions-list/", label: "Technerdiness: chapters and missions" },
+    { href: "https://gamingpromax.com/gta-6-chapter-1-guide/", label: "GamingProMax: Chapter 1 guide" },
+    { href: "https://readdork.com/gaming/gta-6-walkthrough", label: "Dork: walkthrough" },
+    { href: "https://outputlag.com/guides/gta-6-missables/", label: "OutputLag: missables" },
+    { href: "https://www.videogameschronicle.com/guide/gta-6-chapter-1-warning-read-this-before-finishing-chapter-1-of-gta-6/", label: "VGC: Chapter 1 warning" },
+  ]}
+>
+  <p>GTA 6's story runs across <strong>5 chapters</strong>. Most walkthroughs count about 91 core missions; the {total} below include a few that only some lists count. Below is every one in order, with the moments that can cost you money or content flagged with ⚠. Order shifts a little between playthroughs, especially in Chapter 3, so treat the numbering as a guide.</p>
+  <div class="callout"><p><strong>Before Chapter 1 ends:</strong> move up to $5,000 into Family Savings and spend the rest. Tourist Trap wipes your cash, checking, house and cars. Use the <a href="/gta-6/buckme/">Chapter 1 wipe calculator</a> to check what you'll keep.</p></div>
+
+  <h2>Points of no return at a glance</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Mission</th><th>Chapter</th><th>What you lose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tourist Trap</strong></td><td>1</td><td>House, pocket cash, BuckMe checking, floor stash, cars</td></tr>
+      <tr><td><strong>Checking Out</strong></td><td>2</td><td>The Starlet motel as home (have $15,000 saved)</td></tr>
+      <tr><td><strong>The Cartel Heist</strong></td><td>3</td><td>Some fences (sell your stolen goods first)</td></tr>
+      <tr><td><strong>Power Play</strong></td><td>4</td><td>The Bad Driver! side activity</td></tr>
+    </tbody>
+  </table></div>
+
+  {chapters.map((c) => (
+    <>
+      <h2>Chapter {c.n}: {c.name}</h2>
+      <p><small>{c.who} · {c.missions.length} missions</small></p>
+      <ol>{c.missions.map(([m, w]) => <li><strong>{m}</strong>{w && <><br /><small>⚠ {w}</small></>}</li>)}</ol>
+      {c.notes.length > 0 && <ul>{c.notes.map((x) => <li><small>{x}</small></li>)}</ul>}
+    </>
+  ))}
+
+  <h2>Tips for the whole story</h2>
+  <ul>
+    <li><strong>Save manually</strong> at the start and end of each chapter. There's no mission replay.</li>
+    <li><strong>Can't find the next mission?</strong> Open the map and check the story book icon, do other quests, or sleep. A quest-giver always offers that mission or a later one.</li>
+    <li><strong>Money:</strong> see the <a href="/gta-6/make-money/">GTA 6 money guide</a> and <a href="/gta-6/safe-codes/">every safe code</a>.</li>
+  </ul>
+</Article>
