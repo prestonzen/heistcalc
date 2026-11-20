@@ -1,23 +1,46 @@
 ---
 import Article from "../../layouts/Article.astro";
 
-const shots = [
-  { src: "/img/gta-6/tree-effigy-3-map.webp", alt: "GTA 6 map showing the Tree Effigy marker on the north edge of Kirk's pink search circle in Gullet Marsh, between Watson Bay and Hamlet", cap: "The map with the effigy marker showing. It's on the north edge of Kirk's pink search circle in Gullet Marsh, just south of the Pelican River. Watson Bay is to the west and Hamlet to the east." },
-  { src: "/img/gta-6/tree-effigy-3-seaplane.webp", alt: "Seaplane landed in the shallow water of Gullet Marsh near the tree effigy", cap: "The fastest way in: land a seaplane on the marsh water. The effigy is a short walk away in the trees." },
-  { src: "/img/gta-6/tree-effigy-3-inspect.webp", alt: "Jason standing next to the GTA 6 tree effigy with the L2 inspect prompt showing", cap: "The effigy is a tall figure built into a tree, standing in a grove of mangroves on dry ground. Walk up to it and hold L2 (LT on Xbox) to inspect it." },
-  { src: "/img/gta-6/tree-effigy-3-closeup.webp", alt: "Close-up of the GTA 6 tree effigy wrapped in vines with red flowers", cap: "Up close: look for vines wound around the trunk and red flowers tucked into them. It's easy to miss at a distance because it blends into the trees." },
+type Shot = { src: string; alt: string; cap: string; w: number; h: number };
+const effigies: { n: number; title: string; intro: string; shots: Shot[] }[] = [
+  {
+    n: 1, title: "Tree effigy #1: tree island near the middle of the circle",
+    intro: "The first one we found is near the middle of Kirk's search circle, a little north of center, on a small island of trees surrounded by marsh water. An airboat or swamp buggy gets you there; you can drive right up to the trees.",
+    shots: [
+      { src: "/img/gta-6/tree-effigy-1-map.webp", w: 784, h: 441, alt: "GTA 6 map zoomed in on Kirk's pink search circle in Pelican Valley, with the player marker near the middle where the first tree effigy is", cap: "Map view just before effigy #1. The player marker is near the middle of the pink circle, slightly north of center. The effigy is a short ride from there." },
+      { src: "/img/gta-6/tree-effigy-1-inspect.webp", w: 784, h: 441, alt: "Jason standing in front of the first GTA 6 tree effigy among trees and green bushes", cap: "Effigy #1: a figure with outstretched arms built into a tree trunk, partly hidden by the other trees around it." },
+    ],
+  },
+  {
+    n: 2, title: "Tree effigy #2: open grassland on the north side",
+    intro: "The second is the easiest to spot. It stands alone in open grassland on the north side of the circle, next to a pond, with nothing around it but tall grass. Fly or drive along the north half of the circle and it shows up against the sky.",
+    shots: [
+      { src: "/img/gta-6/tree-effigy-2-map.webp", w: 784, h: 441, alt: "GTA 6 map of Kirk's search circle in Gullet Marsh with the player marker north-east of Kirk's Kk icon, where the second tree effigy is", cap: "Map view at effigy #2. The player marker is north-east of Kirk's \"Kk\" icon, in the upper half of the circle. Watson Bay is to the west and Hamlet to the east." },
+      { src: "/img/gta-6/tree-effigy-2-inspect.webp", w: 784, h: 441, alt: "Jason next to the second GTA 6 tree effigy standing alone in open grassland beside a pond", cap: "Effigy #2: a lone tree with a figure woven into it, wrapped in moss and red flowers, beside a pond." },
+    ],
+  },
+  {
+    n: 3, title: "Tree effigy #3: mangroves on the north edge",
+    intro: "The last one we found was the hardest to spot. It's on the north edge of the circle, just south of the Pelican River and a little north-east of effigy #2, in a patch of dry ground covered by mangrove trees. Open the map once you're close and the effigy marker shows with a distance counter.",
+    shots: [
+      { src: "/img/gta-6/tree-effigy-3-map.webp", w: 1140, h: 641, alt: "GTA 6 map showing the Tree Effigy marker on the north edge of Kirk's pink search circle in Gullet Marsh, between Watson Bay and Hamlet", cap: "The map with the effigy marker showing. It's on the north edge of Kirk's pink search circle in Gullet Marsh, just south of the Pelican River." },
+      { src: "/img/gta-6/tree-effigy-3-seaplane.webp", w: 1140, h: 641, alt: "Seaplane landed in the shallow water of Gullet Marsh near the third tree effigy", cap: "We landed a seaplane on the marsh water. The effigy is a short walk away in the trees." },
+      { src: "/img/gta-6/tree-effigy-3-inspect.webp", w: 1140, h: 641, alt: "Jason standing next to the third GTA 6 tree effigy with the L2 inspect prompt showing", cap: "Effigy #3 among the mangroves. Walk up to it and hold L2 (LT on Xbox) to inspect it." },
+      { src: "/img/gta-6/tree-effigy-3-closeup.webp", w: 1140, h: 641, alt: "Close-up of the GTA 6 tree effigy wrapped in vines with red flowers", cap: "Up close: vines wound around the trunk with red flowers tucked into them. At a distance it blends into the trees." },
+    ],
+  },
 ];
 const faq = [
-  { q: "Where are the tree effigies in GTA 6?", a: "All three are inside the pink search circle Kirk marks on your map, in the swamps of Gullet Marsh between Watson Bay and Hamlet. One is on the north edge of the circle, just south of the Pelican River, in a grove of mangroves. You can find them in any order." },
+  { q: "Where are the tree effigies in GTA 6?", a: "All three are inside the pink search circle Kirk marks on your map, in the marshes between Watson Bay and Hamlet. One is on a tree island near the middle of the circle, one stands alone in open grassland on the north side by a pond, and one is in the mangroves on the north edge, just south of the Pelican River. You can find them in any order." },
   { q: "How do you start Search for Tree Effigies?", a: "Finish Kirk's first quest, Search for the Skunk Ape, then keep playing until he texts you. It can take a while, so do other missions in the meantime. The text adds the search circle to your map." },
   { q: "How do you inspect a tree effigy?", a: "Walk up to it and hold L2 on PlayStation (LT on Xbox) when the inspect prompt shows. Jason then messages Kirk about it automatically." },
   { q: "What do you get for finding all 3 tree effigies?", a: "No money. The quest completes as soon as you inspect the third effigy. It counts toward 100% completion and leads into Kirk's next quest, which is only available as Lucia." },
 ];
 ---
 <Article
-  title="GTA 6 Tree Effigy Locations: Kirk's Search for Tree Effigies"
-  h1="GTA 6 Tree Effigies: Where to Find Them (with Screenshots)"
-  description="Where to find the tree effigies in Kirk's GTA 6 side quest Search for Tree Effigies, with map and in-game screenshots, how to start it and how to inspect each one."
+  title="GTA 6 Tree Effigy Locations: All 3 for Kirk's Quest (Screenshots)"
+  h1="GTA 6 Tree Effigies: All 3 Locations (with Screenshots)"
+  description="Where to find all 3 tree effigies in Kirk's GTA 6 side quest Search for Tree Effigies, with map and in-game screenshots of each one, how to start it and how to inspect them."
   published="2026-11-20"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
@@ -27,32 +50,33 @@ const faq = [
     { href: "https://www.powerpyx.com/?p=372183", label: "PowerPyx: Help Kirk Find Mr. Mangrove" },
   ]}
 >
-  <p><strong>Search for Tree Effigies</strong> is the second quest for Kirk, the Skunk Ape hunter. He wants photos of 3 carved tree effigies so he can work out where "Mr. Mangrove" is hiding. All three are inside the pink search circle he puts on your map, but they blend into the trees and are easy to walk past. Screenshots below are from our own playthrough.</p>
-  <div class="callout"><p><strong>Quick answer:</strong> fly to <strong>Gullet Marsh</strong> (between Watson Bay and Hamlet), check the pink circle, and look for tall figures built into trees in the mangrove groves. Hold <strong>L2 / LT</strong> to inspect each one. The quest ends when you've inspected all 3.</p></div>
+  <p><strong>Search for Tree Effigies</strong> is the second quest for Kirk, the Skunk Ape hunter. He wants photos of 3 carved tree effigies so he can work out where "Mr. Mangrove" is hiding. All three are inside the pink search circle he puts on your map, but they blend into the trees and are easy to walk past. Every screenshot below is from our own playthrough.</p>
+  <div class="callout"><p><strong>Quick answer:</strong> all 3 are in Kirk's pink circle in the marshes between <strong>Watson Bay</strong> and <strong>Hamlet</strong>: one on a tree island near the middle, one alone in open grassland on the north side, and one in the mangroves on the north edge by the Pelican River. Hold <strong>L2 / LT</strong> to inspect each one. The quest ends when you've inspected all 3.</p></div>
 
   <h2>How to start it</h2>
   <ul>
     <li>Finish Kirk's first quest, <strong>Search for the Skunk Ape</strong>.</li>
     <li>Keep playing until Kirk texts you. It can take a while, so do other missions or side activities meanwhile.</li>
-    <li>His text adds a large pink search circle over the swamps. You can play it as Jason or Lucia.</li>
+    <li>His text adds a large pink search circle over the marshes. You can play it as Jason or Lucia.</li>
   </ul>
 
-  <h2>Tree effigy location: Gullet Marsh, north edge of the circle</h2>
-  <p>This was the last one we found, and the hardest to spot. It's at the <strong>north edge of the search circle</strong>, just south of the <strong>Pelican River</strong>, in a patch of dry ground covered by mangrove trees. Open the map once you're close and the effigy marker shows with a distance counter.</p>
-  {shots.map((s, i) => (
-    <figure style="margin:20px 0">
-      <img src={s.src} alt={s.alt} width="1140" height="641" loading={i === 0 ? "eager" : "lazy"} decoding="async" style="border-radius:8px" />
-      <figcaption><small>{s.cap}</small></figcaption>
-    </figure>
+  {effigies.map((e) => (
+    <>
+      <h2>{e.title}</h2>
+      <p>{e.intro}</p>
+      {e.shots.map((s) => (
+        <figure style="margin:20px 0">
+          <img src={s.src} alt={s.alt} width={s.w} height={s.h} loading={e.n === 1 ? "eager" : "lazy"} decoding="async" style="border-radius:8px;width:100%" />
+          <figcaption><small>{s.cap}</small></figcaption>
+        </figure>
+      ))}
+    </>
   ))}
-
-  <h2>The other two effigies</h2>
-  <p>The other two are also inside the same pink circle, in the open grassland part of the marsh. They're much easier to spot from a distance than the one above. We're adding their exact spots and screenshots next.</p>
 
   <h2>Tips for finding them</h2>
   <ul>
-    <li><strong>Use a seaplane.</strong> Fly low over the circle to spot effigies from the air, then land on the marsh water. A <a href="/gta-6/map/">map of Leonida</a> helps you plan the route.</li>
-    <li><strong>Check the map often.</strong> The effigy marker only shows up once you're close.</li>
+    <li><strong>Use an airboat, swamp buggy or seaplane.</strong> The circle is mostly water and reeds. Fly low over the circle to spot effigies from the air, then land on the marsh water. The <a href="/gta-6/map/">GTA 6 map</a> helps you plan the route.</li>
+    <li><strong>Check the north half first.</strong> Two of the three are on the north side of the circle.</li>
     <li><strong>Look up.</strong> They're as tall as the trees around them, so they're easy to mistake for a trunk.</li>
     <li><strong>No reward money.</strong> It's for 100% completion and Kirk's story. His next quest, Help Kirk Find Mr. Mangrove, is only available as Lucia.</li>
   </ul>

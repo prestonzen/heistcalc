@@ -85,8 +85,8 @@ export const articles = [
   },
   {
     "href": "/gta-6/tree-effigies/",
-    "title": "GTA 6 Tree Effigy Locations: Kirk's Search for Tree Effigies",
-    "text": "Where to find the tree effigies in Kirk's GTA 6 side quest, with map and in-game screenshots, how to start it and how to inspect each one.",
+    "title": "GTA 6 Tree Effigy Locations: All 3 for Kirk's Quest (Screenshots)",
+    "text": "Where to find all 3 tree effigies in Kirk's GTA 6 side quest, with map and in-game screenshots, how to start it and how to inspect each one.",
     "tags": [
       "GTA 6"
     ]
