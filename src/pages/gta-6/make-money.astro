@@ -10,7 +10,7 @@ const acts = [
   { id: "bank", name: "Small banks", ch: 3, diff: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
   { id: "jewel", name: "Jewelry stores", ch: 3, diff: 3, pay: 15000, min: 10, range: "$10,000–25,000", time: "est", note: "Up to 4 stars by the third store. A repeat visit pays less until the store restocks." },
   { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
-  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 3, pay: 2535, min: 3, range: "$3,150 for 1st place minus the $615 '72 Tulip rental (our stream); up to $3,900 listed", time: "3 min per win (timed on our stream)", note: "Last car standing. Pays about double the oval. Tested strategy: rent the '72 Tulip, camp, ram in reverse, retry until you win (retries are cheaper)." },
+  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 3, pay: 2535, min: 3, range: "$3,150 for 1st place minus the $615 '72 Tulip rental (our stream); up to $3,900 listed", time: "3 min per win (timed on our stream)", note: "Last car standing. Pays about double the oval. Tested strategy: rent the '72 Tulip, camp, ram in reverse, retry until you win ($315 per retry)." },
   { id: "derby", name: "Demolition Derby: oval", ch: 2, diff: 3, pay: 1400, min: 6, range: "$1,900 top prize at the start (seen on our stream), minus a rental of about $500; guides report $3,800–6,300 for bigger events", time: "5–6 min (reported)", note: "Last car standing, not a race: you win by being the only car still running. You only get paid if you win. Retrying costs less than the first rental. Lower the payout if you don't win every time." },
   { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, diff: 2, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
   { id: "dive", name: "Kenton's treasure dives", ch: 1, diff: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
@@ -96,7 +96,7 @@ const faq = [
   <h2>Best money by chapter</h2>
   <ul>
     <li><strong>Chapter 1:</strong> don't grind. Your cash, checking and car are wiped at Tourist Trap. Move up to $5,000 into Family Savings (see the <a href="/gta-6/buckme/">BuckMe calculator</a>) and spend the rest.</li>
-    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies ($3,900 a win) and untracked cars to Moses. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
+    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies ($3,150 for 1st, about $50,000 an hour) and untracked cars to Moses. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
     <li><strong>Chapter 3:</strong> Randy's Wish List supercars are the best earners, then jewelry stores, banks and Payday Loans. Pay 'n' Spray takes cars Moses won't.</li>
     <li><strong>Chapter 4 and after the story:</strong> large bank vaults beat everything else by a wide margin.</li>
   </ul>
@@ -117,9 +117,9 @@ const faq = [
     <li><strong>Rent the '72 Tulip.</strong> It's the car that worked for us.</li>
     <li><strong>Camp.</strong> Hang back and let the AI cars pile into each other. They don't come hunting for you.</li>
     <li><strong>Ram in reverse.</strong> Back into the damaged cars to finish them off. Hitting with your rear keeps your engine alive, and the AI doesn't react to it.</li>
-    <li><strong>Retry until you win.</strong> Retrying costs less than the first rental, so keep retrying until you finish 1st.</li>
+    <li><strong>Retry until you win.</strong> A retry is $315, half the $615 rental, so keep retrying until you finish 1st.</li>
     <li><strong>Pick the figure-8 track.</strong> Our win paid $3,150 for 1st place (up to $3,900 is listed), about double the oval's $1,900.</li>
-    <li><strong>The numbers we got:</strong> $3,150 prize minus the $615 Tulip rental is $2,535 profit, and a win took about 3 minutes. That's roughly $50,000 an hour, the best money in Chapter 2 by far. A loss and retry eats into that, but retries are cheaper than the first rental.</li>
+    <li><strong>The numbers we got:</strong> $3,150 prize minus the $615 Tulip rental is $2,535 profit, and a win took about 3 minutes. That's roughly $50,000 an hour, the best money in Chapter 2 by far. A retry costs only $315 (half the rental), so even if you lose one, a win plus a retry still nets about $2,200.</li>
   </ul>
 
   <h2>One-time payouts worth knowing</h2>
