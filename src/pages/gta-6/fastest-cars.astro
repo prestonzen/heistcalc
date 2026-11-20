@@ -1,0 +1,120 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [car, class, stock Speed stat (0-10), where to get it, note]
+const top: [string, string, string, string, string?][] = [
+  ["Progen Emerus", "Supercar", "8.3", "Spawn cheat after the story (unlocked by finishing every vehicle challenge)", "Some guides report rare street spawns. Unconfirmed."],
+  ["Pegassi Vitello", "Supercar", "8.2", "Villa garage on Flamingo Pkwy, Waning Sands"],
+  ["Piccia Furia", "Supercar", "7.8", "Mansion garage on Palladia Ln, Peacock Estates"],
+  ["Bravado Gauntlet Hellfire", "Muscle", "7.8", "M7 junkyard off Galerina St, Hamlet"],
+  ["Pfister Comet S2", "Sports", "7.7", "Not yet reported", "Only one source so far"],
+  ["Pegassi Tempesta", "Supercar", "7.6", "NE 3rd St around 1 PM, during a tow-truck random event"],
+  ["Grotti Itali RSX", "Sports", "7.5", "Not yet reported"],
+  ["Zorrusso", "Supercar", "7.5", "Stolen for Randy in the Chapter 3 story mission"],
+  ["Pfister Neon", "Sports", "7.1", "Not yet reported", "Only one source so far"],
+  ["Pegassi Infernus ('96)", "Supercar", "7.1", "7th level of the Crosstown Police Station car park, NW 9th St", "Has a tracker"],
+];
+const classes: [string, string, string][] = [
+  ["Supercar", "Progen Emerus", "8.3"],
+  ["Muscle", "Bravado Gauntlet Hellfire", "7.8"],
+  ["Sports", "Pfister Comet S2", "7.7"],
+  ["Sedan", "Albany V-STR", "7.0"],
+  ["Motorcycle", "Nagasaki SFB 1000", "7.1"],
+];
+// [part, price, effect] from our own Ep 7 build plus guides
+const mods: [string, string, string][] = [
+  ["Engine Upgrade Stage 1", "$900", "+0.3 Speed and Acceleration (guides)"],
+  ["Engine Upgrade Stage 2", "$1,800", "Took our Ganado from 5.2 to 5.4 Speed (seen on stream)"],
+  ["Transmission Level 1 / 2", "$600 / $1,500", "Level 2 raised our Acceleration to 6.0"],
+  ["Air filters", "$750–800", "+0.1 each. We saw $800 for the Pill Shaped filter"],
+  ["Lowered suspension", "$750", "+0.1 (guides)"],
+  ["Nitrous", "About $5,000", "A short speed burst (guides)"],
+];
+const faq = [
+  { q: "What is the fastest car in GTA 6?", a: "By the in-game Speed stat, the Progen Emerus (8.3), then the Pegassi Vitello (8.2) and the Piccia Furia (7.8). Nobody has published tested top speeds yet, so these rankings use the 0–10 Speed bar. The Emerus only shows up reliably through a cheat after the story, which makes the Vitello the fastest car you can realistically find." },
+  { q: "Can you buy cars in GTA 6?", a: "Not from a dealer, as far as guides have found. You steal cars and then register the ones you want to keep, either through Moses in Chapter 2 or at Pay 'n' Spray later." },
+  { q: "How do you register a car in GTA 6?", a: "Bring an untracked car to Moses at Watkins Auto Parts in Port Gellhorn. In the Chapter 2 mission Moses, Lucia's first respray and registration are free. After that, each registration costs money, shown on the car's scan card, and pricey cars can cost far more to register than they sell for." },
+  { q: "Do you keep Jason's Ganado in GTA 6?", a: "No. Jason's '70 Ganado and any mods on it are lost at Tourist Trap, the end of Chapter 1. Don't put real money into it. Take the free respray and the cheap engine restore, and keep your cash for Family Savings." },
+  { q: "Who buys stolen cars in GTA 6?", a: "Moses buys untracked cars for about $1,000–2,000 each from Chapter 2. Pay 'n' Spray takes cars with a standard tracker from Chapter 3, and Randy pays $30,000+ for the supercars on his Wish List once you have the Key Cloner." },
+];
+---
+<Article
+  title="GTA 6 Fastest Cars: Top 10, Where to Find Them & What to Register"
+  h1="GTA 6 Fastest Cars and Where to Find Them"
+  description="The fastest cars in GTA 6 ranked by the in-game Speed stat, where each one spawns, how registering works with Moses, the best first car, and which upgrades actually add speed."
+  published="2026-11-21"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://timesaver.gg/tools/gta-6/cars/fastest", label: "Timesaver: fastest cars" },
+    { href: "https://www.gtabase.com/articles/gta-6/gta-6-fastest-cars-ranked-list-by-top-speed", label: "GTABase: fastest cars ranked" },
+    { href: "https://meowdb.com/gta6/best-cars", label: "MeowDB: best cars" },
+    { href: "https://www.pushsquare.com/guides/gta-6-randys-wish-list-vehicle-locations", label: "Push Square: Randy's Wish List locations" },
+    { href: "https://outputlag.com/guides/gta-6-keep-register-cars/", label: "Output Lag: keeping and registering cars" },
+    { href: "https://outputlag.com/guides/gta-6-moses-mission/", label: "Output Lag: the Moses mission" },
+    { href: "https://www.gtabase.com/articles/gta-6/gta-6-car-stealing-guide-how-to-steal-sell-keep-vehicles", label: "GTABase: stealing, selling and keeping cars" },
+    { href: "https://meowdb.com/gta6/vehicles/vapid-ganado", label: "MeowDB: Vapid Ganado upgrades" },
+    { href: "https://howtovideogame.com/gta-6-upgrade-car/", label: "How To Video Game: upgrading cars" },
+  ]}
+>
+  <p>GTA 6 doesn't show a top speed for its cars. Every "fastest car" list, including this one, ranks them by the <strong>Speed</strong> bar (0 to 10) in the tuning menu. Nobody has published proper speed tests yet. Below are the fastest cars guides have found so far, where to get them, and how to keep one. We also cover what we learned building Jason's Ganado on stream.</p>
+  <div class="callout"><p><strong>Quick answer:</strong> the <strong>Progen Emerus</strong> has the highest Speed stat (8.3), but it only reliably appears through a cheat after the story. The fastest car you can actually go and find is the <strong>Pegassi Vitello</strong> (8.2), parked in a villa garage on Flamingo Pkwy in Waning Sands. Most supercar spots need the <strong>Key Cloner</strong> from Randy in Chapter 3.</p></div>
+
+  <h2>Top 10 fastest cars (stock Speed stat)</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>#</th><th>Car</th><th>Class</th><th>Speed</th><th>Where to get it</th></tr></thead>
+    <tbody>{top.map(([c, k, s, w, n], i) => <tr><td>{i + 1}</td><td><strong>{c}</strong>{n && <><br /><small>{n}</small></>}</td><td>{k}</td><td>{s}</td><td>{w}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Speed stats come from the most complete list published so far. Sources disagree: one older list, written before supercars were added, puts the Infernus first at 7.1, and a modded Infernus reaches 8.6. Treat the order as a guide until proper speed tests come out. Old top-speed figures in mph from before launch aren't real in-game numbers.</small></p>
+
+  <h2>Fastest car in each class</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Class</th><th>Fastest</th><th>Speed</th></tr></thead>
+    <tbody>{classes.map(([k, c, s]) => <tr><td>{k}</td><td><strong>{c}</strong></td><td>{s}</td></tr>)}</tbody>
+  </table></div>
+
+  <h2>How keeping a car works</h2>
+  <ul>
+    <li><strong>Stolen cars are temporary.</strong> If you lose or wreck an unregistered car, it's gone. You also can't modify a car while it has a tracker.</li>
+    <li><strong>Registered cars are yours.</strong> They always show on the map, can be recovered, can hold items and can be modified. You can have them delivered with the Scooter Bros app.</li>
+    <li><strong>Check the tracker first.</strong> Cars with <em>no tracker</em> can go to Moses. Cars with a <em>standard tracker</em> go to Pay 'n' Spray from Chapter 3. Cars with an <em>advanced tracker</em> call the police if you slow down, and you can't register them early on.</li>
+  </ul>
+
+  <h2>Moses and your first registered car</h2>
+  <p>Your first car you get to keep comes from <strong>Moses</strong>, the car booster at Watkins Auto Parts in Port Gellhorn. In the Chapter 2 mission "Moses", Lucia brings him an untracked car. He resprays it and registers it <strong>for free, once</strong>. After that:</p>
+  <ul>
+    <li><strong>Registering costs money,</strong> and the price shows on the car's scan card. Guides report about $1,400 for cheap old cars, but one example Riata cost $11,250 to register while selling for only $1,800.</li>
+    <li><strong>Moses also buys</strong> untracked cars for about $1,000–2,000 each. He won't take cars stolen near his garage.</li>
+    <li><strong>Register the one car you love and sell the rest.</strong> Pick something fast and good-looking for that free first registration, not a cheap runaround. Guides suggest the Carbonizzare, Coquette D10 or Coil Raiden early on, or a Manchez dirt bike for the Keys.</li>
+  </ul>
+
+  <h2>Jason's '70 Ganado: the first car (don't overspend)</h2>
+  <p>Jason starts with his '70 Vapid Ganado. We gave ours a full build on stream at Coastal Auto Care in Key Lento. The catch is that the Ganado and everything on it is <strong>lost at Tourist Trap</strong>, the end of Chapter 1. Take the free respray and the cheap engine restore, and put the rest of your cash into <a href="/gta-6/buckme/">Family Savings</a>.</p>
+  <figure style="margin:20px 0">
+    <img src="/img/gta-6/ganado-stock-mod-shop.webp" alt="Jason's stock '70 Vapid Ganado in the Coastal Auto Care mod shop in GTA 6" width="800" height="450" loading="eager" decoding="async" style="border-radius:8px;width:100%" />
+    <figcaption><small>The stock Ganado in Coastal Auto Care's Pro Builds menu.</small></figcaption>
+  </figure>
+  <figure style="margin:20px 0">
+    <img src="/img/gta-6/ganado-engine-upgrade.webp" alt="GTA 6 Ganado engine bay in the Full Engine upgrade menu" width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" />
+    <figcaption><small>Engine Upgrade Stage 2 cost us $1,800 and raised Speed from 5.2 to 5.4. Bigger parts say "Requires a bank account", so you need BuckMe first.</small></figcaption>
+  </figure>
+  <figure style="margin:20px 0">
+    <img src="/img/gta-6/ganado-yellow-build.webp" alt="Finished yellow GTA 6 Ganado build with an orange hood stripe" width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" />
+    <figcaption><small>Our finished build. Fully upgraded, the Ganado tops out around 5.4 Speed, nowhere near the supercars.</small></figcaption>
+  </figure>
+
+  <h2>Upgrades that add speed</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Upgrade</th><th>Price</th><th>Effect</th></tr></thead>
+    <tbody>{mods.map(([m, p, e]) => <tr><td><strong>{m}</strong></td><td>{p}</td><td>{e}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Parts over about $1,000 need a bank account. The shop makes you pay for repairs before it lets you modify. Tracked cars can't be modified until they're registered.</small></p>
+
+  <h2>Tips</h2>
+  <ul>
+    <li><strong>Supercars are worth more sold than kept, at first.</strong> Randy pays $30,000+ for each car on his Wish List in good condition. See the <a href="/gta-6/make-money/">money calculator</a> for how that compares per hour.</li>
+    <li><strong>Drive carefully on delivery.</strong> Damage cuts what Moses and Randy pay.</li>
+    <li><strong>Save before Tourist Trap.</strong> Everything you own in Chapter 1 is wiped. The <a href="/gta-6/missions/">mission list</a> shows where the point of no return is.</li>
+  </ul>
+  <p><small>Ganado upgrade prices and stats are from our own playthrough on <a href="https://www.youtube.com/@PrestonZen">prestonzen's stream</a>. Everything else is compiled from the guides listed below.</small></p>
+</Article>

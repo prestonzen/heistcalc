@@ -1,60 +1,137 @@
 ---
 import Article from "../../layouts/Article.astro";
+import Share from "../../components/Share.astro";
 
-// [method, reported payout, when it unlocks, confidence]
-const methods = [
-  ["Jewelry store robberies", "$10,000–25,000 per robbery", "Chapter 3", "2+ sources"],
-  ["Sell stolen cars to Moses", "$1,000+ per car, about a 2-minute cooldown", "Chapter 2", "2 sources"],
-  ["Security van tips from Yasmani", "About $10,000", "After robbing 2 Payday Loans stores", "1 source"],
-  ["Pay 'n' Spray car sales", "About $4,000+", "Chapter 3", "1 source"],
-  ["Randy's supercars", "$30,000+", "Mid-Chapter 3, needs the Key Cloner", "1 source"],
-  ["Bank vaults", "Reports range from about $100,000 to $205,000", "End of Chapter 4 (That's Where The Money Is…)", "Sources disagree"],
+// Calculator rows: id, name, chapter it unlocks (1-5), default payout, default minutes per run,
+// reported range, where the time comes from, notes. Minutes marked "est" are our rough estimate.
+const acts = [
+  { id: "vault", name: "Large bank vaults", ch: 4, pay: 130000, min: 10, range: "$65,000–205,000", time: "~5 min inside + escape (est)", note: "Instant 4-star wanted level. Banks reset after a cooldown." },
+  { id: "randy", name: "Randy's Wish List supercars", ch: 3, pay: 30000, min: 15, range: "$30,000–35,000", time: "est: find, clone key, deliver", note: "Needs the Key Cloner. The list is limited (16–22 cars). Damage cuts the price." },
+  { id: "bank", name: "Small banks", ch: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
+  { id: "jewel", name: "Jewelry stores", ch: 3, pay: 15000, min: 10, range: "$10,000–25,000", time: "est", note: "Up to 4 stars by the third store. A repeat visit pays less until the store restocks." },
+  { id: "payday", name: "Payday Loans stores", ch: 3, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
+  { id: "derby", name: "Demolition Derby", ch: 2, pay: 4700, min: 6, range: "$3,800–6,300 per win, minus a few hundred rental", time: "5–6 min (reported)", note: "Repeatable as often as you like." },
+  { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
+  { id: "dive", name: "Kenton's treasure dives", ch: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
+  { id: "moses", name: "Stolen cars to Moses", ch: 2, pay: 1500, min: 4, range: "$1,000–2,000 (some say up to $3,000)", time: "3–5 min incl. ~2-min cooldown (reported)", note: "Untracked cars only, none stolen near his garage." },
+  { id: "hunt", name: "Hunting for Bret", ch: 2, pay: 1500, min: 8, range: "$500 to a few thousand per animal", time: "est", note: "Jason only. Good or Pristine condition only." },
+  { id: "store", name: "Store and gas station robberies", ch: 1, pay: 500, min: 3, range: "$100–300 register, plus a few hundred from the safe", time: "est", note: "1–2 stars. The store closes for a while afterwards." },
+];
+const once = [
+  ["End of Chapter 3", "$120,000 (automatic)"],
+  ["Pilot Pete's jobs (Chapter 4, Jason)", "$12,000 + $20,000 + $20,000"],
+  ["Help Kirk Find Mr. Mangrove", "$5,000 if you shoot Mr. Mangrove (seen on our stream; some guides say $10,000)"],
+  ["Shirley's rum stash", "About $1,300"],
+  ["Crab research outpost safe (code 0072)", "About $1,000 plus a unique SMG"],
 ];
 const faq = [
-  { q: "What's the fastest way to make money in GTA 6?", a: "Early on, steal untracked cars and sell them to Moses (from Chapter 2, $1,000+ each). From Chapter 3, jewelry store robberies are reported at $10,000–25,000 each. Bank vaults at the end of Chapter 4 pay the most." },
-  { q: "Do you lose money at the end of Chapter 1 in GTA 6?", a: "Yes, completion guides report that cash you carry is lost at the end of Chapter 1. Spend it on upgrades and gear before then." },
-  { q: "How much cash can you carry in GTA 6?", a: "Reportedly $20,000. Until banking unlocks with the Buck Me mission, stash extra cash under the floorboard in Jason's bedroom." },
-  { q: "Do you lose money when you die in GTA 6?", a: "Dying or being killed by police can cost you the cash you're carrying, so bank or spend it before risky jobs." },
-  { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and cheats block saving, so the cash doesn't stick. See our cheat codes page." },
+  { q: "What's the best money per hour in GTA 6?", a: "Large bank vaults, by a wide margin: guides report $65,000–205,000 per vault and about 5 minutes inside, but they unlock at the end of Chapter 4. Before that, Randy's Wish List supercars ($30,000+ each, Chapter 3) and jewelry stores ($10,000–25,000) earn the most per hour." },
+  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car) or win Demolition Derbies ($3,800–6,300 a win)." },
+  { q: "How much cash can you carry in GTA 6?", a: "$20,000 in pocket cash per character. Getting wasted or busted can cost you what you carry, so bank it at an ATM before risky jobs." },
+  { q: "Can you sell fish in GTA 6?", a: "No. Fishing is catch-and-release, so it doesn't pay. Hunting does: Bret buys animals in good condition." },
+  { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and using cheats blocks saving, so the money doesn't stay. See our cheat codes page." },
 ];
 ---
 <Article
-  title="GTA 6 Money Guide: Best Ways to Make Money (Reported Payouts)"
-  h1="How to Make Money Fast in GTA 6"
-  description="The best ways to make money in GTA 6 by chapter: Moses car sales, jewelry stores ($10K–25K), security vans, supercars and bank vaults, plus the cash rules that cost players money."
+  title="GTA 6 Money Per Hour Calculator: Best Ways to Make Money"
+  h1="GTA 6 Money Guide and Money Per Hour Calculator"
+  description="Which GTA 6 activities make the most money per hour: bank vaults, Randy's supercars, jewelry stores, Moses car sales, Demolition Derby and more, with a calculator you can set to your own run times."
   published="2026-11-20"
+  updated="2026-11-21"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
+  tool={{ name: "GTA 6 Money Per Hour Calculator" }}
   sources={[
     { href: "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/", label: "PowerPyx: money guide" },
-    { href: "https://vicecitydb.org/guides/best-early-money", label: "Vice City DB: best early money" },
-    { href: "https://vicecitydb.org/guides/beginner-tips", label: "Vice City DB: beginner tips" },
-    { href: "https://www.gamerbolt.com/gta-6-money-guide/", label: "GamerBolt: money guide" },
-    { href: "https://www.gamersheroes.com/game-guides/how-to-make-money-fast-in-gta-6/", label: "Gamers Heroes: how to make money fast" },
+    { href: "https://www.gtabase.com/gta-6/articles/how-to-make-money-fast-in-gta-6", label: "GTABase: how to make money fast" },
+    { href: "https://outputlag.com/guides/gta-6-make-money-fast/", label: "Output Lag: make money fast" },
+    { href: "https://outputlag.com/guides/gta-6-how-to-rob-stores-heists/", label: "Output Lag: robbing stores" },
+    { href: "https://timesaver.gg/tools/gta-6/money/bank-vaults", label: "Timesaver: bank vault payouts" },
+    { href: "https://egamers.io/how-to-rob-banks-in-gta-6/", label: "eGamers: robbing banks" },
+    { href: "https://www.gamerfuzion.com/gta-6-money-guide-how-to-make-money-fast", label: "GamerFuzion: money guide" },
+    { href: "https://www.gtabase.com/gta-6/strangers/petes-deliveries-southpoint-airfield", label: "GTABase: Pete's Deliveries" },
   ]}
 >
-  <div class="callout"><p><strong>These are reported payouts, not HeistCalc-verified numbers.</strong> We only build calculators from values we've confirmed in game. Until then, this page collects what guides report, says where they disagree, and is updated as numbers settle.</p></div>
+  <section slot="tool" class="calc" id="mph-calc">
+    <h2>Money per hour calculator</h2>
+    <p><small>Payouts are the middle of what guides report. Most run times are our estimates, because nobody has published timed runs yet. Change any number to match your own runs and the ranking updates.</small></p>
+    <div class="calc-grid">
+      <div class="field"><label for="chap">I'm in chapter</label>
+        <select id="chap"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5 / story done</option></select>
+      </div>
+    </div>
+    <div class="table-scroll" style="margin-top:16px"><table>
+      <thead><tr><th>#</th><th>Activity</th><th>Payout ($)</th><th>Minutes per run</th><th>$ per hour</th></tr></thead>
+      <tbody id="mph-rows">
+        {acts.map((a) => (
+          <tr data-id={a.id} data-ch={a.ch}>
+            <td class="rank"></td>
+            <td><strong>{a.name}</strong><br /><small>Ch {a.ch}+ · reported {a.range}. {a.note}</small></td>
+            <td><input class="pay" type="number" min="0" step="100" value={a.pay} inputmode="numeric" style="width:110px" aria-label={`${a.name} payout`} /></td>
+            <td><input class="min" type="number" min="1" step="1" value={a.min} inputmode="numeric" style="width:70px" aria-label={`${a.name} minutes`} /><br /><small>{a.time}</small></td>
+            <td class="num"><strong class="rate">-</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+    <p id="mph-best" style="margin-top:12px"></p>
+    <Share target="mph-calc" />
+  </section>
 
-  <h2>Best money methods by chapter</h2>
+  <div class="callout"><p><strong>These are reported payouts, not HeistCalc-verified numbers</strong>, except where we say we saw it on stream. Guides are only days old and often disagree, so this page shows the range and gets updated as numbers settle.</p></div>
+
+  <h2>Best money by chapter</h2>
+  <ul>
+    <li><strong>Chapter 1:</strong> don't grind. Your cash, checking and car are wiped at Tourist Trap. Move up to $5,000 into Family Savings (see the <a href="/gta-6/buckme/">BuckMe calculator</a>) and spend the rest.</li>
+    <li><strong>Chapter 2:</strong> sell untracked cars to Moses, or win Demolition Derbies. Hunting for Bret is a quieter option for Jason.</li>
+    <li><strong>Chapter 3:</strong> Randy's Wish List supercars are the best earners, then jewelry stores, banks and Payday Loans. Pay 'n' Spray takes cars Moses won't.</li>
+    <li><strong>Chapter 4 and after the story:</strong> large bank vaults beat everything else by a wide margin.</li>
+  </ul>
+
+  <h2>One-time payouts worth knowing</h2>
   <div class="table-scroll"><table>
-    <thead><tr><th>Method</th><th>Reported payout</th><th>Unlocks</th><th>Confidence</th></tr></thead>
-    <tbody>{methods.map(([m, p, u, c]) => <tr><td><strong>{m}</strong></td><td>{p}</td><td>{u}</td><td><small>{c}</small></td></tr>)}</tbody>
+    <thead><tr><th>Source</th><th>Payout</th></tr></thead>
+    <tbody>{once.map(([s, p]) => <tr><td><strong>{s}</strong></td><td>{p}</td></tr>)}</tbody>
   </table></div>
 
   <h2>Cash rules that cost players money</h2>
   <ul>
-    <li><strong>Chapter 1 cash doesn't carry over.</strong> Guides report your cash is wiped at the end of Chapter 1, so spend it first.</li>
-    <li><strong>You can carry about $20,000.</strong> Before banking unlocks (the Buck Me mission), stash the rest under the floorboard in Jason's bedroom.</li>
-    <li><strong>Getting killed costs cash.</strong> Bank or spend before risky jobs.</li>
-    <li><strong>Robbery safes need codes.</strong> Look for notes, check guards, or threaten an employee. All known codes are on our <a href="/gta-6/safe-codes/">safe codes page</a>.</li>
+    <li><strong>Chapter 1 cash doesn't carry over.</strong> Spend it or save it in Family Savings before Tourist Trap.</li>
+    <li><strong>You can carry $20,000.</strong> Bank the rest at an ATM. Getting wasted or busted can cost you what's in your pocket.</li>
+    <li><strong>Checking has a limit.</strong> When it's full, new payments wait until there's room. Raise it by hitting Family Savings goals.</li>
+    <li><strong>Yasmani's security van tips cost $10,000 each.</strong> They're a cost, not income, and they unlock after you rob 2 Payday Loans stores.</li>
+    <li><strong>Fishing doesn't pay.</strong> It's catch-and-release only.</li>
+    <li><strong>Robbery safes need codes.</strong> All known codes are on our <a href="/gta-6/safe-codes/">safe codes page</a>.</li>
   </ul>
+  <p>More: the <a href="/gta-6/fastest-cars/">fastest cars and where to find them</a>, <a href="/gta-6/collectibles/">collectibles</a> (duplicate cards sell at pawn shops) and <a href="/gta-6/heists/">GTA 6 heists</a>.</p>
 
-  <h2>Free money on the map</h2>
-  <ul>
-    <li><strong>Crab research outpost safe</strong> (Pelican Valley): about $1,000 plus a unique SMG. Code 0072.</li>
-    <li><strong>Duplicate collectible cards</strong> sell at pawn shops, and cocaine flamingo packages sell to a fence. See <a href="/gta-6/collectibles/">collectibles</a>.</li>
-  </ul>
-
-  <h2>What about heists?</h2>
-  <p>Bank vaults are GTA 6's big scores, and reported payouts range from about $100,000 to $205,000 per vault. One guide says they repeat every 5 minutes after the story. We'll add a GTA 6 heist calculator once we've confirmed payouts ourselves. Until then, see <a href="/gta-6/heists/">everything we know about GTA 6 heists</a>.</p>
+  <script is:inline>
+    (() => {
+      const rows = [...document.querySelectorAll("#mph-rows tr")];
+      const chap = document.getElementById("chap");
+      const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+      function calc() {
+        const ch = Number(chap.value);
+        const list = rows.map((r) => {
+          const pay = Math.max(0, Number(r.querySelector(".pay").value) || 0);
+          const min = Math.max(1, Number(r.querySelector(".min").value) || 1);
+          const rate = (pay / min) * 60;
+          r.querySelector(".rate").textContent = fmt(rate);
+          const open = Number(r.dataset.ch) <= ch;
+          r.style.opacity = open ? "1" : "0.4";
+          return { r, rate, open };
+        });
+        list.sort((a, b) => (b.open - a.open) || (b.rate - a.rate));
+        const body = document.getElementById("mph-rows");
+        list.forEach((x, i) => { body.appendChild(x.r); x.r.querySelector(".rank").textContent = x.open ? String(i + 1) : "🔒"; });
+        const best = list.find((x) => x.open);
+        document.getElementById("mph-best").textContent = best
+          ? `Best for you right now: ${best.r.querySelector("strong").textContent} at about ${fmt(best.rate)} per hour. Greyed rows unlock in later chapters.`
+          : "";
+      }
+      document.getElementById("mph-calc").addEventListener("input", calc);
+      chap.addEventListener("change", calc);
+      calc();
+    })();
+  </script>
 </Article>

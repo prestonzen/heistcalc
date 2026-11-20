@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/fastest-cars/",
+    "title": "GTA 6 Fastest Cars: Top 10, Where to Find Them & What to Register",
+    "text": "The fastest cars in GTA 6 by Speed stat, where each one spawns, how registering works with Moses, the best first car and which upgrades add speed.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/mr-mangrove/",
     "title": "GTA 6 Help Kirk Find Mr. Mangrove: Walkthrough, Ending & $5,000 Payout",
     "text": "Kirk's last Skunk Ape quest step by step: where it starts, the helicopter, the frog section, the ending choice and the real $5,000 BuckMe payout.",
@@ -143,8 +151,8 @@ export const articles = [
   },
   {
     "href": "/gta-6/make-money/",
-    "title": "GTA 6 Money Guide: Best Ways to Make Money (Reported Payouts)",
-    "text": "The best ways to make money in GTA 6 by chapter: Moses car sales, jewelry stores ($10K–25K), security vans, supercars and bank vaults, plus the cash rules that cost players money.",
+    "title": "GTA 6 Money Per Hour Calculator: Best Ways to Make Money",
+    "text": "Which GTA 6 activities make the most money per hour, from bank vaults and Randy's supercars to Moses car sales and Demolition Derby, with a calculator you can set to your own run times.",
     "tags": [
       "GTA 6",
       "Heists"
