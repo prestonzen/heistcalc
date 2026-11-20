@@ -1,0 +1,90 @@
+---
+import Article from "../../layouts/Article.astro";
+
+type Shot = { src: string; alt: string; cap: string };
+const shots: Record<string, Shot> = {
+  signup: { src: "/img/gta-6/derby-figure-8-signup.webp", alt: "GTA 6 Ambrosia Raceway Figure 8 sign-up menu showing max payout $3,150, 8 laps, 12 racers, rentals only", cap: "The sign-up menu at the Team 360 'Wing-It' tent: Figure 8, max payout $3,150, 8 laps, 12 racers, rentals only." },
+  rent: { src: "/img/gta-6/derby-rent-car-615.webp", alt: "GTA 6 demolition derby rental car selection screen with Rent & Start Race for $615", cap: "Pick one of 3 rental cars. Our '72 Tulip cost $615 to rent." },
+  grid: { src: "/img/gta-6/derby-start-grid.webp", alt: "Starting grid of the GTA 6 figure-8 demolition race at Ambrosia Raceway", cap: "The start. 12 cars, and most of them are about to crash into each other at the crossover." },
+  win: { src: "/img/gta-6/derby-last-car-eliminated.webp", alt: "GTA 6 demolition derby last opponent eliminated on lap 1 with 1 of 1 cars remaining", cap: "The last opponent eliminated on lap 1 of 8. You win as soon as you're the only car left; the laps don't matter." },
+  retry: { src: "/img/gta-6/derby-retry-315.webp", alt: "GTA 6 demolition derby end screen with Retry for $315", cap: "Lost? Retry costs $315, about half the rental." },
+};
+const events: [string, string, string, string, string][] = [
+  ["Figure 8", "$3,150", "8", "12", "Pays the most. The crossover causes constant pile-ups"],
+  ["Oval", "$1,900", "6", "12", "Barely worth it after the rental"],
+];
+const faq = [
+  { q: "Where is the demolition derby in GTA 6?", a: "Ambrosia Raceway, at the north end of Ambrosia in Kelly County. Talk to the organizer at the Team 360 'Wing-It' tent to sign up. The icon shows on the map once you get close, and the events are listed under Map > Activities > Racing." },
+  { q: "How do you win the demolition derby in GTA 6?", a: "Be the last car running. You don't have to finish the laps or be fast. We won on lap 1 of 8 by hanging back while the AI cars crashed into each other, then ramming the damaged ones in reverse." },
+  { q: "What is the best car for the GTA 6 demolition derby?", a: "We won with the '72 Tulip ($615 to rent). You can only use the 3 rental cars, not your own car. Guides haven't tested the other two yet." },
+  { q: "How much does the demolition derby pay in GTA 6?", a: "The figure-8 pays up to $3,150 for 1st place, and we got $1,500 for 2nd. The oval pays up to $1,900. The rental costs $615 and a retry costs $315. Some guides report $3,800–6,300 per win, but the in-game menu shows $3,150 as the figure-8 maximum." },
+  { q: "Is the demolition derby worth it for money?", a: "Yes, in Chapter 2. A figure-8 win nets $2,535 after the rental and takes about 3 minutes, roughly $50,000 an hour. That's about double selling stolen cars to Moses." },
+];
+---
+<Article
+  title="GTA 6 Demolition Derby Guide: How to Win, Best Car & Payouts"
+  h1="GTA 6 Demolition Derby: How to Win Every Time"
+  description="Everything about the GTA 6 Demolition Derby at Ambrosia Raceway: where it is, the best rental car, figure-8 vs oval payouts, the camp-and-reverse strategy that wins in 3 minutes, and why it's the best money in Chapters 2–3."
+  published="2026-11-21"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://techwiser.com/gta-6-racing-locations/", label: "TechWiser: racing locations (laps, racers, payouts)" },
+    { href: "https://www.powerpyx.com/?p=372656", label: "PowerPyx: Unique Races (Ambrosia Raceway)" },
+    { href: "https://outputlag.com/guides/gta-6-activities-minigames/", label: "Output Lag: activities" },
+    { href: "https://www.gtabase.com/gta-6/articles/how-to-make-money-fast-in-gta-6", label: "GTABase: making money" },
+    { href: "https://egamers.io/gta-6-unique-races-guide-40-races-six-groups-and-the-30-wins-needed-for-100/", label: "eGamers: Unique Races and 100%" },
+  ]}
+>
+  <p>The Demolition Derby at Ambrosia Raceway is the best money we've found in Chapters 2 and 3. It's not really a race. You win by being the last car still running, and the AI makes that easy. Every number and screenshot here comes from our own runs on stream.</p>
+  <div class="callout"><p><strong>Quick answer:</strong> pick the <strong>Figure 8</strong> ($3,150 for 1st), rent the <strong>'72 Tulip</strong> ($615), hang back while the AI wrecks itself, then ram the damaged cars <strong>in reverse</strong>. Wins take about 3 minutes. Lost? Retry for $315. That's roughly <strong>$50,000 an hour</strong>.</p></div>
+
+  <h2>Where it is and how to start</h2>
+  <ul>
+    <li><strong>Ambrosia Raceway</strong>, at the north end of Ambrosia (Kelly County). The icon appears on the map once you're nearby, and the events are listed under Map &gt; Activities &gt; Racing.</li>
+    <li>Talk to the organizer at the <strong>Team 360 'Wing-It'</strong> tent and pick Oval or Figure 8.</li>
+    <li>We played it as Lucia in Chapter 2. Guides haven't confirmed exactly when it unlocks.</li>
+    <li>It's <strong>rentals only</strong>, so you can't bring your own car.</li>
+  </ul>
+  <figure style="margin:20px 0"><img src={shots.signup.src} alt={shots.signup.alt} width="800" height="450" loading="eager" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.signup.cap}</small></figcaption></figure>
+
+  <h2>Events and payouts</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Event</th><th>Max payout</th><th>Laps</th><th>Racers</th><th>Notes</th></tr></thead>
+    <tbody>{events.map(([e, p, l, r, n]) => <tr><td><strong>{e}</strong></td><td>{p}</td><td>{l}</td><td>{r}</td><td>{n}</td></tr>)}</tbody>
+  </table></div>
+  <ul>
+    <li><strong>1st place (Figure 8):</strong> $3,150. <strong>2nd place:</strong> $1,500.</li>
+    <li><strong>Rental:</strong> $615 for the '72 Tulip. <strong>Retry:</strong> $315.</li>
+    <li><strong>Profit:</strong> a first-try win nets $2,535. Coming 2nd still nets $885. Coming 2nd and then winning the retry nets $3,720 across the two rounds.</li>
+  </ul>
+  <p><small>Some guides list $3,800–6,300 per win, but the in-game sign-up menu shows $3,150 as the Figure 8 maximum. We go with what the game shows.</small></p>
+
+  <h2>Best derby car</h2>
+  <p>There are <strong>3 rental cars</strong> to choose from. We've won repeatedly with the <strong>'72 Tulip</strong> ($615). It's an old muscle car with a blower engine sticking out of the hood, and backing into other cars with it kept it running long enough to win. Nobody has published tests of the other two rentals yet. We'll add them here once we've tried them.</p>
+  <figure style="margin:20px 0"><img src={shots.rent.src} alt={shots.rent.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.rent.cap}</small></figcaption></figure>
+
+  <h2>How to win: camp and reverse</h2>
+  <ol>
+    <li><strong>Don't race.</strong> Lap times don't matter. You win the moment every other car is eliminated, even on lap 1.</li>
+    <li><strong>Hang back at the start.</strong> Let the pack hit the figure-8 crossover and pile into each other.</li>
+    <li><strong>Camp.</strong> The AI cars mostly ignore you and keep wrecking each other.</li>
+    <li><strong>Ram damaged cars in reverse.</strong> Back into anything that's smoking. Hitting with your rear keeps your engine alive, and the AI doesn't react to it.</li>
+    <li><strong>Retry until you win.</strong> At $315 a retry, and $1,500 even for 2nd, a loss barely costs you.</li>
+  </ol>
+  <figure style="margin:20px 0"><img src={shots.grid.src} alt={shots.grid.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.grid.cap}</small></figcaption></figure>
+  <figure style="margin:20px 0"><img src={shots.win.src} alt={shots.win.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.win.cap}</small></figcaption></figure>
+  <figure style="margin:20px 0"><img src={shots.retry.src} alt={shots.retry.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.retry.cap}</small></figcaption></figure>
+
+  <h2>Is it worth it? Chapters 2–3</h2>
+  <ul>
+    <li><strong>Chapter 2:</strong> yes, it's the best money available. About $50,000 an hour against about $22,500 from stolen cars to Moses.</li>
+    <li><strong>Chapter 3:</strong> it's still solid, but Randy's Wish List supercars ($30,000+ each) and jewelry stores pay more per hour once you have the Key Cloner. Use the derby when you want money without any wanted level, because it's a legal event with no police.</li>
+    <li><strong>The oval:</strong> skip it. $1,900 minus a $615 rental isn't worth the time.</li>
+  </ul>
+  <p>Compare everything in the <a href="/gta-6/make-money/">GTA 6 money per hour calculator</a> (tick your chapter and the derby row ranks itself), and see the <a href="/gta-6/fastest-cars/">fastest cars guide</a> for cars you can keep.</p>
+
+  <h2>Trophies and 100%</h2>
+  <p>The two derby events are among GTA 6's 40 Unique Races. You need 30 of those for 100%, so the derby is optional, but each win counts toward your race total.</p>
+  <p><small>Payouts, costs, times and strategy are from our own runs on <a href="https://www.youtube.com/@PrestonZen">prestonzen's stream</a>. Location and event details are also confirmed by the guides below.</small></p>
+</Article>

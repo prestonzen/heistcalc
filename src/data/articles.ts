@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/demolition-derby/",
+    "title": "GTA 6 Demolition Derby Guide: How to Win, Best Car & Payouts",
+    "text": "Where the Ambrosia Raceway derby is, the best rental car, figure-8 vs oval payouts and the camp-and-reverse strategy that wins in about 3 minutes.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/fastest-cars/",
     "title": "GTA 6 Fastest Cars: Top 10, Where to Find Them & What to Register",
     "text": "The fastest cars in GTA 6 by Speed stat, where each one spawns, how registering works with Moses, the best first car and which upgrades add speed.",
