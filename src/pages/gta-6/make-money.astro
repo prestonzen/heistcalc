@@ -10,7 +10,7 @@ const acts = [
   { id: "bank", name: "Small banks", ch: 3, diff: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
   { id: "jewel", name: "Jewelry stores", ch: 3, diff: 3, pay: 15000, min: 10, range: "$10,000–25,000", time: "est", note: "Up to 4 stars by the third store. A repeat visit pays less until the store restocks." },
   { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
-  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 3, pay: 3400, min: 6, range: "$3,900 top prize (seen on our stream), minus a rental of about $500", time: "5–6 min (reported)", note: "Last car standing. Pays about double the oval. Tested strategy: rent the '72 Tulip, camp, ram in reverse, retry until you win (retries are cheaper)." },
+  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 3, pay: 2535, min: 3, range: "$3,150 for 1st place minus the $615 '72 Tulip rental (our stream); up to $3,900 listed", time: "3 min per win (timed on our stream)", note: "Last car standing. Pays about double the oval. Tested strategy: rent the '72 Tulip, camp, ram in reverse, retry until you win (retries are cheaper)." },
   { id: "derby", name: "Demolition Derby: oval", ch: 2, diff: 3, pay: 1400, min: 6, range: "$1,900 top prize at the start (seen on our stream), minus a rental of about $500; guides report $3,800–6,300 for bigger events", time: "5–6 min (reported)", note: "Last car standing, not a race: you win by being the only car still running. You only get paid if you win. Retrying costs less than the first rental. Lower the payout if you don't win every time." },
   { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, diff: 2, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
   { id: "dive", name: "Kenton's treasure dives", ch: 1, diff: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
@@ -27,7 +27,7 @@ const once = [
 ];
 const faq = [
   { q: "What's the best money per hour in GTA 6?", a: "Large bank vaults, by a wide margin: guides report $65,000–205,000 per vault and about 5 minutes inside, but they unlock at the end of Chapter 4. Before that, Randy's Wish List supercars ($30,000+ each, Chapter 3) and jewelry stores ($10,000–25,000) earn the most per hour." },
-  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies pay up to $3,900 per win (about $500 rental), and you win by being the last car running, not by speed. The oval only pays $1,900." },
+  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies are the best: our win paid $3,150 for 1st, the '72 Tulip rental is $615, and it took about 3 minutes, roughly $50,000 an hour. You win by being the last car running, not by speed." },
   { q: "How much cash can you carry in GTA 6?", a: "$20,000 in pocket cash per character. Getting wasted or busted can cost you what you carry, so bank it at an ATM before risky jobs." },
   { q: "Can you sell fish in GTA 6?", a: "No. Fishing is catch-and-release, so it doesn't pay. Hunting does: Bret buys animals in good condition." },
   { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and using cheats blocks saving, so the money doesn't stay. See our cheat codes page." },
@@ -107,7 +107,7 @@ const faq = [
     <li><strong>Steal an untracked car far from Port Gellhorn.</strong> Moses won't buy cars stolen near his garage, and anything with a tracker is a Pay 'n' Spray job for Chapter 3.</li>
     <li><strong>Hit a store on the drive over</strong> if one is on your route. It's only a few hundred dollars, so don't detour for it, and don't wreck the car escaping: damage cuts Moses's price.</li>
     <li><strong>Sell to Moses</strong> for about $1,000–2,000, then go find the next car while his cooldown runs.</li>
-    <li><strong>Mix in figure-8 Demolition Derbies.</strong> They pay up to $3,900 per win (the oval pays only $1,900) and you win by surviving, not by speed. Win most rounds and they beat car sales per hour. Grab a car to sell to Moses on your way back.</li>
+    <li><strong>Better yet, grind figure-8 Demolition Derbies.</strong> $3,150 for 1st minus the $615 Tulip rental, about 3 minutes a win: roughly double what car sales make per hour. You win by surviving, not by speed. Grab a car to sell to Moses on your way out.</li>
   </ol>
   <p>Bank your cash at an ATM every few runs, because you can only carry $20,000 and dying or getting busted costs what's in your pocket. Use the Loop buttons in the calculator with your own times to see which rotation actually pays best for you.</p>
 
@@ -118,8 +118,8 @@ const faq = [
     <li><strong>Camp.</strong> Hang back and let the AI cars pile into each other. They don't come hunting for you.</li>
     <li><strong>Ram in reverse.</strong> Back into the damaged cars to finish them off. Hitting with your rear keeps your engine alive, and the AI doesn't react to it.</li>
     <li><strong>Retry until you win.</strong> Retrying costs less than the first rental, so keep retrying until you finish 1st.</li>
-    <li><strong>Pick the figure-8 track.</strong> It pays up to $3,900 per win, about double the oval's $1,900. The rental is about $500, and retrying is cheaper than the first rental.</li>
-    <li><strong>Know the numbers.</strong> If you win most figure-8 rounds, it beats selling cars to Moses per hour. The oval doesn't.</li>
+    <li><strong>Pick the figure-8 track.</strong> Our win paid $3,150 for 1st place (up to $3,900 is listed), about double the oval's $1,900.</li>
+    <li><strong>The numbers we got:</strong> $3,150 prize minus the $615 Tulip rental is $2,535 profit, and a win took about 3 minutes. That's roughly $50,000 an hour, the best money in Chapter 2 by far. A loss and retry eats into that, but retries are cheaper than the first rental.</li>
   </ul>
 
   <h2>One-time payouts worth knowing</h2>
