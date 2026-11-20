@@ -10,7 +10,7 @@ const acts = [
   { id: "bank", name: "Small banks", ch: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
   { id: "jewel", name: "Jewelry stores", ch: 3, pay: 15000, min: 10, range: "$10,000–25,000", time: "est", note: "Up to 4 stars by the third store. A repeat visit pays less until the store restocks." },
   { id: "payday", name: "Payday Loans stores", ch: 3, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
-  { id: "derby", name: "Demolition Derby", ch: 2, pay: 4700, min: 6, range: "$3,800–6,300 per win, minus a few hundred rental", time: "5–6 min (reported)", note: "Repeatable as often as you like." },
+  { id: "derby", name: "Demolition Derby", ch: 2, pay: 4700, min: 6, range: "$3,800–6,300 per win, minus a few hundred rental", time: "5–6 min (reported)", note: "Repeatable as often as you like. Guides haven't confirmed which chapter it opens in." },
   { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
   { id: "dive", name: "Kenton's treasure dives", ch: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
   { id: "moses", name: "Stolen cars to Moses", ch: 2, pay: 1500, min: 4, range: "$1,000–2,000 (some say up to $3,000)", time: "3–5 min incl. ~2-min cooldown (reported)", note: "Untracked cars only, none stolen near his garage." },
@@ -55,17 +55,26 @@ const faq = [
   <section slot="tool" class="calc" id="mph-calc">
     <h2>Money per hour calculator</h2>
     <p><small>Payouts are the middle of what guides report. Most run times are our estimates, because nobody has published timed runs yet. Change any number to match your own runs and the ranking updates.</small></p>
-    <div class="calc-grid">
-      <div class="field"><label for="chap">I'm in chapter</label>
-        <select id="chap"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5 / story done</option></select>
+    <fieldset id="chaps" style="border:1px solid var(--line);border-radius:10px;padding:10px 14px">
+      <legend><small>Chapters I've unlocked</small></legend>
+      <div style="display:flex;flex-wrap:wrap;gap:16px">
+        {[1, 2, 3, 4, 5].map((n) => <label class="check"><input type="checkbox" value={n} checked={n <= 2} /> {n === 5 ? "Ch 5 / story done" : `Ch ${n}`}</label>)}
       </div>
+    </fieldset>
+    <p style="margin-top:12px"><small>Tick <strong>Loop</strong> on the activities you chain together (for example, rob a store on the way to Moses with a stolen car) to see what the whole rotation earns per hour.</small></p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="moses,store">Chapter 2: cars + stick-ups</button>
+      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="derby,moses">Chapter 2: Derby + a car to Moses</button>
+      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="randy,jewel,spray">Chapter 3: supercars + jewelry</button>
+      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="">Clear loop</button>
     </div>
     <div class="table-scroll" style="margin-top:16px"><table>
-      <thead><tr><th>#</th><th>Activity</th><th>Payout ($)</th><th>Minutes per run</th><th>$ per hour</th></tr></thead>
+      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Payout ($)</th><th>Minutes per run</th><th>$ per hour</th></tr></thead>
       <tbody id="mph-rows">
         {acts.map((a) => (
           <tr data-id={a.id} data-ch={a.ch}>
             <td class="rank"></td>
+            <td><input type="checkbox" class="loop" aria-label={`Add ${a.name} to my loop`} style="width:18px;height:18px;accent-color:var(--accent)" /></td>
             <td><strong>{a.name}</strong><br /><small>Ch {a.ch}+ · reported {a.range}. {a.note}</small></td>
             <td><input class="pay" type="number" min="0" step="100" value={a.pay} inputmode="numeric" style="width:110px" aria-label={`${a.name} payout`} /></td>
             <td><input class="min" type="number" min="1" step="1" value={a.min} inputmode="numeric" style="width:70px" aria-label={`${a.name} minutes`} /><br /><small>{a.time}</small></td>
@@ -75,6 +84,7 @@ const faq = [
       </tbody>
     </table></div>
     <p id="mph-best" style="margin-top:12px"></p>
+    <p id="mph-loop" style="margin-top:4px"></p>
     <Share target="mph-calc" />
   </section>
 
@@ -87,6 +97,16 @@ const faq = [
     <li><strong>Chapter 3:</strong> Randy's Wish List supercars are the best earners, then jewelry stores, banks and Payday Loans. Pay 'n' Spray takes cars Moses won't.</li>
     <li><strong>Chapter 4 and after the story:</strong> large bank vaults beat everything else by a wide margin.</li>
   </ul>
+
+  <h2>A Chapter 2 money rotation</h2>
+  <p>On its own, Moses can only buy a car every couple of minutes, so the trick is filling that cooldown with something on the way:</p>
+  <ol>
+    <li><strong>Steal an untracked car far from Port Gellhorn.</strong> Moses won't buy cars stolen near his garage, and anything with a tracker is a Pay 'n' Spray job for Chapter 3.</li>
+    <li><strong>Hit a store on the drive over</strong> if one is on your route. It's only a few hundred dollars, so don't detour for it, and don't wreck the car escaping: damage cuts Moses's price.</li>
+    <li><strong>Sell to Moses</strong> for about $1,000–2,000, then go find the next car while his cooldown runs.</li>
+    <li><strong>If Demolition Derby is open for you, it pays more per hour than cars.</strong> Win a derby, and grab a car on the way back to sell.</li>
+  </ol>
+  <p>Bank your cash at an ATM every few runs, because you can only carry $20,000 and dying or getting busted costs what's in your pocket. Use the Loop buttons in the calculator with your own times to see which rotation actually pays best for you.</p>
 
   <h2>One-time payouts worth knowing</h2>
   <div class="table-scroll"><table>
@@ -108,29 +128,52 @@ const faq = [
   <script is:inline>
     (() => {
       const rows = [...document.querySelectorAll("#mph-rows tr")];
-      const chap = document.getElementById("chap");
+      const boxes = [...document.querySelectorAll("#chaps input")];
       const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+      const KEY = "hc-gta6-mph";
+      const name = (r) => r.querySelector("strong").textContent;
+      try {
+        const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+        if (saved) {
+          boxes.forEach((b) => (b.checked = saved.ch.includes(Number(b.value))));
+          rows.forEach((r) => (r.querySelector(".loop").checked = saved.loop.includes(r.dataset.id)));
+        }
+      } catch {}
       function calc() {
-        const ch = Number(chap.value);
+        const unlocked = new Set(boxes.filter((b) => b.checked).map((b) => Number(b.value)));
         const list = rows.map((r) => {
           const pay = Math.max(0, Number(r.querySelector(".pay").value) || 0);
           const min = Math.max(1, Number(r.querySelector(".min").value) || 1);
           const rate = (pay / min) * 60;
           r.querySelector(".rate").textContent = fmt(rate);
-          const open = Number(r.dataset.ch) <= ch;
+          const open = unlocked.has(Number(r.dataset.ch));
           r.style.opacity = open ? "1" : "0.4";
-          return { r, rate, open };
+          return { r, rate, open, pay, min, loop: r.querySelector(".loop").checked };
         });
         list.sort((a, b) => (b.open - a.open) || (b.rate - a.rate));
         const body = document.getElementById("mph-rows");
         list.forEach((x, i) => { body.appendChild(x.r); x.r.querySelector(".rank").textContent = x.open ? String(i + 1) : "🔒"; });
         const best = list.find((x) => x.open);
         document.getElementById("mph-best").textContent = best
-          ? `Best for you right now: ${best.r.querySelector("strong").textContent} at about ${fmt(best.rate)} per hour. Greyed rows unlock in later chapters.`
+          ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour. Greyed rows are in chapters you haven't ticked.`
+          : "Tick the chapters you've unlocked.";
+        const loop = list.filter((x) => x.loop);
+        const pay = loop.reduce((s, x) => s + x.pay, 0), min = loop.reduce((s, x) => s + x.min, 0);
+        const locked = loop.filter((x) => !x.open).map((x) => name(x.r));
+        document.getElementById("mph-loop").textContent = loop.length
+          ? `Your loop (${loop.map((x) => name(x.r)).join(" → ")}): ${fmt(pay)} every ${min} min, about ${fmt((pay / min) * 60)} per hour.` +
+            (best && (pay / min) * 60 < best.rate ? ` That's less than doing ${name(best.r)} on its own, so only loop if the extra stops are on your way.` : "") +
+            (locked.length ? ` Not unlocked yet: ${locked.join(", ")}.` : "")
           : "";
+        try { localStorage.setItem(KEY, JSON.stringify({ ch: [...unlocked], loop: loop.map((x) => x.r.dataset.id) })); } catch {}
       }
       document.getElementById("mph-calc").addEventListener("input", calc);
-      chap.addEventListener("change", calc);
+      document.getElementById("mph-calc").addEventListener("change", calc);
+      document.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
+        const ids = b.dataset.preset ? b.dataset.preset.split(",") : [];
+        rows.forEach((r) => (r.querySelector(".loop").checked = ids.includes(r.dataset.id)));
+        calc();
+      }));
       calc();
     })();
   </script>
