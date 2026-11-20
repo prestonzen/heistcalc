@@ -7,6 +7,10 @@ const shots: Record<string, Shot> = {
   rent: { src: "/img/gta-6/derby-rent-car-615.webp", alt: "GTA 6 demolition derby rental car selection screen with Rent & Start Race for $615", cap: "Pick one of 3 rental cars. Our '72 Tulip cost $615 to rent." },
   grid: { src: "/img/gta-6/derby-start-grid.webp", alt: "Starting grid of the GTA 6 figure-8 demolition race at Ambrosia Raceway", cap: "The start. 12 cars, and most of them are about to crash into each other at the crossover." },
   win: { src: "/img/gta-6/derby-last-car-eliminated.webp", alt: "GTA 6 demolition derby last opponent eliminated on lap 1 with 1 of 1 cars remaining", cap: "The last opponent eliminated on lap 1 of 8. You win as soon as you're the only car left; the laps don't matter." },
+  rcamp: { src: "/img/gta-6/derby-ramp-camp.webp", alt: "GTA 6 demolition derby car parked on top of the figure-8 crossover ramp at Ambrosia Raceway", cap: "Step 1: drive up the figure-8 crossover ramp and park on top." },
+  rlaunch: { src: "/img/gta-6/derby-ramp-launch.webp", alt: "AI car driving up the ramp toward the parked player car in the GTA 6 demolition derby", cap: "Step 2: wait. The AI cars drive straight up the ramp into you." },
+  rflip: { src: "/img/gta-6/derby-ramp-flip.webp", alt: "AI car launched into the air after hitting the player's car on the GTA 6 derby ramp", cap: "Step 3: they hit you at the top and get launched off the ramp." },
+  rwin: { src: "/img/gta-6/derby-ramp-win-3150.webp", alt: "GTA 6 demolition derby 1st place screen showing winnings of $3,150", cap: "1st place, $3,150, with the race timer under 3 minutes." },
   retry: { src: "/img/gta-6/derby-retry-315.webp", alt: "GTA 6 demolition derby end screen with Retry for $315", cap: "Lost? Retry costs $315, about half the rental." },
 };
 const events: [string, string, string, string, string][] = [
@@ -15,16 +19,16 @@ const events: [string, string, string, string, string][] = [
 ];
 const faq = [
   { q: "Where is the demolition derby in GTA 6?", a: "Ambrosia Raceway, at the north end of Ambrosia in Kelly County. Talk to the organizer at the Team 360 'Wing-It' tent to sign up. The icon shows on the map once you get close, and the events are listed under Map > Activities > Racing." },
-  { q: "How do you win the demolition derby in GTA 6?", a: "Be the last car running. You don't have to finish the laps or be fast. We won on lap 1 of 8 by hanging back while the AI cars crashed into each other, then ramming the damaged ones in reverse." },
-  { q: "What is the best car for the GTA 6 demolition derby?", a: "We won with the '72 Tulip ($615 to rent). You can only use the 3 rental cars, not your own car. Guides haven't tested the other two yet." },
+  { q: "How do you win the demolition derby in GTA 6?", a: "Be the last car running; you don't have to finish the laps. The easiest way we found: on the Figure 8, park on top of the crossover ramp. The AI cars drive into you and launch themselves off it. We won in under 3 minutes." },
+  { q: "What is the best car for the GTA 6 demolition derby?", a: "The cheapest rental ($465) wins fine with the ramp strategy, so it gives you the most profit. We also won with the '72 Tulip ($615). You can only use the 3 rental cars, not your own car." },
   { q: "How much does the demolition derby pay in GTA 6?", a: "The figure-8 pays up to $3,150 for 1st place, and we got $1,500 for 2nd. The oval pays up to $1,900. The rental costs $615 and a retry costs $315. Some guides report $3,800–6,300 per win, but the in-game menu shows $3,150 as the figure-8 maximum." },
-  { q: "Is the demolition derby worth it for money?", a: "Yes, in Chapter 2. A figure-8 win nets $2,535 after the rental and takes about 3 minutes, roughly $50,000 an hour. That's about double selling stolen cars to Moses." },
+  { q: "Is the demolition derby worth it for money?", a: "Yes, in Chapter 2. A figure-8 win nets $2,685 in the cheapest rental and takes under 3 minutes with the ramp strategy, roughly $54,000 an hour. That's about double selling stolen cars to Moses." },
 ];
 ---
 <Article
   title="GTA 6 Demolition Derby Guide: How to Win, Best Car & Payouts"
   h1="GTA 6 Demolition Derby: How to Win Every Time"
-  description="Everything about the GTA 6 Demolition Derby at Ambrosia Raceway: where it is, the best rental car, figure-8 vs oval payouts, the camp-and-reverse strategy that wins in 3 minutes, and why it's the best money in Chapters 2–3."
+  description="How to win the GTA 6 Demolition Derby at Ambrosia Raceway in under 3 minutes: the ramp strategy, the cheapest rental that works, figure-8 vs oval payouts, and why it's the best money in Chapters 2–3."
   published="2026-11-21"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
@@ -37,7 +41,7 @@ const faq = [
   ]}
 >
   <p>The Demolition Derby at Ambrosia Raceway is the best money we've found in Chapters 2 and 3. It's not really a race. You win by being the last car still running, and the AI makes that easy. Every number and screenshot here comes from our own runs on stream.</p>
-  <div class="callout"><p><strong>Quick answer:</strong> pick the <strong>Figure 8</strong> ($3,150 for 1st), rent the <strong>'72 Tulip</strong> ($615), hang back while the AI wrecks itself, then ram the damaged cars <strong>in reverse</strong>. Wins take about 3 minutes. Lost? Retry for $315. That's roughly <strong>$50,000 an hour</strong>.</p></div>
+  <div class="callout"><p><strong>Quick answer:</strong> pick the <strong>Figure 8</strong> ($3,150 for 1st), rent the <strong>cheapest car ($465)</strong>, drive up the <strong>crossover ramp and park on top</strong>. The AI cars drive into you and launch themselves off it. We won in <strong>under 3 minutes</strong>, roughly <strong>$54,000 an hour</strong>.</p></div>
 
   <h2>Where it is and how to start</h2>
   <ul>
@@ -55,16 +59,27 @@ const faq = [
   </table></div>
   <ul>
     <li><strong>1st place (Figure 8):</strong> $3,150. <strong>2nd place:</strong> $1,500.</li>
-    <li><strong>Rental:</strong> $615 for the '72 Tulip. <strong>Retry:</strong> $315.</li>
-    <li><strong>Profit:</strong> a first-try win nets $2,535. Coming 2nd still nets $885. Coming 2nd and then winning the retry nets $3,720 across the two rounds.</li>
+    <li><strong>Rental:</strong> $465 for the cheapest car, or $615 for the '72 Tulip. <strong>Retry:</strong> $315 with the Tulip.</li>
+    <li><strong>Profit:</strong> a first-try win nets $2,685 in the cheap car, or $2,535 in the Tulip. Coming 2nd still nets $885. Coming 2nd and then winning the retry nets $3,720 across the two rounds.</li>
   </ul>
   <p><small>Some guides list $3,800–6,300 per win, but the in-game sign-up menu shows $3,150 as the Figure 8 maximum. We go with what the game shows.</small></p>
 
   <h2>Best derby car</h2>
-  <p>There are <strong>3 rental cars</strong> to choose from. We've won repeatedly with the <strong>'72 Tulip</strong> ($615). It's an old muscle car with a blower engine sticking out of the hood, and backing into other cars with it kept it running long enough to win. Nobody has published tests of the other two rentals yet. We'll add them here once we've tried them.</p>
+  <p>There are <strong>3 rental cars</strong> to choose from. With the ramp strategy, <strong>the cheapest rental ($465) works fine</strong>, so don't pay more: that's $2,685 profit per win instead of $2,535. We also won plenty with the <strong>'72 Tulip</strong> ($615). It's an old muscle car with a blower engine sticking out of the hood, and backing into other cars with it kept it running long enough to win. Nobody has published tests of the other two rentals yet. We'll add them here once we've tried them.</p>
   <figure style="margin:20px 0"><img src={shots.rent.src} alt={shots.rent.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.rent.cap}</small></figcaption></figure>
 
-  <h2>How to win: camp and reverse</h2>
+  <h2>Best strategy: park on the ramp</h2>
+  <p>We found this on stream and haven't seen it anywhere else. The figure-8 has a raised crossover ramp in the middle. Park your car on top of it and let the AI do the rest:</p>
+  <ol>
+    <li><strong>Drive up the crossover ramp</strong> at the start and stop at the top.</li>
+    <li><strong>Sit still.</strong> The AI cars drive straight up the ramp into you.</li>
+    <li><strong>Watch them launch.</strong> They hit you at the top and fly off the ramp, flipping and wrecking themselves.</li>
+    <li><strong>Finish off stragglers</strong> by backing into them if one is still running at the end.</li>
+  </ol>
+  <p>Our run: 1st place, $3,150, with the race timer under 3 minutes.</p>
+  {[shots.rcamp, shots.rlaunch, shots.rflip, shots.rwin].map((x) => <figure style="margin:20px 0"><img src={x.src} alt={x.alt} width="1280" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{x.cap}</small></figcaption></figure>)}
+
+  <h2>Backup strategy: camp and reverse</h2>
   <ol>
     <li><strong>Don't race.</strong> Lap times don't matter. You win the moment every other car is eliminated, even on lap 1.</li>
     <li><strong>Hang back at the start.</strong> Let the pack hit the figure-8 crossover and pile into each other.</li>
@@ -76,9 +91,12 @@ const faq = [
   <figure style="margin:20px 0"><img src={shots.win.src} alt={shots.win.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.win.cap}</small></figcaption></figure>
   <figure style="margin:20px 0"><img src={shots.retry.src} alt={shots.retry.alt} width="800" height="450" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{shots.retry.cap}</small></figcaption></figure>
 
+  <h2>Spend it before you hit the cap</h2>
+  <p>In Chapter 2 your BuckMe checking account tops out at <strong>$15,000</strong>. Once it's full, new winnings wait as pending instead of landing. So grind the derby up to about $15,000, then <strong>spend it on properties</strong>. Everything priced at $15,000 or less is in reach. Then go back and win more. Moving money into Family Savings also raises your checking limit; see the <a href="/gta-6/buckme/">BuckMe guide</a>.</p>
+
   <h2>Is it worth it? Chapters 2–3</h2>
   <ul>
-    <li><strong>Chapter 2:</strong> yes, it's the best money available. About $50,000 an hour against about $22,500 from stolen cars to Moses.</li>
+    <li><strong>Chapter 2:</strong> yes, it's the best money available. About $54,000 an hour against about $22,500 from stolen cars to Moses.</li>
     <li><strong>Chapter 3:</strong> it's still solid, but Randy's Wish List supercars ($30,000+ each) and jewelry stores pay more per hour once you have the Key Cloner. Use the derby when you want money without any wanted level, because it's a legal event with no police.</li>
     <li><strong>The oval:</strong> skip it. $1,900 minus a $615 rental isn't worth the time.</li>
   </ul>
