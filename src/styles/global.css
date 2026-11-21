@@ -152,7 +152,7 @@ section.hero { padding: 48px 16px 28px; margin: 0 -16px; background: radial-grad
 /* The homepage has its own timed launch banner. */
 .launch-bar[hidden] { display: none; }
 
-/* Vice City */
+/* Leonida sunset */
 section.hero.vice { background: linear-gradient(180deg, rgba(18,10,28,0) 40%, var(--bg) 100%), linear-gradient(160deg, #ff3d8b 0%, #b0379c 30%, #5b2a8c 55%, #1f5f8b 78%, #2de2c4 100%); border-bottom: 0; }
 section.hero.vice .tag { color: #fff; background: rgba(0,0,0,.28); }
 section.hero.vice p { color: #f3e6ff; }

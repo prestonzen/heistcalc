@@ -1,9 +1,9 @@
 export const SITE = {
   name: "HeistCalc",
   url: "https://heistcalc.com",
-  tagline: "GTA 6 money calculators for Vice City and Leonida",
+  tagline: "GTA 6 money calculators for Leonida",
   description:
-    "Free GTA 6 money calculators and guides: the best money per hour in Vice City, the Chapter 2 Fast Money Method, BuckMe limits, plus GTA Online heist calculators.",
+    "Free GTA 6 money calculators and guides: the best money per hour in Leonida, the Chapter 2 Fast Money Method, BuckMe limits, plus GTA Online heist calculators.",
   author: "the HeistCalc team",
   email: "hello@heistcalc.com",
   locale: "en_US",
