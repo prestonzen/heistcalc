@@ -65,20 +65,11 @@ const siteSchema = {
     <div class="wrap bar">
       <a class="logo" href="/" aria-label={`${SITE.name} home`}><span class="logo-mark">$</span>Heist<b>Calc</b></a>
       <nav aria-label="Main">
-        {NAV.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+        {NAV.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) && !NAV.some((m) => m.href.length > n.href.length && path.startsWith(m.href)) ? "page" : undefined}>{n.label}</a>)}
       </nav>
     </div>
   </header>
-  <a hidden={Astro.url.pathname === "/"} class="launch-bar" id="launch-bar" href="/gta-6/preload/"><span id="launch-msg">How to preload GTA 6: start times, 212 GB, and setup</span><b>Read guide</b></a>
-  <script is:inline>
-    (() => {
-      const now = Date.now(), launch = new Date(2026, 10, 19).getTime(), open = new Date(2026, 10, 10).getTime();
-      const bar = document.getElementById("launch-bar"), msg = document.getElementById("launch-msg");
-      if (now >= launch) { bar.href = "/gta-6/demolition-derby/"; msg.textContent = "🔥 NEW: We found a GTA 6 Derby cheese. Win $3,150 in 1:18"; bar.lastElementChild.textContent = "See how"; return; }
-      const days = Math.ceil((launch - now) / 86400000);
-      msg.textContent = now >= open ? `GTA 6 preload is open. ${days} day${days === 1 ? "" : "s"} to launch.` : "GTA 6 preload opens November 10. Get your console ready.";
-    })();
-  </script>
+  <a hidden={Astro.url.pathname === "/"} class="launch-bar" id="launch-bar" href="/gta-6/demolition-derby/"><span id="launch-msg">🔥 Chapter 2 Fast Money Method: our Derby cheese wins $3,150 in 1:18</span><b>See how</b></a>
   <main id="main" class="wrap">
     <slot />
   </main>

@@ -1,9 +1,9 @@
 export const SITE = {
   name: "HeistCalc",
   url: "https://heistcalc.com",
-  tagline: "Heist payout calculators for every GTA",
+  tagline: "GTA 6 money calculators for Vice City and Leonida",
   description:
-    "Free heist payout calculators and guides for GTA Online, GTA 5 and GTA 6. Work out your Cayo Perico take, Diamond Casino cuts and crew splits in seconds.",
+    "Free GTA 6 money calculators and guides: the best money per hour in Vice City, the Chapter 2 Fast Money Method, BuckMe limits, plus GTA Online heist calculators.",
   author: "the HeistCalc team",
   email: "hello@heistcalc.com",
   locale: "en_US",
@@ -13,12 +13,13 @@ export const SITE = {
 export const EZOIC_ENABLED = false;
 
 export const NAV = [
+  { href: "/gta-6/make-money/", label: "GTA 6 Money" },
+  { href: "/gta-6/", label: "GTA 6" },
   { href: "/cayo-perico-calculator/", label: "Cayo Perico" },
   { href: "/diamond-casino-heist-calculator/", label: "Casino Heist" },
   { href: "/gta-online-heist-payouts/", label: "All Heists" },
   { href: "/timers/", label: "Timers" },
   { href: "/weekly-checklist/", label: "Weekly" },
-  { href: "/gta-6/", label: "GTA 6" },
   { href: "/guides/", label: "Guides" },
 ];
 

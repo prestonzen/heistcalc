@@ -1,11 +1,18 @@
 ---
 import Base from "../layouts/Base.astro";
-import LaunchBanner from "../components/LaunchBanner.astro";
 import Ad from "../components/Ad.astro";
 import { SITE } from "../config";
 
+const gta6 = [
+  { href: "/gta-6/demolition-derby/", tag: "Found on our stream", title: "Chapter 2 Fast Money Method", text: "Our Demolition Derby cheese: park on the figure-8 ramp and win $3,150 in as little as 1:18. About $50,000 an hour." },
+  { href: "/gta-6/buckme/", tag: "Calculator", title: "BuckMe & Family Savings Calculator", text: "What the Chapter 1 wipe takes, and when the checking and savings limits jump to $100,000 in Chapter 2." },
+  { href: "/gta-6/mr-mangrove/", tag: "Walkthrough", title: "Skunk Man Quest: Find Mr. Mangrove", text: "Kirk's last Skunk Ape quest, the frog trip and the real $5,000 payout, with screenshots from our playthrough." },
+  { href: "/gta-6/safe-codes/", tag: "Codes", title: "GTA 6 Safe Codes", text: "Every known safe code for stores, jewelry shops and hidden stashes." },
+  { href: "/gta-6/cheat-codes/", tag: "Codes", title: "GTA 6 Cheat Codes", text: "All verified cheats for PS5 and Xbox, and which ones block saving." },
+  { href: "/gta-6/", tag: "Hub", title: "Every GTA 6 Guide", text: "Missions, fastest cars, fast travel, collectibles, trophies and the Leonida map." },
+];
 const calculators = [
-  { href: "/cayo-perico-calculator/", tag: "Most popular", title: "Cayo Perico Heist Calculator", text: "Pick your primary target, fill your bags with the best secondary loot, and see every player's cut after Pavel and fencing fees." },
+  { href: "/cayo-perico-calculator/", tag: "GTA Online", title: "Cayo Perico Heist Calculator", text: "Pick your primary target, fill your bags with the best secondary loot, and see every player's cut after Pavel and fencing fees." },
   { href: "/diamond-casino-heist-calculator/", tag: "Calculator", title: "Diamond Casino Heist Calculator", text: "Target, buyer, support crew and cuts. Find out what the Diamond Casino Heist actually pays out." },
   { href: "/timers/", tag: "New", title: "Cooldown Timers & Hard Mode Alarm", text: "Tap when your Cayo finale ends and get an alert (in your browser or Discord) when Pavel's ready, before the Hard Mode window closes." },
   { href: "/weekly-checklist/", tag: "New", title: "Weekly Bonus Checklist", text: "Track this week's first-run heist bonuses. Resets itself every Thursday at the weekly reset." },
@@ -24,7 +31,8 @@ const guides = [
 const faq = [
   { q: "Is HeistCalc free?", a: "Yes. Every calculator is free, runs in your browser, and needs no account." },
   { q: "Are the payout values up to date?", a: "Each calculator lists the date its values were last checked and links to its sources. Rockstar changes payouts in updates, so we re-check after every major patch." },
-  { q: "Will there be GTA 6 calculators?", a: "Yes. GTA 6 launches November 19, 2026. We'll add GTA 6 heist calculators once we can verify the real payouts in game." },
+  { q: "What's the best money in GTA 6 right now?", a: "It depends on your chapter. In Chapter 2 our Demolition Derby cheese (the Chapter 2 Fast Money Method) pays about $50,000 an hour. Later, bank vaults pay far more. The GTA 6 money per hour calculator ranks every method for the chapters you've unlocked." },
+  { q: "Are the GTA 6 numbers tested?", a: "Where it says 'checked on our stream', yes: we play GTA 6 live every day as prestonzen. Other figures are the middle of what guides report and are labelled that way." },
 ];
 const schema = [{
   "@context": "https://schema.org",
@@ -33,13 +41,29 @@ const schema = [{
 }];
 ---
 <Base title={SITE.name} description={SITE.description} schema={schema}>
-  <LaunchBanner />
-  <section class="hero">
-    <span class="tag">GTA Online · GTA 5 · GTA 6</span>
-    <h1>Know your take before the heist starts.</h1>
-    <p>Free, fast heist payout calculators for Grand Theft Auto. Plan the loot, set the cuts, and stop arguing in voice chat.</p>
+  <section class="hero vice">
+    <span class="tag">GTA 6 · Vice City · Leonida</span>
+    <h1>Make more money in Vice City.</h1>
+    <p>Free GTA 6 money calculators and guides, tested live on stream. Find the best money per hour for the chapter you're on.</p>
   </section>
 
+  <a class="feature" href="/gta-6/make-money/">
+    <span class="tag gold">Main calculator</span>
+    <h2>GTA 6 Money Per Hour Calculator</h2>
+    <p>Every money method ranked for the chapters you've unlocked: Derby, Moses cars, robberies, Randy's supercars and bank vaults. Plug in your own run times and build a loop.</p>
+    <span class="feature-cta">Open the calculator →</span>
+  </a>
+
+  <h2>GTA 6 guides and tools</h2>
+  <div class="cards">
+    {gta6.map((c) => (
+      <a class="card" href={c.href}><span class={c.tag === "Found on our stream" ? "tag gold" : "tag"}>{c.tag}</span><h3>{c.title}</h3><p>{c.text}</p></a>
+    ))}
+  </div>
+
+  <p class="stream-cta">Watch the tests live: <a href="https://www.youtube.com/@PrestonZen" rel="me noopener">YouTube</a> · <a href="https://www.tiktok.com/@prestonzen" rel="me noopener">TikTok</a> · GTA 6 every day as <strong>prestonzen</strong>.</p>
+
+  <h2>GTA Online heist calculators</h2>
   <div class="cards">
     {calculators.map((c) => (
       <a class="card" href={c.href}><span class={c.tag === "Most popular" || c.tag === "New" ? "tag gold" : "tag"}>{c.tag}</span><h3>{c.title}</h3><p>{c.text}</p></a>

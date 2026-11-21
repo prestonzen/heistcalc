@@ -10,7 +10,7 @@ const acts = [
   { id: "bank", name: "Small banks", ch: 3, diff: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
   { id: "jewel", name: "Jewelry stores", ch: 3, diff: 3, pay: 15000, min: 10, range: "$10,000–25,000", time: "est", note: "Up to 4 stars by the third store. A repeat visit pays less until the store restocks." },
   { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
-  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 3, pay: 2685, min: 3, range: "$3,150 for 1st place minus the $465 cheapest rental (our stream; $3,150 is the in-game max)", time: "3 min per win (timed on our stream)", note: "Last car standing. Pays about double the oval. Tested strategy: drive the wrong way to the crossover ramp, park on top and let the AI launch itself off you. Fastest win 1:18. 2nd place still pays $1,500." },
+  { id: "derby8", name: "Demolition Derby: figure-8 track", ch: 2, diff: 1, pay: 2685, min: 3, range: "$3,150 for 1st place minus the $465 cheapest rental (our stream; $3,150 is the in-game max)", time: "3 min per win (timed on our stream)", note: "Last car standing. Pays about double the oval. Tested strategy: drive the wrong way to the crossover ramp, park on top and let the AI launch itself off you. Fastest win 1:18. 2nd place still pays $1,500." },
   { id: "derby", name: "Demolition Derby: oval", ch: 2, diff: 3, pay: 1400, min: 6, range: "$1,900 top prize at the start (seen on our stream), minus a rental of about $500; the in-game menu shows $1,900 max", time: "5–6 min (reported)", note: "Last car standing, not a race: you win by being the only car still running. You only get paid if you win. Retrying costs less than the first rental. Lower the payout if you don't win every time." },
   { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, diff: 2, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
   { id: "dive", name: "Kenton's treasure dives", ch: 1, diff: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
@@ -27,7 +27,7 @@ const once = [
 ];
 const faq = [
   { q: "What's the best money per hour in GTA 6?", a: "Large bank vaults, by a wide margin: guides report $65,000–205,000 per vault and about 5 minutes inside, but they unlock at the end of Chapter 4. Before that, Randy's Wish List supercars ($30,000+ each, Chapter 3) and jewelry stores ($10,000–25,000) earn the most per hour." },
-  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies are the best: our win paid $3,150 for 1st, the '72 Tulip rental is $615, and it took about 3 minutes, roughly $50,000 an hour. You win by being the last car running, not by speed." },
+  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies are the best: our win paid $3,150 for 1st, the cheapest rental is $465, and a win takes about 3 minutes with the ramp method, roughly $50,000 an hour. You win by being the last car running, not by speed." },
   { q: "How much cash can you carry in GTA 6?", a: "$20,000 in pocket cash per character. Getting wasted or busted can cost you what you carry, so bank it at an ATM before risky jobs." },
   { q: "Can you sell fish in GTA 6?", a: "No. Fishing is catch-and-release, so it doesn't pay. Hunting does: Bret buys animals in good condition." },
   { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and using cheats blocks saving, so the money doesn't stay. See our cheat codes page." },
@@ -56,7 +56,7 @@ const faq = [
   <section slot="tool" class="calc" id="mph-calc">
     <h2>Money per hour calculator</h2>
     <a href="/gta-6/demolition-derby/" class="callout" style="display:block;text-decoration:none;border-color:var(--money);margin:12px 0"><strong>🔥 New discovery: the Demolition Derby cheese.</strong> Win $3,150 in as little as 1:18 by parking on the figure-8 ramp. It's the best money in Chapter 2. <u>Read the guide →</u></a>
-    <p><small>Payouts are the middle of what guides report. Most run times are our estimates, because nobody has published timed runs yet. Change any number to match your own runs and the ranking updates.</small></p>
+    <p><small>Payouts are the middle of what guides report. Most run times are our estimates, because nobody has published timed runs yet. Change any number to match your own runs; the ranking updates when you click out of the box.</small></p>
     <fieldset id="chaps" style="border:1px solid var(--line);border-radius:10px;padding:10px 14px">
       <legend><small>Chapters I've unlocked</small></legend>
       <div style="display:flex;flex-wrap:wrap;gap:16px">
@@ -155,7 +155,8 @@ const faq = [
           rows.forEach((r) => (r.querySelector(".loop").checked = saved.loop.includes(r.dataset.id)));
         }
       } catch {}
-      function calc() {
+      // resort=false while typing, so rows don't jump under your cursor; the table re-ranks when you leave the box or press Enter.
+      function calc(resort = true) {
         const unlocked = new Set(boxes.filter((b) => b.checked).map((b) => Number(b.value)));
         const list = rows.map((r) => {
           const pay = Math.max(0, Number(r.querySelector(".pay").value) || 0);
@@ -167,8 +168,10 @@ const faq = [
           return { r, rate, open, pay, min, loop: r.querySelector(".loop").checked };
         });
         list.sort((a, b) => (b.open - a.open) || (b.rate - a.rate));
-        const body = document.getElementById("mph-rows");
-        list.forEach((x, i) => { body.appendChild(x.r); x.r.querySelector(".rank").textContent = x.open ? String(i + 1) : "🔒"; });
+        if (resort) {
+          const body = document.getElementById("mph-rows");
+          list.forEach((x, i) => { body.appendChild(x.r); x.r.querySelector(".rank").textContent = x.open ? String(i + 1) : "🔒"; });
+        }
         const best = list.find((x) => x.open);
         document.getElementById("mph-best").textContent = best
           ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour. Greyed rows are in chapters you haven't ticked.`
@@ -183,8 +186,9 @@ const faq = [
           : "";
         try { localStorage.setItem(KEY, JSON.stringify({ ch: [...unlocked], loop: loop.map((x) => x.r.dataset.id) })); } catch {}
       }
-      document.getElementById("mph-calc").addEventListener("input", calc);
-      document.getElementById("mph-calc").addEventListener("change", calc);
+      const calcEl = document.getElementById("mph-calc");
+      calcEl.addEventListener("input", (e) => calc(e.target.type !== "number"));
+      calcEl.addEventListener("change", () => calc(true));
       document.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
         const ids = b.dataset.preset ? b.dataset.preset.split(",") : [];
         rows.forEach((r) => (r.querySelector(".loop").checked = ids.includes(r.dataset.id)));
