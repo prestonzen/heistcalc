@@ -1,0 +1,42 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "Does GTA 6 have fast travel?", a: "Not a map teleport. Fast travel works through in-world rides: the Paradise Taxi early on, then the RydeMe app, and you can pay to skip the journey." },
+  { q: "How do you unlock RydeMe in GTA 6?", a: "Finish the BuckMe mission. That gives you a bank account, and the app then appears on your phone automatically." },
+  { q: "How much does it cost to skip a ride?", a: "Outlets report an extra $100 on top of the fare when you skip a taxi or RydeMe ride, whatever the distance." },
+  { q: "What can I use before RydeMe?", a: "The Paradise Taxi, which is reportedly available after the opening mission, Gone Fishing. You call it from the phone's Contacts and pay from the cash in your pocket." },
+  { q: "Can taxis reach everywhere?", a: "No. Reports say rides go to most places a car can reach, but not remote spots such as far-flung keys or deep swamp." },
+  { q: "Is there a free way to get across the map?", a: "Yes. One guide says Jason or Lucia can drive to your waypoint on auto-drive at no cost, though it takes real time." },
+];
+---
+<Article
+  title="GTA 6 Fast Travel: Taxi, RydeMe and Skipping Rides"
+  h1="GTA 6 Fast Travel: How to Get Around Leonida"
+  description="How fast travel works in GTA 6: the Paradise Taxi, when RydeMe unlocks, the $100 skip fee and where rides can't go."
+  published="2026-11-21"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.videogameschronicle.com/guide/gta-6-fast-travel-explained-how-to-fast-travel-in-gta-6/", label: "VGC: GTA 6 fast travel explained" },
+    { href: "https://www.gtabase.com/gta-6/articles/how-to-fast-travel-in-gta-6", label: "GTABase: how to fast travel in GTA 6" },
+    { href: "https://www.keengamer.com/articles/guides/gta-vi-how-to-fast-travel-and-unlock-rydeme/", label: "KeenGamer: fast travel and unlocking RydeMe" },
+  ]}
+>
+  <p><strong>GTA 6 has no instant map teleport.</strong> Instead you call a ride, then either sit through the drive or pay extra to skip it. Several guides agree on how it works.</p>
+
+  <h2>Paradise Taxi (early game)</h2>
+  <p>After the opening mission, Gone Fishing, you can call a Paradise Taxi from your phone's Contacts. It charges the fare from the cash you're carrying, and it's your only ride service until RydeMe arrives.</p>
+
+  <h2>RydeMe</h2>
+  <p>RydeMe unlocks when you finish the BuckMe mission and get your bank account. The app is then added to your phone on its own. Fares come out of your bank account and grow with distance. You can ride to a safehouse, your map marker, or a spot you pick on the map.</p>
+
+  <h2>Skipping the ride</h2>
+  <p>Staying in the car takes about as long as driving. Skipping adds a flat $100 on top of the fare, for taxis and RydeMe alike. On one guide's controls that's holding L2/LT and pressing Triangle/Y.</p>
+
+  <h2>Limits</h2>
+  <p>Rides cover most places reachable by car, but not remote spots such as isolated keys or the deep swamp. Early on, <a href="/gta-6/make-money/">your cash</a> matters since the taxi uses pocket money. The <a href="/gta-6/map/">map</a> shows where you can go.</p>
+
+  <h2>Not confirmed</h2>
+  <p>One outlet also describes bus and train routes with a paid skip option, but we've only found it in a single guide, so we're not treating it as settled.</p>
+</Article>

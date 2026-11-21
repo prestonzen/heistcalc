@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/fast-travel/",
+    "title": "GTA 6 Fast Travel: Taxi, RydeMe and Skipping Rides",
+    "text": "How fast travel works in GTA 6: the Paradise Taxi, when RydeMe unlocks, the $100 skip fee and where rides can't go.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/trophies/",
     "title": "GTA 6 Trophy & Achievement List: All 55",
     "text": "GTA 6 has 55 trophies and achievements: 1 Platinum, 2 Gold, 6 Silver and 46 Bronze on PS5, with 28 hidden. Breakdown, Platinum and Gamerscore.",

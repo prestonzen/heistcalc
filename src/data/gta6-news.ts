@@ -13,6 +13,14 @@ export interface NewsItem {
 export const NEWS: NewsItem[] = [
   {
     date: "2026-11-21",
+    title: "GTA 6 fast travel explained: Paradise Taxi, RydeMe and a $100 skip",
+    summary: "There's no map teleport. Early on you call the Paradise Taxi, and after the BuckMe mission the RydeMe app unlocks. Skipping a ride costs an extra $100. Rides reach most drivable spots but not remote keys or deep swamp.",
+    confirmed: "reported",
+    sources: ["https://www.videogameschronicle.com/guide/gta-6-fast-travel-explained-how-to-fast-travel-in-gta-6/", "https://www.gtabase.com/gta-6/articles/how-to-fast-travel-in-gta-6", "https://www.keengamer.com/articles/guides/gta-vi-how-to-fast-travel-and-unlock-rydeme/"],
+    href: "/gta-6/fast-travel/",
+  },
+  {
+    date: "2026-11-21",
     title: "GTA 6 trophy list: 55 trophies, 28 of them hidden",
     summary: "The full list is out: one Platinum, two Gold, six Silver and 46 Bronze on PS5, and 55 achievements worth 1,000 Gamerscore on Xbox. Rockstar hasn't published the list itself, so this comes from outlets that have tracked it in game.",
     confirmed: "reported",
