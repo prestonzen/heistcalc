@@ -12,6 +12,14 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-21",
+    title: "GTA 6 trophy list: 55 trophies, 28 of them hidden",
+    summary: "The full list is out: one Platinum, two Gold, six Silver and 46 Bronze on PS5, and 55 achievements worth 1,000 Gamerscore on Xbox. Rockstar hasn't published the list itself, so this comes from outlets that have tracked it in game.",
+    confirmed: "reported",
+    sources: ["https://insider-gaming.com/complete-gta-6-trophy-list-how-to-get-all-trophies-achievements/", "https://www.gtabase.com/gta-6/achievements"],
+    href: "/gta-6/trophies/",
+  },
+  {
     date: "2026-11-18",
     title: "PSN sign-in outage hits PS5 players hours before GTA 6 unlocks",
     summary: "PlayStation Network users reported widespread sign-in problems on November 18, just ahead of the global release, and PlayStation acknowledged an outage affecting its online services. Reports say it was resolved the same day. Sony has not given a cause, and any link to GTA 6 demand is speculation.",

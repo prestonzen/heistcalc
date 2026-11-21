@@ -84,6 +84,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/trophies/",
+    "title": "GTA 6 Trophy & Achievement List: All 55",
+    "text": "GTA 6 has 55 trophies and achievements: 1 Platinum, 2 Gold, 6 Silver and 46 Bronze on PS5, with 28 hidden. Breakdown, Platinum and Gamerscore.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/demolition-derby/",
     "title": "GTA 6 Demolition Derby Cheese: Win $3,150 in 1:18 (Ramp Trick)",
     "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. The AI launches itself off you. $3,150 per win, fastest 1:18, best money in Chapter 2.",

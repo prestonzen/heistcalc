@@ -1,0 +1,48 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "How many trophies are in GTA 6?", a: "55 trophies on PlayStation 5 and 55 achievements on Xbox Series X|S, according to the lists published by Insider Gaming and GTABase." },
+  { q: "What is the trophy breakdown on PS5?", a: "One Platinum, two Gold, six Silver and 46 Bronze." },
+  { q: "How many GTA 6 trophies are hidden?", a: "28 of the 55 are hidden. Outlets describe many of them as tied to the main story, so they're best discovered by playing." },
+  { q: "How do you get the GTA 6 Platinum?", a: "By unlocking every other trophy. The Platinum is called Vice Got a Price! The Xbox equivalent is a 0G Mythic achievement." },
+  { q: "How much Gamerscore is there?", a: "1,000 Gamerscore in total on Xbox, with the largest single award, A Long Road (100G), going to 100% completion." },
+  { q: "Will more trophies be added later?", a: "Rockstar hasn't said. GTA V added achievements through later updates, but nothing is confirmed for GTA 6." },
+];
+
+const rows = [
+  ["Platinum", "1", "Vice Got a Price! (all other trophies)"],
+  ["Gold", "2", "Includes A Long Road (100% completion)"],
+  ["Silver", "6", ""],
+  ["Bronze", "46", ""],
+];
+---
+<Article
+  title="GTA 6 Trophy & Achievement List: All 55"
+  h1="GTA 6 Trophies and Achievements: What We Know"
+  description="GTA 6 has 55 trophies and achievements: 1 Platinum, 2 Gold, 6 Silver and 46 Bronze on PS5, with 28 hidden. Breakdown, Platinum and Gamerscore."
+  published="2026-11-21"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://insider-gaming.com/complete-gta-6-trophy-list-how-to-get-all-trophies-achievements/", label: "Insider Gaming: GTA 6 trophy list" },
+    { href: "https://www.gtabase.com/gta-6/achievements", label: "GTABase: GTA 6 achievements" },
+  ]}
+>
+  <p><strong>GTA 6 has 55 trophies on PS5 and 55 achievements on Xbox.</strong> Two outlets that have tracked the list agree on the totals, and more than half of them are tied to progress you'll discover in play.</p>
+
+  <h2>PS5 breakdown</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Tier</th><th>Count</th><th>Notes</th></tr></thead>
+    <tbody>{rows.map(([t, c, n]) => <tr><td>{t}</td><td>{c}</td><td>{n}</td></tr>)}</tbody>
+  </table></div>
+
+  <h2>Hidden trophies</h2>
+  <p>28 of the 55 are hidden, including one Gold. Reports describe many of them as story-linked, such as chapter and mission finales. The visible 27 lean towards activities, collectibles and a couple of partner-related goals.</p>
+
+  <h2>Xbox</h2>
+  <p>Xbox lists the same 55 achievements for 1,000 Gamerscore, plus a 0G Mythic achievement that matches the Platinum. The biggest single award is 100G for reaching 100% completion.</p>
+
+  <h2>Planning your run</h2>
+  <p>Collectibles will matter for completion, so keep our <a href="/gta-6/collectibles/">collectibles page</a> handy, and see the <a href="/gta-6/make-money/">money guide</a> for early cash. More on the <a href="/gta-6/">GTA 6 hub</a>.</p>
+</Article>
