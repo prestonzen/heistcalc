@@ -85,8 +85,8 @@ export const articles = [
   },
   {
     "href": "/gta-6/demolition-derby/",
-    "title": "GTA 6 Demolition Derby Guide: How to Win, Best Car & Payouts",
-    "text": "Where the Ambrosia Raceway derby is, the best rental car, figure-8 vs oval payouts and the camp-and-reverse strategy that wins in about 3 minutes.",
+    "title": "GTA 6 Demolition Derby Cheese: Win $3,150 in 1:18 (Ramp Trick)",
+    "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. The AI launches itself off you. $3,150 per win, fastest 1:18, best money in Chapter 2.",
     "tags": [
       "GTA 6"
     ]

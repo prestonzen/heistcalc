@@ -74,7 +74,7 @@ const siteSchema = {
     (() => {
       const now = Date.now(), launch = new Date(2026, 10, 19).getTime(), open = new Date(2026, 10, 10).getTime();
       const bar = document.getElementById("launch-bar"), msg = document.getElementById("launch-msg");
-      if (now >= launch) { bar.href = "/gta-6/"; msg.textContent = "GTA 6 is out. Guides and calculators"; bar.lastElementChild.textContent = "Open hub"; return; }
+      if (now >= launch) { bar.href = "/gta-6/demolition-derby/"; msg.textContent = "🔥 NEW: We found a GTA 6 Derby cheese. Win $3,150 in 1:18"; bar.lastElementChild.textContent = "See how"; return; }
       const days = Math.ceil((launch - now) / 86400000);
       msg.textContent = now >= open ? `GTA 6 preload is open. ${days} day${days === 1 ? "" : "s"} to launch.` : "GTA 6 preload opens November 10. Get your console ready.";
     })();
