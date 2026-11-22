@@ -23,9 +23,10 @@ const stores: Store[] = [
   { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
-type Field = { hasSafe?: string; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
+type Field = { hc?: "Easy" | "Medium" | "Hard"; hasSafe?: string; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
 const field: Record<string, Field> = {
   "vice-city-pawn": {
+    hc: "Easy",
     hasSafe: "Yes, breakable (no code)",
     guards: "None. One clerk behind a gun-counter cage, and a few vagrants in the alley outside.",
     cases: "Only a few small cases; they gave just $60 of jewelry.",
@@ -42,6 +43,7 @@ const field: Record<string, Field> = {
     ],
   },
   "all-that-glitters": {
+    hc: "Hard",
     hasSafe: "Yes, breakable (no code)",
     guards: "One armed security guard by the front door, and another came out of the back office.",
     cases: "About 10 cases around the counter plus the wall displays. A fast smash run filled a bag with $3,240 of jewelry.",
@@ -59,6 +61,7 @@ const field: Record<string, Field> = {
     ],
   },
   "bucks-jewelry-pawn": {
+    hc: "Easy",
     hasSafe: "Yes, lockbox (no code)",
     guards: "None seen. A clerk at the counter, plus a worker in the back office.",
     cases: "A few cases along the counter, plus the register (about $50).",
@@ -74,6 +77,7 @@ const field: Record<string, Field> = {
     ],
   },
   "florence-co": {
+    hc: "Easy",
     hasSafe: "No",
     guards: "No armed guard inside on our visit. Staff behind the main counter and at the Jewelry Repairs desk.",
     cases: "About 10 glass cases around a U-shaped counter, plus the register.",
@@ -93,124 +97,159 @@ const field: Record<string, Field> = {
 };
 const rows: [keyof Field, string][] = [["hasSafe", "Has a safe?"], ["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
-const shots = [
-  { src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski, a large high-end jewelry store, medium security, take value $14,000 to $25,000", cap: "Kowalski: medium security, $14,000–25,000. Skala is in the same mall with the same take." },
-  { src: "/img/gta-6/smash-grab-vice-city-pawn.webp", alt: "GTA 6 Robberies map menu showing Vice City Pawn, a pawn shop with low security and take value $4,500 to $12,000", cap: "Vice City Pawn: low security, $4,500–12,000. The best take of any low-security store." },
-  { src: "/img/gta-6/smash-grab-peacock.webp", alt: "GTA 6 Robberies map menu showing Peacock jewelry store, medium security, take value $9,000 to $20,000", cap: "Peacock: medium security, $9,000–20,000, one of four stores in that bracket." },
+const hcOf = (s: Store) => field[s.slug]?.hc ?? null;
+const hcGuess = (s: Store) => (s.sec === "Low" ? "Easy" : "Medium");
+const dcls = { Easy: "d1", Medium: "d2", Hard: "d3" } as const;
+const tested = stores.filter((s) => hcOf(s));
+const untested = stores.filter((s) => !hcOf(s));
+// Stores other guides list that haven't shown up in our map menu yet (reported, not verified by us).
+const more = [
+  ["Akoya Jewelers", "Vice City", "$14,000–25,000"], ["Blanc & Giroux", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"],
+  ["Covgari", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"], ["Royal Jewelry", "Vice City", "$14,000–25,000"],
+  ["Donovan Banks & Co.", "Vice City", "$14,000–25,000; safe code 0104 in Yasmani's job"], ["Legendary Custom Jewelry", "Vice Beach", "$14,000–25,000"],
+  ["Rococo Rich", "Vice Beach", "$14,000–25,000"], ["Victoria Lee Jeweler", "Capri, Mariana County", "$9,000–20,000"],
+  ["Brilliant Cuts", "Belville, Leonard County", "$9,000–20,000"], ["Casa de Empeño", "Vice Beach", "$4,500–12,000; safe code 1680 in Yasmani's job"],
+  ["Hamlet Pawn", "Hamlet", "$4,500–12,000; buys the Leroy Rook card for $6,000"], ["White Sands Jewelry Pawn", "Vice City", "$4,500–12,000"],
+  ["Dorado Pawn Shop", "Vice City", "$4,500–12,000"], ["Timeless Peculiars", "Watson Bay, Mariana County", "$4,500–12,000"],
+  ["Joyeria Empeños", "Vice City", "$4,500–12,000"], ["Pawn Stash", "Vice City", "$4,500–12,000"],
+  ["Crown Jewels", "Vice-Dale", "$1,000–10,000"], ["Avery Pawn", "Port Gellhorn", "$1,000–10,000"],
+  ["Down Town Pawn", "Downtown", "$1,000–10,000"], ["Martez Empeños", "Vice City", "$1,000–10,000"],
 ];
 const faq = [
   { q: "How many jewelry stores can you rob in GTA 6?", a: "16 Smash 'n' Grab targets show in the Robberies map menu on our save: 10 jewelry stores and 6 pawn shops. Stores you've already robbed move to a Previously Hit list until they restock." },
   { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
   { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
-  { q: "What's the easiest store to rob in GTA 6?", a: "Vice City Pawn and Ernesto's Pawn. Both have low security and a $4,500–12,000 take, the best of any low-security target." },
+  { q: "What's the easiest store to rob in GTA 6?", a: "Of the ones we've tested, Vice City Pawn: no guards, a breakable back-office safe that paid $1,256 with no code, and a quiet back-alley getaway. Buck's Jewelry & Pawn is just as easy but pays less." },
   { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680). So far none of the free-roam safes we've hit needed a code: Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. We'll keep logging each one." },
-  { q: "Should you smash the cases or crack the safe?", a: "On our runs the cops arrived before we could clear the cases, so the reliable money is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry also has to go to a fence, and taxis won't pick you up near the crime." },
+  { q: "Should you smash the cases or crack the safe?", a: "Safe first. On our runs the cops arrived before we could clear every case, and none of the safes we hit needed a code. Take the safe cash, smash cases until the cops show, then send your partner to fence the jewelry." },
 ];
 ---
 <Article
-  title="GTA 6 Jewelry Store & Pawn Shop Locations: All 16 Smash and Grabs"
+  title="GTA 6 Jewelry Store & Pawn Shop Locations: Every Smash and Grab, Rated"
   h1="GTA 6 Smash and Grab Locations: Every Jewelry Store and Pawn Shop"
-  description="All 16 GTA 6 smash and grab targets from the in-game map: security level and take value for every jewelry store and pawn shop, the best picks, and the safe-first method. Open from Chapter 2."
+  description="Every GTA 6 smash and grab target with the in-game security and take value, our own Easy/Medium/Hard rating, which stores have a safe, what we actually got, and the best method. Open from Chapter 2."
   published="2026-11-22"
+  updated="2026-11-22"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
+  image={{ src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski jewelry store, medium security, take value $14,000 to $25,000" }}
+  sources={[
+    { href: "https://finalboss.io/gta-6-smash-n-grab-locations", label: "FinalBoss: smash 'n' grab locations" },
+    { href: "https://www.gta6activities.com/activities/jewelry-store-robbery", label: "GTA6Activities: jewelry store robbery" },
+    { href: "https://games.gg/grand-theft-auto-vi/guides/grand-theft-auto-6-jewelry-stores-guide-locations-codes/", label: "games.gg: jewelry stores, locations and codes" },
+    { href: "https://outputlag.com/guides/gta-6-jewelry-bank-robberies/", label: "Output Lag: jewelry and bank robberies" },
+  ]}
 >
-  <div class="callout"><p><strong>Quick answer:</strong> there are <strong>16 Smash 'n' Grab targets</strong>, 10 jewelry stores and 6 pawn shops, and they're open from <strong>Chapter 2</strong>. The biggest are <strong>Kowalski and Skala ($14,000–25,000)</strong>, side by side in the same mall. The easiest good one is <strong>Vice City Pawn or Ernesto's Pawn</strong>: low security, $4,500–12,000. Those are the map's numbers: our first real run, Florence &amp; Co., paid about $2,250 because it has no safe. We're testing every store on stream.</p></div>
+  <div class="callout"><p><strong>Quick answer:</strong> smash and grabs open in <strong>Chapter 2</strong>. Our map showed 16 targets (guides list about 35 across Leonida). The map's take value is a ceiling: we got a quarter to half of it. <strong>The safe is what pays</strong>, and none we've hit needed a code. Easiest so far: <strong>Vice City Pawn</strong> (no guards, $1,256 safe, quiet alley). Biggest listed take: <strong>Kowalski and Skala</strong> ($14,000–25,000, same mall).</p></div>
 
-  <h2>What our runs taught us</h2>
-  <ul>
-    <li><strong>The map's take value is a ceiling, not a promise.</strong> Florence &amp; Co. lists $4,500–12,000; we walked out with about $2,250 after fencing.</li>
-    <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578), All That Glitters and Vice City Pawn breakable safes ($1,256 at Vice City Pawn). None needed a code, so you don't have to get one from the staff. Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
-    <li><strong>The cops are quick.</strong> 3 stars about 30 seconds after the first smashed case, so you won't clear every case.</li>
-    <li><strong>Location matters as much as the take.</strong> All That Glitters had the best haul so far (about $5,500 between cash and jewelry), but it's in the Bayside outdoor mall and police spawn right outside the door. Pick stores with a car parked at the door and an open road out.</li>
-    <li><strong>Send your partner to fence.</strong> While driving with your partner, open the partner menu and pick <strong>Fence loot</strong>. They take the bag to the fence and you keep going, so the fence drive stops eating your time.</li>
+  <h2>HeistCalc difficulty</h2>
+  <p>The game only says Low or Medium security. We rate each store by what it's actually like to rob:</p>
+  <ul class="sg-key">
+    <li><span class="diff d1">Easy</span> No guards. The safe needs no code, and the alarm is a security panel you can deal with.</li>
+    <li><span class="diff d2">Medium</span> One armed guard you'll have to take down.</li>
+    <li><span class="diff d3">Hard</span> Several guards, or the cops spawn right outside.</li>
   </ul>
-  <figure style="margin:20px 0"><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>The partner menu in the car: Fence loot sends Jason or Lucia to sell the bag for you.</small></figcaption></figure>
+  <p><small>Stores we haven't robbed yet show a guess with a question mark, based on the game's security level.</small></p>
+
+  <h2>Every location</h2>
+  <div class="table-scroll"><table class="sg-table">
+    <thead><tr><th>Store</th><th>Difficulty</th><th>Safe?</th><th class="num">Map take</th><th class="num">Our take</th></tr></thead>
+    <tbody>{stores.map((s) => (
+      <tr>
+        <td><a href={`#${s.slug}`}><strong>{s.name}</strong></a><br /><small>{s.kind} · {s.area}</small></td>
+        <td>{hcOf(s) ? <span class={`diff ${dcls[hcOf(s)!]}`}>{hcOf(s)}</span> : <span class="sg-guess">{hcGuess(s)}?</span>}</td>
+        <td>{field[s.slug]?.hasSafe?.replace(/ \(no code\)/, "") ?? <span class="sg-guess">?</span>}</td>
+        <td class="num">{money(s.lo)}–{money(s.hi)}</td>
+        <td class="num">{field[s.slug]?.takeShort ?? (field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–")}</td>
+      </tr>
+    ))}</tbody>
+  </table></div>
 
   <h2>Best method: one character carries both bags, then the partner drives and fences</h2>
   <ol>
     <li><strong>Bring your partner.</strong> Pick the store in the map's Robberies menu and choose <strong>Invite Lucia</strong> (or Jason).</li>
-    <li><strong>Grab the fixed cash first.</strong> Threaten the clerk, empty the register, then go straight for the safe or lockbox. At Buck's it's in the back office behind a red Staff Only door you break open. That cash goes straight to your bank at an ATM and isn't cut by a fence.</li>
+    <li><strong>Grab the fixed cash first.</strong> Threaten the clerk, empty the register, then go straight for the safe or lockbox, usually in a back office behind a door you break open. That cash goes straight to your bank at an ATM and isn't cut by a fence.</li>
     <li><strong>Don't shoot the staff.</strong> Threatening is enough, and killing clerks drags your <a href="/gta-6/criminal-profile/">Criminal Profile</a> toward Psycho.</li>
-    <li><strong>Smash cases last.</strong> Smashing is what brings the cops fast (3 stars about 30 seconds in at Florence &amp; Co.), so do it once the safe is done.</li>
-    <li><strong>Put both bags on one character.</strong> When your bag is full, take the second bag and keep smashing, so one character ends up holding all the loot.</li>
-    <li><strong>Swap to the character with empty hands.</strong> Switch to your partner, the one not carrying any bags.</li>
+    <li><strong>Smash cases last.</strong> Smashing brings the cops fast (3 stars about 30 seconds in at Florence &amp; Co.).</li>
+    <li><strong>Put both bags on one character.</strong> When your bag is full, take the second bag and keep smashing.</li>
+    <li><strong>Swap to the character with empty hands.</strong></li>
     <li><strong>Send the bag carrier to drive.</strong> Get in the car and tell the character with the bags to drive.</li>
-    <li><strong>Tell them to Fence loot.</strong> From the partner menu, pick <strong>Fence loot</strong> and they take both bags to the fence. Dunk paid us the full $1,760 he'd quoted, so it costs nothing and saves you the drive.</li>
+    <li><strong>Tell them to Fence loot</strong> from the partner menu. Dunk paid us the full $1,760 he'd quoted.</li>
   </ol>
-  <p><strong>Escaping:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, and the partner menu offers <strong>Distract law</strong>, which may buy time when police are right outside.</p>
-  <p><small>Still to test: whether the partner's <strong>Split up</strong> option makes them loot cases at the same time as you, and how much Distract law helps.</small></p>
+  <figure style="margin:16px 0"><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%;max-width:520px" /><figcaption><small>The partner menu in the car: Fence loot sends your partner to sell the bags.</small></figcaption></figure>
+  <p><strong>Also good to know:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, the partner menu has <strong>Distract law</strong> for cops right outside, and pawn shops buy collectibles (cards, doubloons, meteorites) on the same trip. Taxis won't pick you up near a fresh crime.</p>
 
-  <h2>Best picks</h2>
-  <ul>
-    <li><strong>Biggest take: Kowalski or Skala.</strong> $14,000–25,000, medium security. They're in the same mall, about 1.7 miles from Ambrosia Raceway, so the Derby and these stores make an easy Chapter 2 loop.</li>
-    <li><strong>Sweet spot: Vice City Pawn or Ernesto's Pawn.</strong> Low security and $4,500–12,000, the most money you can get without medium security.</li>
-    <li><strong>Mid tier: Peacock, All That Glitters, Marshal's, Plush.</strong> $9,000–20,000, medium security. Peacock, All That Glitters and Richardson sit close together downtown.</li>
-    <li><strong>Skip: Buck's Jewelry & Pawn ($500–5,000) and Richardson ($2,000–7,000).</strong> Richardson is a "large" store but has one of the smallest takes.</li>
-  </ul>
-
-  <h2>All 16 locations</h2>
-  <p>Sorted by take value. Distance is what the map menu showed from Ambrosia Raceway, so it tells you roughly how far out each store is.</p>
-  <div class="table-scroll"><table>
-    <thead><tr><th>Store</th><th>Type</th><th>Security</th><th>Safe?</th><th class="num">Map take value</th><th class="num">Our take</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
-    <tbody>{stores.map((s) => (
-      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td>{field[s.slug]?.hasSafe ?? "?"}</td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{field[s.slug]?.takeShort ?? (field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–")}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
-    ))}</tbody>
-  </table></div>
-  <p><small>No store showed High security on our save. Security and take values are from our in-game map; area names combine our map view with <a href="https://finalboss.io/gta-6-smash-n-grab-locations" rel="noopener">FinalBoss</a> and <a href="https://www.gta6activities.com/activities/jewelry-store-robbery" rel="noopener">GTA6Activities</a>.</small></p>
-
-  <h2>Why only 16? Guides list about 35</h2>
-  <p>Our Chapter 2 map menu showed 16 targets on Jason's side; Lucia's list later showed 21, adding stores like Crown Jewels and Dorado Pawn Shop. Location guides count about 35 jewelry stores and pawn shops across Leonida, including Akoya Jewelers, Blanc &amp; Giroux, Covgari, Donovan Banks &amp; Co., Rococo Rich, Casa de Empeño and Avery Pawn. Some are tied to Yasmani's Chapter 3 jewelry jobs, so more are likely to appear as the story moves on. We'll add each one with its in-game security and take when it shows up for us.</p>
-  <p>Where guides disagree with our map, we trust the map: they list Richardson at $4,500–12,000 (our map: $2,000–7,000) and ICEGEM at $14,000–25,000 (ours: $5,000–10,000, after we'd already hit it once).</p>
-
-  {shots.map((s) => <figure style="margin:20px 0"><img src={s.src} alt={s.alt} width="918" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{s.cap}</small></figcaption></figure>)}
-
-  <h2>Store by store</h2>
-  <p>Each card shows the store's spot on the in-game map, with the security and take value the game lists. The rows underneath fill in as we rob each one on stream: how many guards, how many cases, where the safe is, how long the cops take, and what we actually walked out with.</p>
-  <div class="sg-grid">
-    {stores.map((s) => (
-      <article class="sg-card" id={s.slug}>
-        <img src={`/img/gta-6/sg/${s.slug}.webp`} alt={`GTA 6 map showing ${s.name}, ${s.kind.toLowerCase()} store, ${s.sec.toLowerCase()} security, take value ${money(s.lo)} to ${money(s.hi)}`} width="918" height="720" loading="lazy" decoding="async" />
-        <div class="sg-body">
+  <h2>Stores we've robbed</h2>
+  {tested.map((s) => (
+    <article class="sg-card sg-full" id={s.slug}>
+      <div class="sg-head">
+        <img src={`/img/gta-6/sg/${s.slug}.webp`} alt={`GTA 6 map showing ${s.name}`} width="918" height="720" loading="lazy" decoding="async" />
+        <div>
           <h3>{s.name}</h3>
-          <p class="sg-meta"><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec} security</span> <strong class="sg-take">{money(s.lo)}–{money(s.hi)}</strong></p>
-          <p class="sg-meta">{s.kind} · {s.area} · {s.dist} mi from Ambrosia Raceway</p>
+          <p class="sg-meta"><span class={`diff ${dcls[hcOf(s)!]}`}>{hcOf(s)}</span> <span class="sg-chip">Game: {s.sec} security</span> <strong class="sg-take">{money(s.lo)}–{money(s.hi)}</strong></p>
+          <p class="sg-meta">{s.kind} · {s.area}</p>
           <dl>
-            {rows.map(([k, label]) => <><dt>{label}</dt><dd>{field[s.slug]?.[k] ?? <span class="sg-todo">Not tested yet</span>}</dd></>)}
+            {rows.map(([k, label]) => field[s.slug]?.[k] && <><dt>{label}</dt><dd>{field[s.slug][k]}</dd></>)}
           </dl>
           {field[s.slug]?.notes && <p class="sg-note">{field[s.slug].notes}</p>}
-          {field[s.slug]?.pics?.map((x) => <figure class="sg-pic"><img src={x.src} alt={x.alt} width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>{x.cap}</small></figcaption></figure>)}
+        </div>
+      </div>
+      {field[s.slug]?.pics && <div class="sg-pics">{field[s.slug].pics!.map((x) => <figure><img src={x.src} alt={x.alt} width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>{x.cap}</small></figcaption></figure>)}</div>}
+    </article>
+  ))}
+
+  <h2>Not robbed yet</h2>
+  <p>Their spot on the in-game map, with the security and take the game lists. Each one moves up when we hit it on stream.</p>
+  <div class="sg-grid">
+    {untested.map((s) => (
+      <article class="sg-card" id={s.slug}>
+        <img src={`/img/gta-6/sg/${s.slug}.webp`} alt={`GTA 6 map showing ${s.name}, ${s.kind.toLowerCase()}, ${s.sec.toLowerCase()} security, take value ${money(s.lo)} to ${money(s.hi)}`} width="918" height="720" loading="lazy" decoding="async" />
+        <div class="sg-body">
+          <h3>{s.name}</h3>
+          <p class="sg-meta"><span class="sg-guess">{hcGuess(s)}?</span> <span class="sg-chip">Game: {s.sec}</span> <strong class="sg-take">{money(s.lo)}–{money(s.hi)}</strong></p>
+          <p class="sg-meta">{s.kind} · {s.area}</p>
+          {field[s.slug]?.notes && <p class="sg-note">{field[s.slug].notes}</p>}
         </div>
       </article>
     ))}
   </div>
 
-  <h2>How to rob them: safe first</h2>
-  <ol>
-    <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full, and can take the loot to the fence for you.</li>
-    <li><strong>Find the safe, usually in the back office.</strong> The ones we've hit needed no code: a lockbox that opens on the spot (Buck's) and breakable safes (All That Glitters, Vice City Pawn). If a safe does ask for a code, threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
-    <li><strong>Take the safe cash and leave.</strong> Grab cases on the way out only if the cops aren't there yet.</li>
-    <li><strong>Bank the cash, send the jewelry.</strong> Cash goes straight into BuckMe at an ATM. Jewelry has to go to a fence (Dunk's Trailer in Chapter 2 pays a Low rate), and taxi fast travel won't work near the crime. Pick <strong>Fence loot</strong> in the partner menu and your partner makes the fence run for you. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
-  </ol>
-  <p>Pawn shops also buy collectibles like cards, doubloons and meteorites, so you can sell those on the same trip.</p>
+  <h2>More stores other guides list</h2>
+  <p>Location guides count about 35 jewelry stores and pawn shops in Leonida. These haven't shown up in our Chapter 2 map menu yet (Lucia's list did add Crown Jewels and Dorado Pawn Shop), so the take bands below are what guides report, not our numbers. Several are tied to Yasmani's Chapter 3 jewelry jobs.</p>
+  <div class="table-scroll"><table class="sg-table">
+    <thead><tr><th>Store</th><th>Area</th><th>Reported take</th></tr></thead>
+    <tbody>{more.map(([n, a, t]) => <tr><td><strong>{n}</strong></td><td>{a}</td><td>{t}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Where guides disagree with our map, we trust the map: they list Richardson at $4,500–12,000 (ours: $2,000–7,000) and ICEGEM at $14,000–25,000 (ours: $5,000–10,000, after we'd already hit it once). Guides also report free-roam safe codes change between visits; the Yasmani job codes are fixed.</small></p>
 
   <h2>Compare it with the Derby</h2>
-  <p>A Kowalski or Skala safe-first run is likely worth more per trip than a <a href="/gta-6/demolition-derby/">figure-8 Derby win</a> ($3,150), but it comes with police. We're timing full loops on stream. Plug your own numbers into the <a href="/gta-6/make-money/">GTA 6 money per hour calculator</a> to compare.</p>
+  <p>A good safe store pays $1,000–2,500 in cash for a few minutes and some police heat. A <a href="/gta-6/demolition-derby/">figure-8 Derby win with your partner</a> pays up to $6,300 in about 2 minutes with no cops, so the Derby is still the better money; robberies are for variety. Compare everything in the <a href="/gta-6/make-money/">money per hour calculator</a>.</p>
 </Article>
 
 <style>
-  .sg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 16px 0; }
+  .sg-key { list-style: none; padding: 0; }
+  .sg-key li { margin: 6px 0; }
+  .sg-key .diff { min-width: 64px; text-align: center; margin-right: 8px; }
+  .sg-table td small { color: var(--muted); }
+  .sg-guess { display: inline-block; padding: 2px 8px; border-radius: 999px; font: 700 .75rem Inter, sans-serif; color: var(--muted); border: 1px dashed var(--line); white-space: nowrap; }
+  .sg-chip { display: inline-block; font-size: .75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
   .sg-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; scroll-margin-top: 80px; }
-  .sg-card img { display: block; width: 100%; height: auto; aspect-ratio: 918 / 720; object-fit: cover; }
-  .sg-body { padding: 12px 14px 14px; }
-  .sg-body h3 { margin: 0 0 6px; }
-  .sg-meta { margin: 4px 0; font-size: .92rem; color: var(--muted); }
-  .sg-take { color: var(--money); margin-left: 6px; }
-  .sg-body dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0 0; font-size: .9rem; }
-  .sg-body dt { color: var(--muted); }
-  .sg-body dd { margin: 0; }
-  .sg-todo { color: var(--muted); opacity: .7; font-style: italic; }
-  .sg-note { font-size: .88rem; margin: 10px 0 0; }
-  .sg-pic { margin: 10px 0 0; }
-  .sg-pic img { border-radius: 8px; aspect-ratio: auto; }
+  .sg-full { padding: 14px; margin: 14px 0; }
+  .sg-head { display: grid; grid-template-columns: minmax(0, 260px) 1fr; gap: 16px; align-items: start; }
+  .sg-head img { width: 100%; height: auto; border-radius: 10px; display: block; }
+  .sg-head h3 { margin: 0 0 6px; }
+  .sg-pics { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 12px; }
+  .sg-pics figure { margin: 0; }
+  .sg-pics img { width: 100%; height: auto; border-radius: 8px; display: block; }
+  .sg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+  .sg-grid img { display: block; width: 100%; height: auto; aspect-ratio: 918 / 720; object-fit: cover; }
+  .sg-body { padding: 10px 12px 12px; }
+  .sg-body h3 { margin: 0 0 6px; font-size: 1rem; }
+  .sg-meta { margin: 4px 0; font-size: .88rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .sg-take { color: var(--money); }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0 0; font-size: .9rem; }
+  dt { color: var(--muted); }
+  dd { margin: 0; }
+  .sg-note { font-size: .85rem; margin: 8px 0 0; color: var(--muted); }
+  @media (max-width: 640px) { .sg-head { grid-template-columns: 1fr; } }
 </style>
