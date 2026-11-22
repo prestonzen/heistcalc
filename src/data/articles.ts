@@ -108,6 +108,14 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/smash-and-grab/",
+    "title": "GTA 6 Jewelry Store & Pawn Shop Locations: All 16 Smash and Grabs",
+    "text": "Every smash and grab target from the in-game map with its security level and take value: Kowalski and Skala pay $14,000–25,000, Vice City Pawn is the easy pick. Open from Chapter 2.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/fastest-cars/",
     "title": "GTA 6 Fastest Cars: Top 10, Where to Find Them & What to Register",
     "text": "The fastest cars in GTA 6 by Speed stat, where each one spawns, how registering works with Moses, the best first car and which upgrades add speed.",
@@ -117,7 +125,7 @@ export const articles = [
   },
   {
     "href": "/gta-6/mr-mangrove/",
-    "title": "GTA 6 Help Kirk Find Mr. Mangrove: Walkthrough, Ending & $5,000 Payout",
+    "title": "GTA 6 Skunk Man Quest: Help Kirk Find Mr. Mangrove Walkthrough & $5,000 Payout",
     "text": "Kirk's last Skunk Ape quest step by step: where it starts, the helicopter, the frog section, the ending choice and the real $5,000 BuckMe payout.",
     "tags": [
       "GTA 6"

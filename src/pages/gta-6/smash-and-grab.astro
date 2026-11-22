@@ -1,0 +1,84 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// All values read off the in-game Robberies > Smash 'n' Grabs map menu on our stream (2026-11-22, Chapter 2).
+// dist = miles shown in the menu from Ambrosia Raceway, where we opened it.
+type Store = { name: string; kind: string; sec: "Low" | "Medium"; lo: number; hi: number; dist: number; area: string };
+const stores: Store[] = [
+  { name: "Kowalski", kind: "Large, high-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.73, area: "Waning Sands mall, next to Skala" },
+  { name: "Skala", kind: "Large, low-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.79, area: "Waning Sands mall, next to Kowalski" },
+  { name: "Peacock", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.3, area: "Vice City, by Panos Plaza" },
+  { name: "All That Glitters", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.35, area: "Vice City, by Panos Plaza" },
+  { name: "Marshal's", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.7, area: "Vice Beach" },
+  { name: "Plush", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.84, area: "Tequesta" },
+  { name: "Vice City Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 2.65, area: "Vice City, near Panos Plaza" },
+  { name: "Ernesto's Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 4.35, area: "Vice City, near Peacock Estates" },
+  { name: "Florence & Co.", kind: "Pawn shop", sec: "Medium", lo: 4500, hi: 12000, dist: 0.17, area: "Ambrosia, next to the raceway" },
+  { name: "The Jewelry Place", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 2.52, area: "Vice-Dale" },
+  { name: "Fast Cash", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.04, area: "Vice City" },
+  { name: "Pawn City", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.47, area: "Vice City" },
+  { name: "The Siren's Chest", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 7.14, area: "Key Lento (guides); far out on the coast" },
+  { name: "ICEGEM Diamonds & Watches", kind: "Large, low-end jewelry", sec: "Medium", lo: 5000, hi: 10000, dist: 3.4, area: "Downtown Vice City" },
+  { name: "Richardson Jewelry & Diamonds", kind: "Large, low-end jewelry", sec: "Medium", lo: 2000, hi: 7000, dist: 3.35, area: "Vice City, by Panos Plaza" },
+  { name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
+];
+const money = (n: number) => "$" + n.toLocaleString("en-US");
+const shots = [
+  { src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski, a large high-end jewelry store, medium security, take value $14,000 to $25,000", cap: "Kowalski: medium security, $14,000–25,000. Skala is in the same mall with the same take." },
+  { src: "/img/gta-6/smash-grab-vice-city-pawn.webp", alt: "GTA 6 Robberies map menu showing Vice City Pawn, a pawn shop with low security and take value $4,500 to $12,000", cap: "Vice City Pawn: low security, $4,500–12,000. The best take of any low-security store." },
+  { src: "/img/gta-6/smash-grab-peacock.webp", alt: "GTA 6 Robberies map menu showing Peacock jewelry store, medium security, take value $9,000 to $20,000", cap: "Peacock: medium security, $9,000–20,000, one of four stores in that bracket." },
+];
+const faq = [
+  { q: "How many jewelry stores can you rob in GTA 6?", a: "16 Smash 'n' Grab targets show in the Robberies map menu on our save: 10 jewelry stores and 6 pawn shops. Stores you've already robbed move to a Previously Hit list until they restock." },
+  { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
+  { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
+  { q: "What's the easiest store to rob in GTA 6?", a: "Vice City Pawn and Ernesto's Pawn. Both have low security and a $4,500–12,000 take, the best of any low-security target." },
+  { q: "Should you smash the cases or crack the safe?", a: "On our runs the cops arrived before we could clear the cases, so the reliable money is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry also has to go to a fence, and taxis won't pick you up near the crime." },
+];
+---
+<Article
+  title="GTA 6 Jewelry Store & Pawn Shop Locations: All 16 Smash and Grabs"
+  h1="GTA 6 Smash and Grab Locations: Every Jewelry Store and Pawn Shop"
+  description="All 16 GTA 6 smash and grab targets from the in-game map: security level and take value for every jewelry store and pawn shop, the best picks, and the safe-first method. Open from Chapter 2."
+  published="2026-11-22"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+>
+  <div class="callout"><p><strong>Quick answer:</strong> there are <strong>16 Smash 'n' Grab targets</strong>, 10 jewelry stores and 6 pawn shops, and they're open from <strong>Chapter 2</strong>. The biggest are <strong>Kowalski and Skala ($14,000–25,000)</strong>, side by side in the same mall. The easiest good one is <strong>Vice City Pawn or Ernesto's Pawn</strong>: low security, $4,500–12,000. Every value below is read off the in-game map on our stream.</p></div>
+
+  <h2>Best picks</h2>
+  <ul>
+    <li><strong>Biggest take: Kowalski or Skala.</strong> $14,000–25,000, medium security. They're in the same mall, about 1.7 miles from Ambrosia Raceway, so the Derby and these stores make an easy Chapter 2 loop.</li>
+    <li><strong>Sweet spot: Vice City Pawn or Ernesto's Pawn.</strong> Low security and $4,500–12,000, the most money you can get without medium security.</li>
+    <li><strong>Mid tier: Peacock, All That Glitters, Marshal's, Plush.</strong> $9,000–20,000, medium security. Peacock, All That Glitters and Richardson sit close together downtown.</li>
+    <li><strong>Skip: Buck's Jewelry & Pawn ($500–5,000) and Richardson ($2,000–7,000).</strong> Richardson is a "large" store but has one of the smallest takes.</li>
+  </ul>
+
+  <h2>All 16 locations</h2>
+  <p>Sorted by take value. Distance is what the map menu showed from Ambrosia Raceway, so it tells you roughly how far out each store is.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Store</th><th>Type</th><th>Security</th><th class="num">Take value</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
+    <tbody>{stores.map((s) => (
+      <tr><td><strong>{s.name}</strong></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
+    ))}</tbody>
+  </table></div>
+  <p><small>No store showed High security on our save. Security and take values are from our in-game map; area names combine our map view with <a href="https://finalboss.io/gta-6-smash-n-grab-locations" rel="noopener">FinalBoss</a> and <a href="https://www.gta6activities.com/activities/jewelry-store-robbery" rel="noopener">GTA6Activities</a>.</small></p>
+
+  <h2>Why only 16? Guides list about 35</h2>
+  <p>Our Chapter 2 map menu shows 16 targets. Location guides count about 35 jewelry stores and pawn shops across Leonida, including Akoya Jewelers, Blanc &amp; Giroux, Covgari, Donovan Banks &amp; Co., Rococo Rich, Casa de Empeño and Avery Pawn. Some are tied to Yasmani's Chapter 3 jewelry jobs, so more are likely to appear as the story moves on. We'll add each one with its in-game security and take when it shows up for us.</p>
+  <p>Where guides disagree with our map, we trust the map: they list Richardson at $4,500–12,000 (our map: $2,000–7,000) and ICEGEM at $14,000–25,000 (ours: $5,000–10,000, after we'd already hit it once).</p>
+
+  {shots.map((s) => <figure style="margin:20px 0"><img src={s.src} alt={s.alt} width="1280" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{s.cap}</small></figcaption></figure>)}
+
+  <h2>How to rob them: safe first</h2>
+  <ol>
+    <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full.</li>
+    <li><strong>Get the safe code from the staff.</strong> Free-roam safes don't come with a fixed code; threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
+    <li><strong>Take the safe cash and leave.</strong> Grab cases on the way out only if the cops aren't there yet.</li>
+    <li><strong>Bank it at an ATM.</strong> Cash goes straight into BuckMe. Jewelry has to go to a fence, and taxi fast travel won't work near the crime, so you drive that leg with the cops around. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
+  </ol>
+  <p>Pawn shops also buy collectibles like cards, doubloons and meteorites, so you can sell those on the same trip.</p>
+
+  <h2>Compare it with the Derby</h2>
+  <p>A Kowalski or Skala safe-first run is likely worth more per trip than a <a href="/gta-6/demolition-derby/">figure-8 Derby win</a> ($3,150), but it comes with police. We're timing full loops on stream. Plug your own numbers into the <a href="/gta-6/make-money/">GTA 6 money per hour calculator</a> to compare.</p>
+</Article>
