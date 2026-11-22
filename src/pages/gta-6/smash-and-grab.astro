@@ -97,6 +97,7 @@ const field: Record<string, Field> = {
 };
 const rows: [keyof Field, string][] = [["hasSafe", "Has a safe?"], ["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
+const kk = (n: number) => "$" + (n >= 1000 ? +(n / 1000).toFixed(1) + "k" : n);
 const hcOf = (s: Store) => field[s.slug]?.hc ?? null;
 const hcGuess = (s: Store) => (s.sec === "Low" ? "Easy" : "Medium");
 const dcls = { Easy: "d1", Medium: "d2", Hard: "d3" } as const;
@@ -159,7 +160,7 @@ const faq = [
         <td><a href={`#${s.slug}`}><strong>{s.name}</strong></a><br /><small>{s.kind} · {s.area}</small></td>
         <td>{hcOf(s) ? <span class={`diff ${dcls[hcOf(s)!]}`}>{hcOf(s)}</span> : <span class="sg-guess">{hcGuess(s)}?</span>}</td>
         <td>{field[s.slug]?.hasSafe?.replace(/ \(no code\)/, "") ?? <span class="sg-guess">?</span>}</td>
-        <td class="num">{money(s.lo)}–{money(s.hi)}</td>
+        <td class="num"><span class="mf">{money(s.lo)}–{money(s.hi)}</span><span class="ms">{kk(s.lo)}–{kk(s.hi).slice(1)}</span></td>
         <td class="num">{field[s.slug]?.takeShort ?? (field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–")}</td>
       </tr>
     ))}</tbody>
@@ -252,11 +253,13 @@ const faq = [
   dd { margin: 0; }
   .sg-note { font-size: .85rem; margin: 8px 0 0; color: var(--muted); }
   .sg-table td.num { white-space: nowrap; }
+  .ms { display: none; }
   @media (max-width: 640px) {
     .sg-head { grid-template-columns: 1fr; }
     .sg-table { font-size: .82rem; }
     .sg-table th, .sg-table td { padding: 8px 6px; }
     .sg-table td small { display: none; }
+    .mf { display: none; } .ms { display: inline; }
     .sg-table .diff, .sg-table .sg-guess { font-size: .68rem; padding: 1px 6px; }
   }
 </style>
