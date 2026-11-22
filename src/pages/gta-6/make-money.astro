@@ -67,7 +67,7 @@ const faq = [
         {[1, 2, 3, 4, 5].map((n) => <label class="check"><input type="checkbox" value={n} checked={n <= 2} /> {n === 5 ? "Ch 5 / story done" : `Ch ${n}`}</label>)}
       </div>
     </fieldset>
-    <p style="margin-top:12px"><small><strong>Expected $ per hour</strong> counts failures: payout × success rate, minus what a failed run costs you (for the Derby, the rental). Set the success rate to your own: once you have the Derby ramp down it's about 95%.</small></p>
+    <p style="margin-top:12px"><small><strong>Potential</strong> is what you'd make if every run worked. <strong>Expected</strong> is the realistic average: payout × success rate, minus what a failed run costs you (for the Derby, the rental). The ranking uses Expected. Set the success rate to your own: once you have the Derby ramp down it's about 95%.</small></p>
     <p style="margin-top:4px"><small><strong>Difficulty:</strong> Easy = little risk, Medium = police chase or a careful delivery, Hard = high wanted level or you only get paid if you win.</small></p>
     <p style="margin-top:4px"><small>Tick <strong>Loop</strong> on the activities you chain together (for example, rob a store on the way to Moses with a stolen car) to see what the whole rotation earns per hour.</small></p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
@@ -77,7 +77,7 @@ const faq = [
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="">Clear loop</button>
     </div>
     <div class="table-scroll" style="margin-top:16px"><table>
-      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Difficulty</th><th>Payout on success ($)</th><th>Success %</th><th>Lost on a fail ($)</th><th>Time per run (min : sec)</th><th>Expected $ per hour</th></tr></thead>
+      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Difficulty</th><th>Payout on success ($)</th><th>Success %</th><th>Lost on a fail ($)</th><th>Time per run (min : sec)</th><th>Potential $/hr<br /><small>every run succeeds</small></th><th>Expected $/hr<br /><small>average, failures counted</small></th></tr></thead>
       <tbody id="mph-rows">
         {acts.map((a) => (
           <tr data-id={a.id} data-ch={a.ch} data-diff={a.diff}>
@@ -89,6 +89,7 @@ const faq = [
             <td><input class="ok" type="number" min="0" max="100" step="1" value={a.ok ?? 100} inputmode="numeric" style="width:64px" aria-label={`${a.name} success rate percent`} /></td>
             <td><input class="fail" type="number" min="0" step="50" value={a.fail ?? 0} inputmode="numeric" style="width:84px" aria-label={`${a.name} money lost on a failed run`} /></td>
             <td style="white-space:nowrap"><input class="mm" type="number" min="0" step="1" value={Math.floor(a.min)} inputmode="numeric" style="width:56px" aria-label={`${a.name} minutes`} /> : <input class="ss" type="number" min="0" max="59" step="1" value={String(Math.round((a.min % 1) * 60)).padStart(2, "0")} inputmode="numeric" style="width:56px" aria-label={`${a.name} seconds`} /><br /><small style="white-space:normal">{a.time}</small></td>
+            <td class="num"><span class="pot">-</span></td>
             <td class="num"><strong class="rate">-</strong></td>
           </tr>
         ))}
@@ -175,6 +176,7 @@ const faq = [
           const min = secs / 60;
           const rate = (pay / secs) * 3600;
           r.querySelector(".rate").textContent = fmt(rate);
+          r.querySelector(".pot").textContent = fmt((win / secs) * 3600);
           const open = unlocked.has(Number(r.dataset.ch));
           r.style.opacity = open ? "1" : "0.4";
           return { r, rate, open, pay, min, loop: r.querySelector(".loop").checked };
@@ -186,7 +188,7 @@ const faq = [
         }
         const best = list.find((x) => x.open);
         document.getElementById("mph-best").textContent = best
-          ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour. Greyed rows are in chapters you haven't ticked.`
+          ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour expected. Greyed rows are in chapters you haven't ticked.`
           : "Tick the chapters you've unlocked.";
         const loop = list.filter((x) => x.loop);
         const pay = loop.reduce((s, x) => s + x.pay, 0), min = loop.reduce((s, x) => s + x.min, 0);
