@@ -9,7 +9,7 @@ const acts = [
   { id: "randy", name: "Randy's Wish List supercars", ch: 3, diff: 2, pay: 30000, min: 15, range: "$30,000–35,000", time: "est: find, clone key, deliver", note: "Needs the Key Cloner. The list is limited (16–22 cars). Damage cuts the price." },
   { id: "bank", name: "Small banks", ch: 3, diff: 3, pay: 15000, min: 8, range: "$5,000–45,000", time: "est", note: "Police arrive in about 20 seconds. Marked bills need the Dye Pack Jammer and a fence." },
   { id: "jewel", name: "Jewelry stores & pawn shops (smash and grab)", ch: 2, diff: 3, pay: 6000, ok: 75, fail: 0, min: 10, range: "$14,000–25,000 full take at the 4–6 biggest stores (seen on our stream); small shops only a few hundred", time: "est", note: "Map take values are a ceiling: our Florence & Co. run (listed $4,500–12,000, no safe) paid about $2,250 and Buck's (with a small lockbox) about $700, so the default here is a cautious $6,000 until we've tested a store with a safe. Pick Fence loot in the partner menu to skip the fence drive. Open from Chapter 2 (checked on our stream). Smashing cases brings the cops before you can grab everything, so the quick win is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry still needs a fence. A repeat visit pays less until the store restocks. See all 16 locations with security and take values in our Smash and Grab guide (link above the table)." },
-  { id: "yago", name: "Yago street races", ch: 3, diff: 2, pay: 2300, ok: 80, fail: 750, min: 5, range: "$3,000 for 1st, minus a $600–900 car rental (reported); later races up to $6,000", time: "est", note: "Unlocks after Dealer's Choice. Prize money, no police." },
+  { id: "yago", name: "Yago street races", ch: 3, diff: 2, pay: 2300, ok: null, fail: 750, min: 5, range: "$3,000 for 1st, minus a $600–900 car rental (reported); later races up to $6,000", time: "est", note: "Unlocks after Dealer's Choice. Prize money, no police." },
   { id: "glitch", name: "Warehouse stash save-reload loop (exploit)", ch: 1, diff: 1, pay: 5000, min: 10, range: "$4,000–10,000 per loop (reported, sources disagree)", time: "~10 min (reported)", note: "Reported exploit near Hamlet (red barn / Apollo Aggregates). Not tested by us and may get patched. Chapter 1 cash is wiped at Tourist Trap." },
   { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
   { id: "derby8", name: "Demolition Derby: figure-8 track (ramp-camp method)", ch: 2, diff: 1, pay: 2685, ok: 98, fail: 465, min: 2, range: "$3,150 for 1st place minus the $465 cheapest rental (our stream; $3,150 is the in-game max)", time: "2 min realistic average; fastest win 1:18 (our stream)", note: "Easy only with the ramp-camp method; without it, it's a hard wreck-fest. Last car standing. Pays about double the oval. Tested strategy: drive the wrong way to the crossover ramp, park on top and let the AI launch itself off you. Fastest win 1:18. 2nd place still pays $1,500." },
@@ -76,25 +76,33 @@ const faq = [
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="randy,jewel,spray">Chapter 3: supercars + jewelry</button>
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="">Clear loop</button>
     </div>
-    <div class="table-scroll" style="margin-top:16px"><table>
-      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Difficulty</th><th>Payout on success ($)</th><th>Success %</th><th>Lost on a fail ($)</th><th>Time per run (min : sec)</th><th>Potential $/hr<br /><small>every run succeeds</small></th><th>Expected $/hr<br /><small>average, failures counted</small></th></tr></thead>
-      <tbody id="mph-rows">
-        {acts.map((a) => (
-          <tr data-id={a.id} data-ch={a.ch} data-diff={a.diff}>
-            <td class="rank"></td>
-            <td><input type="checkbox" class="loop" aria-label={`Add ${a.name} to my loop`} style="width:18px;height:18px;accent-color:var(--accent)" /></td>
-            <td><strong>{a.name}</strong><br /><small>Ch {a.ch}+ · reported {a.range}. {a.note}</small></td>
-            <td><span class={`diff d${a.diff}`}>{["", "Easy", "Medium", "Hard"][a.diff]}</span></td>
-            <td><input class="pay" type="number" min="0" step="100" value={a.pay} inputmode="numeric" style="width:110px" aria-label={`${a.name} payout`} /></td>
-            <td><input class="ok" type="number" min="0" max="100" step="1" value={a.ok ?? 100} inputmode="numeric" style="width:64px" aria-label={`${a.name} success rate percent`} /></td>
-            <td><input class="fail" type="number" min="0" step="50" value={a.fail ?? 0} inputmode="numeric" style="width:84px" aria-label={`${a.name} money lost on a failed run`} /></td>
-            <td style="white-space:nowrap"><input class="mm" type="number" min="0" step="1" value={Math.floor(a.min)} inputmode="numeric" style="width:56px" aria-label={`${a.name} minutes`} /> : <input class="ss" type="number" min="0" max="59" step="1" value={String(Math.round((a.min % 1) * 60)).padStart(2, "0")} inputmode="numeric" style="width:56px" aria-label={`${a.name} seconds`} /><br /><small style="white-space:normal">{a.time}</small></td>
-            <td class="num"><span class="pot">-</span></td>
-            <td class="num"><strong class="rate">-</strong></td>
-          </tr>
-        ))}
-      </tbody>
-    </table></div>
+    <div id="mph-rows" class="acts">
+      {acts.map((a) => (
+        <article class="act" data-id={a.id} data-ch={a.ch} data-diff={a.diff}>
+          <div class="act-head">
+            <span class="rank"></span>
+            <div class="act-title">
+              <strong class="act-name">{a.name}</strong>
+              <span class="act-tags"><span class={`diff d${a.diff}`}>{["", "Easy", "Medium", "Hard"][a.diff]}</span> <span class="act-ch">Ch {a.ch}+</span>{a.ok == null && <span class="act-ch">untested</span>}</span>
+            </div>
+            <label class="act-loop"><input type="checkbox" class="loop" aria-label={`Add ${a.name} to my loop`} /> Loop</label>
+          </div>
+          <div class="act-body">
+            <div class="act-inputs">
+              <label>Payout ($)<input class="pay" type="number" min="0" step="100" value={a.pay} inputmode="numeric" /></label>
+              <label>Success %<input class="ok" type="number" min="0" max="100" step="1" value={a.ok ?? 75} inputmode="numeric" /></label>
+              <label>Lost on a fail ($)<input class="fail" type="number" min="0" step="50" value={a.fail ?? 0} inputmode="numeric" /></label>
+              <label>Time per run<span class="act-time"><input class="mm" type="number" min="0" step="1" value={Math.floor(a.min)} inputmode="numeric" aria-label={`${a.name} minutes`} /><b>:</b><input class="ss" type="number" min="0" max="59" step="1" value={String(Math.round((a.min % 1) * 60)).padStart(2, "0")} inputmode="numeric" aria-label={`${a.name} seconds`} /></span></label>
+            </div>
+            <div class="act-out">
+              <div><small>Expected / hr</small><strong class="rate">-</strong></div>
+              <div><small>Potential / hr</small><span class="pot">-</span></div>
+            </div>
+          </div>
+          <details class="act-more"><summary>Details</summary><p><small><strong>Reported:</strong> {a.range}. <strong>Time:</strong> {a.time}. {a.note}</small></p></details>
+        </article>
+      ))}
+    </div>
     <p id="mph-best" style="margin-top:12px"></p>
     <p id="mph-loop" style="margin-top:4px"></p>
     <Share target="mph-calc" />
@@ -152,11 +160,11 @@ const faq = [
 
   <script is:inline>
     (() => {
-      const rows = [...document.querySelectorAll("#mph-rows tr")];
+      const rows = [...document.querySelectorAll("#mph-rows .act")];
       const boxes = [...document.querySelectorAll("#chaps input")];
       const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
       const KEY = "hc-gta6-mph";
-      const name = (r) => r.querySelector("strong").textContent;
+      const name = (r) => r.querySelector(".act-name").textContent;
       try {
         const saved = JSON.parse(localStorage.getItem(KEY) || "null");
         if (saved) {
@@ -213,3 +221,34 @@ const faq = [
     })();
   </script>
 </Article>
+
+<style>
+  .acts { display: grid; gap: 10px; margin-top: 16px; }
+  .act { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .act-head { display: flex; align-items: flex-start; gap: 10px; }
+  .act .rank { flex: 0 0 auto; min-width: 26px; height: 26px; border-radius: 8px; background: var(--panel-2); display: grid; place-items: center; font-weight: 700; font-size: .9rem; }
+  .act-title { flex: 1; min-width: 0; }
+  .act-name { display: block; line-height: 1.3; }
+  .act-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .act-ch { font-size: .75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+  .act-loop { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; font-size: .85rem; color: var(--muted); cursor: pointer; }
+  .act-loop input { width: 18px; height: 18px; accent-color: var(--accent); }
+  .act-body { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; margin-top: 10px; }
+  .act-inputs { display: grid; grid-template-columns: repeat(4, minmax(90px, 1fr)); gap: 8px; flex: 1 1 420px; }
+  .act-inputs label { display: flex; flex-direction: column; gap: 3px; font-size: .75rem; color: var(--muted); }
+  .act-inputs input { width: 100%; min-width: 0; }
+  .act-time { display: flex; align-items: center; gap: 4px; }
+  .act-time b { color: var(--muted); }
+  .act-out { display: flex; gap: 16px; text-align: right; }
+  .act-out div { display: flex; flex-direction: column; }
+  .act-out small { color: var(--muted); font-size: .72rem; }
+  .act-out .rate { color: var(--money); font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+  .act-out .pot { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .act-more { margin-top: 6px; }
+  .act-more summary { cursor: pointer; color: var(--muted); font-size: .8rem; }
+  .act-more p { margin: 6px 0 0; }
+  @media (max-width: 640px) {
+    .act-inputs { grid-template-columns: repeat(2, 1fr); flex-basis: 100%; }
+    .act-out { width: 100%; justify-content: space-between; text-align: left; }
+  }
+</style>
