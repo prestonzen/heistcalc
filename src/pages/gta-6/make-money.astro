@@ -76,7 +76,7 @@ const faq = [
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="">Clear loop</button>
     </div>
     <div class="table-scroll" style="margin-top:16px"><table>
-      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Difficulty</th><th>Payout ($)</th><th>Minutes per run</th><th>$ per hour</th></tr></thead>
+      <thead><tr><th>#</th><th>Loop</th><th>Activity</th><th>Difficulty</th><th>Payout ($)</th><th>Time per run (min : sec)</th><th>$ per hour</th></tr></thead>
       <tbody id="mph-rows">
         {acts.map((a) => (
           <tr data-id={a.id} data-ch={a.ch} data-diff={a.diff}>
@@ -85,7 +85,7 @@ const faq = [
             <td><strong>{a.name}</strong><br /><small>Ch {a.ch}+ · reported {a.range}. {a.note}</small></td>
             <td><span class={`diff d${a.diff}`}>{["", "Easy", "Medium", "Hard"][a.diff]}</span></td>
             <td><input class="pay" type="number" min="0" step="100" value={a.pay} inputmode="numeric" style="width:110px" aria-label={`${a.name} payout`} /></td>
-            <td><input class="min" type="number" min="1" step="1" value={a.min} inputmode="numeric" style="width:70px" aria-label={`${a.name} minutes`} /><br /><small>{a.time}</small></td>
+            <td style="white-space:nowrap"><input class="mm" type="number" min="0" step="1" value={Math.floor(a.min)} inputmode="numeric" style="width:56px" aria-label={`${a.name} minutes`} /> : <input class="ss" type="number" min="0" max="59" step="1" value={String(Math.round((a.min % 1) * 60)).padStart(2, "0")} inputmode="numeric" style="width:56px" aria-label={`${a.name} seconds`} /><br /><small style="white-space:normal">{a.time}</small></td>
             <td class="num"><strong class="rate">-</strong></td>
           </tr>
         ))}
@@ -165,8 +165,9 @@ const faq = [
         const unlocked = new Set(boxes.filter((b) => b.checked).map((b) => Number(b.value)));
         const list = rows.map((r) => {
           const pay = Math.max(0, Number(r.querySelector(".pay").value) || 0);
-          const min = Math.max(1, Number(r.querySelector(".min").value) || 1);
-          const rate = (pay / min) * 60;
+          const secs = Math.max(10, (Number(r.querySelector(".mm").value) || 0) * 60 + (Number(r.querySelector(".ss").value) || 0));
+          const min = secs / 60;
+          const rate = (pay / secs) * 3600;
           r.querySelector(".rate").textContent = fmt(rate);
           const open = unlocked.has(Number(r.dataset.ch));
           r.style.opacity = open ? "1" : "0.4";
@@ -183,9 +184,10 @@ const faq = [
           : "Tick the chapters you've unlocked.";
         const loop = list.filter((x) => x.loop);
         const pay = loop.reduce((s, x) => s + x.pay, 0), min = loop.reduce((s, x) => s + x.min, 0);
+        const mmss = (m) => { const t = Math.round(m * 60); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`; };
         const locked = loop.filter((x) => !x.open).map((x) => name(x.r));
         document.getElementById("mph-loop").textContent = loop.length
-          ? `Your loop (${loop.map((x) => name(x.r)).join(" → ")}): ${fmt(pay)} every ${min} min, about ${fmt((pay / min) * 60)} per hour.` +
+          ? `Your loop (${loop.map((x) => name(x.r)).join(" → ")}): ${fmt(pay)} every ${mmss(min)}, about ${fmt((pay / min) * 60)} per hour.` +
             (best && (pay / min) * 60 < best.rate ? ` That's less than doing ${name(best.r)} on its own, so only loop if the extra stops are on your way.` : "") +
             (locked.length ? ` Not unlocked yet: ${locked.join(", ")}.` : "")
           : "";
