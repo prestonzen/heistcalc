@@ -23,8 +23,25 @@ const stores: Store[] = [
   { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
-type Field = { hasSafe?: "Yes" | "No"; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
+type Field = { hasSafe?: "Yes" | "No"; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
 const field: Record<string, Field> = {
+  "all-that-glitters": {
+    hasSafe: "Yes",
+    guards: "One armed security guard by the front door, and another came out of the back office.",
+    cases: "About 10 cases around the counter plus the wall displays. A fast smash run filled a bag with $3,240 of jewelry.",
+    safe: "A floor safe in the back office, through the white door behind the counter.",
+    code: "Not noted on this run.",
+    cops: "Bad: the store is in the Bayside outdoor mall and police spawn right outside the door, across the walkway. 3 stars, and we were Wasted on the way to the car.",
+    take: "About $5,500 on us before the cops: $2,255 cash from the register and safe, plus $3,240 of jewelry. Getting Wasted costs your pocket cash, so get out fast or skip this one.",
+    takeShort: "~$5,500, lost",
+    notes: "Tested 2026-11-22 on stream (we meant to hit Ernesto's Pawn). The partner menu here offered Distract law, worth trying against the cops out front.",
+    pics: [
+      { src: "/img/gta-6/sg/all-that-glitters-guard.webp", alt: "Armed security guard standing by the front door inside All That Glitters jewelry store in GTA 6", cap: "One armed guard stands by the door, so deal with him first." },
+      { src: "/img/gta-6/sg/all-that-glitters-cases.webp", alt: "Jason filling a bag from the display cases in All That Glitters, GTA 6, with $3,240 of jewelry on screen", cap: "A quick smash run: $3,240 of jewelry in the bag plus $2,437 cash on Jason." },
+      { src: "/img/gta-6/sg/all-that-glitters-safe.webp", alt: "Jason at the safe in the back office of All That Glitters in GTA 6", cap: "The safe is in the back office, through the white door behind the counter." },
+      { src: "/img/gta-6/sg/all-that-glitters-cops-outside.webp", alt: "Police right outside All That Glitters in the Bayside outdoor mall in GTA 6 as Jason runs to the car", cap: "The problem: police spawn right outside in the mall walkway." },
+    ],
+  },
   "bucks-jewelry-pawn": {
     hasSafe: "Yes",
     guards: "None seen. A clerk at the counter, plus a worker in the back office.",
@@ -89,6 +106,7 @@ const faq = [
     <li><strong>The map's take value is a ceiling, not a promise.</strong> Florence &amp; Co. lists $4,500–12,000; we walked out with about $2,250 after fencing.</li>
     <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578). Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
     <li><strong>The cops are quick.</strong> 3 stars about 30 seconds after the first smashed case, so you won't clear every case.</li>
+    <li><strong>Location matters as much as the take.</strong> All That Glitters had the best haul so far (about $5,500 between cash and jewelry), but it's in the Bayside outdoor mall and police spawn right outside the door. Pick stores with a car parked at the door and an open road out.</li>
     <li><strong>Send your partner to fence.</strong> While driving with your partner, open the partner menu and pick <strong>Fence loot</strong>. They take the bag to the fence and you keep going, so the fence drive stops eating your time.</li>
   </ul>
   <figure style="margin:20px 0"><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>The partner menu in the car: Fence loot sends Jason or Lucia to sell the bag for you.</small></figcaption></figure>
@@ -101,7 +119,8 @@ const faq = [
     <li><strong>Hand over your bag when it's full</strong> (Hand over bag) and keep smashing with the empty one.</li>
     <li><strong>Get in the car and pick Fence loot.</strong> Your partner takes the bags to the fence. Dunk paid us the full $1,760 he'd quoted, so letting your partner do it costs nothing and saves the drive.</li>
   </ol>
-  <p><small>Still to test: whether the partner's <strong>Split up</strong> option makes them loot cases at the same time as you.</small></p>
+  <p><strong>Escaping:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, and the partner menu offers <strong>Distract law</strong>, which may buy time when police are right outside.</p>
+  <p><small>Still to test: whether the partner's <strong>Split up</strong> option makes them loot cases at the same time as you, and how much Distract law helps.</small></p>
 
   <h2>Best picks</h2>
   <ul>
@@ -116,7 +135,7 @@ const faq = [
   <div class="table-scroll"><table>
     <thead><tr><th>Store</th><th>Type</th><th>Security</th><th>Safe?</th><th class="num">Map take value</th><th class="num">Our take</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
     <tbody>{stores.map((s) => (
-      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td>{field[s.slug]?.hasSafe ?? "?"}</td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–"}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
+      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td>{field[s.slug]?.hasSafe ?? "?"}</td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{field[s.slug]?.takeShort ?? (field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–")}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
     ))}</tbody>
   </table></div>
   <p><small>No store showed High security on our save. Security and take values are from our in-game map; area names combine our map view with <a href="https://finalboss.io/gta-6-smash-n-grab-locations" rel="noopener">FinalBoss</a> and <a href="https://www.gta6activities.com/activities/jewelry-store-robbery" rel="noopener">GTA6Activities</a>.</small></p>
