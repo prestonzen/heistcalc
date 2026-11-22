@@ -25,6 +25,22 @@ const stores: Store[] = [
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
 type Field = { hasSafe?: string; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
 const field: Record<string, Field> = {
+  "vice-city-pawn": {
+    hasSafe: "Yes, breakable (no code)",
+    guards: "None. One clerk behind a gun-counter cage, and a few vagrants in the alley outside.",
+    cases: "Only a few small cases; they gave just $60 of jewelry.",
+    safe: "In the dark back office past the storage room. You break it open (no code), and it gave $1,256.",
+    code: "No code needed: you break it open.",
+    cops: "Crime reported about 40 seconds after threatening the clerk, just as the safe opened. 2 stars.",
+    take: "About $1,750: $200 from the register, $1,256 from the safe, $60 of jewelry and some loose cash. The storage room also had a free KZ-59 assault rifle.",
+    takeN: 1750,
+    notes: "Back-alley store in Vice City with an easy getaway. Done solo at the start of Chapter 3. Tested 2026-11-22 on stream.",
+    pics: [
+      { src: "/img/gta-6/sg/vice-city-pawn-front.webp", alt: "Yellow Vice City Pawn storefront in a back alley in GTA 6", cap: "The entrance is in a quiet back alley, so the getaway is easy." },
+      { src: "/img/gta-6/sg/vice-city-pawn-counter.webp", alt: "Inside Vice City Pawn in GTA 6, a small jewelry case and guitars on the wall", cap: "Only a few small cases. The money is in the back." },
+      { src: "/img/gta-6/sg/vice-city-pawn-safe-cash.webp", alt: "Jason in the dark back office of Vice City Pawn with +$1,256 cash on screen, GTA 6", cap: "The back-office safe paid $1,256, then the crime was reported." },
+    ],
+  },
   "all-that-glitters": {
     hasSafe: "Yes, breakable (no code)",
     guards: "One armed security guard by the front door, and another came out of the back office.",
@@ -104,7 +120,7 @@ const faq = [
   <h2>What our runs taught us</h2>
   <ul>
     <li><strong>The map's take value is a ceiling, not a promise.</strong> Florence &amp; Co. lists $4,500–12,000; we walked out with about $2,250 after fencing.</li>
-    <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578), and All That Glitters a breakable safe. Neither needed a code, so you don't have to get one from the staff. Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
+    <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578), All That Glitters and Vice City Pawn breakable safes ($1,256 at Vice City Pawn). None needed a code, so you don't have to get one from the staff. Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
     <li><strong>The cops are quick.</strong> 3 stars about 30 seconds after the first smashed case, so you won't clear every case.</li>
     <li><strong>Location matters as much as the take.</strong> All That Glitters had the best haul so far (about $5,500 between cash and jewelry), but it's in the Bayside outdoor mall and police spawn right outside the door. Pick stores with a car parked at the door and an open road out.</li>
     <li><strong>Send your partner to fence.</strong> While driving with your partner, open the partner menu and pick <strong>Fence loot</strong>. They take the bag to the fence and you keep going, so the fence drive stops eating your time.</li>
@@ -169,7 +185,7 @@ const faq = [
   <h2>How to rob them: safe first</h2>
   <ol>
     <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full, and can take the loot to the fence for you.</li>
-    <li><strong>Find the safe, usually in the back office.</strong> The ones we've hit needed no code: a lockbox that opens on the spot (Buck's) and a breakable safe (All That Glitters). If a safe does ask for a code, threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
+    <li><strong>Find the safe, usually in the back office.</strong> The ones we've hit needed no code: a lockbox that opens on the spot (Buck's) and breakable safes (All That Glitters, Vice City Pawn). If a safe does ask for a code, threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
     <li><strong>Take the safe cash and leave.</strong> Grab cases on the way out only if the cops aren't there yet.</li>
     <li><strong>Bank the cash, send the jewelry.</strong> Cash goes straight into BuckMe at an ATM. Jewelry has to go to a fence (Dunk's Trailer in Chapter 2 pays a Low rate), and taxi fast travel won't work near the crime. Pick <strong>Fence loot</strong> in the partner menu and your partner makes the fence run for you. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
   </ol>
