@@ -110,7 +110,7 @@ export const articles = [
     "href": "/gta-6/demolition-derby/",
     "image": "/img/gta-6/gta6-derby-pickup-on-ramp.webp",
     "title": "GTA 6 Demolition Derby Cheese: Win $3,150 in 1:18 (Ramp Trick)",
-    "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. The AI launches itself off you. $3,150 per win, fastest 1:18, best money in Chapter 2.",
+    "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. Bring Lucia and a win pays up to $6,300, about $161,000 an hour: the best money for almost the whole game.",
     "tags": [
       "GTA 6"
     ]
