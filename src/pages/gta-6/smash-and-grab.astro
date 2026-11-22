@@ -23,12 +23,27 @@ const stores: Store[] = [
   { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
-type Field = { guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; notes?: string };
+type Field = { hasSafe?: "Yes" | "No"; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
 const field: Record<string, Field> = {
+  "florence-co": {
+    hasSafe: "No",
+    guards: "No armed guard inside on our visit. Staff behind the main counter and at the Jewelry Repairs desk.",
+    cases: "About 10 glass cases around a U-shaped counter, plus the register.",
+    safe: "None. No staff back office either: just a security panel on the staff side of the counter.",
+    code: "No safe here.",
+    cops: "3 stars about 30 seconds after the first smashed case.",
+    take: "About $2,000: $1,760 of jewelry at Dunk's Trailer (his rate is Low) plus a few hundred from the register. Less than half the $4,500 minimum the map lists.",
+    takeN: 2000,
+    notes: "Lucia took the second bag (Hand over bag). Tested 2026-11-22 on stream.",
+    pics: [
+      { src: "/img/gta-6/sg/florence-co-cases.webp", alt: "Smashing the glass display cases inside Florence & Co. in GTA 6, with jewelry values popping up", cap: "Inside: about 10 cases around the counter. Each smash adds $30–190 of jewelry." },
+      { src: "/img/gta-6/sg/florence-co-fence-dunk.webp", alt: "GTA 6 map card for Dunk's Trailer showing jewelry worth $1,760 at a low rate", cap: "Dunk's Trailer valued the jewelry at $1,760, at his Low rate." },
+    ],
+  },
   icegem: { notes: "Robbed once on stream before this list; it now shows under Previously Hit with a lower take ($5,000–10,000)." },
   richardson: { notes: "The map card lists a Features icon that no other store shows. We'll check what it is on our visit." },
 };
-const rows: [keyof Field, string][] = [["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
+const rows: [keyof Field, string][] = [["hasSafe", "Has a safe?"], ["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
 const shots = [
   { src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski, a large high-end jewelry store, medium security, take value $14,000 to $25,000", cap: "Kowalski: medium security, $14,000–25,000. Skala is in the same mall with the same take." },
@@ -52,7 +67,16 @@ const faq = [
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
 >
-  <div class="callout"><p><strong>Quick answer:</strong> there are <strong>16 Smash 'n' Grab targets</strong>, 10 jewelry stores and 6 pawn shops, and they're open from <strong>Chapter 2</strong>. The biggest are <strong>Kowalski and Skala ($14,000–25,000)</strong>, side by side in the same mall. The easiest good one is <strong>Vice City Pawn or Ernesto's Pawn</strong>: low security, $4,500–12,000. Every value below is read off the in-game map on our stream.</p></div>
+  <div class="callout"><p><strong>Quick answer:</strong> there are <strong>16 Smash 'n' Grab targets</strong>, 10 jewelry stores and 6 pawn shops, and they're open from <strong>Chapter 2</strong>. The biggest are <strong>Kowalski and Skala ($14,000–25,000)</strong>, side by side in the same mall. The easiest good one is <strong>Vice City Pawn or Ernesto's Pawn</strong>: low security, $4,500–12,000. Those are the map's numbers: our first real run, Florence &amp; Co., paid about $2,000 because it has no safe. We're testing every store on stream.</p></div>
+
+  <h2>What our first run taught us</h2>
+  <ul>
+    <li><strong>The map's take value is a ceiling, not a promise.</strong> Florence &amp; Co. lists $4,500–12,000; we walked out with about $2,000 after fencing.</li>
+    <li><strong>Whether a store has a safe decides if it's worth it.</strong> With no safe, all you get is case jewelry, and a fence only pays part of its value. Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
+    <li><strong>The cops are quick.</strong> 3 stars about 30 seconds after the first smashed case, so you won't clear every case.</li>
+    <li><strong>Send your partner to fence.</strong> While driving with your partner, open the partner menu and pick <strong>Fence loot</strong>. They take the bag to the fence and you keep going, so the fence drive stops eating your time.</li>
+  </ul>
+  <figure style="margin:20px 0"><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>The partner menu in the car: Fence loot sends Jason or Lucia to sell the bag for you.</small></figcaption></figure>
 
   <h2>Best picks</h2>
   <ul>
@@ -65,9 +89,9 @@ const faq = [
   <h2>All 16 locations</h2>
   <p>Sorted by take value. Distance is what the map menu showed from Ambrosia Raceway, so it tells you roughly how far out each store is.</p>
   <div class="table-scroll"><table>
-    <thead><tr><th>Store</th><th>Type</th><th>Security</th><th class="num">Take value</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
+    <thead><tr><th>Store</th><th>Type</th><th>Security</th><th>Safe?</th><th class="num">Map take value</th><th class="num">Our take</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
     <tbody>{stores.map((s) => (
-      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
+      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td>{field[s.slug]?.hasSafe ?? "?"}</td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{field[s.slug]?.takeN ? "~" + money(field[s.slug].takeN!) : "–"}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
     ))}</tbody>
   </table></div>
   <p><small>No store showed High security on our save. Security and take values are from our in-game map; area names combine our map view with <a href="https://finalboss.io/gta-6-smash-n-grab-locations" rel="noopener">FinalBoss</a> and <a href="https://www.gta6activities.com/activities/jewelry-store-robbery" rel="noopener">GTA6Activities</a>.</small></p>
@@ -92,6 +116,7 @@ const faq = [
             {rows.map(([k, label]) => <><dt>{label}</dt><dd>{field[s.slug]?.[k] ?? <span class="sg-todo">Not tested yet</span>}</dd></>)}
           </dl>
           {field[s.slug]?.notes && <p class="sg-note">{field[s.slug].notes}</p>}
+          {field[s.slug]?.pics?.map((x) => <figure class="sg-pic"><img src={x.src} alt={x.alt} width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>{x.cap}</small></figcaption></figure>)}
         </div>
       </article>
     ))}
@@ -99,10 +124,10 @@ const faq = [
 
   <h2>How to rob them: safe first</h2>
   <ol>
-    <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full.</li>
+    <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full, and can take the loot to the fence for you.</li>
     <li><strong>Get the safe code from the staff.</strong> Free-roam safes don't come with a fixed code; threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
     <li><strong>Take the safe cash and leave.</strong> Grab cases on the way out only if the cops aren't there yet.</li>
-    <li><strong>Bank it at an ATM.</strong> Cash goes straight into BuckMe. Jewelry has to go to a fence, and taxi fast travel won't work near the crime, so you drive that leg with the cops around. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
+    <li><strong>Bank the cash, send the jewelry.</strong> Cash goes straight into BuckMe at an ATM. Jewelry has to go to a fence (Dunk's Trailer in Chapter 2 pays a Low rate), and taxi fast travel won't work near the crime. Pick <strong>Fence loot</strong> in the partner menu and your partner makes the fence run for you. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
   </ol>
   <p>Pawn shops also buy collectibles like cards, doubloons and meteorites, so you can sell those on the same trip.</p>
 
@@ -123,4 +148,6 @@ const faq = [
   .sg-body dd { margin: 0; }
   .sg-todo { color: var(--muted); opacity: .7; font-style: italic; }
   .sg-note { font-size: .88rem; margin: 10px 0 0; }
+  .sg-pic { margin: 10px 0 0; }
+  .sg-pic img { border-radius: 8px; aspect-ratio: auto; }
 </style>
