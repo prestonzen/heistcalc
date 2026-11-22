@@ -23,14 +23,14 @@ const stores: Store[] = [
   { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
-type Field = { hasSafe?: "Yes" | "No"; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
+type Field = { hasSafe?: string; guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; takeN?: number; takeShort?: string; notes?: string; pics?: { src: string; alt: string; cap: string }[] };
 const field: Record<string, Field> = {
   "all-that-glitters": {
-    hasSafe: "Yes",
+    hasSafe: "Yes, breakable (no code)",
     guards: "One armed security guard by the front door, and another came out of the back office.",
     cases: "About 10 cases around the counter plus the wall displays. A fast smash run filled a bag with $3,240 of jewelry.",
-    safe: "A floor safe in the back office, through the white door behind the counter.",
-    code: "Not noted on this run.",
+    safe: "A breakable floor safe in the back office, through the white door behind the counter.",
+    code: "No code needed: you break it open.",
     cops: "Bad: the store is in the Bayside outdoor mall and police spawn right outside the door, across the walkway. 3 stars, and we were Wasted on the way to the car.",
     take: "About $5,500 on us before the cops: $2,255 cash from the register and safe, plus $3,240 of jewelry. Getting Wasted costs your pocket cash, so get out fast or skip this one.",
     takeShort: "~$5,500, lost",
@@ -43,7 +43,7 @@ const field: Record<string, Field> = {
     ],
   },
   "bucks-jewelry-pawn": {
-    hasSafe: "Yes",
+    hasSafe: "Yes, lockbox (no code)",
     guards: "None seen. A clerk at the counter, plus a worker in the back office.",
     cases: "A few cases along the counter, plus the register (about $50).",
     safe: "Small cash lockbox on a desk in the back office, behind a red Staff Only door you break open. It gave $578. The storage room next to it also had a Gold collectible card.",
@@ -87,7 +87,7 @@ const faq = [
   { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
   { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
   { q: "What's the easiest store to rob in GTA 6?", a: "Vice City Pawn and Ernesto's Pawn. Both have low security and a $4,500–12,000 take, the best of any low-security target." },
-  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680). We're logging each store's code on stream and re-checking after a restock, and we'll post the result here." },
+  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680). So far none of the free-roam safes we've hit needed a code: Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. We'll keep logging each one." },
   { q: "Should you smash the cases or crack the safe?", a: "On our runs the cops arrived before we could clear the cases, so the reliable money is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry also has to go to a fence, and taxis won't pick you up near the crime." },
 ];
 ---
@@ -101,10 +101,10 @@ const faq = [
 >
   <div class="callout"><p><strong>Quick answer:</strong> there are <strong>16 Smash 'n' Grab targets</strong>, 10 jewelry stores and 6 pawn shops, and they're open from <strong>Chapter 2</strong>. The biggest are <strong>Kowalski and Skala ($14,000–25,000)</strong>, side by side in the same mall. The easiest good one is <strong>Vice City Pawn or Ernesto's Pawn</strong>: low security, $4,500–12,000. Those are the map's numbers: our first real run, Florence &amp; Co., paid about $2,250 because it has no safe. We're testing every store on stream.</p></div>
 
-  <h2>What our first run taught us</h2>
+  <h2>What our runs taught us</h2>
   <ul>
     <li><strong>The map's take value is a ceiling, not a promise.</strong> Florence &amp; Co. lists $4,500–12,000; we walked out with about $2,250 after fencing.</li>
-    <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578). Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
+    <li><strong>Whether a store has a safe decides if it's worth it.</strong> Florence &amp; Co. has none, so it's case jewelry only. Buck's has a small lockbox in the back office ($578), and All That Glitters a breakable safe. Neither needed a code, so you don't have to get one from the staff. Check the <strong>Safe?</strong> column; we fill it in as we visit each store.</li>
     <li><strong>The cops are quick.</strong> 3 stars about 30 seconds after the first smashed case, so you won't clear every case.</li>
     <li><strong>Location matters as much as the take.</strong> All That Glitters had the best haul so far (about $5,500 between cash and jewelry), but it's in the Bayside outdoor mall and police spawn right outside the door. Pick stores with a car parked at the door and an open road out.</li>
     <li><strong>Send your partner to fence.</strong> While driving with your partner, open the partner menu and pick <strong>Fence loot</strong>. They take the bag to the fence and you keep going, so the fence drive stops eating your time.</li>
@@ -169,7 +169,7 @@ const faq = [
   <h2>How to rob them: safe first</h2>
   <ol>
     <li><strong>Pick the store from the map.</strong> Open the map, go to Robberies, then Smash 'n' Grabs. Each one shows its security and take value, and you can invite Lucia from there. Your partner carries a second bag when yours is full, and can take the loot to the fence for you.</li>
-    <li><strong>Get the safe code from the staff.</strong> Free-roam safes don't come with a fixed code; threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
+    <li><strong>Find the safe, usually in the back office.</strong> The ones we've hit needed no code: a lockbox that opens on the spot (Buck's) and a breakable safe (All That Glitters). If a safe does ask for a code, threaten the staff or look for a note in the back room. Security guards will shoot, and smashing a case brings the cops fast. On our runs there wasn't time to clear every case before they arrived. A sticky bomb also opens the safe, but guides say it destroys some of the cash.</li>
     <li><strong>Take the safe cash and leave.</strong> Grab cases on the way out only if the cops aren't there yet.</li>
     <li><strong>Bank the cash, send the jewelry.</strong> Cash goes straight into BuckMe at an ATM. Jewelry has to go to a fence (Dunk's Trailer in Chapter 2 pays a Low rate), and taxi fast travel won't work near the crime. Pick <strong>Fence loot</strong> in the partner menu and your partner makes the fence run for you. See <a href="/gta-6/buckme/">BuckMe limits</a>: checking caps at $15,000 until heists unlock and Family Savings is filled.</li>
   </ol>
