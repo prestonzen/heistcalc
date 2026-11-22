@@ -13,6 +13,7 @@ const acts = [
   { id: "glitch", name: "Warehouse stash save-reload loop (exploit)", ch: 1, diff: 1, pay: 5000, min: 10, range: "$4,000–10,000 per loop (reported, sources disagree)", time: "~10 min (reported)", note: "Reported exploit near Hamlet (red barn / Apollo Aggregates). Not tested by us and may get patched. Chapter 1 cash is wiped at Tourist Trap." },
   { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
   { id: "derby8", name: "Demolition Derby: figure-8 track (ramp-camp method)", ch: 2, diff: 1, pay: 2685, min: 3, range: "$3,150 for 1st place minus the $465 cheapest rental (our stream; $3,150 is the in-game max)", time: "3 min per win (timed on our stream)", note: "Easy only with the ramp-camp method; without it, it's a hard wreck-fest. Last car standing. Pays about double the oval. Tested strategy: drive the wrong way to the crossover ramp, park on top and let the AI launch itself off you. Fastest win 1:18. 2nd place still pays $1,500." },
+  { id: "derby8duo", name: "Demolition Derby: figure-8 with your partner (ramp-camp method)", ch: 2, diff: 1, pay: 5370, min: 3, range: "Up to $6,300 for 1st with Lucia or Jason in the race, minus $930 rental for both cars (our stream)", time: "~3 min per win (solo timing; partner runs not timed yet)", note: "Bring your partner and the payout doubles: up to $6,300 for $930 in rentals. Same ramp method: drive the wrong way to the crossover ramp and park on top. With the $15,000 BuckMe cap early in Chapter 2, spend after about three wins." },
   { id: "derby", name: "Demolition Derby: oval", ch: 2, diff: 3, pay: 1400, min: 6, range: "$1,900 top prize at the start (seen on our stream), minus a rental of about $500; the in-game menu shows $1,900 max", time: "5–6 min (reported)", note: "Last car standing, not a race: you win by being the only car still running. You only get paid if you win. Retrying costs less than the first rental. Lower the payout if you don't win every time." },
   { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, diff: 2, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
   { id: "dive", name: "Kenton's treasure dives", ch: 1, diff: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
@@ -70,7 +71,7 @@ const faq = [
     <p style="margin-top:4px"><small>Tick <strong>Loop</strong> on the activities you chain together (for example, rob a store on the way to Moses with a stolen car) to see what the whole rotation earns per hour.</small></p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="moses,store">Chapter 2: cars + stick-ups</button>
-      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="derby8,moses">Chapter 2: figure-8 Derby + a car to Moses</button>
+      <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="derby8duo,moses">Chapter 2: figure-8 Derby with Lucia + a car to Moses</button>
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="randy,jewel,spray">Chapter 3: supercars + jewelry</button>
       <button type="button" class="btn-ghost" style="padding:6px 12px;font-size:.85rem" data-preset="">Clear loop</button>
     </div>
@@ -100,7 +101,7 @@ const faq = [
   <h2>Best money by chapter</h2>
   <ul>
     <li><strong>Chapter 1:</strong> don't grind. Your cash, checking and car are wiped at Tourist Trap. Move up to $5,000 into Family Savings (see the <a href="/gta-6/buckme/">BuckMe calculator</a>) and spend the rest.</li>
-    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies ($3,150 for 1st, about $50,000 an hour) and untracked cars to Moses. Jewelry stores and pawn shops also open for smash and grab in Chapter 2 (checked on our stream); the bigger ones hold $14,000–25,000, and grabbing the safe cash beats smashing every case before the cops arrive. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
+    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies with your partner (up to $6,300 a win, about $100,000 an hour; $3,150 solo) and untracked cars to Moses. Jewelry stores and pawn shops also open for smash and grab in Chapter 2 (checked on our stream); the bigger ones hold $14,000–25,000, and grabbing the safe cash beats smashing every case before the cops arrive. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
     <li><strong>Chapter 3:</strong> Randy's Wish List supercars are the best earners, then banks and Payday Loans, with jewelry stores still worth a hit. Pay 'n' Spray takes cars Moses won't.</li>
     <li><strong>Chapter 4 and after the story:</strong> large bank vaults beat everything else by a wide margin.</li>
   </ul>
@@ -124,7 +125,7 @@ const faq = [
     <li><strong>Ram in reverse.</strong> Back into the damaged cars to finish them off. Hitting with your rear keeps your engine alive, and the AI doesn't react to it.</li>
     <li><strong>Retry until you win.</strong> 2nd place still pays $1,500, and a retry is $315, half the $615 rental, so keep retrying until you finish 1st.</li>
     <li><strong>Pick the figure-8 track.</strong> 1st place pays $3,150, the maximum the game lists, about double the oval's $1,900. Full guide: <a href="/gta-6/demolition-derby/">how to win the Demolition Derby</a>.</li>
-    <li><strong>The numbers we got:</strong> $3,150 prize minus the $465 cheapest rental is $2,535 profit, and a win took about 3 minutes. That's roughly $50,000 an hour, the best money in Chapter 2 by far. 2nd place still pays $1,500 and a retry costs only $315 (half the rental). So coming 2nd isn't a loss: 2nd place, then a retry you win, nets about $3,700 for two rounds.</li>
+    <li><strong>The numbers we got:</strong> $3,150 prize minus the $465 cheapest rental is $2,535 profit, and a win took about 3 minutes. That's roughly $50,000 an hour solo. <strong>Bring Lucia and it doubles:</strong> up to $6,300 a win for $930 in rentals, about $100,000 an hour, the best money in Chapter 2 by far. 2nd place still pays $1,500 and a retry costs only $315 (half the rental). So coming 2nd isn't a loss: 2nd place, then a retry you win, nets about $3,700 for two rounds.</li>
   </ul>
 
   <h2>One-time payouts worth knowing</h2>
