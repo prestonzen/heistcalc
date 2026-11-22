@@ -236,7 +236,8 @@ const faq = [
   .act-body { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; margin-top: 10px; }
   .act-inputs { display: grid; grid-template-columns: repeat(4, minmax(90px, 1fr)); gap: 8px; flex: 1 1 420px; }
   .act-inputs label { display: flex; flex-direction: column; gap: 3px; font-size: .75rem; color: var(--muted); }
-  .act-inputs input { width: 100%; min-width: 0; }
+  .act-inputs input { width: 100%; min-width: 0; padding: 7px 9px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; font: 1rem Inter, sans-serif; font-variant-numeric: tabular-nums; }
+  .act-inputs input:focus { outline: 2px solid var(--accent-dim); border-color: var(--accent); }
   .act-time { display: flex; align-items: center; gap: 4px; }
   .act-time b { color: var(--muted); }
   .act-out { display: flex; gap: 16px; text-align: right; }
