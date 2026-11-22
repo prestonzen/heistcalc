@@ -116,6 +116,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/criminal-profile/",
+    "title": "GTA 6 Criminal Profile: How to Stop Being a Psycho and Get Back to Professional",
+    "text": "How GTA 6's Criminal Profile works, from Professional to Psycho and the permanent Irredeemable tier, and how to climb back step by step.",
+    "image": "/img/gta-6/gta6-jason-substation.webp",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/smash-and-grab/",
     "image": "/img/gta-6/smash-grab-kowalski.webp",
     "title": "GTA 6 Jewelry Store & Pawn Shop Locations: All 16 Smash and Grabs",

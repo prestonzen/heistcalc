@@ -1,0 +1,79 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const levels = [
+  ["Professional", "The clean end. You do what the job needs and nothing more.", "Non-lethal takedowns build Focus."],
+  ["Hardened", "You've killed enemies you could have avoided. Some guides call this tier Aggressive.", "Easy to climb back from."],
+  ["Violent", "Repeated attacks on police and civilians, including shooting people who run.", "Headshots build Focus, but climbing back gets harder."],
+  ["Psycho", "Killing defenceless civilians, gunning down police, cruelty to animals.", "You can no longer surrender to the police."],
+  ["Irredeemable", "Past Psycho. Some guides call it Shattered.", "Permanent for that character. Only an older save gets you out."],
+];
+const faq = [
+  { q: "How do you lower your Criminal Profile in GTA 6?", a: "Stop the violence that pushed it down, then play clean: rob stores by threatening staff instead of shooting them, use non-lethal takedowns, run from the police instead of fighting, and pick peaceful dialogue options. Guides report that a couple of low-violence robberies is usually enough to go from Hardened back to Professional." },
+  { q: "Can you get out of Psycho in GTA 6?", a: "Yes. Psycho is not permanent. Play clean for a while and it climbs back. The tier after it, Irredeemable (also reported as Shattered), is permanent, so stop as soon as the Psycho icon starts to crack or gets struck through." },
+  { q: "Is Irredeemable permanent in GTA 6?", a: "Guides agree it is permanent for that character. The only way out is to load a manual save from before you reached it, so make a manual save whenever you're near Psycho." },
+  { q: "Where do you see your Criminal Profile?", a: "In the pause menu under Jason & Lucia, which shows both characters. An icon also pops up under the health bar whenever something you do moves it." },
+  { q: "Do mission kills count against your Criminal Profile?", a: "No. Guides agree that violence a mission requires doesn't count. It's going beyond what's needed, again and again, that drags it down." },
+  { q: "Does hunting make you a Psycho in GTA 6?", a: "Some of it can: guides list cruelty to animals as a Psycho trigger and say some hunting counts. If you're trying to climb back, pause hunting for Bret until your profile has recovered." },
+];
+---
+<Article
+  title="GTA 6 Criminal Profile: How to Stop Being a Psycho and Get Back to Professional"
+  h1="GTA 6 Criminal Profile: How to Lower Your Reputation and Stop Being a Psycho"
+  description="How the GTA 6 Criminal Profile works, from Professional to Psycho and Irredeemable: what drops it, how to climb back step by step, what it changes, and how to avoid the permanent tier."
+  published="2026-11-22"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  image={{ src: "/img/gta-6/gta6-jason-substation.webp", alt: "Jason in a GTA 6 substation with four wanted stars" }}
+  sources={[
+    { href: "https://vicecityintelhub.com/gta-6/guides/criminal-profiles/", label: "Vice City Intel: criminal profiles" },
+    { href: "https://timesaver.gg/blog/gta-6-criminal-profile-explained", label: "Timesaver: criminal profile explained" },
+    { href: "https://www.gamespot.com/articles/gta-6-criminal-profile-irredeemable-professional-psycho/", label: "GameSpot: what affects your criminal profile" },
+    { href: "https://egamersworld.com/blog/gta-6-criminal-profile-guide-how-to-restore-reputa-MT5KOOlyag", label: "eGamersWorld: how to restore reputation" },
+  ]}
+>
+  <div class="callout"><p><strong>Quick answer:</strong> GTA 6 tracks how violent you are with a <strong>Criminal Profile</strong> for each character, from <strong>Professional</strong> down to <strong>Psycho</strong> and finally <strong>Irredeemable</strong>. To climb back: <strong>make a manual save</strong>, stop the extra killing, then <strong>rob a couple of stores by threatening the staff instead of shooting</strong>, use non-lethal takedowns and run from the cops. Psycho can be fixed. Irredeemable can't, so stop when the Psycho icon cracks.</p></div>
+
+  <h2>The five levels</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Level</th><th>How you get there</th><th>What it means</th></tr></thead>
+    <tbody>{levels.map(([l, how, eff]) => <tr><td><strong>{l}</strong></td><td>{how}</td><td>{eff}</td></tr>)}</tbody>
+  </table></div>
+  <p><small>Guides agree on the order but not every name: tier 2 is reported as Hardened or Aggressive, and tier 5 as Irredeemable or Shattered.</small></p>
+
+  <h2>How to check yours</h2>
+  <p>Open the pause menu and go to <strong>Jason &amp; Lucia</strong>: it shows each character's profile. Jason and Lucia each have their own, but when you play together one's behaviour can rub off on the other. Whenever something you do moves it, a small icon appears under the health bar.</p>
+
+  <h2>What drags it down</h2>
+  <ul>
+    <li><strong>Killing people you didn't need to.</strong> Enemies you could have avoided or knocked out.</li>
+    <li><strong>Executing someone who already gave up,</strong> like a clerk who handed over the cash.</li>
+    <li><strong>Shooting people who are running away,</strong> and attacking police or civilians again and again.</li>
+    <li><strong>Random free-roam killing.</strong></li>
+    <li><strong>Cruelty to animals.</strong> Some guides say some hunting counts.</li>
+  </ul>
+  <p>Violence a mission requires doesn't count. It's doing more than the job needs, on a regular basis, that moves you toward Psycho.</p>
+
+  <h2>How to get back to Professional, step by step</h2>
+  <ol>
+    <li><strong>Make a manual save now.</strong> If you're at Psycho, this protects you from slipping into the permanent tier.</li>
+    <li><strong>Stop the bleeding.</strong> Holster your gun in free roam, don't fight the police, and pause hunting for a while.</li>
+    <li><strong>Do a couple of clean robberies.</strong> Threaten the clerk, take the register and the safe, and leave without shooting anyone. Guides report that a couple of low-violence robberies is usually enough to go from Hardened back to Professional, and it's good money too: see our <a href="/gta-6/smash-and-grab/">smash and grab guide</a> for which stores have a safe.</li>
+    <li><strong>Use non-lethal takedowns</strong> when a fight can't be avoided, and only fight back when you're attacked.</li>
+    <li><strong>Run, don't shoot, when the cops come.</strong> Lose the wanted level instead of fighting it out.</li>
+    <li><strong>Pick the peaceful dialogue options</strong> when the story offers a choice, like sparing someone instead of killing them.</li>
+    <li><strong>Watch the icon under the health bar</strong> to confirm each step is moving you the right way.</li>
+  </ol>
+
+  <h2>The point of no return</h2>
+  <p>Past Psycho is <strong>Irredeemable</strong> (also reported as <strong>Shattered</strong>), and guides agree it's permanent for that character. The warning sign is the Psycho icon getting struck through or cracking. If you see it, stop, and if you've already crossed over, reload the manual save from before.</p>
+
+  <h2>What your profile changes</h2>
+  <ul>
+    <li><strong>Police</strong> open fire much sooner when your profile is bad.</li>
+    <li><strong>You can't surrender</strong> at Psycho or worse, so a bust turns into a fight or a death, and dying costs your pocket cash.</li>
+    <li><strong>People react differently,</strong> and Jason and Lucia's relationship suffers at the bottom tiers.</li>
+    <li><strong>Focus:</strong> at Professional and Hardened, non-lethal takedowns build it; at Violent and below, headshots do.</li>
+  </ul>
+  <p><small>These details come from guides written in the first days after launch. We're checking them on stream and will update this page with what we see.</small></p>
+</Article>
