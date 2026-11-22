@@ -23,12 +23,12 @@ const stores: Store[] = [
   { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
 // Field notes, filled in as we hit each store on stream. Empty = not tested yet.
-type Field = { guards?: string; cases?: string; safe?: string; cops?: string; take?: string; notes?: string };
+type Field = { guards?: string; cases?: string; safe?: string; code?: string; cops?: string; take?: string; notes?: string };
 const field: Record<string, Field> = {
   icegem: { notes: "Robbed once on stream before this list; it now shows under Previously Hit with a lower take ($5,000–10,000)." },
   richardson: { notes: "The map card lists a Features icon that no other store shows. We'll check what it is on our visit." },
 };
-const rows: [keyof Field, string][] = [["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["cops", "Cops arrive"], ["take", "Our take"]];
+const rows: [keyof Field, string][] = [["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
 const shots = [
   { src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski, a large high-end jewelry store, medium security, take value $14,000 to $25,000", cap: "Kowalski: medium security, $14,000–25,000. Skala is in the same mall with the same take." },
@@ -40,6 +40,7 @@ const faq = [
   { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
   { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
   { q: "What's the easiest store to rob in GTA 6?", a: "Vice City Pawn and Ernesto's Pawn. Both have low security and a $4,500–12,000 take, the best of any low-security target." },
+  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680). We're logging each store's code on stream and re-checking after a restock, and we'll post the result here." },
   { q: "Should you smash the cases or crack the safe?", a: "On our runs the cops arrived before we could clear the cases, so the reliable money is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry also has to go to a fence, and taxis won't pick you up near the crime." },
 ];
 ---
