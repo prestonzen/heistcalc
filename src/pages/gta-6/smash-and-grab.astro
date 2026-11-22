@@ -3,25 +3,32 @@ import Article from "../../layouts/Article.astro";
 
 // All values read off the in-game Robberies > Smash 'n' Grabs map menu on our stream (2026-11-22, Chapter 2).
 // dist = miles shown in the menu from Ambrosia Raceway, where we opened it.
-type Store = { name: string; kind: string; sec: "Low" | "Medium"; lo: number; hi: number; dist: number; area: string };
+type Store = { slug: string; name: string; kind: string; sec: "Low" | "Medium"; lo: number; hi: number; dist: number; area: string };
 const stores: Store[] = [
-  { name: "Kowalski", kind: "Large, high-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.73, area: "Waning Sands mall, next to Skala" },
-  { name: "Skala", kind: "Large, low-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.79, area: "Waning Sands mall, next to Kowalski" },
-  { name: "Peacock", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.3, area: "Vice City, by Panos Plaza" },
-  { name: "All That Glitters", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.35, area: "Vice City, by Panos Plaza" },
-  { name: "Marshal's", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.7, area: "Vice Beach" },
-  { name: "Plush", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.84, area: "Tequesta" },
-  { name: "Vice City Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 2.65, area: "Vice City, near Panos Plaza" },
-  { name: "Ernesto's Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 4.35, area: "Vice City, near Peacock Estates" },
-  { name: "Florence & Co.", kind: "Pawn shop", sec: "Medium", lo: 4500, hi: 12000, dist: 0.17, area: "Ambrosia, next to the raceway" },
-  { name: "The Jewelry Place", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 2.52, area: "Vice-Dale" },
-  { name: "Fast Cash", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.04, area: "Vice City" },
-  { name: "Pawn City", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.47, area: "Vice City" },
-  { name: "The Siren's Chest", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 7.14, area: "Key Lento (guides); far out on the coast" },
-  { name: "ICEGEM Diamonds & Watches", kind: "Large, low-end jewelry", sec: "Medium", lo: 5000, hi: 10000, dist: 3.4, area: "Downtown Vice City" },
-  { name: "Richardson Jewelry & Diamonds", kind: "Large, low-end jewelry", sec: "Medium", lo: 2000, hi: 7000, dist: 3.35, area: "Vice City, by Panos Plaza" },
-  { name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
+  { slug: "kowalski", name: "Kowalski", kind: "Large, high-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.73, area: "Waning Sands mall, next to Skala" },
+  { slug: "skala", name: "Skala", kind: "Large, low-end jewelry", sec: "Medium", lo: 14000, hi: 25000, dist: 1.79, area: "Waning Sands mall, next to Kowalski" },
+  { slug: "peacock", name: "Peacock", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.3, area: "Vice City, by Panos Plaza" },
+  { slug: "all-that-glitters", name: "All That Glitters", kind: "Small, low-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.35, area: "Vice City, by Panos Plaza" },
+  { slug: "marshals", name: "Marshal's", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.7, area: "Vice Beach" },
+  { slug: "plush", name: "Plush", kind: "Small, high-end jewelry", sec: "Medium", lo: 9000, hi: 20000, dist: 3.84, area: "Tequesta" },
+  { slug: "vice-city-pawn", name: "Vice City Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 2.65, area: "Vice City, near Panos Plaza" },
+  { slug: "ernestos-pawn", name: "Ernesto's Pawn", kind: "Pawn shop", sec: "Low", lo: 4500, hi: 12000, dist: 4.35, area: "Vice City, near Peacock Estates" },
+  { slug: "florence-co", name: "Florence & Co.", kind: "Pawn shop", sec: "Medium", lo: 4500, hi: 12000, dist: 0.17, area: "Ambrosia, next to the raceway" },
+  { slug: "the-jewelry-place", name: "The Jewelry Place", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 2.52, area: "Vice-Dale" },
+  { slug: "fast-cash", name: "Fast Cash", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.04, area: "Vice City" },
+  { slug: "pawn-city", name: "Pawn City", kind: "Pawn shop", sec: "Low", lo: 1000, hi: 10000, dist: 3.47, area: "Vice City" },
+  { slug: "sirens-chest", name: "The Siren's Chest", kind: "Small, low-end jewelry", sec: "Low", lo: 1000, hi: 10000, dist: 7.14, area: "Key Lento (guides); far out on the coast" },
+  { slug: "icegem", name: "ICEGEM Diamonds & Watches", kind: "Large, low-end jewelry", sec: "Medium", lo: 5000, hi: 10000, dist: 3.4, area: "Downtown Vice City" },
+  { slug: "richardson", name: "Richardson Jewelry & Diamonds", kind: "Large, low-end jewelry", sec: "Medium", lo: 2000, hi: 7000, dist: 3.35, area: "Vice City, by Panos Plaza" },
+  { slug: "bucks-jewelry-pawn", name: "Buck's Jewelry & Pawn", kind: "Pawn shop", sec: "Low", lo: 500, hi: 5000, dist: 2.47, area: "Port Gellhorn" },
 ];
+// Field notes, filled in as we hit each store on stream. Empty = not tested yet.
+type Field = { guards?: string; cases?: string; safe?: string; cops?: string; take?: string; notes?: string };
+const field: Record<string, Field> = {
+  icegem: { notes: "Robbed once on stream before this list; it now shows under Previously Hit with a lower take ($5,000–10,000)." },
+  richardson: { notes: "The map card lists a Features icon that no other store shows. We'll check what it is on our visit." },
+};
+const rows: [keyof Field, string][] = [["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
 const shots = [
   { src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski, a large high-end jewelry store, medium security, take value $14,000 to $25,000", cap: "Kowalski: medium security, $14,000–25,000. Skala is in the same mall with the same take." },
@@ -59,7 +66,7 @@ const faq = [
   <div class="table-scroll"><table>
     <thead><tr><th>Store</th><th>Type</th><th>Security</th><th class="num">Take value</th><th class="num">From Ambrosia</th><th>Area</th></tr></thead>
     <tbody>{stores.map((s) => (
-      <tr><td><strong>{s.name}</strong></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
+      <tr><td><a href={`#${s.slug}`}><strong>{s.name}</strong></a></td><td>{s.kind}</td><td><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec}</span></td><td class="num">{money(s.lo)}–{money(s.hi)}</td><td class="num">{s.dist} mi</td><td>{s.area}</td></tr>
     ))}</tbody>
   </table></div>
   <p><small>No store showed High security on our save. Security and take values are from our in-game map; area names combine our map view with <a href="https://finalboss.io/gta-6-smash-n-grab-locations" rel="noopener">FinalBoss</a> and <a href="https://www.gta6activities.com/activities/jewelry-store-robbery" rel="noopener">GTA6Activities</a>.</small></p>
@@ -69,6 +76,25 @@ const faq = [
   <p>Where guides disagree with our map, we trust the map: they list Richardson at $4,500–12,000 (our map: $2,000–7,000) and ICEGEM at $14,000–25,000 (ours: $5,000–10,000, after we'd already hit it once).</p>
 
   {shots.map((s) => <figure style="margin:20px 0"><img src={s.src} alt={s.alt} width="1280" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%" /><figcaption><small>{s.cap}</small></figcaption></figure>)}
+
+  <h2>Store by store</h2>
+  <p>Each card shows the store's spot on the in-game map, with the security and take value the game lists. The rows underneath fill in as we rob each one on stream: how many guards, how many cases, where the safe is, how long the cops take, and what we actually walked out with.</p>
+  <div class="sg-grid">
+    {stores.map((s) => (
+      <article class="sg-card" id={s.slug}>
+        <img src={`/img/gta-6/sg/${s.slug}.webp`} alt={`GTA 6 map showing ${s.name}, ${s.kind.toLowerCase()} store, ${s.sec.toLowerCase()} security, take value ${money(s.lo)} to ${money(s.hi)}`} width="918" height="720" loading="lazy" decoding="async" />
+        <div class="sg-body">
+          <h3>{s.name}</h3>
+          <p class="sg-meta"><span class={`diff ${s.sec === "Low" ? "d1" : "d2"}`}>{s.sec} security</span> <strong class="sg-take">{money(s.lo)}–{money(s.hi)}</strong></p>
+          <p class="sg-meta">{s.kind} · {s.area} · {s.dist} mi from Ambrosia Raceway</p>
+          <dl>
+            {rows.map(([k, label]) => <><dt>{label}</dt><dd>{field[s.slug]?.[k] ?? <span class="sg-todo">Not tested yet</span>}</dd></>)}
+          </dl>
+          {field[s.slug]?.notes && <p class="sg-note">{field[s.slug].notes}</p>}
+        </div>
+      </article>
+    ))}
+  </div>
 
   <h2>How to rob them: safe first</h2>
   <ol>
@@ -82,3 +108,18 @@ const faq = [
   <h2>Compare it with the Derby</h2>
   <p>A Kowalski or Skala safe-first run is likely worth more per trip than a <a href="/gta-6/demolition-derby/">figure-8 Derby win</a> ($3,150), but it comes with police. We're timing full loops on stream. Plug your own numbers into the <a href="/gta-6/make-money/">GTA 6 money per hour calculator</a> to compare.</p>
 </Article>
+
+<style>
+  .sg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 16px 0; }
+  .sg-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; scroll-margin-top: 80px; }
+  .sg-card img { display: block; width: 100%; height: auto; aspect-ratio: 918 / 720; object-fit: cover; }
+  .sg-body { padding: 12px 14px 14px; }
+  .sg-body h3 { margin: 0 0 6px; }
+  .sg-meta { margin: 4px 0; font-size: .92rem; color: var(--muted); }
+  .sg-take { color: var(--money); margin-left: 6px; }
+  .sg-body dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0 0; font-size: .9rem; }
+  .sg-body dt { color: var(--muted); }
+  .sg-body dd { margin: 0; }
+  .sg-todo { color: var(--muted); opacity: .7; font-style: italic; }
+  .sg-note { font-size: .88rem; margin: 10px 0 0; }
+</style>
