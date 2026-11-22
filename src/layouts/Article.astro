@@ -15,8 +15,10 @@ interface Props {
   faq?: Faq[];
   tool?: { name: string; category?: string };
   sources?: { href: string; label: string }[];
+  /** Hero screenshot shown under the h1 and used as og:image. Defaults to 1280x720. */
+  image?: { src: string; alt: string; width?: number; height?: number };
 }
-const { title, description, h1 = title, published, updated = published, crumbs = [], faq = [], tool, sources = [] } = Astro.props;
+const { title, description, h1 = title, published, updated = published, crumbs = [], faq = [], tool, sources = [], image } = Astro.props;
 const tags = articles.find(a => a.href === Astro.url.pathname)?.tags ?? [];
 const url = new URL(Astro.url.pathname, SITE.url).toString();
 
@@ -29,6 +31,7 @@ const schema: Record<string, unknown>[] = [
     datePublished: published,
     dateModified: updated,
     mainEntityOfPage: url,
+    ...(image ? { image: new URL(image.src, SITE.url).toString() } : {}),
     author: { "@type": "Organization", name: SITE.name, url: SITE.url },
     publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
   },
@@ -59,7 +62,7 @@ if (tool) {
   });
 }
 ---
-<Base title={title} description={description} type="article" schema={schema}>
+<Base title={title} description={description} type="article" schema={schema} image={image?.src} imageAlt={image?.alt}>
   <nav class="crumbs" aria-label="Breadcrumb">
     <a href="/">Home</a>
     {crumbs.map((c) => <><span>/</span><a href={c.href}>{c.label}</a></>)}
@@ -67,6 +70,7 @@ if (tool) {
   <article class="article">
     <header class="article-head">
       <h1>{h1}</h1>
+      {image && <img class="hero-img" src={image.src} alt={image.alt} width={image.width ?? 1280} height={image.height ?? 720} decoding="async" fetchpriority="high" />}
       <p class="lede">{description}</p>
       <p class="byline">By {SITE.author}</p>
       <nav aria-label="Article tags">{tags.map(tag => <a class="tag" style="margin-right:8px" href={`/guides/?tag=${encodeURIComponent(tag)}#articles`}>{tag}</a>)}</nav>

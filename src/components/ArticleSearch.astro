@@ -14,6 +14,7 @@ const tags = [...new Set(articles.flatMap(a => a.tags))].sort();
   <p data-empty hidden>No articles match. Try another search or clear the filters.</p>
   <div class="cards">
     {articles.map(a => <a class="card" href={a.href} data-article data-tags={JSON.stringify(a.tags)} data-search={`${a.title} ${a.text} ${a.tags.join(' ')}`.toLowerCase()}>
+      {a.image && <img class="card-img" src={a.image} alt="" width="1280" height="720" loading="lazy" decoding="async" />}
       <span class="tag">{a.tags.join(' · ')}</span><h3>{a.title}</h3><p>{a.text}</p>
     </a>)}
   </div>

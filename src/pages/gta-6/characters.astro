@@ -19,6 +19,7 @@ const faq = [
 ];
 ---
 <Article
+  image={{ src: "/img/gta-6/gta6-jason-fish-dock.webp", alt: "Jason in a tank top and backwards cap holding up a freshly caught rainbow-colored fish on a waterside dock" }}
   title="GTA 6 Characters: Jason, Lucia & Every Confirmed Name"
   h1="GTA 6 Characters: Who's Who in Leonida"
   description="Every confirmed GTA 6 character: Jason Duval, Lucia Caminos, Boobie Ike, Dre'Quan Priest, Real Dimez, Raul Bautista and Brian Heder, and how they connect."
@@ -38,6 +39,12 @@ const faq = [
     <>
       <h2 id={c.name.toLowerCase().replace(/[^a-z]+/g, "-")}>{c.name}</h2>
       <p>{c.text}</p>
+      {c.name === "Lucia Caminos" && (
+        <figure style="margin:20px 0">
+          <img src="/img/gta-6/gta6-lucia-derby-organizer.webp" alt="Lucia in a yellow patterned shirt and denim shorts standing outside the Team 360 Wing-It demolition derby tent" width="1280" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%;height:auto" />
+          <figcaption><small>Lucia outside the Team 360 'Wing-It' tent, where you sign up for Demolition Derby races.</small></figcaption>
+        </figure>
+      )}
     </>
   ))}
 

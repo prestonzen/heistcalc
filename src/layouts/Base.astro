@@ -8,11 +8,14 @@ interface Props {
   type?: "website" | "article";
   schema?: Record<string, unknown>[];
   noindex?: boolean;
+  /** Page image path for og:image / twitter:image. Falls back to /og.png. */
+  image?: string;
+  imageAlt?: string;
 }
-const { title, description, type = "website", schema = [], noindex = false } = Astro.props;
+const { title, description, type = "website", schema = [], noindex = false, image, imageAlt } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const fullTitle = Astro.url.pathname === "/" ? `${SITE.name}: ${SITE.tagline}` : `${title} | ${SITE.name}`;
-const ogImage = new URL("/og.png", SITE.url).toString();
+const ogImage = new URL(image ?? "/og.png", SITE.url).toString();
 const path = Astro.url.pathname;
 
 const siteSchema = {
@@ -47,8 +50,10 @@ const siteSchema = {
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
   <meta property="og:locale" content={SITE.locale} />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={ogImage} />
   <meta name="theme-color" content="#120a1c" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/manifest.webmanifest" />
