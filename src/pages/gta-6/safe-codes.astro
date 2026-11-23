@@ -3,7 +3,7 @@ import Article from "../../layouts/Article.astro";
 
 // [where, context, code, what it opens]. Confirmed = 2+ independent sources list the same code.
 const story = [
-  ["Casa de Empeño pawn shop, back office", "Yasmani's Jewelry Jobs (Ch. 3)", "1680", "Buffalo skull chain"],
+  ["Casa de EmpeÃ±o pawn shop, back office", "Yasmani's Jewelry Jobs (Ch. 3)", "1680", "Buffalo skull chain"],
   ["Richardson Jewelry", "Yasmani's Jewelry Jobs (Ch. 3)", "6815", "Diamond ring"],
   ["Donovan Banks & Co.", "Yasmani's Jewelry Jobs (Ch. 3)", "0104", "Amethyst necklace"],
   ["Acid lab back-room door, Key Lento", "Lab Fees (Ch. 1)", "0420", "The acid lab"],
@@ -17,6 +17,7 @@ const freeRoam = [
   ["Brooks Boatworks", "Gang operation", "6823", "Hideout safe"],
   ["La Cascara Motel", "Gang operation", "6969", "Hideout safe"],
   ["Kingpin Bowling", "Gang operation", "0300", "Hideout safe"],
+  ["Barn garage with Moses's '74 Declasse Vamos, Grayson", "Moses vehicle job", "2727", "The Vamos (sells to Moses for $4,200). Confirmed on our stream"],
 ];
 const single = [
   ["Sundown Private Airfield hangar", "The Last Mile: Passing the Torch", "3718", "Pilot Pete's stash"],
@@ -24,7 +25,6 @@ const single = [
   ["Key Lento party house garage (southeast corner)", "Free roam", "092319", "Unique Invetero Spiderweb Coquette"],
   ["Belville abandoned laundry wall safe (enter via the roof)", "Free roam", "62412", "Safe"],
   ["Nova Auto Junkyard safe", "Free roam", "7777", "Safe"],
-  ["'74 Vamos garage", "Free roam", "2727", "Garage"],
   ["Casa Guardia", "Gang operation", "1965", "Hideout safe"],
   ["Saber Shipping Yard", "Gang operation", "8046", "Hideout safe"],
   ["Sunrise RV Park dock warehouse", "Gang operation", "6769", "Hideout safe"],
@@ -35,7 +35,8 @@ const table = (rows: string[][]) => rows;
 const faq = [
   { q: "What is the GTA 6 crab lab safe code?", a: "0072. The computer password is CLEAVES, and the hint \"double success\" means doubling the successful specimen, 0036. The safe holds about $1,000 and the dock code 0212, which opens the boathouse with the Crabshack VF5 SMG." },
   { q: "What is the GTA 6 acid lab code?", a: "0420, on the back-room door in Key Lento during Lab Fees in Chapter 1. Brian's Lockup in the same mission is 7700." },
-  { q: "What are the jewelry store safe codes in GTA 6?", a: "During Yasmani's Jewelry Jobs: Casa de Empeño 1680, Richardson Jewelry 6815, Donovan Banks & Co. 0104." },
+  { q: "What is the GTA 6 Vamos garage code?", a: "2727. It opens the garage in Grayson holding Moses's '74 Declasse Vamos, which sells to him for $4,200. We confirmed it on stream; the clue is reported to be on a license plate or flag sticker in the trailer next door." },
+  { q: "What are the jewelry store safe codes in GTA 6?", a: "During Yasmani's Jewelry Jobs: Casa de EmpeÃ±o 1680, Richardson Jewelry 6815, Donovan Banks & Co. 0104." },
   { q: "Are GTA 6 store robbery safe codes random?", a: "Story safe codes are fixed, but safes in random store robberies are reported to be randomized. Get the code from a note on the premises, a guard, or by threatening an employee with the Safe Code prompt. Explosives also work but hurt your Criminal Profile." },
 ];
 ---
@@ -45,6 +46,7 @@ const faq = [
   h1="GTA 6 Safe Codes and Door Codes"
   description="Every GTA 6 safe code, keypad code and computer password found so far: crab lab 0072, acid lab 0420, jewelry jobs, gang hideouts and free-roam secrets."
   published="2026-11-20"
+  updated="2026-11-23"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
   sources={[
@@ -74,6 +76,7 @@ const faq = [
     <tbody>{table(freeRoam).map(([w, m, c, o]) => <tr><td>{w}</td><td>{m}</td><td><strong>{c}</strong></td><td>{o}</td></tr>)}</tbody>
   </table></div>
   <p><small>The three gang hideout codes are revealed by the wall map inside Brooks Boatworks. Hideout codes may vary per save.</small></p>
+  <p><strong>The Vamos garage (2727):</strong> Moses's job sends you to a property in Grayson where the '74 Declasse Vamos sits in a locked garage with a keypad. We searched the house and the grounds and couldn't spot a clue. Guides say the number is on a license plate or a flag sticker inside the trailer next to the garage. You don't need it: type <strong>2727</strong> and the door opens (tested on our stream). To skip the long drive to Moses, see the <a href="/gta-6/make-money/#moses-delivery-trick">car delivery trick</a>.</p>
 
   <h2>Crab research outpost walkthrough (CLEAVES, 0072, 0212)</h2>
   <ol>
