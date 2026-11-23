@@ -94,6 +94,7 @@ const field: Record<string, Field> = {
   },
   icegem: { notes: "Robbed once on stream before this list; it now shows under Previously Hit with a lower take ($5,000–10,000)." },
   richardson: { notes: "The map card lists a Features icon that no other store shows. We'll check what it is on our visit." },
+  "the-jewelry-place": { notes: "Scouted on stream 2026-11-23, not robbed yet: low security, 3 cases, one staff member and a room in the back. It's a hard spot to drive away from." },
 };
 const rows: [keyof Field, string][] = [["hasSafe", "Has a safe?"], ["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
 const money = (n: number) => "$" + n.toLocaleString("en-US");
@@ -107,13 +108,13 @@ const untested = stores.filter((s) => !hcOf(s));
 const more = [
   ["Akoya Jewelers", "Vice City", "$14,000–25,000"], ["Blanc & Giroux", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"],
   ["Covgari", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"], ["Royal Jewelry", "Vice City", "$14,000–25,000"],
-  ["Donovan Banks & Co.", "Vice City", "$14,000–25,000; safe code 0104 in Yasmani's job"], ["Legendary Custom Jewelry", "Vice Beach", "$14,000–25,000"],
-  ["Rococo Rich", "Vice Beach", "$14,000–25,000"], ["Victoria Lee Jeweler", "Capri, Mariana County", "$9,000–20,000"],
+  ["Donovan Banks & Co.", "Vice City", "$14,000–25,000; safe code 0104 in Yasmani's job (confirmed on our stream: the amethyst necklace is in that safe)"], ["Legendary Custom Jewelry", "Vice Beach", "$14,000–25,000"],
+  ["Rococo Rich", "Vice Beach", "$14,000–25,000"], ["Victoria Lee Jeweler", "Capri, Mariana County", "$9,000–20,000. We scouted it: 1 guard, an ATM, and an alarm"],
   ["Brilliant Cuts", "Belville, Leonard County", "$9,000–20,000"], ["Casa de Empeño", "Vice Beach", "$4,500–12,000; safe code 1680 in Yasmani's job"],
   ["Hamlet Pawn", "Hamlet", "$4,500–12,000; buys the Leroy Rook card for $6,000"], ["White Sands Jewelry Pawn", "Vice City", "$4,500–12,000"],
   ["Dorado Pawn Shop", "Vice City", "$4,500–12,000"], ["Timeless Peculiars", "Watson Bay, Mariana County", "$4,500–12,000"],
   ["Joyeria Empeños", "Vice City", "$4,500–12,000"], ["Pawn Stash", "Vice City", "$4,500–12,000"],
-  ["Crown Jewels", "Vice-Dale", "$1,000–10,000"], ["Avery Pawn", "Port Gellhorn", "$1,000–10,000"],
+  ["Crown Jewels", "Vice-Dale", "$1,000–10,000. We scouted it: small low-end store, Low security, 7 cases, no guard (just one staff member), but a bad spot for a getaway"], ["Avery Pawn", "Port Gellhorn", "$1,000–10,000"],
   ["Down Town Pawn", "Downtown", "$1,000–10,000"], ["Martez Empeños", "Vice City", "$1,000–10,000"],
 ];
 const faq = [
@@ -121,7 +122,7 @@ const faq = [
   { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
   { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
   { q: "What's the easiest store to rob in GTA 6?", a: "Of the ones we've tested, Vice City Pawn: no guards, a breakable back-office safe that paid $1,256 with no code, and a quiet back-alley getaway. Buck's Jewelry & Pawn is just as easy but pays less." },
-  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680). So far none of the free-roam safes we've hit needed a code: Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. We'll keep logging each one." },
+  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680); we confirmed Donovan Banks' 0104 on stream. So far none of the free-roam safes we've hit needed a code: Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. We'll keep logging each one." },
   { q: "Should you smash the cases or crack the safe?", a: "Safe first. On our runs the cops arrived before we could clear every case, and none of the safes we hit needed a code. Take the safe cash, smash cases until the cops show, then send your partner to fence the jewelry." },
 ];
 ---
@@ -130,7 +131,7 @@ const faq = [
   h1="GTA 6 Smash and Grab Locations: Every Jewelry Store and Pawn Shop"
   description="Every GTA 6 smash and grab target with the in-game security and take value, our own Easy/Medium/Hard rating, which stores have a safe, what we actually got, and the best method. Open from Chapter 2."
   published="2026-11-22"
-  updated="2026-11-22"
+  updated="2026-11-23"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
   image={{ src: "/img/gta-6/smash-grab-kowalski.webp", alt: "GTA 6 Robberies map menu showing Kowalski jewelry store, medium security, take value $14,000 to $25,000" }}
@@ -168,7 +169,7 @@ const faq = [
 
   <h2>Best method: one character carries both bags, then the partner drives and fences</h2>
   <ol>
-    <li><strong>Bring your partner.</strong> Pick the store in the map's Robberies menu and choose <strong>Invite Lucia</strong> (or Jason).</li>
+    <li><strong>Bring your partner, and the Snap Gun once you have it.</strong> Pick the store in the map's Robberies menu and choose <strong>Invite Lucia</strong> (or Jason). With the Snap Gun (from Yasmani's Chapter 3 jobs) and a partner, there's a chance the cops never get called, and that's what makes smash and grabs worth it.</li>
     <li><strong>Grab the fixed cash first.</strong> Threaten the clerk, empty the register, then go straight for the safe or lockbox, usually in a back office behind a door you break open. That cash goes straight to your bank at an ATM and isn't cut by a fence.</li>
     <li><strong>Don't shoot the staff.</strong> Threatening is enough, and killing clerks drags your <a href="/gta-6/criminal-profile/">Criminal Profile</a> toward Psycho.</li>
     <li><strong>Smash cases last.</strong> Smashing brings the cops fast (3 stars about 30 seconds in at Florence &amp; Co.).</li>
@@ -177,8 +178,12 @@ const faq = [
     <li><strong>Send the bag carrier to drive.</strong> Get in the car and tell the character with the bags to drive.</li>
     <li><strong>Tell them to Fence loot</strong> from the partner menu. Dunk paid us the full $1,760 he'd quoted.</li>
   </ol>
-  <figure style="margin:16px 0"><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" style="border-radius:8px;width:100%;max-width:520px" /><figcaption><small>The partner menu in the car: Fence loot sends your partner to sell the bags.</small></figcaption></figure>
-  <p><strong>Also good to know:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, the partner menu has <strong>Distract law</strong> for cops right outside, and pawn shops buy collectibles (cards, doubloons, meteorites) on the same trip. Taxis won't pick you up near a fresh crime.</p>
+  <p><strong>No car? Your partner still fences.</strong> Fence loot is in the partner menu on foot too. They'll call a taxi or take a car nearby and go sell the bags on their own.</p>
+  <div class="sg-pics" style="max-width:720px">
+    <figure><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>In the car: Fence loot sends your partner to sell the bags.</small></figcaption></figure>
+    <figure><img src="/img/gta-6/sg/partner-fence-on-foot.webp" alt="GTA 6 partner menu on foot outside a jewelry store with options You drive and Fence loot for Lucia" width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>On foot outside the store: Fence loot works without a car.</small></figcaption></figure>
+  </div>
+  <p><strong>Also good to know:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, the partner menu has <strong>Distract law</strong> for cops right outside, and pawn shops buy collectibles (cards, doubloons, meteorites) on the same trip. A RydeMe taxi did pick us up right after a robbery with the cops still searching, but you can't skip the ride after a crime (and the driver told us to fake a heart attack if we got pulled over).</p>
 
   <h2>Stores we've robbed</h2>
   {tested.map((s) => (
