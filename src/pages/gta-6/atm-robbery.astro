@@ -1,0 +1,72 @@
+---
+import Article from "../../layouts/Article.astro";
+
+const faq = [
+  { q: "How do you rob an ATM in GTA 6?", a: "Fit a winch to your car at a mod shop, back the car into an ATM to hook it, and drive off to rip it out of the wall. Then drag it around or blow it up until the cash cassettes come out, break them open and grab the marked bills." },
+  { q: "How much does an ATM robbery pay in GTA 6?", a: "Guides report about $720 per bundle of marked bills and up to $7,200 for one ATM. We haven't cashed one out on stream yet. Our first pull ended with us wasted before we could carry the money away, so treat these as reported numbers." },
+  { q: "Do ATM robberies pay marked bills?", a: "Yes. The on-screen prompt says to break open the cash cassettes \"to collect the marked bills\", so the money needs a fence before you can spend it." },
+  { q: "Do the cops come when you rip out an ATM?", a: "Yes. On our stream \"Crime reported\" came up as soon as the ATM was off the wall, and we had a wanted level while we were still breaking it open." },
+  { q: "How many ATMs can you rob in GTA 6?", a: "GTABase's map lists 99 towable ATMs across Leonida. In the story, a contact also gives you tips on three ATMs, each full of cash for a 24-hour window." },
+];
+---
+<Article
+  image={{ src: "/img/gta-6/atm/atm-cash-cassettes.webp", alt: "An ATM ripped out of a wall in GTA 6 lying on the street with its cash cassettes exposed", width: 880, height: 720 }}
+  title="GTA 6 ATM Robbery: How to Rip Out ATMs with a Winch"
+  h1="GTA 6 ATM Robbery Guide: Winch, Cash Cassettes and Payouts"
+  description="How ATM robberies work in GTA 6: fitting the winch, hooking and ripping out the ATM, breaking the cash cassettes, what it pays in marked bills, and the mistakes we made on stream."
+  published="2026-11-24"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://gta6motors.com/guides/how-to-rob-an-atm/", label: "GTA6Motors: how to rob an ATM" },
+    { href: "https://www.altchar.com/guides/grand-theft-auto-6-how-to-rob-atms-by-ripping-them-out-of-the-wall-a4oUP6r4ZR5m", label: "AltChar: rob ATMs by ripping them out of the wall" },
+    { href: "https://gta6-japan.com/en/tips/tow-atm-winch-mod-shop/", label: "GTA6 Japan: winch and towing ATMs" },
+    { href: "https://www.gtabase.com/gta-6/map/?feature=towable-atm", label: "GTABase: towable ATM map" },
+  ]}
+>
+  <p><strong>In GTA 6 you can tear an ATM out of a wall with a winch and break it open for the cash inside.</strong> We tried it live on 2026-11-24. Below are the steps exactly as the game prompts them, plus what went wrong for us, so your first pull goes better than ours did.</p>
+
+  <h2>What you need</h2>
+  <ul>
+    <li><strong>A car with a winch.</strong> One guide says it's sold at mod shops under Bodywork, Towing, for $1,595. On our stream the SUV we'd fitted hooked straight on. A different car we tried later wouldn't hook at all, so use the car you put the winch on.</li>
+    <li><strong>Explosives (optional).</strong> They're the quick way to break the cassettes out once the ATM is loose.</li>
+    <li><strong>A plan for the cops.</strong> "Crime reported" pops up the moment the ATM leaves the wall.</li>
+    <li><strong>A fence.</strong> The cash comes out as marked bills.</li>
+  </ul>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><strong>"Reverse the vehicle into the ATM to hook onto it."</strong> Back up to the machine until the hook catches.</li>
+    <li><strong>Drive off</strong> to pull it out of the wall, then unhook it.</li>
+    <li><strong>"Break the cash cassettes out of the ATM by dragging it around or by using explosives."</strong> Our sticky bomb did the job and the cassettes came out.</li>
+    <li><strong>"Break open the released cash cassettes to collect the marked bills."</strong> Do it fast, because the cops are already on the way.</li>
+    <li><strong>Get away and fence the bills.</strong> Your partner can take the bag to the fence while you lose the cops.</li>
+  </ol>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:20px 0">
+    <figure style="margin:0"><img src="/img/gta-6/atm/atm-winch-hooked.webp" alt="An SUV backed up to a wall ATM at night in GTA 6 with the winch hooked on and an Unhook prompt" width="880" height="720" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>Hooked on: the Unhook prompt means you've got it.</small></figcaption></figure>
+    <figure style="margin:0"><img src="/img/gta-6/atm/atm-cash-cassettes.webp" alt="A ripped-out ATM on the street in GTA 6 with four white cash cassettes showing" width="880" height="720" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>After the blast: the cash cassettes are out and ready to break open.</small></figcaption></figure>
+  </div>
+
+  <h2>What it pays</h2>
+  <p>The money is <strong>marked bills</strong>, so you need a fence before you can spend it. We don't have our own payout yet: on our first pull we got the cassettes out but were wasted before we could carry the bills away. Other guides report:</p>
+  <ul>
+    <li>About <strong>$720 per bundle</strong> of marked bills, with a best run of <strong>$7,200</strong> from one ATM (GTA6Motors).</li>
+    <li>Another <strong>$7,200</strong> ATM on the HUD, lost to a dye pack (reported by GTA6 Japan).</li>
+  </ul>
+  <p>Set the ATM row in our <a href="/gta-6/make-money/">money per hour calculator</a> to your own runs. It starts at a cautious $4,000 until we've cashed one out ourselves.</p>
+
+  <h2>The three-ATM tip</h2>
+  <p>In the story, a contact offers you <strong>"three ATMs, 24-hour windows on each"</strong> for free, to prove what good timing is worth before you decide to invest with them. Each tipped ATM stays full for a day, so you don't have to rush, but don't sit on it either. We got the tip in Chapter 3. One guide puts ATM jobs after Yasmani's Chapter 3 jewelry jobs, and another says you can start in Chapter 2, so it may vary.</p>
+
+  <h2>Tips from our attempts</h2>
+  <ul>
+    <li><strong>Pick a quiet spot to break it open.</strong> We dragged ours into the street and the cops were on us while we were still at the cassettes.</li>
+    <li><strong>Mind the blast.</strong> Explosives get the cassettes out fast, but stand well clear and have your escape car ready.</li>
+    <li><strong>Bank your clean cash first.</strong> Dying on a job can cost what's in your pocket, so deposit at a regular ATM before you go.</li>
+    <li><strong>Watch for dye packs.</strong> One guide says Fleeca ATMs can be booby-trapped. It's not clear yet whether the Dye Pack Jammer helps here.</li>
+  </ul>
+
+  <h2>More ways to make money</h2>
+  <p>ATMs are a side hustle next to the bigger jobs. See our <a href="/gta-6/smash-and-grab/">smash and grab guide</a> for jewelry stores and pawn shops, the <a href="/gta-6/heists/">heists page</a> for bank robberies we've done, and the <a href="/gta-6/make-money/">money guide</a> to compare money per hour.</p>
+</Article>

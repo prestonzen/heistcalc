@@ -125,6 +125,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/atm-robbery/",
+    "image": "/img/gta-6/atm/atm-cash-cassettes.webp",
+    "title": "GTA 6 ATM Robbery: How to Rip Out ATMs with a Winch",
+    "text": "How ATM robberies work in GTA 6: fitting the winch, hooking and ripping out the ATM, breaking the cash cassettes, and what it pays in marked bills.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/smash-and-grab/",
     "image": "/img/gta-6/smash-grab-kowalski.webp",
     "title": "GTA 6 Jewelry Store & Pawn Shop Locations: All 16 Smash and Grabs",
