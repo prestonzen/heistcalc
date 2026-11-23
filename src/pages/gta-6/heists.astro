@@ -3,7 +3,8 @@ import Article from "../../layouts/Article.astro";
 const faq = [
   { q: "Are there heists in GTA 6?", a: "Robberies are central to GTA 6's story. Rockstar's official description says it begins 'when an easy score goes wrong', and the trailers show Jason and Lucia robbing a store. Rockstar hasn't detailed a heist planning system yet." },
   { q: "Who is Raul Bautista in GTA 6?", a: "Raul Bautista is a GTA 6 character whose official bio describes him as a seasoned bank robber who recruits talent for high-risk, high-reward scores. He's the clearest sign yet of larger, planned heists." },
-  { q: "How much will GTA 6 heists pay?", a: "Unknown. No payout figures have been revealed. HeistCalc will publish verified GTA 6 heist values and calculators after launch on November 19, 2026." },
+  { q: "How much do GTA 6 bank robberies pay?", a: "The map card lists a take range: Lombank – Ocean Beach shows $75,000–135,000 at medium security. What you actually walk out with is much less. Our ShoreFront – Ocean Beach run got about $13,300 in marked bills plus about $600 cash, and marked bills still have to be fenced." },
+  { q: "Can you rob banks in GTA 6?", a: "Yes. On our Chapter 3 save the map's Robberies menu lists Bank Jobs and Big Bank Jobs: Fleeca, Lombank, ShoreFront and Gibson Brothers branches. Lombank – Ocean Beach's card says it holds marked bills and becomes a viable target once you have a dye pack jammer." },
   { q: "Will GTA 6 have GTA Online-style heists?", a: "Rockstar hasn't announced details of GTA 6's online mode. GTA Online's heists arrived about 18 months after GTA 5 launched, so online heists may not be there on day one." },
 ];
 ---
@@ -13,6 +14,7 @@ const faq = [
   h1="Heists in GTA 6: What's Confirmed"
   description="What Rockstar has actually confirmed about heists and robberies in GTA 6, from Raul Bautista to the 'easy score goes wrong' story, and what's still speculation."
   published="2026-10-14"
+  updated="2026-11-23"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
   sources={[
@@ -32,11 +34,23 @@ const faq = [
   <h2>Confirmed in game: open-world robberies</h2>
   <p>You can rob stores in the open world. From Chapter 2 the map's Robberies menu lists 16 Smash 'n' Grab targets, jewelry stores and pawn shops, each with a security level and take value. See <a href="/gta-6/smash-and-grab/">every smash and grab location</a>, and compare earnings in the <a href="/gta-6/make-money/">money per hour calculator</a>.</p>
 
+  <h2>Confirmed in game: bank robberies</h2>
+  <p>Banks are in the same Robberies map menu, split into <strong>Bank Jobs</strong> and <strong>Big Bank Jobs</strong>, with Fleeca, Lombank, ShoreFront and Gibson Brothers branches around Leonida. Each bank's map card shows its security level, a take value, and boxes for the <strong>cash drawer</strong>, <strong>safe</strong> and <strong>vault</strong>. We've robbed two on stream (2026-11-23, Chapter 3):</p>
+  <ul>
+    <li><strong>ShoreFront – Ocean Beach.</strong> The teller drawers hold marked bills ($360 a drawer for us). The back-office safe needs a code, or you can blow it, and it paid +$900 and +$3,780. We left with about $13,300 in marked bills in the bag plus about $600 cash, got 3 stars, and lost them with a Clean Getaway while Lucia drove. Her partner menu also offered Distract law.</li>
+    <li><strong>Lombank – Ocean Beach.</strong> The card reads "Large bank with marked bills on site. A viable robbery target now that you have a dye pack jammer": medium security, take value $75,000–135,000. We grabbed marked bills from the counters (Lucia's bag hit $6,480) and got out with 3 stars.</li>
+  </ul>
+  <div class="sg-pics" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;max-width:720px">
+    <figure style="margin:0"><img src="/img/gta-6/banks/lombank-ocean-beach-card.webp" alt="GTA 6 map card for Lombank Ocean Beach: large bank with marked bills, medium security, take value $75,000 to $135,000" width="909" height="720" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>Lombank – Ocean Beach on the map: $75,000–135,000 listed.</small></figcaption></figure>
+    <figure style="margin:0"><img src="/img/gta-6/banks/shorefront-safe.webp" alt="Back-office safe in ShoreFront Ocean Beach bank, GTA 6, paying +$900 and +$3,780 in marked bills" width="909" height="720" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>ShoreFront's back-office safe: +$900 and +$3,780.</small></figcaption></figure>
+  </div>
+  <p><strong>Marked bills have to be fenced.</strong> Tyrone, one of the fences on the map, buys stolen goods at his apartment. His card rates narcotics High, and jewelry and marked bills Medium. As with stores, the listed take is a ceiling: what we carried out was a fraction of it.</p>
+
   <h2>Not confirmed yet</h2>
   <ul>
     <li>A heist planning board or prep missions like GTA 5's</li>
     <li>Choosing a crew, or crew cuts</li>
-    <li>Any payout figures</li>
+    <li>Payouts for the big story heists, and what's in bank vaults</li>
     <li>How many heists there are, or whether you can replay them</li>
     <li>What GTA 6's online mode includes</li>
   </ul>
@@ -51,5 +65,5 @@ const faq = [
   <p>With a bank-robbing recruiter in the cast, planned heists with crews look likely. How they pay out is anyone's guess until launch.</p>
 
   <h2>When we'll add GTA 6 heist calculators</h2>
-  <p>As soon as we can verify real values in game after November 19. We won't publish guessed numbers. Until then, the <a href="/heist-cut-calculator/">heist cut calculator</a> works for any game: plug in the take and your crew's cuts.</p>
+  <p>We're logging real values as we play: store and bank takes are above and in the <a href="/gta-6/smash-and-grab/">smash and grab guide</a>, and story heist payouts will follow as we reach them. We won't publish guessed numbers. Until then, the <a href="/heist-cut-calculator/">heist cut calculator</a> works for any game: plug in the take and your crew's cuts.</p>
 </Article>

@@ -70,8 +70,9 @@ const field: Record<string, Field> = {
     cops: "Crime reported about 40 seconds after we threatened the clerk.",
     take: "About $700 in cash ($578 lockbox, the rest from the register and a case) plus a Gold collectible card. Inside the map's $500–5,000 range, but low.",
     takeN: 700,
-    notes: "Port Gellhorn. After the robbery the map shows it as Currently closed. Tested 2026-11-22 on stream.",
+    notes: "Port Gellhorn. After the robbery the map shows it as Currently closed. Tested 2026-11-22 on stream. Second run on 2026-11-23 with Lucia and the Snap Gun: we came in through the back entrance and the storage room, used Destroy footage at the recorder in the office, and the lockbox paid about $1,090 this time. Then we threatened the staff and smashed the cases for $2,770 of jewelry, and Lucia fenced it. Going in the back is the way to do this store.",
     pics: [
+      { src: "/img/gta-6/sg/bucks-destroy-footage.webp", alt: "Destroy footage prompt at the security recorder in the back office of Buck's Jewelry & Pawn, GTA 6", cap: "Through the back entrance: Destroy footage at the recorder in the office." },
       { src: "/img/gta-6/sg/bucks-staff-only-door.webp", alt: "Red Staff Only door with a Break open prompt inside Buck's Jewelry & Pawn in GTA 6", cap: "Break open the red Staff Only door behind the counter to reach the back office." },
       { src: "/img/gta-6/sg/bucks-lockbox.webp", alt: "Small black cash lockbox on a desk in the back office of Buck's Jewelry & Pawn, GTA 6", cap: "The safe: a small cash lockbox on the office desk. $578 for us." },
     ],
@@ -93,7 +94,18 @@ const field: Record<string, Field> = {
     ],
   },
   icegem: { notes: "Robbed once on stream before this list; it now shows under Previously Hit with a lower take ($5,000–10,000)." },
-  richardson: { notes: "The map card lists a Features icon that no other store shows. We'll check what it is on our visit." },
+  richardson: {
+    hc: "Easy",
+    hasSafe: "Yes, keypad safe (code 6815)",
+    guards: "No armed guard on our visit, just staff.",
+    cases: "Rows of glass cases along both counters. Our bag reached $5,960 of jewelry.",
+    safe: "In the back stock room, through a Staff Only door you break open. The code, 6815, is on a note nearby. It gave $313 and the Diamond Ring for Yasmani.",
+    code: "6815 (on a note; it's the fixed code for Yasmani's job).",
+    cops: "None on our run: just a Leave the area prompt.",
+    take: "About $520 cash ($313 from the safe plus the register) and $5,960 of jewelry in the bag, plus the Diamond Ring for Yasmani.",
+    takeShort: "$520 + $5,960 loot",
+    notes: "Robbed on stream 2026-11-23 during Yasmani's jewelry job. The map card lists a Features icon no other store shows; the Yasmani ring is the likely reason. Afterwards we drove a stolen U.S. National Mail Service van to Pay 'n' Spray and sold it for $2,750.",
+  },
   "the-jewelry-place": { notes: "Scouted on stream 2026-11-23, not robbed yet: low security, 3 cases, one staff member and a room in the back. It's a hard spot to drive away from." },
 };
 const rows: [keyof Field, string][] = [["hasSafe", "Has a safe?"], ["guards", "Guards"], ["cases", "Display cases"], ["safe", "Safe"], ["code", "Safe code"], ["cops", "Cops arrive"], ["take", "Our take"]];
@@ -108,12 +120,12 @@ const untested = stores.filter((s) => !hcOf(s));
 const more = [
   ["Akoya Jewelers", "Vice City", "$14,000–25,000"], ["Blanc & Giroux", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"],
   ["Covgari", "Vice City", "$14,000–25,000 (one guide: up to $35,000)"], ["Royal Jewelry", "Vice City", "$14,000–25,000"],
-  ["Donovan Banks & Co.", "Vice City", "$14,000–25,000; safe code 0104 in Yasmani's job (confirmed on our stream: the amethyst necklace is in that safe)"], ["Legendary Custom Jewelry", "Vice Beach", "$14,000–25,000"],
-  ["Rococo Rich", "Vice Beach", "$14,000–25,000"], ["Victoria Lee Jeweler", "Capri, Mariana County", "$9,000–20,000. We scouted it: 1 guard, an ATM, and an alarm"],
+  ["Donovan Banks & Co.", "Vice City", "$14,000–25,000; safe code 0104 in Yasmani's job (confirmed on our stream: the amethyst necklace is in that safe, and Yasmani paid us $4,700 for it)"], ["Legendary Custom Jewelry", "Vice Beach", "$14,000–25,000"],
+  ["Rococo Rich", "Vice Beach", "$14,000–25,000"], ["Victoria Lee Jeweler", "Capri, Mariana County", "$9,000–20,000. We scouted it (1 guard, an ATM, and an alarm), then robbed it with Lucia on 2026-11-23: about $570 cash plus $4,980 of jewelry in the bag, and 3 stars"],
   ["Brilliant Cuts", "Belville, Leonard County", "$9,000–20,000"], ["Casa de Empeño", "Vice Beach", "$4,500–12,000; safe code 1680 in Yasmani's job"],
   ["Hamlet Pawn", "Hamlet", "$4,500–12,000; buys the Leroy Rook card for $6,000"], ["White Sands Jewelry Pawn", "Vice City", "$4,500–12,000"],
   ["Dorado Pawn Shop", "Vice City", "$4,500–12,000"], ["Timeless Peculiars", "Watson Bay, Mariana County", "$4,500–12,000"],
-  ["Joyeria Empeños", "Vice City", "$4,500–12,000"], ["Pawn Stash", "Vice City", "$4,500–12,000"],
+  ["Joyeria Empeños", "Vice City", "$4,500–12,000"], ["Pawn Stash", "Vice City", "$4,500–12,000. Robbed on stream 2026-11-23: Lucia used the Snap Gun on the back door, and the safe code (8758 on our visit) was on a note by the register. About $2,450 cash plus $1,820 of jewelry"],
   ["Crown Jewels", "Vice-Dale", "$1,000–10,000. We scouted it: small low-end store, Low security, 7 cases, no guard (just one staff member), but a bad spot for a getaway"], ["Avery Pawn", "Port Gellhorn", "$1,000–10,000"],
   ["Down Town Pawn", "Downtown", "$1,000–10,000"], ["Martez Empeños", "Vice City", "$1,000–10,000"],
 ];
@@ -122,7 +134,7 @@ const faq = [
   { q: "When can you rob jewelry stores in GTA 6?", a: "From Chapter 2. We had 16 Smash 'n' Grabs, jewelry stores included, on the map in Chapter 2. Guides that say Chapter 3 are describing Yasmani's jewelry jobs, which add more stores and the Snap Gun." },
   { q: "Which GTA 6 jewelry store pays the most?", a: "Kowalski and Skala, at $14,000–25,000 each with medium security. They're in the same mall. Peacock, All That Glitters, Marshal's and Plush come next at $9,000–20,000." },
   { q: "What's the easiest store to rob in GTA 6?", a: "Of the ones we've tested, Vice City Pawn: no guards, a breakable back-office safe that paid $1,256 with no code, and a quiet back-alley getaway. Buck's Jewelry & Pawn is just as easy but pays less." },
-  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680); we confirmed Donovan Banks' 0104 on stream. So far none of the free-roam safes we've hit needed a code: Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. We'll keep logging each one." },
+  { q: "Do GTA 6 jewelry store safe codes change?", a: "For free-roam smash and grabs, guides report the code isn't fixed: you get it by threatening the staff or from a note in the back room, and one source says it changes each visit. The safes in Yasmani's Chapter 3 jewelry jobs do have fixed codes (Richardson 6815, Donovan Banks 0104, Casa de Empeño 1680); we confirmed Donovan Banks' 0104 and Richardson's 6815 on stream. In free roam, Buck's has a lockbox that opens on the spot and All That Glitters has a breakable safe. At Pawn Stash the keypad safe's code (8758 for us) was on a note by the register, so look around the counter before you threaten anyone." },
   { q: "Should you smash the cases or crack the safe?", a: "Safe first. On our runs the cops arrived before we could clear every case, and none of the safes we hit needed a code. Take the safe cash, smash cases until the cops show, then send your partner to fence the jewelry." },
 ];
 ---
@@ -142,7 +154,7 @@ const faq = [
     { href: "https://outputlag.com/guides/gta-6-jewelry-bank-robberies/", label: "Output Lag: jewelry and bank robberies" },
   ]}
 >
-  <div class="callout"><p><strong>Quick answer:</strong> smash and grabs open in <strong>Chapter 2</strong>. Our map showed 16 targets (guides list about 35 across Leonida). The map's take value is a ceiling: we got a quarter to half of it. <strong>The safe is what pays</strong>, and none we've hit needed a code. Easiest so far: <strong>Vice City Pawn</strong> (no guards, $1,256 safe, quiet alley). Biggest listed take: <strong>Kowalski and Skala</strong> ($14,000–25,000, same mall).</p></div>
+  <div class="callout"><p><strong>Quick answer:</strong> smash and grabs open in <strong>Chapter 2</strong>. Our map showed 16 targets (guides list about 35 across Leonida). The map's take value is a ceiling: we got a quarter to half of it. <strong>The safe is what pays</strong>. When one needs a code, it's been on a note in the store (Richardson 6815, Pawn Stash 8758). Easiest so far: <strong>Vice City Pawn</strong> (no guards, $1,256 safe, quiet alley). Biggest listed take: <strong>Kowalski and Skala</strong> ($14,000–25,000, same mall).</p></div>
 
   <h2>HeistCalc difficulty</h2>
   <p>The game only says Low or Medium security. We rate each store by what it's actually like to rob:</p>
@@ -182,6 +194,10 @@ const faq = [
   <div class="sg-pics" style="max-width:720px">
     <figure><img src="/img/gta-6/sg/partner-fence-loot.webp" alt="GTA 6 partner menu while driving with options Fence loot, Speed up and Pull over" width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>In the car: Fence loot sends your partner to sell the bags.</small></figcaption></figure>
     <figure><img src="/img/gta-6/sg/partner-fence-on-foot.webp" alt="GTA 6 partner menu on foot outside a jewelry store with options You drive and Fence loot for Lucia" width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>On foot outside the store: Fence loot works without a car.</small></figcaption></figure>
+  </div>
+  <p><strong>Use the back door when there is one.</strong> At Buck's and Pawn Stash we came in through the back with the Snap Gun. At Buck's there was a <strong>Destroy footage</strong> prompt at the security recorder in the office. When a safe needs a code, check the desk and register for a note first: Pawn Stash's was there.</p>
+  <div class="sg-pics" style="max-width:720px">
+    <figure><img src="/img/gta-6/sg/pawn-stash-safe-code.webp" alt="Lucia at the register in Pawn Stash, GTA 6, with Safe code 8758 found on a note" width="909" height="720" loading="lazy" decoding="async" /><figcaption><small>Pawn Stash: the safe code was on a note by the register.</small></figcaption></figure>
   </div>
   <p><strong>Also good to know:</strong> at the car you can <strong>Clear &amp; stow bag</strong> into the trunk, the partner menu has <strong>Distract law</strong> for cops right outside, and pawn shops buy collectibles (cards, doubloons, meteorites) on the same trip. A RydeMe taxi did pick us up right after a robbery with the cops still searching, but you can't skip the ride after a crime (and the driver told us to fake a heart attack if we got pulled over).</p>
 
