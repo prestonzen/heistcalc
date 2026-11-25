@@ -1,0 +1,135 @@
+---
+import Article from "../../layouts/Article.astro";
+import { garages, freeGarages, GARAGE_TOTAL, GARAGE_BASE_TOTAL } from "../../data/garages";
+import { acts, SRC_LABEL } from "../../data/money";
+
+const money = (n: number) => "$" + n.toLocaleString("en-US");
+const rate = (id: string) => { const a = acts.find((x) => x.id === id)!; return Math.round((a.pay * 60) / a.min); };
+const duo = rate("derby8duo"), solo = rate("derby8");
+const srcClass = { "2+": "two", "1": "1", disputed: "disputed" } as const;
+const faq = [
+  { q: "How much do all the garages cost in GTA 6?", a: `${money(GARAGE_TOTAL)} for all 8 garages you can buy, by the prices three guides list. RetroBroker says that total already includes BuckMe Gold's 20% discount and that the full price is ${money(GARAGE_BASE_TOTAL)}. We haven't bought them on stream yet, so these are reported prices.` },
+  { q: "How do you buy a garage in GTA 6?", a: "Open the Vice City Real Estate app on your phone. It installs after the Chapter 2 mission Daily Driver. Store n' Bolt only appears after the Chapter 3 mission Dubious Provenance (reported)." },
+  { q: "What is the cheapest garage in GTA 6?", a: "Mitchell Auto Center on Historic Route 628 in Kelly County, listed at $4,000. The most expensive is Atlantic Court Garage in Ocean Beach at $40,000." },
+  { q: "Can you buy houses in GTA 6?", a: "No. Guides agree only garages are for sale. Safehouses like the Starlet Motel, the Bayside apartment and The Y Hotel come with the story, and no property earns money." },
+  { q: "Is there a trophy for buying every garage?", a: "Guides report a Little Boxes trophy for owning all 8 garages you can buy. Free story garages and edition garages don't count." },
+  { q: "Which GTA 6 garage holds the most cars?", a: "Pegassi Residences Garage in Tequesta Retreat, with 3 spaces. It's free from the Chapter 5 mission Operation Savage Glory. Every garage you buy holds 1 car." },
+];
+---
+<Article
+  title="GTA 6 Garage Prices: All 8 Garages to Buy, Locations and Calculator"
+  h1="GTA 6 Garage Prices and Locations"
+  description="Every GTA 6 garage you can buy in the Vice City Real Estate app, from $4,000 to $40,000, plus the free story garages, the BuckMe Gold discount and a calculator for what's left to buy."
+  published="2026-11-25"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }, { href: "/gta-6/make-money/", label: "Make money" }]}
+  faq={faq}
+  tool={{ name: "GTA 6 Garage Cost Calculator" }}
+  sources={[
+    { href: "https://www.gtabase.com/gta-6/properties/", label: "GTABase: GTA 6 properties" },
+    { href: "https://retrobroker.com/en-US/us/blog/gta-6-safehouses-garages-guide", label: "RetroBroker: safehouses and garages" },
+    { href: "https://lootmapped.com/gta-6/map/properties/", label: "LootMapped: properties map" },
+  ]}
+>
+  <p><strong>GTA 6 has 8 garages you can buy, from $4,000 (Mitchell Auto Center) to $40,000 (Atlantic Court), {money(GARAGE_TOTAL)} for the set.</strong> Each holds one car. You buy them in the Vice City Real Estate app after the Chapter 2 mission Daily Driver. Another 4 garages are free story rewards, and 3 come with editions or GTA+. Houses and businesses can't be bought.</p>
+
+  <div class="callout"><p><strong>Reported prices.</strong> We haven't bought a garage on stream yet. GTABase, LootMapped and RetroBroker list the same 8 prices. RetroBroker says those already include BuckMe Gold's 20% off and gives full prices adding up to {money(GARAGE_BASE_TOTAL)}. Untick BuckMe Gold below to see them.</p></div>
+
+  <div class="gcalc" id="gcalc">
+    <h3 style="margin:0 0 6px">Garage cost calculator</h3>
+    <p style="margin:0 0 8px"><small>Tick the garages you already own. Your picks are saved on this device.</small></p>
+    <label class="gold"><input type="checkbox" id="g-gold" checked /> I have BuckMe Gold <small class="muted">($100,000 in Family Savings, 20% off garages)</small></label>
+    <div class="table-scroll"><table id="garages">
+      <thead><tr><th>Own</th><th>Garage</th><th>Price</th><th class="opens">Opens</th></tr></thead>
+      <tbody>
+        {garages.map((g) => (
+          <tr data-id={g.id} data-price={g.price} data-base={g.base}>
+            <td><input type="checkbox" class="own" aria-label={`I own ${g.name}`} /></td>
+            <td><strong>{g.name}</strong><br /><small>{g.area}, {g.county}</small>{g.note && <><br /><small class="muted">{g.note}</small></>}</td>
+            <td class="pr"><strong>{money(g.price)}</strong></td>
+            <td class="opens"><small>{g.unlock}</small></td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+    <div id="g-out" aria-live="polite"></div>
+  </div>
+
+  <h2>Should you wait for BuckMe Gold?</h2>
+  <p>Probably, if you want all 8. BuckMe Gold unlocks once you have $100,000 in Family Savings and takes 20% off garages, which is {money(GARAGE_BASE_TOTAL - GARAGE_TOTAL)} on the full set if RetroBroker's full prices are right. The catch: Family Savings is one-way, so that $100,000 is locked in for good. It also raises your checking limit to $500,000, so most players fill it anyway. See the <a href="/gta-6/buckme/">BuckMe guide</a>.</p>
+  <p>If you only want one garage early, Mitchell Auto Center is $4,000 (or $5,000 full price) and sits east of Port Gellhorn, close to Moses.</p>
+
+  <h2>Free garages</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Garage</th><th>Where</th><th>Spaces</th><th>How you get it</th><th>Confidence</th></tr></thead>
+    <tbody>
+      {freeGarages.map((g) => (
+        <tr>
+          <td><strong>{g.name}</strong></td>
+          <td><small>{g.area}</small></td>
+          <td>{g.spaces ?? "?"}</td>
+          <td><small>{g.how}</small></td>
+          <td><span class={`src src-${srcClass[g.src]}`}>{SRC_LABEL[g.src]}</span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table></div>
+  <p><small>With every garage, guides count 18 car spaces (16 in garages plus 2 personal vehicle spots), or 19 counting Southside Storage.</small></p>
+
+  <h2>Safehouses (not for sale)</h2>
+  <ul>
+    <li><strong>Chapter 1:</strong> Jason's house in the Leonida Keys. It's lost at Tourist Trap, along with your cash and car.</li>
+    <li><strong>Chapter 2:</strong> the Starlet Motel.</li>
+    <li><strong>Chapter 3:</strong> the Bayside apartment, from Welcome to Vice City.</li>
+    <li><strong>Chapter 4:</strong> The Y Hotel in Ocean Beach.</li>
+    <li><strong>Chapter 5:</strong> the Pegassi Residences penthouse, from Operation Savage Glory.</li>
+  </ul>
+  <p>Need the cash? The <a href="/gta-6/make-money/">money planner</a> works out the fastest job for any target, and the <a href="/gta-6/demolition-derby/">Demolition Derby</a> ramp trick is still the best early money. The full list is also in our <a href="/data/gta6-money.json">open dataset</a>.</p>
+
+  <script is:inline define:vars={{ duo, solo }}>
+    (() => {
+      const KEY = "hc-gta6-garages";
+      const rows = [...document.querySelectorAll("#garages tbody tr")];
+      const gold = document.getElementById("g-gold"), out = document.getElementById("g-out");
+      const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+      const hm = (x) => { const m = Math.round(x), h = Math.floor(m / 60), mm = m % 60; return h ? `${h} h ${String(mm).padStart(2, "0")} min` : `${Math.max(1, mm)} min`; };
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY) || "null");
+        if (s) { gold.checked = s.gold !== false; rows.forEach((r) => (r.querySelector(".own").checked = (s.own || []).includes(r.dataset.id))); }
+      } catch {}
+      function calc() {
+        const g = gold.checked;
+        let left = 0, n = 0, full = 0;
+        rows.forEach((r) => {
+          const p = Number(g ? r.dataset.price : r.dataset.base), own = r.querySelector(".own").checked;
+          r.querySelector(".pr").innerHTML = `<strong>${fmt(p)}</strong>`;
+          r.classList.toggle("owned", own);
+          if (!own) { left += p; n++; full += Number(r.dataset.base); }
+        });
+        try { localStorage.setItem(KEY, JSON.stringify({ gold: g, own: rows.filter((r) => r.querySelector(".own").checked).map((r) => r.dataset.id) })); } catch {}
+        if (!n) { out.innerHTML = `<p class="g-big"><strong>All 8 owned.</strong> That's the Little Boxes trophy (reported).</p>`; return; }
+        out.innerHTML = `<p class="g-big"><strong>${fmt(left)}</strong> for the ${n} garage${n > 1 ? "s" : ""} you don't own</p>
+          <p style="margin:0"><small>⏱ About <strong>${hm((left / duo) * 60)}</strong> of figure-8 Derby with your partner (${fmt(duo)}/hour), or ${hm((left / solo) * 60)} solo.${g ? "" : ` BuckMe Gold would save you ${fmt(full - full * 0.8)}.`}</small></p>
+          <p style="margin:6px 0 0"><a href="/gta-6/make-money/?target=${Math.round(left)}#planner">Plan ${fmt(left)} in the money planner →</a></p>`;
+      }
+      gold.addEventListener("change", calc);
+      rows.forEach((r) => r.querySelector(".own").addEventListener("change", calc));
+      calc();
+    })();
+  </script>
+</Article>
+
+<style>
+  .gcalc { margin: 14px 0; padding: 14px; border: 1px solid var(--money); border-radius: 12px; background: var(--panel); }
+  .gold { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; font-size: .9rem; }
+  .muted { color: var(--muted); }
+  .g-big { font-size: 1.2rem; margin: 10px 0 4px; }
+  .g-big strong { color: var(--money); }
+  #garages tr.owned td { opacity: .5; }
+  #garages input { width: 18px; height: 18px; }
+  #garages .pr { white-space: nowrap; }
+  @media (max-width: 560px) { #garages .opens { display: none; } }
+  .src { font-size: .72rem; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); white-space: nowrap; }
+  .src-two { color: var(--text); }
+  .src-1 { color: var(--muted); border-style: dashed; }
+  .src-disputed { color: #e0a43a; border-color: #e0a43a; }
+</style>

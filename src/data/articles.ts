@@ -134,6 +134,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/garages/",
+    "title": "GTA 6 Garage Prices and Locations",
+    "text": "All 8 garages you can buy, from $4,000 to $40,000, the free story garages, the BuckMe Gold discount and a calculator for what's left to buy.",
+    "tags": [
+      "GTA 6",
+      "Calculators"
+    ]
+  },
+  {
     "href": "/gta-6/best-weapons/",
     "image": "/img/gta-6/weapons/duke-1922-suppressed-stats.webp",
     "title": "GTA 6 Best Silenced Sidearms: Pistol and SMG Tier List",
