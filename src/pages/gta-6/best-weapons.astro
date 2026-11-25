@@ -1,0 +1,88 @@
+---
+import Article from "../../layouts/Article.astro";
+
+// [name, type, damage, accuracy, handling, range, base mag, suppressor, price, verified?]
+const pistols = [
+  ["Fairview Kalinga .50", ".50 cal pistol", "7.0", "4.0", "7.8", "5.0", "7 (reported)", "No suppressor slot", "$3,100", true],
+  ["Duke 1922", "Heavy pistol", "5.5", "4.8", "8.0", "4.6", "8 (reported)", "Aftermath, $1,050 (reported)", "$1,050", false],
+  ["Girardi ES9", "Military pistol", "4.2", "5.2", "8.4", "4.4", "15 (20 / 30 mags reported)", "Aftermath $895 or Deever Tech $765 (reported)", "$700", false],
+  ["Girardi ES18", "Burst pistol", "4.2", "4.6", "7.7", "4.8", "30 (reported)", "Not confirmed", "$1,550 (reported)", false],
+  ["Klose K17", "Service pistol", "4.0", "4.2", "8.5", "3.8", "17 (reported)", "None listed", "$975", false],
+  ["Schlamm DRX", "Pistol", "4.0", "4.2", "8.2", "4.2", "Not confirmed", "Not confirmed", "$2,100", false],
+  ["Nipper .38", "Compact pistol", "2.8", "3.0", "9.0", "3.0", "8 (reported)", "Assassin variant comes suppressed", "$550", false],
+];
+const faq = [
+  { q: "Do SMGs count as sidearms in GTA 6?", a: "Yes. In the Big Shots gun shop the Sidearms tab has three sections: Pistols, Revolvers and Submachine Guns. Rifles, shotguns and other long guns are under Longarms. A sidearm is a concealed handgun, so a suppressed SMG stays out of sight like a pistol does." },
+  { q: "What is the best silenced pistol in GTA 6?", a: "The Duke 1922 with the Aftermath suppressor. It hits for 5.5 damage, the most of any pistol we've confirmed can take a suppressor. Our fully modded one reads 5.5 damage, 5.2 accuracy, 7.2 handling and 4.7 range." },
+  { q: "Is there a pistol that does more damage than the Duke 1922?", a: "Yes, the Fairview Kalinga .50 has 7.0 damage and 5.0 range. But its mods row has no suppressor slot, and its magazine is reported at only 7 rounds. So if you want damage and silence together, the 1922 is still the pick." },
+  { q: "Which silenced sidearm has the biggest magazine?", a: "The Girardi ES9. It has 15 rounds stock, and guides report 20- and 30-round magazines for it. It takes the Aftermath suppressor. It hits for less than the 1922 (4.2 damage) but it's the most accurate pistol." },
+  { q: "How do I know if a gun can take a suppressor?", a: "In the gun shop, look at the MODS row on the weapon's stat card. Guns that take a suppressor show a long tube icon in that row. The Duke 1922 and the ES9 have it. The Kalinga .50 doesn't." },
+];
+---
+<Article
+  image={{ src: "/img/gta-6/weapons/duke-1922-suppressed-stats.webp", alt: "The Duke 1922 heavy pistol in a GTA 6 gun shop with a suppressor and extended magazine fitted, showing damage 5.5 and range 4.7", width: 880, height: 708 }}
+  title="GTA 6 Best Weapons: Silenced Sidearm Tier List (Pistols and SMGs)"
+  h1="GTA 6 Best Silenced Sidearms: Pistol and SMG Tier List"
+  description="The best silenced sidearms in GTA 6: which pistols and SMGs take a suppressor and stay concealed, how the Duke 1922 compares with the Kalinga .50 and ES9, and stats from the gun shop on our stream."
+  published="2026-11-25"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+  sources={[
+    { href: "https://meowdb.com/gta6/weapons", label: "NiaDB (meowdb): GTA 6 weapons and stats" },
+    { href: "https://meowdb.com/gta6/best-weapons", label: "NiaDB (meowdb): best weapons ranked by stats" },
+    { href: "https://meowdb.com/gta6/weapons/girardi-es9", label: "NiaDB (meowdb): Girardi ES9 parts" },
+    { href: "https://meowdb.com/gta6/weapons/wortham-w-10", label: "NiaDB (meowdb): Wortham W-10" },
+    { href: "https://www.dexerto.com/wikis/gta-6/weapons/tag/weapon-group-sidearms/", label: "Dexerto: GTA 6 sidearms" },
+  ]}
+>
+  <p><strong>The best silenced sidearm in GTA 6 is the Duke 1922 with the Aftermath suppressor.</strong> It hits harder than any other pistol that takes a suppressor. Sidearms stay concealed on your body, so you can walk into a store or a bank without anyone seeing a gun. Long guns can't do that. The stats below with a ✓ come from the gun shop menus on our stream. Everything else is labelled "reported" and comes from other guides.</p>
+
+  <h2>SMGs are sidearms too</h2>
+  <p>This is the part most people miss. In the Big Shots gun shop the <strong>Sidearms</strong> tab has three sections: <strong>Pistols, Revolvers and Submachine Guns</strong>. Rifles, shotguns and other long guns sit under Longarms. The shop describes pistols as "concealable semi-automatic handguns". One guide says Jason and Lucia can each keep two handguns out of sight.</p>
+  <figure style="margin:16px 0"><img src="/img/gta-6/weapons/big-shots-sidearms-menu.webp" alt="The Big Shots gun shop menu in GTA 6 with the Sidearms tab open, listing Pistols, Revolvers and Submachine Guns" width="880" height="198" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>Big Shots: Submachine Guns are listed under Sidearms, not Longarms.</small></figcaption></figure>
+
+  <h2>Silenced sidearm tier list</h2>
+  <ul>
+    <li><strong>S: Duke 1922 + Aftermath suppressor.</strong> 5.5 damage, the highest of any pistol we know takes a suppressor. With the suppressor, extended magazine and other mods fitted, ours reads <strong>5.5 damage, 5.2 accuracy, 7.2 handling, 4.7 range</strong> ✓. It costs $1,050 at Chuck's Tackle & Shot. The stock magazine is reported at 8 rounds, so fit the extended mag.</li>
+    <li><strong>A: Girardi ES9 + Aftermath suppressor.</strong> Less damage (4.2) but the best accuracy of any pistol, and the biggest magazine on a silenced pistol: 15 stock, with 20- and 30-round mags reported. Fully modded on our stream it reads <strong>4.2 damage, 5.9 accuracy, 7.0 handling, 4.4 range</strong> ✓. Cheap at $700. Good for long fights where you'd run dry with the 1922.</li>
+    <li><strong>A: Wortham W-10 micro SMG + Deever Tech suppressor.</strong> Full auto, 20 rounds, and still a sidearm. 4.2 damage per bullet but it fires far faster than any pistol. Guides list the Deever Tech suppressor at $765 and the gun at $825 at Big Shots (reported). Short range (3.5), so use it up close.</li>
+    <li><strong>B: Assassin Nipper .38.</strong> It comes with a suppressor already on and it's free. You find it on the derelict spy vessel in the Permit Keys (see <a href="/gta-6/unique-weapons/">unique weapons</a>). Damage is only 2.8, so it's an early-game stopgap.</li>
+  </ul>
+
+  <h2>Is there a pistol better than the Duke 1922?</h2>
+  <p>For raw stats, yes: the <strong>Fairview Kalinga .50</strong>. On our stream it showed <strong>7.0 damage and 5.0 range</strong> ✓ against the 1922's 5.5 and 4.7. But it fails on the other two things you'd want:</p>
+  <ul>
+    <li><strong>No suppressor.</strong> The Kalinga's MODS row has four slots and no suppressor tube. The 1922 has five, including the suppressor ✓.</li>
+    <li><strong>Small magazine.</strong> It's reported at 7 rounds.</li>
+  </ul>
+  <p>It also costs $3,100, and it was sold out when we checked. One guide says it unlocks after you've bought more guns. So no pistol beats the 1922 on damage, range and magazine size while also taking a suppressor. <strong>If you want silence plus damage, keep the 1922.</strong> If you want silence plus a big magazine, take the ES9 with a 30-round mag or a suppressed SMG.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:20px 0">
+    <figure style="margin:0"><img src="/img/gta-6/weapons/kalinga-50-stats.webp" alt="The Fairview Kalinga .50 in a GTA 6 gun shop with damage 7.0, accuracy 4.0, handling 7.8 and range 5.0, and four mod slots" width="880" height="708" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>Kalinga .50: 7.0 damage, but no suppressor slot in its mods row.</small></figcaption></figure>
+    <figure style="margin:0"><img src="/img/gta-6/weapons/es9-aftermath-suppressor.webp" alt="The Girardi ES9 in a GTA 6 gun shop with the Aftermath suppressor applied, showing damage 4.2, accuracy 5.9, handling 7.0 and range 4.4" width="880" height="708" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:8px" /><figcaption><small>ES9 with the Aftermath suppressor: the most accurate silenced pistol.</small></figcaption></figure>
+  </div>
+
+  <h2>Pistol stats compared</h2>
+  <p>Stock stats out of 10. A ✓ means we read it off the gun shop menu on stream. The rest are reported by NiaDB and other guides, and sites don't always agree, so check the stat card in game.</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Pistol</th><th>Dmg</th><th>Acc</th><th>Hand</th><th>Range</th><th>Magazine</th><th>Suppressor</th><th>Price</th></tr></thead>
+    <tbody>
+      {pistols.map(([n, t, d, a, h, r, m, s, p, v]) => (
+        <tr><td><strong>{n}</strong>{v ? " ✓" : ""}<br /><small>{t}</small></td><td>{d}</td><td>{a}</td><td>{h}</td><td>{r}</td><td>{m}</td><td>{s}</td><td>{p}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+  <p><small>The Duke 1922's 5.5 damage is confirmed on stream. Its other stock numbers are reported, because we only saw ours with mods fitted.</small></p>
+
+  <h2>How to check for a suppressor slot</h2>
+  <ol>
+    <li>Open the gun in any gun shop (Chuck's Tackle & Shot, Big Shots, Iron & Oak and others).</li>
+    <li>Look at the <strong>MODS</strong> row at the bottom of the stat card.</li>
+    <li>A long tube icon means it takes a suppressor. If the row has no tube, it can't be silenced.</li>
+    <li>Choose Modify, then Muzzles &amp; Suppressors, to fit one. Suppressors add a little accuracy. One guide lists the trade-off as +0.2 accuracy, −0.3 handling and −0.3 range.</li>
+  </ol>
+
+  <h2>Using a silenced sidearm for jobs</h2>
+  <p>A concealed, silenced pistol is what you want for robberies. You walk in with nothing on show and only draw when you're ready. Pair it with our <a href="/gta-6/heists/">heists guide</a> and the <a href="/gta-6/smash-and-grab/">smash and grab guide</a>. To see what each job pays, use the <a href="/gta-6/make-money/">money per hour calculator</a>.</p>
+</Article>

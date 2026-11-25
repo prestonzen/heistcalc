@@ -125,6 +125,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/best-weapons/",
+    "image": "/img/gta-6/weapons/duke-1922-suppressed-stats.webp",
+    "title": "GTA 6 Best Silenced Sidearms: Pistol and SMG Tier List",
+    "text": "Which pistols and SMGs take a suppressor and stay concealed, the Duke 1922 vs Kalinga .50 vs ES9, and gun-shop stats from our stream.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/atm-robbery/",
     "image": "/img/gta-6/atm/atm-cash-cassettes.webp",
     "title": "GTA 6 ATM Robbery: How to Rip Out ATMs with a Winch",
