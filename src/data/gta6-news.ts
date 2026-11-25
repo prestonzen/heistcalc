@@ -12,6 +12,21 @@ export interface NewsItem {
 
 export const NEWS: NewsItem[] = [
   {
+    date: "2026-11-23",
+    title: "First post-launch update, 01.002.002, fixes crashes, autosave and missed phone calls",
+    summary: "Rockstar's first update since launch lists seven fixes: several crashes, weather that stayed the same too long, autosave problems that cost some players progress, story and mission phone calls that failed to trigger, a wanted level that wouldn't clear, the unusable gym deadlift bar, and partners not handing over bags to sell to fences. It's roughly 600 MB on PS5 and 1.6 GB on Xbox. The notes don't mention performance or frame rate.",
+    confirmed: "reported",
+    sources: ["https://rockstarintel.com/new-gta-vi-update-01-002-002-patch-notes-released/", "https://mp1st.com/title-updates-and-patches/gta-6-first-update-1-002-002-released-on-november-23", "https://www.gtabase.com/gta-6/articles/gta-6-update-01-002-002-patch-notes"],
+    href: "/gta-6/preload/",
+  },
+  {
+    date: "2026-11-20",
+    title: "Take-Two: GTA 6 made $3.79 billion on day one",
+    summary: "Take-Two says GTA 6 took $3.79 billion in worldwide retail sales on November 19, a record for any entertainment launch, after 32.5 million copies sold before release. It's the company's own unaudited estimate of retail spending, not Take-Two's revenue.",
+    confirmed: "reported",
+    sources: ["https://www.take2games.com/ir/news/grand-theft-auto-vi-shatters-entertainment-box-office-records", "https://www.cnn.com/2026/11/20/media/gta-vi-launch-sales-numbers"],
+  },
+  {
     date: "2026-11-21",
     title: "GTA 6 fast travel explained: Paradise Taxi, RydeMe and a $100 skip",
     summary: "There's no map teleport. Early on you call the Paradise Taxi, and after the BuckMe mission the RydeMe app unlocks. Skipping a ride costs an extra $100. Rides reach most drivable spots but not remote keys or deep swamp.",
