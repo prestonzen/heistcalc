@@ -110,7 +110,7 @@ export const articles = [
     "href": "/gta-6/demolition-derby/",
     "image": "/img/gta-6/gta6-derby-pickup-on-ramp.webp",
     "title": "GTA 6 Demolition Derby Cheese: Win $3,150 in 1:18 (Ramp Trick)",
-    "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. Bring Lucia and a win pays up to $6,300, about $157,000 an hour: the best money for almost the whole game.",
+    "text": "Our discovery: drive the wrong way to the figure-8 ramp and park on top. Bring Lucia and a win pays up to $6,300, about $161,000 an hour: the best money for almost the whole game.",
     "tags": [
       "GTA 6"
     ]
@@ -120,6 +120,15 @@ export const articles = [
     "title": "GTA 6 Criminal Profile: How to Stop Being a Psycho and Get Back to Professional",
     "text": "How GTA 6's Criminal Profile works, from Professional to Psycho and the permanent Irredeemable tier, and how to climb back step by step.",
     "image": "/img/gta-6/gta6-jason-substation.webp",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
+    "href": "/gta-6/banks/",
+    "image": "/img/gta-6/banks/lombank-ocean-beach-card.webp",
+    "title": "All 22 GTA 6 Banks and How Much Each One Holds",
+    "text": "The 14 small banks and 8 vaults with county, take range and what we actually carried out on stream, plus how marked bills work.",
     "tags": [
       "GTA 6"
     ]

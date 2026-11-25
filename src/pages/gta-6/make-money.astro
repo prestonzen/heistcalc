@@ -1,27 +1,11 @@
 ---
 import Article from "../../layouts/Article.astro";
 import Share from "../../components/Share.astro";
+import { acts, SRC_LABEL } from "../../data/money";
 
-// Calculator rows: id, name, chapter it unlocks (1-5), default payout, default minutes per run,
-// reported range, where the time comes from, notes. Minutes marked "est" are our rough estimate.
-const acts = [
-  { id: "vault", name: "Large bank vaults", ch: 4, diff: 3, pay: 130000, min: 10, range: "$65,000–205,000", time: "~5 min inside + escape (est)", note: "Instant 4-star wanted level. Banks reset after a cooldown." },
-  { id: "randy", name: "Randy's Wish List supercars", ch: 3, diff: 2, pay: 30000, min: 15, range: "$30,000–35,000", time: "est: find, clone key, deliver", note: "Needs the Key Cloner. The list is limited (16–22 cars). Damage cuts the price." },
-  { id: "bank", name: "Small banks", ch: 3, diff: 3, pay: 10000, min: 8, range: "$5,000–15,000 on the ShoreFront – Downtown card; our runs carried out about $10,400 (Downtown) and $13,300 (Ocean Beach) in marked bills", time: "est", note: "Marked bills need the Dye Pack Jammer and a fence. Use the Snap Gun to get in with no alarm. Once you find the safe code it shows in your Notes (3635 at ShoreFront – Downtown). If the cops catch you before you escape, the game takes the bags: we lost $10,400 that way at ShoreFront – Downtown." },
-  { id: "atm", name: "ATM rip-outs (winch)", ch: 3, diff: 2, pay: 4000, ok: null, fail: 0, min: 8, range: "About $720 per bundle, up to $7,200 per ATM (reported); marked bills", time: "est", note: "Needs a winch on your car (reported $1,595 at a mod shop). Hook the ATM, rip it out, drag it or blow it up to free the cash cassettes, then break them open. Cops are called right away. Our first pull ended wasted before we collected, so the $4,000 default is cautious and untested. A contact also gives you three tipped ATMs, each full for 24 hours. Full steps in our ATM robbery guide." },
-  { id: "jewel", name: "Jewelry stores & pawn shops (smash and grab)", ch: 2, diff: 3, pay: 6000, ok: 75, fail: 0, min: 10, range: "$14,000–25,000 full take at the 4–6 biggest stores (seen on our stream); small shops only a few hundred", time: "est", note: "Map take values are a ceiling: our Florence & Co. run (listed $4,500–12,000, no safe) paid about $2,250 and Buck's (with a small lockbox) about $700, so the default here is a cautious $6,000 until we've tested a store with a safe. Pick Fence loot in the partner menu to skip the fence drive. Open from Chapter 2 (checked on our stream). Smashing cases brings the cops before you can grab everything, so the quick win is the safe: get the code from the staff, take the cash and bank it at an ATM. Jewelry still needs a fence. A repeat visit pays less until the store restocks. See all 16 locations with security and take values in our Smash and Grab guide (link above the table)." },
-  { id: "yago", name: "Yago street races", ch: 3, diff: 2, pay: 2300, ok: null, fail: 750, min: 5, range: "$3,000 for 1st, minus a $600–900 car rental (reported); later races up to $6,000", time: "est", note: "Unlocks after Dealer's Choice. Prize money, no police." },
-  { id: "glitch", name: "Warehouse stash save-reload loop (exploit)", ch: 1, diff: 1, pay: 5000, min: 10, range: "$4,000–10,000 per loop (reported, sources disagree)", time: "~10 min (reported)", note: "Reported exploit near Hamlet (red barn / Apollo Aggregates). Not tested by us and may get patched. Chapter 1 cash is wiped at Tourist Trap." },
-  { id: "payday", name: "Payday Loans stores", ch: 3, diff: 2, pay: 10000, min: 8, range: "$2,000–25,000 (most $5,000–15,000)", time: "est", note: "Marked bills need a fence." },
-  { id: "derby8", name: "Demolition Derby: figure-8 track (ramp-camp method)", ch: 2, diff: 1, pay: 2685, ok: 98, fail: 465, min: 2, range: "$3,150 for 1st place minus the $465 cheapest rental (our stream; $3,150 is the in-game max)", time: "2 min realistic average; fastest win 1:18 (our stream)", note: "Easy only with the ramp-camp method; without it, it's a hard wreck-fest. Last car standing. Pays about double the oval. Tested strategy: drive the wrong way to the crossover ramp, park on top and let the AI launch itself off you. Fastest win 1:18. 2nd place still pays $1,500." },
-  { id: "derby8duo", name: "Demolition Derby: figure-8 with your partner (ramp-camp method)", ch: 2, diff: 1, pay: 5370, ok: 98, fail: 700, min: 2, range: "Up to $6,300 for 1st with Lucia or Jason in the race, minus $930 rental for both cars (our stream)", time: "2 min realistic average; a little extra partner dialogue between runs", note: "Bring your partner and the payout doubles: up to $6,300 for $930 in rentals. Same ramp method: drive the wrong way to the crossover ramp and park on top. With the $15,000 BuckMe cap early in Chapter 2, spend after about three wins." },
-  { id: "derby", name: "Demolition Derby: oval", ch: 2, diff: 3, pay: 1400, ok: 90, fail: 500, min: 6, range: "$1,900 top prize at the start (seen on our stream), minus a rental of about $500; the in-game menu shows $1,900 max", time: "5–6 min (reported)", note: "Last car standing, not a race: you win by being the only car still running. You only get paid if you win. Retrying costs less than the first rental. Lower the payout if you don't win every time." },
-  { id: "spray", name: "Pay 'n' Spray car sales", ch: 3, diff: 2, pay: 3500, min: 8, range: "$2,500–4,000+", time: "est", note: "Cars with a standard tracker. Lose the cops first." },
-  { id: "dive", name: "Kenton's treasure dives", ch: 1, diff: 1, pay: 3000, min: 10, range: "$1,400 to about $4,000", time: "est", note: "Almost no risk. Only one source so far." },
-  { id: "moses", name: "Stolen cars to Moses", ch: 2, diff: 1, pay: 1500, min: 4, range: "$1,000–2,000 (some say up to $3,000)", time: "3–5 min incl. ~2-min cooldown (reported)", note: "Untracked cars only, none stolen near his garage." },
-  { id: "hunt", name: "Hunting for Bret", ch: 2, diff: 1, pay: 1500, min: 8, range: "$500 to a few thousand per animal", time: "est", note: "Jason only. Good or Pristine condition only." },
-  { id: "store", name: "Store and gas station robberies", ch: 1, diff: 1, pay: 500, min: 3, range: "$100–300 register, plus a few hundred from the safe", time: "est", note: "1–2 stars. The store closes for a while afterwards." },
-];
+// Calculator rows live in src/data/money.ts (also served as /data/gta6-money.json).
+const fmt0 = (n: number) => (n >= 1000 ? `$${(n / 1000).toFixed(n % 1000 && n < 10000 ? 1 : 0)}k` : `$${n}`);
+
 const once = [
   ["End of Chapter 3", "$120,000 (automatic)"],
   ["Pilot Pete's jobs (Chapter 4, Jason)", "$12,000 + $20,000 + $20,000"],
@@ -30,24 +14,25 @@ const once = [
   ["Crab research outpost safe (code 0072)", "About $1,000 plus a unique SMG"],
 ];
 const faq = [
-  { q: "What's the best money per hour in GTA 6?", a: "For almost the whole game, our Demolition Derby cheese with your partner: up to $6,300 a win for $930 in rentals, about 2 minutes a race, roughly $157,000 an hour, with no police. Only the large bank vaults at the end of Chapter 4 may beat it, if the $65,000–205,000 per vault that guides report holds up." },
-  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies are the best: bring Lucia and a win pays up to $6,300 for $930 in rentals ($3,150 and $465 solo), and a race averages about 2 minutes with the ramp method, roughly $157,000 an hour with your partner. You win by being the last car running, not by speed." },
+  { q: "What's the best money per hour in GTA 6?", a: "For almost the whole game, our Demolition Derby cheese with your partner: up to $6,300 a win for $930 in rentals, about 2 minutes a race, roughly $161,000 an hour, with no police. Only the large bank vaults at the end of Chapter 4 may beat it, if the $65,000–205,000 per vault that guides report holds up." },
+  { q: "What's the fastest way to make money early in GTA 6?", a: "In Chapter 1, don't grind, because your cash is wiped at Tourist Trap. In Chapter 2, sell untracked cars to Moses ($1,000–2,000 each, a few minutes per car). Figure-8 Demolition Derbies are the best: bring Lucia and a win pays up to $6,300 for $930 in rentals ($3,150 and $465 solo), and a race averages about 2 minutes with the ramp method, roughly $161,000 an hour with your partner. You win by being the last car running, not by speed." },
   { q: "How much cash can you carry in GTA 6?", a: "$20,000 in pocket cash per character. Getting wasted or busted can cost you what you carry, so bank it at an ATM before risky jobs." },
   { q: "Can you sell fish in GTA 6?", a: "No. Fishing is catch-and-release, so it doesn't pay. Hunting does: Bret buys animals in good condition." },
   { q: "Is there a money cheat in GTA 6?", a: "Yes, +$250,000, but it only unlocks after the story, and using cheats blocks saving, so the money doesn't stay. See our cheat codes page." },
 ];
 ---
 <Article
-  title="GTA 6 Money Per Hour Calculator: Best Ways to Make Money"
+  title="GTA 6 Money Calculator and Planner: Best Ways to Make Money by Chapter"
   h1="GTA 6 Money Guide and Money Per Hour Calculator"
-  description="Which GTA 6 activities make the most money per hour: bank vaults, Randy's supercars, jewelry stores, Moses car sales, Demolition Derby and more, with a calculator you can set to your own run times."
+  description="Plan your GTA 6 money by chapter: pick a goal and the planner counts the runs. Money per hour for bank vaults, Randy's supercars, jewelry stores, Moses car sales, Demolition Derby and more, with every number labelled by how well it's sourced."
   published="2026-11-20"
-  updated="2026-11-24"
+  updated="2026-11-25"
   crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
   faq={faq}
   tool={{ name: "GTA 6 Money Per Hour Calculator" }}
   sources={[
     { href: "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/", label: "PowerPyx: money guide" },
+    { href: "https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/", label: "PowerPyx: all 22 bank jobs" },
     { href: "https://www.gtabase.com/gta-6/articles/how-to-make-money-fast-in-gta-6", label: "GTABase: how to make money fast" },
     { href: "https://outputlag.com/guides/gta-6-make-money-fast/", label: "Output Lag: make money fast" },
     { href: "https://outputlag.com/guides/gta-6-how-to-rob-stores-heists/", label: "Output Lag: robbing stores" },
@@ -59,17 +44,38 @@ const faq = [
 >
   <section slot="tool" class="calc" id="mph-calc">
     <h2>Money per hour calculator</h2>
-    <a href="/gta-6/demolition-derby/" class="callout" style="display:block;text-decoration:none;border-color:var(--money);margin:12px 0"><strong>🔥 The best money in GTA 6 for almost the whole game: our Demolition Derby cheese.</strong> Bring Lucia and a win pays up to $6,300 ($5,370 after rentals). Park on the figure-8 ramp, about 2 minutes a race: roughly $157,000 an hour. <u>Read the guide →</u></a>
+    <a href="/gta-6/demolition-derby/" class="callout" style="display:block;text-decoration:none;border-color:var(--money);margin:12px 0"><strong>🔥 The best money in GTA 6 for almost the whole game: our Demolition Derby cheese.</strong> Bring Lucia and a win pays up to $6,300 ($5,370 after rentals). Park on the figure-8 ramp, about 2 minutes a race: roughly $161,000 an hour. <u>Read the guide →</u></a>
     <a href="/gta-6/smash-and-grab/" class="callout" style="display:block;text-decoration:none;margin:12px 0"><strong>New: all 16 Smash and Grab locations.</strong> Every jewelry store and pawn shop with its security level and take value, read off the in-game map. <u>See the list →</u></a>
     <a href="/gta-6/atm-robbery/" class="callout" style="display:block;text-decoration:none;margin:12px 0"><strong>New: ATM robbery guide.</strong> Rip ATMs out of the wall with a winch, break the cash cassettes, and what they pay. <u>Read the guide →</u></a>
     <p><small>Payouts are the middle of what guides report. Most run times are our estimates, because nobody has published timed runs yet. Change any number to match your own runs; the ranking updates when you click out of the box.</small></p>
     <fieldset id="chaps" style="border:1px solid var(--line);border-radius:10px;padding:10px 14px">
-      <legend><small>Chapters I've unlocked</small></legend>
+      <legend><small>1. Where are you in the story?</small></legend>
       <div style="display:flex;flex-wrap:wrap;gap:16px">
-        {[1, 2, 3, 4, 5].map((n) => <label class="check"><input type="checkbox" value={n} checked={n <= 2} /> {n === 5 ? "Ch 5 / story done" : `Ch ${n}`}</label>)}
+        {[1, 2, 3, 4, 5].map((n) => <label class="check"><input type="radio" name="hc-ch" value={n} checked={n === 2} /> {n === 5 ? "Ch 5 / story done" : `Ch ${n}`} <small class="muted">{acts.some((a) => a.ch === n) ? `+${acts.filter((a) => a.ch === n).length} jobs` : "nothing new"}</small></label>)}
       </div>
     </fieldset>
-    <p style="margin-top:12px"><small><strong>Potential</strong> is what you'd make if every run worked. <strong>Expected</strong> is the realistic average: payout × success rate, minus what a failed run costs you (for the Derby, the retry fee: $700 with your partner). The ranking uses Expected. Set the success rate to your own: once you have the Derby ramp down it's about 98%, almost guaranteed unless you have to hunt down a straggler.</small></p>
+
+    <div class="planner" id="planner">
+      <h3 style="margin:0 0 8px">Money goal planner</h3>
+      <p style="margin:0 0 8px"><small>2. Pick what you're saving for, 3. enter what you have. The planner picks the best job open to you and counts the runs.</small></p>
+      <div class="targets">
+        {[
+          [15000, "Fill Chapter 2 checking", "$15,000 checking cap early in Chapter 2 (✓ our stream)"],
+          [100000, "BuckMe Gold", "$100,000 in Family Savings: 20% off garages (1 source)"],
+          [500000, "BuckMe Black", "$500,000 in Family Savings (1 source)"],
+          [1000000, "Rich as Buck", "$1,000,000 in Family Savings (1 source)"],
+          [2000000, "Final savings tier", "$2,000,000 in Family Savings (1 source)"],
+        ].map(([v, l, t]) => <button type="button" class="btn-ghost tgt" data-target={v} title={t}><strong>${Number(v) >= 1e6 ? `${Number(v) / 1e6}M` : `${Number(v) / 1000}k`}</strong> {l}</button>)}
+      </div>
+      <div class="plan-inputs">
+        <label>Target ($)<input id="pl-target" type="number" min="0" step="1000" value="15000" inputmode="numeric" /></label>
+        <label>Cash + checking now ($)<input id="pl-have" type="number" min="0" step="500" value="0" inputmode="numeric" /></label>
+      </div>
+      <div id="pl-out" aria-live="polite"></div>
+      <div class="bar" aria-hidden="true"><span id="pl-bar"></span></div>
+      <p style="margin:6px 0 0"><small class="muted">Saved on this device. Runs use the reported per-run range (best case to worst case); time uses the minutes per run you set below.</small></p>
+    </div>
+    <p style="margin-top:12px"><small><strong>Potential</strong> is what you'd make if every run worked. <strong>Expected</strong> is the realistic average: payout × success rate, minus what a failed run costs you (for the Derby, the retry fee: $700 with your partner). The ranking uses Expected. Set the success rate to your own. The figure-8 Derby ramp method is set to 100%: you can't die in a derby, a race averages about 2 minutes, and a straggler only costs time. Robberies won't go perfectly every time, so small banks start at 65% (we lost one bank haul of 3 to the cops) and vaults at 70%.</small></p>
     <p style="margin-top:4px"><small><strong>Difficulty:</strong> Easy = little risk, Medium = police chase or a careful delivery, Hard = high wanted level or you only get paid if you win.</small></p>
     <p style="margin-top:4px"><small>Tick <strong>Loop</strong> on the activities you chain together (for example, rob a store on the way to Moses with a stolen car) to see what the whole rotation earns per hour.</small></p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
@@ -80,12 +86,12 @@ const faq = [
     </div>
     <div id="mph-rows" class="acts">
       {acts.map((a) => (
-        <article class="act" data-id={a.id} data-ch={a.ch} data-diff={a.diff}>
+        <article class="act" data-id={a.id} data-ch={a.ch} data-diff={a.diff} data-lo={a.lo} data-hi={a.hi} data-pays={a.pays}>
           <div class="act-head">
             <span class="rank"></span>
             <div class="act-title">
               <strong class="act-name">{a.name}</strong>
-              <span class="act-tags"><span class={`diff d${a.diff}`}>{["", "Easy", "Medium", "Hard"][a.diff]}</span> <span class="act-ch">Ch {a.ch}+</span>{a.ok == null && <span class="act-ch">untested</span>}</span>
+              <span class="act-tags"><span class={`diff d${a.diff}`}>{["", "Easy", "Medium", "Hard"][a.diff]}</span> <span class="act-ch">Ch {a.ch}+</span> <span class={`src src-${a.src === "2+" ? "two" : a.src}`}>{SRC_LABEL[a.src]}</span>{a.ok == null && <span class="act-ch">untested</span>}</span>
             </div>
             <label class="act-loop"><input type="checkbox" class="loop" aria-label={`Add ${a.name} to my loop`} /> Loop</label>
           </div>
@@ -112,11 +118,59 @@ const faq = [
 
   <div class="callout"><p><strong>These are reported payouts, not HeistCalc-verified numbers</strong>, except where we say we saw it on stream. Guides are only days old and often disagree, so this page shows the range and gets updated as numbers settle.</p></div>
 
+  <h2>GTA 6 money at a glance</h2>
+  <div class="table-scroll"><table>
+    <tbody>
+      <tr><th scope="row">Best money per hour</th><td>Figure-8 Demolition Derby with your partner: up to $6,300 a win, about $161,000 an hour (✓ our stream)</td></tr>
+      <tr><th scope="row">Biggest single score</th><td>Large bank vaults, $65,000–205,000 each, from the end of Chapter 4 (2+ sources)</td></tr>
+      <tr><th scope="row">First real income</th><td>Chapter 2: Derby wins and untracked cars to Moses</td></tr>
+      <tr><th scope="row">Banks</th><td>22: 14 small, 8 large with a vault. <a href="/gta-6/banks/">All 22 banks and what they hold</a></td></tr>
+      <tr><th scope="row">Pocket cash limit</th><td>$20,000 per character</td></tr>
+      <tr><th scope="row">Wasted or busted</th><td>You lose the cash you carry; checking takes a smaller hit (reported)</td></tr>
+      <tr><th scope="row">Story payout</th><td>$120,000 at the end of Chapter 3 (1 source)</td></tr>
+      <tr><th scope="row">Money cheat</th><td>+$250,000, after the story only, and cheats block saving</td></tr>
+    </tbody>
+  </table></div>
+  <p><small>How sure are we? Each job in the calculator carries a label: <span class="src src-stream">✓ our stream</span> we saw it ourselves, <span class="src src-two">2+ sources</span> two or more independent guides agree, <span class="src src-1">1 source</span> only one guide so far, <span class="src src-disputed">sources disagree</span> the range shows the spread. The whole dataset is open: <a href="/data/gta6-money.json">gta6-money.json</a>.</small></p>
+
+  <h2>What opens in each chapter</h2>
+  <div class="chapters">
+    {[1, 2, 3, 4, 5].map((n) => {
+      const opens = acts.filter((a) => a.ch === n).sort((x, y) => y.hi - x.hi);
+      const tip = ["", "Cash is wiped at Tourist Trap. Play the story.", "Grind figure-8 Derbies with your partner.", "The story pays $120,000 at the end of the chapter.", "Vaults open with an optional mission at the very end.", "Nothing new opens. Keep running vaults."][n];
+      return (
+        <div class="chap">
+          <div class="chap-h">{n === 5 ? "Ch 5 / after" : `Chapter ${n}`}</div>
+          {opens.length ? <ul>{opens.map((a) => <li><span>{a.name.replace(/ \(.*\)$/, "")}</span><b>{a.lo === a.hi ? fmt0(a.hi) : `to ${fmt0(a.hi)}`}</b></li>)}</ul> : <p><small>No new job opens.</small></p>}
+          <p class="chap-tip"><small>{tip}</small></p>
+        </div>
+      );
+    })}
+  </div>
+
+  <h2>Money methods with no dollar figure yet</h2>
+  <ul>
+    <li><strong>Gang operations.</strong> Hideouts marked on the map. They mostly pay in narcotics you sell to a fence. No guide has a dollar range yet.</li>
+    <li><strong>Towable ATMs and security trucks.</strong> Unlocked through Yasmani's jobs. Our <a href="/gta-6/atm-robbery/">ATM guide</a> has what we've seen so far.</li>
+    <li><strong>Later street races.</strong> Only single prizes are known: $3,000 for Yago's first race.</li>
+  </ul>
+  <p>Got a number from your own game? These are the ones we'll test on stream next.</p>
+
+  <h2>Guides for each money job</h2>
+  <div class="guides">
+    <a href="/gta-6/demolition-derby/"><b>Up to $6,300</b>Demolition Derby<small>Chapter 2 · ✓ our stream</small></a>
+    <a href="/gta-6/banks/"><b>$5k to $205k</b>All 22 banks<small>Chapter 3 and 4</small></a>
+    <a href="/gta-6/smash-and-grab/"><b>Up to $25k</b>Jewelry stores and pawn shops<small>Chapter 2 · ✓ our stream</small></a>
+    <a href="/gta-6/atm-robbery/"><b>Up to $7,200</b>ATM rip-outs<small>Chapter 3</small></a>
+    <a href="/gta-6/safe-codes/"><b>Safe codes</b>Every known code<small>Robberies and stashes</small></a>
+    <a href="/gta-6/buckme/"><b>BuckMe</b>Checking, savings tiers<small>What you keep</small></a>
+  </div>
+
   <h2>Best money by chapter</h2>
   <ul>
     <li><strong>Chapter 1:</strong> don't grind. Your cash, checking and car are wiped at Tourist Trap. Move up to $5,000 into Family Savings (see the <a href="/gta-6/buckme/">BuckMe calculator</a>) and spend the rest.</li>
-    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies with your partner (up to $6,300 a win, about $157,000 an hour at a 2-minute average; $3,150 solo) and untracked cars to Moses. Jewelry stores and pawn shops also open for smash and grab in Chapter 2 (checked on our stream); the bigger ones hold $14,000–25,000, and grabbing the safe cash beats smashing every case before the cops arrive. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
-    <li><strong>Chapter 3:</strong> the Derby with your partner is still the best money (about $157,000 an hour). After that, Randy's Wish List supercars, then banks and Payday Loans, with jewelry stores still worth a hit. Pay 'n' Spray takes cars Moses won't, and vans pay well there: a stolen U.S. National Mail Service van sold for $2,750 and a Vapid Speedo van for $1,800 on our stream.</li>
+    <li><strong>Chapter 2:</strong> figure-8 Demolition Derbies with your partner (up to $6,300 a win, about $161,000 an hour at a 2-minute average; $3,150 solo) and untracked cars to Moses. Jewelry stores and pawn shops also open for smash and grab in Chapter 2 (checked on our stream); the bigger ones hold $14,000–25,000, and grabbing the safe cash beats smashing every case before the cops arrive. Hunting for Bret is a quieter option for Jason. The oval derby barely beats its rental fee.</li>
+    <li><strong>Chapter 3:</strong> the Derby with your partner is still the best money (about $161,000 an hour). After that, Randy's Wish List supercars, then banks and Payday Loans, with jewelry stores still worth a hit. Pay 'n' Spray takes cars Moses won't, and vans pay well there: a stolen U.S. National Mail Service van sold for $2,750 and a Vapid Speedo van for $1,800 on our stream.</li>
     <li><strong>Chapter 4 and after the story:</strong> large bank vaults beat everything else by a wide margin.</li>
   </ul>
 
@@ -147,7 +201,7 @@ const faq = [
     <li><strong>Ram in reverse.</strong> Back into the damaged cars to finish them off. Hitting with your rear keeps your engine alive, and the AI doesn't react to it.</li>
     <li><strong>Retry until you win.</strong> 2nd place still pays $1,500, and a retry is $315, half the $615 rental, so keep retrying until you finish 1st.</li>
     <li><strong>Pick the figure-8 track.</strong> 1st place pays $3,150, the maximum the game lists, about double the oval's $1,900. Full guide: <a href="/gta-6/demolition-derby/">how to win the Demolition Derby</a>.</li>
-    <li><strong>The numbers we got:</strong> $3,150 prize minus the $465 cheapest rental is $2,685 profit, and a race averages about 2 minutes. At a realistic 2-minute average that's about $78,000 an hour solo. <strong>Bring Lucia and it doubles:</strong> up to $6,300 a win for $930 in rentals, about $157,000 an hour, the best money in the game until the bank vaults at the end of Chapter 4. 2nd place still pays $1,500 and a retry costs only $315 (half the rental). So coming 2nd isn't a loss: 2nd place, then a retry you win, nets about $3,700 for two rounds.</li>
+    <li><strong>The numbers we got:</strong> $3,150 prize minus the $465 cheapest rental is $2,685 profit, and a race averages about 2 minutes. At a realistic 2-minute average that's about $80,000 an hour solo. <strong>Bring Lucia and it doubles:</strong> up to $6,300 a win for $930 in rentals, about $161,000 an hour, the best money in the game until the bank vaults at the end of Chapter 4. 2nd place still pays $1,500 and a retry costs only $315 (half the rental). So coming 2nd isn't a loss: 2nd place, then a retry you win, nets about $3,700 for two rounds.</li>
   </ul>
 
   <h2>One-time payouts worth knowing</h2>
@@ -164,6 +218,8 @@ const faq = [
     <li><strong>Time to cash matters.</strong> Safe cash can go straight into an ATM, but jewelry and marked bills still need a trip to a fence. Taxi fast travel doesn't work after a crime in the area, so you drive that leg with the cops around. On a robbery, the safe-and-ATM route turns into spendable money fastest.</li>
     <li><strong>Yasmani's security van tips cost $10,000 each.</strong> They're a cost, not income, and they unlock after you rob 2 Payday Loans stores.</li>
     <li><strong>Fishing doesn't pay.</strong> It's catch-and-release only.</li>
+    <li><strong>Family Savings is one-way.</strong> Money there is safe from death and arrest, but you can't take it back out. It only unlocks tiers and perks.</li>
+    <li><strong>Big purchases come out of BuckMe.</strong> Guides report vendors take pocket cash only up to $999; anything dearer is charged to your account.</li>
     <li><strong>Robbery safes need codes.</strong> All known codes are on our <a href="/gta-6/safe-codes/">safe codes page</a>.</li>
   </ul>
   <p>More: the <a href="/gta-6/fastest-cars/">fastest cars and where to find them</a>, <a href="/gta-6/collectibles/">collectibles</a> (duplicate cards sell at pawn shops) and <a href="/gta-6/heists/">GTA 6 heists</a>.</p>
@@ -175,16 +231,65 @@ const faq = [
       const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
       const KEY = "hc-gta6-mph";
       const name = (r) => r.querySelector(".act-name").textContent;
+      const tIn = document.getElementById("pl-target"), hIn = document.getElementById("pl-have");
       try {
         const saved = JSON.parse(localStorage.getItem(KEY) || "null");
         if (saved) {
-          boxes.forEach((b) => (b.checked = saved.ch.includes(Number(b.value))));
-          rows.forEach((r) => (r.querySelector(".loop").checked = saved.loop.includes(r.dataset.id)));
+          const c = Array.isArray(saved.ch) ? Math.max(1, ...saved.ch) : Number(saved.ch) || 2; // older saves stored a list of ticked chapters
+          boxes.forEach((b) => (b.checked = Number(b.value) === c));
+          rows.forEach((r) => (r.querySelector(".loop").checked = (saved.loop || []).includes(r.dataset.id)));
+          if (saved.target != null) tIn.value = saved.target;
+          if (saved.have != null) hIn.value = saved.have;
         }
       } catch {}
+      const dur = (m) => (m < 60 ? `${Math.max(1, Math.round(m))} min` : `${(m / 60).toFixed(m < 600 ? 1 : 0)} h`);
+      function plan(list, chap) {
+        const target = Math.max(0, Number(tIn.value) || 0), have = Math.max(0, Number(hIn.value) || 0), rem = target - have;
+        const out = document.getElementById("pl-out");
+        document.getElementById("pl-bar").style.width = (target ? Math.min(100, (have / target) * 100) : 0) + "%";
+        document.querySelectorAll(".tgt").forEach((b) => b.classList.toggle("on", Number(b.dataset.target) === target));
+        if (chap === 1) { out.innerHTML = `<p><strong>Chapter 1: don't grind.</strong> Your cash, checking and car are wiped at Tourist Trap. Put up to $5,000 in Family Savings (see the <a href="/gta-6/buckme/">BuckMe guide</a>), spend the rest and play the story.</p>`; return; }
+        if (rem <= 0) { out.innerHTML = `<p><strong>You're there.</strong> ${fmt(have)} covers your ${fmt(target)} target.</p>`; return; }
+        const open = list.filter((x) => x.open && x.rate > 0);
+        if (!open.length) { out.innerHTML = "<p>No job open yet.</p>"; return; }
+        // Every run counts its success rate: a failed attempt pays nothing and costs the "lost on a fail" amount,
+        // so a 65% bank needs more attempts than a 100% Derby. Range = reported low to high payout per success.
+        const per = (x, v) => v * x.ok - x.lose * (1 - x.ok);
+        const job = (x, need) => {
+          const lo = Number(x.r.dataset.lo), hi = Number(x.r.dataset.hi);
+          const eHi = per(x, hi), eLo = per(x, lo);
+          const best = Math.ceil(need / Math.max(1, eHi)), worst = eLo > 0 ? Math.ceil(need / eLo) : Infinity;
+          const runs = best === worst ? `${best}` : worst === Infinity ? `${best}+` : `${best} to ${worst}`;
+          const t = best === worst ? dur(best * x.min) : worst === Infinity ? `${dur(best * x.min)}+` : `${dur(best * x.min)} to ${dur(worst * x.min)}`;
+          return { runs, t, mine: Math.ceil(need / Math.max(1, x.pay)), lo, hi };
+        };
+        const b = open[0], j = job(b, rem), pays = b.r.dataset.pays;
+        const catches = [];
+        if (b.ok < 1) catches.push(`Counts a ${Math.round(b.ok * 100)}% success rate: ${Math.round((1 - b.ok) * 100)} in 100 attempts pay nothing${b.lose ? ` and cost ${fmt(b.lose)}` : ""}. Change it in the job's row below.`);
+        if (/marked/.test(pays)) catches.push("It pays in marked bills: you need the Dye Pack Jammer (Chapter 3, Credit Check) and a fence before it's spendable.");
+        if (/jewel/.test(pays)) catches.push("Jewelry has to be sold to a fence.");
+        if (rem > 20000) catches.push(`You can only carry $20,000, so bank at an ATM ${b.pay >= 20000 ? "after every run" : `every ${Math.max(1, Math.floor(20000 / b.pay))} runs`}. Getting wasted or busted costs what's in your pocket.`);
+        if (chap === 2 && target > 15000) catches.push("Checking caps at $15,000 early in Chapter 2; it goes up to $100,000 once heists unlock and Family Savings is full.");
+        const alt = open.slice(1, 3).map((x) => { const k = job(x, rem); return `<li>${name(x.r)}: ${k.runs} runs, ${k.t}</li>`; }).join("");
+        // Time to every savings goal from where you are, grinding the best job open to you.
+        const goals = [...new Set([15000, 100000, 500000, 1000000, 2000000, target])].sort((x, y) => x - y).filter((g) => g > have);
+        const hm = (m) => { const h = Math.floor(m / 60), mm = Math.round(m % 60); return h ? `${h} h ${String(mm).padStart(2, "0")} min` : `${mm} min`; };
+        const timer = goals.map((g) => {
+          const need = g - have, m = (need / Math.max(1, b.rate)) * 60;
+          return `<tr${g === target ? ' class="on"' : ""}><td>${fmt(g)}</td><td><strong>${hm(m)}</strong></td><td>${Math.ceil(need / Math.max(1, b.pay))}</td><td>${m < 18 ? "under 0.1" : (m / 180).toFixed(m < 180 ? 1 : 0)}</td></tr>`;
+        }).join("");
+        out.innerHTML = `<p style="margin:0">${fmt(rem)} to go. Best job open to you:</p>
+          <p class="plan-big"><strong>${j.runs} ${/^Demolition|races/.test(name(b.r)) ? "wins" : "runs"}</strong> of ${name(b.r)}</p>
+          <p style="margin:0"><small>${j.lo === j.hi ? fmt(j.lo) : `${fmt(j.lo)} to ${fmt(j.hi)}`} per success · about ${j.t} at ${dur(b.min)} a run. With your numbers below (${fmt(b.pay)} expected a run): ${j.mine} runs, ${hm(j.mine * b.min)}.</small></p>
+          ${catches.length ? `<ul class="plan-catch">${catches.map((c) => `<li><small>${c}</small></li>`).join("")}</ul>` : `<p><small>No catches on this plan. Deposit at an ATM after every big job.</small></p>`}
+          <p style="margin:10px 0 4px"><strong>⏱ Time to each goal</strong> <small class="muted">grinding ${name(b.r)} at ${fmt(b.rate)}/hour</small></p>
+          <div class="table-scroll"><table class="timer"><thead><tr><th>Goal</th><th>Grind time</th><th>Runs</th><th>3-hour sessions</th></tr></thead><tbody>${timer}</tbody></table></div>
+          ${alt ? `<p style="margin:8px 0 0"><small>Next best for this target:</small></p><ul class="plan-alt"><small>${alt}</small></ul>` : ""}`;
+      }
       // resort=false while typing, so rows don't jump under your cursor; the table re-ranks when you leave the box or press Enter.
       function calc(resort = true) {
-        const unlocked = new Set(boxes.filter((b) => b.checked).map((b) => Number(b.value)));
+        const chap = Number((boxes.find((b) => b.checked) || { value: 2 }).value);
+        const unlocked = new Set([1, 2, 3, 4, 5].filter((n) => n <= chap));
         const list = rows.map((r) => {
           const win = Math.max(0, Number(r.querySelector(".pay").value) || 0);
           const ok = Math.min(100, Math.max(0, Number(r.querySelector(".ok").value) || 0)) / 100;
@@ -197,7 +302,7 @@ const faq = [
           r.querySelector(".pot").textContent = fmt((win / secs) * 3600);
           const open = unlocked.has(Number(r.dataset.ch));
           r.style.opacity = open ? "1" : "0.4";
-          return { r, rate, open, pay, min, loop: r.querySelector(".loop").checked };
+          return { r, rate, open, pay, min, ok, lose, loop: r.querySelector(".loop").checked };
         });
         list.sort((a, b) => (b.open - a.open) || (b.rate - a.rate));
         if (resort) {
@@ -206,8 +311,8 @@ const faq = [
         }
         const best = list.find((x) => x.open);
         document.getElementById("mph-best").textContent = best
-          ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour expected. Greyed rows are in chapters you haven't ticked.`
-          : "Tick the chapters you've unlocked.";
+          ? `Best single activity for you: ${name(best.r)} at about ${fmt(best.rate)} per hour expected. Greyed rows open in a later chapter.`
+          : "Pick your chapter.";
         const loop = list.filter((x) => x.loop);
         const pay = loop.reduce((s, x) => s + x.pay, 0), min = loop.reduce((s, x) => s + x.min, 0);
         const mmss = (m) => { const t = Math.round(m * 60); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`; };
@@ -217,11 +322,13 @@ const faq = [
             (best && (pay / min) * 60 < best.rate ? ` That's less than doing ${name(best.r)} on its own, so only loop if the extra stops are on your way.` : "") +
             (locked.length ? ` Not unlocked yet: ${locked.join(", ")}.` : "")
           : "";
-        try { localStorage.setItem(KEY, JSON.stringify({ ch: [...unlocked], loop: loop.map((x) => x.r.dataset.id) })); } catch {}
+        plan(list, chap);
+        try { localStorage.setItem(KEY, JSON.stringify({ ch: chap, loop: loop.map((x) => x.r.dataset.id), target: tIn.value, have: hIn.value })); } catch {}
       }
       const calcEl = document.getElementById("mph-calc");
       calcEl.addEventListener("input", (e) => calc(e.target.type !== "number"));
       calcEl.addEventListener("change", () => calc(true));
+      document.querySelectorAll(".tgt").forEach((b) => b.addEventListener("click", () => { tIn.value = b.dataset.target; calc(); }));
       document.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
         const ids = b.dataset.preset ? b.dataset.preset.split(",") : [];
         rows.forEach((r) => (r.querySelector(".loop").checked = ids.includes(r.dataset.id)));
@@ -262,4 +369,36 @@ const faq = [
     .act-inputs { grid-template-columns: repeat(2, 1fr); flex-basis: 100%; }
     .act-out { width: 100%; justify-content: space-between; text-align: left; }
   }
+  .planner { margin: 14px 0; padding: 14px; border: 1px solid var(--money); border-radius: 12px; background: var(--panel); }
+  .targets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .targets .tgt { padding: 5px 10px; font-size: .8rem; }
+  .targets .tgt.on { border-color: var(--money); color: var(--money); }
+  .plan-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .plan-inputs label { min-width: 0; display: flex; flex-direction: column; gap: 3px; font-size: .75rem; color: var(--muted); }
+  .plan-inputs input { padding: 7px 9px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; font: 1rem Inter, sans-serif; min-width: 0; }
+  .plan-big { font-size: 1.25rem; margin: 4px 0; }
+  .plan-big strong { color: var(--money); }
+  .plan-catch, .plan-alt { margin: 6px 0 0; padding-left: 18px; }
+  .bar { height: 8px; border-radius: 999px; background: var(--panel-2); overflow: hidden; margin-top: 10px; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--money); transition: width .3s; }
+  .muted { color: var(--muted); }
+  .timer { font-size: .85rem; margin: 0; }
+  .timer tr.on td { color: var(--money); }
+  .src { font-size: .72rem; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); white-space: nowrap; }
+  .src-stream { color: var(--money); border-color: var(--money); }
+  .src-two { color: var(--text); }
+  .src-1 { color: var(--muted); border-style: dashed; }
+  .src-disputed { color: #e0a43a; border-color: #e0a43a; }
+  .chapters { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 12px 0 20px; }
+  .chap { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+  .chap-h { font-weight: 700; margin-bottom: 6px; }
+  .chap ul { list-style: none; margin: 0; padding: 0; }
+  .chap li { display: flex; justify-content: space-between; gap: 8px; font-size: .85rem; padding: 2px 0; border-bottom: 1px dashed var(--line); }
+  .chap li b { color: var(--money); white-space: nowrap; }
+  .chap-tip { margin: 8px 0 0; color: var(--muted); }
+  .guides { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 12px 0 20px; }
+  .guides a { display: flex; flex-direction: column; gap: 2px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-decoration: none; color: var(--text); }
+  .guides a b { color: var(--money); }
+  .guides a small { color: var(--muted); }
+  .guides a:hover { border-color: var(--accent); }
 </style>

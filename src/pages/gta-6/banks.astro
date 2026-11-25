@@ -1,0 +1,93 @@
+---
+import Article from "../../layouts/Article.astro";
+import { banks } from "../../data/banks";
+
+const money = (n: number) => "$" + n.toLocaleString("en-US");
+const small = banks.filter((b) => b.size === "small");
+const large = banks.filter((b) => b.size === "large");
+const sum = (l: typeof banks, k: "lo" | "hi") => l.reduce((s, b) => s + b[k], 0);
+const faq = [
+  { q: "How many banks are there in GTA 6?", a: "22 bank jobs: 14 small banks with a cash drawer and a safe, and 8 large banks that also have a vault. They're marked with a green bank icon once you've uncovered that part of the map, under Map, Robberies, Bank Jobs." },
+  { q: "When can you rob banks in GTA 6?", a: "Small banks open after the Chapter 3 mission Credit Check, which also gives you the Dye Pack Jammer you need to fence marked bills. The 8 vaults open with an optional mission at the very end of Chapter 4 (reported)." },
+  { q: "Which GTA 6 bank pays the most?", a: "The two biggest Lombank vaults, Downtown and Ocean Beach, are listed at $135,000 to $205,000. Among small banks, Lombank Bayside, Lombank Ocean Beach and Druthers State Bank top out at $45,000." },
+  { q: "How much did you actually get from a GTA 6 bank?", a: "Less than the map card. On stream we carried out about $13,300 in marked bills plus $600 cash from ShoreFront Ocean Beach, and lost about $10,400 at ShoreFront Downtown when the cops caught us before we escaped." },
+  { q: "Is bank money in GTA 6 real cash?", a: "No, banks pay in marked bills. You need the Dye Pack Jammer from Credit Check, then a fence turns them into cash. Fencing $250,000 of marked bills counts toward 100% completion (reported)." },
+];
+---
+<Article
+  title="All 22 GTA 6 Banks: Locations, Vaults and How Much Each Holds"
+  h1="All 22 GTA 6 Banks and How Much Each One Holds"
+  description="Every GTA 6 bank job: the 14 small banks and 8 vault banks, their county, take range and which ones we robbed on stream, with a filter and the rules for marked bills."
+  published="2026-11-25"
+  image={{ src: "/img/gta-6/banks/lombank-ocean-beach-card.webp", alt: "GTA 6 map card for Lombank Ocean Beach: large bank with marked bills, medium security, take value $75,000 to $135,000", width: 909, height: 720 }}
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }, { href: "/gta-6/make-money/", label: "Make money" }]}
+  faq={faq}
+  sources={[
+    { href: "https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/", label: "PowerPyx: all 22 bank job locations" },
+    { href: "https://www.powerpyx.com/gta-6-money-guide-how-to-get-money-fast/", label: "PowerPyx: money guide" },
+  ]}
+>
+  <p><strong>GTA 6 has 22 bank jobs: 14 small banks worth $5,000 to $45,000 each and 8 large banks with a vault worth $65,000 to $205,000.</strong> The take ranges below come from PowerPyx's bank list. Rows marked ✓ are banks where we read the same range off the in-game map card on our stream, and the "Our take" column is what we actually walked out with.</p>
+
+  <div class="callout"><p><strong>The map card is a ceiling, not a payout.</strong> Our best small-bank run (ShoreFront Ocean Beach, listed up to $15,000) got about $13,300 in marked bills. A run where the cops caught us before we escaped paid nothing. Plan with the <a href="/gta-6/make-money/">money planner</a>, which uses the low end too.</p></div>
+
+  <div class="bank-filter" role="group" aria-label="Filter banks">
+    <button type="button" class="btn-ghost on" data-f="all">All 22</button>
+    <button type="button" class="btn-ghost" data-f="large">8 vaults</button>
+    <button type="button" class="btn-ghost" data-f="small">14 small</button>
+    <button type="button" class="btn-ghost" data-f="stream">✓ Seen on stream</button>
+  </div>
+
+  <div class="table-scroll"><table id="banks">
+    <thead><tr><th>#</th><th>Bank</th><th>County</th><th>Type</th><th>Take range</th><th>Our take</th></tr></thead>
+    <tbody>
+      {banks.map((b) => (
+        <tr data-size={b.size} data-stream={b.seen || b.ours ? "1" : "0"}>
+          <td>{b.n}</td>
+          <td><strong>{b.name}{b.area && ` – ${b.area}`}</strong>{b.seen && " ✓"}</td>
+          <td>{b.county}</td>
+          <td>{b.size === "large" ? "Vault" : "Small"}</td>
+          <td>{money(b.lo)}–{money(b.hi)}</td>
+          <td><small>{b.ours ?? "—"}</small></td>
+        </tr>
+      ))}
+    </tbody>
+  </table></div>
+  <p><small>All 14 small banks together list {money(sum(small, "lo"))}–{money(sum(small, "hi"))}; all 8 vaults list {money(sum(large, "lo"))}–{money(sum(large, "hi"))}. Download the data: <a href="/data/gta6-money.json">gta6-money.json</a>.</small></p>
+
+  <h2>Small banks (Chapter 3)</h2>
+  <p>Small banks open after the Chapter 3 mission <strong>Credit Check</strong>. Each has a <strong>cash drawer</strong> and a <strong>safe</strong>, and you have to loot both for the job to count as done on the map. What we've learned robbing them on stream:</p>
+  <ul>
+    <li><strong>Use the Snap Gun</strong> to get in without setting off the alarm. It makes a small bank far safer.</li>
+    <li><strong>The safe code goes into your Notes</strong> once you find it (3635 at ShoreFront – Downtown). All known codes are on our <a href="/gta-6/safe-codes/">safe codes page</a>.</li>
+    <li><strong>Don't get caught with the bags.</strong> If the cops catch you before you escape, the game takes the loot. We lost about $10,400 that way.</li>
+  </ul>
+
+  <h2>Bank vaults (end of Chapter 4)</h2>
+  <p>Guides report the 8 vault banks open with an optional mission at the very end of Chapter 4. You follow a security van, wait for the guard to carry cash into the vault, and rob it while it's open. Vault jobs reportedly give an instant 4-star wanted level, so have a fast bike ready. Yasmani sells tips on security vans for $10,000 once you've robbed 2 Payday Loans stores. We read the Fleeca – Downtown card on stream: high security, a vault, $100,000–150,000.</p>
+
+  <h2>Marked bills: how bank money becomes cash</h2>
+  <ul>
+    <li>Banks pay in <strong>marked bills</strong>, not cash. You need the <strong>Dye Pack Jammer</strong> from Credit Check, then a fence buys them.</li>
+    <li>You can carry $20,000 in cash. Bank it at an ATM after every job, because getting wasted or busted costs what's in your pocket.</li>
+    <li>Fencing $250,000 of marked bills counts toward 100% completion (reported).</li>
+  </ul>
+  <p>Other money jobs: <a href="/gta-6/atm-robbery/">ATM rip-outs</a>, <a href="/gta-6/smash-and-grab/">jewelry stores</a> and the <a href="/gta-6/demolition-derby/">Demolition Derby</a>, which still pays more per hour than small banks.</p>
+
+  <script is:inline>
+    (() => {
+      const rows = [...document.querySelectorAll("#banks tbody tr")];
+      document.querySelectorAll(".bank-filter button").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll(".bank-filter button").forEach((x) => x.classList.toggle("on", x === b));
+        const f = b.dataset.f;
+        rows.forEach((r) => (r.hidden = !(f === "all" || r.dataset.size === f || (f === "stream" && r.dataset.stream === "1"))));
+      }));
+    })();
+  </script>
+</Article>
+
+<style>
+  .bank-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
+  .bank-filter button { padding: 6px 12px; font-size: .85rem; }
+  .bank-filter button.on { border-color: var(--money); color: var(--money); }
+</style>
