@@ -1,0 +1,99 @@
+---
+import Article from "../../layouts/Article.astro";
+
+type Shot = { src: string; alt: string; cap: string };
+const img = (n: string) => `/img/gta-6/gta6-alien-bunker-${n}.webp`;
+const steps: { title: string; text: string; shot?: Shot }[] = [
+  {
+    title: "1. Go to Maroon Key",
+    text: "The bunker is on Maroon Key, the small island just north of Abismo Key in the Keys. It sits inside a restricted airspace zone (the white outline on the map), so if you fly in, stay low and expect the radar warning. Look for the tall radio tower: the way in is an abandoned building right under it. No mission starts this. You just go there.",
+    shot: { src: img("maroon-key-map"), alt: "GTA 6 map showing Maroon Key north of Abismo Key, where the alien bunker Easter egg is", cap: "Maroon Key, north of Abismo Key. The white outline is restricted airspace." },
+  },
+  {
+    title: "2. Find the building under the radio tower",
+    text: "Walk up to the base of the tower. There's an old building with a basement and an \"Authorized Persons Only\" door. You can go upstairs first, but the bunker is down. Bring a flashlight: it's pitch dark inside.",
+    shot: { src: img("radio-tower"), alt: "Jason walking to the abandoned building under the radio tower on Maroon Key in GTA 6", cap: "The building at the foot of the tower." },
+  },
+  {
+    title: "3. Open the keypad door (digits 1 to 4)",
+    text: "The basement door has a 4-digit keypad. The scribbles on the wall to the left of the door are the clue, but they're hard to read. The code only uses the digits 1, 2, 3 and 4, each once, so there are just 24 possible codes. Ours was 3142. Other players report getting a different code, so if 3142 fails, try the rest in order (1234, 1243, 1324 and so on). The door opens to an elevator going down.",
+    shot: { src: img("wall-clue"), alt: "Graffiti on the wall next to the alien bunker keypad door in GTA 6, the code clue", cap: "The wall scribbles left of the door are the clue. Our code was 3142." },
+  },
+  {
+    title: "4. Read the logs in the command center",
+    text: "At the bottom you reach a command center with a body and audio logs. The logs talk about cattle abductions, exposure tests and a \"subject\" that reacts like it's on a drug. You don't need them to finish, but that's the story.",
+  },
+  {
+    title: "5. Turn every light green on the panel",
+    text: "Push the buttons on the control panel until all the lights are green. The trick: each button flips its own light and also the light to its immediate left. Work from left to right and get each light green before moving on. When it's right you get \"backup generators on\" and \"containment lockdown terminated\", and three doors open.",
+    shot: { src: img("light-panel"), alt: "Alien bunker light puzzle control panel in GTA 6 with green and orange lights", cap: "Each button also changes the light to its left." },
+  },
+  {
+    title: "6. Check the three rooms",
+    text: "Right door: an X-ray of an alien skull and a containment pod that needs something put inside it. Middle: radiation, so you can't go down there. Left: a cold storage room with a whiteboard that says \"WHY MILK??\" and \"NEED MORE COWS\". That's your answer.",
+    shot: { src: img("alien-xray"), alt: "X-ray of an alien skull on a lightbox in the GTA 6 alien bunker", cap: "The alien skull X-ray in the right-hand room." },
+  },
+  {
+    title: "7. Bring milk to the pod",
+    text: "Grab the milk from the left room, carry it back to the containment pod in the right room and feed it in. The alien inside wakes up.",
+    shot: { src: img("why-milk"), alt: "Whiteboard in the GTA 6 alien bunker that says WHY MILK and NEED MORE COWS", cap: "\"WHY MILK??\" The board tells you what the pod needs." },
+  },
+  {
+    title: "8. Get out and watch the ending",
+    text: "Gas starts to release, so take the elevator back up fast. Outside, the alien wakes up, the UFO shows up and blows the place apart, and you get the trophy The Truth Is Out There.",
+    shot: { src: img("ufo"), alt: "UFO over the radio tower on Maroon Key at the end of the GTA 6 alien bunker Easter egg", cap: "The UFO shows up over the tower." },
+  },
+];
+const faq = [
+  { q: "Where is the alien bunker in GTA 6?", a: "On Maroon Key, the small island north of Abismo Key in the Keys. The entrance is the basement of the abandoned building under the radio tower." },
+  { q: "What is the alien bunker door code?", a: "Ours was 3142. The code only uses the digits 1 to 4 (each once), so there are 24 possible codes. Other players report a different code, so if 3142 doesn't work, try the others. It took us a few minutes to go through them." },
+  { q: "How do you solve the alien bunker light puzzle?", a: "Each button flips its own light and the light to its immediate left. Go from left to right and make each light green before you press the next one. When all are green, the generators come back on and the three doors open." },
+  { q: "Why does the alien need milk?", a: "The whiteboard in the left room says \"WHY MILK??\" and \"NEED MORE COWS\". Take the milk from that room and put it in the containment pod in the right room. That wakes the alien up." },
+  { q: "What is the reward for the alien bunker?", a: "A permanent stat boost: we got \"Max focus increased\", \"Max stamina increased\" and \"Max health increased\", plus the trophy The Truth Is Out There. There's no cash reward. We did it as Jason." },
+  { q: "Do you need a mission to start it?", a: "No. It's free-roam exploration with no quest marker. Just go to Maroon Key. We did it in Chapter 4." },
+];
+---
+<Article
+  image={{ src: img("stat-boost"), alt: "GTA 6 screen showing Max focus, Max stamina and Max health increased after freeing the alien", width: 1000, height: 794 }}
+  title="GTA 6 Alien Bunker Easter Egg: Location, Door Code, Light Puzzle & Reward"
+  h1="GTA 6 Alien Bunker Easter Egg Walkthrough"
+  description="How to find and finish the GTA 6 alien bunker Easter egg on Maroon Key: the keypad code (digits 1-4, ours was 3142), the light puzzle, why the alien needs milk, and the max stat reward and trophy. Screenshots from our playthrough."
+  published="2026-11-29"
+  crumbs={[{ href: "/gta-6/", label: "GTA 6" }]}
+  faq={faq}
+>
+  <p>GTA 6 hides a full alien Easter egg in a bunker under a radio tower in the Keys. There's no mission or marker for it. You find a keypad door, solve a light puzzle, work out that the alien wants <strong>milk</strong>, and get a permanent stat boost and a trophy. Every screenshot below is from our own run on stream.</p>
+  <div class="callout"><p><strong>Quick answer:</strong> go to <strong>Maroon Key</strong> (north of Abismo Key) and enter the basement of the building under the radio tower. The door code uses only <strong>1-4</strong> (ours: <strong>3142</strong>). On the panel, each button also flips the light to its left; make them all green. Take the <strong>milk</strong> from the left room to the pod in the right room. Reward: <strong>max focus, stamina and health increased</strong> plus the trophy <strong>The Truth Is Out There</strong>.</p></div>
+
+  <h2>Before you go</h2>
+  <ul>
+    <li><strong>Bring a flashlight.</strong> The basement and tunnels are very dark.</li>
+    <li><strong>Bring a weapon</strong> just in case. Nothing attacked us, but it's creepy down there.</li>
+    <li><strong>Plan 20 to 25 minutes</strong> if you need to try several door codes.</li>
+  </ul>
+
+  {steps.map((s) => (
+    <>
+      <h2>{s.title}</h2>
+      <p>{s.text}</p>
+      {s.shot && (
+        <figure style="margin:20px 0">
+          <img src={s.shot.src} alt={s.shot.alt} width="1000" height="794" loading={s === steps[0] ? "eager" : "lazy"} decoding="async" style="border-radius:8px;width:100%" />
+          <figcaption><small>{s.shot.cap}</small></figcaption>
+        </figure>
+      )}
+    </>
+  ))}
+
+  <h2>The reward</h2>
+  <p>As soon as you're out, three messages pop up: <strong>Max focus increased</strong>, <strong>Max stamina increased</strong> and <strong>Max health increased</strong>. The trophy <strong>The Truth Is Out There</strong> unlocks during the UFO scene. There's no cash. We did it as Jason, and we haven't checked whether Lucia's stats go up too.</p>
+  <figure style="margin:20px 0">
+    <img src={img("containment-pod")} alt="Containment pod in the GTA 6 alien bunker where you put the milk" width="1000" height="794" loading="lazy" decoding="async" style="border-radius:8px;width:100%" />
+    <figcaption><small>The containment pod. Put the milk in here.</small></figcaption>
+  </figure>
+
+  <h2>Watch the full run</h2>
+  <p>We found it live with chat's help. The full walkthrough video, including us going through the door codes, is on <a href="https://www.youtube.com/@PrestonZen">prestonzen on YouTube</a>.</p>
+
+  <p>More GTA 6 secrets and help: <a href="/gta-6/mr-mangrove/">the Skunk Man quest</a>, <a href="/gta-6/safe-codes/">every safe code</a>, <a href="/gta-6/trophies/">trophies</a> and the <a href="/gta-6/make-money/">money guide</a>.</p>
+</Article>

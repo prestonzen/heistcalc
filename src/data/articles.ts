@@ -179,6 +179,15 @@ export const articles = [
     ]
   },
   {
+    "href": "/gta-6/alien-bunker/",
+    "image": "/img/gta-6/gta6-alien-bunker-ufo.webp",
+    "title": "GTA 6 Alien Bunker Easter Egg: Location, Door Code, Light Puzzle & Reward",
+    "text": "Find the alien bunker on Maroon Key, open the 1-4 keypad door, solve the light puzzle, feed the alien milk and get max stats plus The Truth Is Out There.",
+    "tags": [
+      "GTA 6"
+    ]
+  },
+  {
     "href": "/gta-6/mr-mangrove/",
     "image": "/img/gta-6/gta6-jason-rifle-skunk-ape.webp",
     "title": "GTA 6 Skunk Man Quest: Help Kirk Find Mr. Mangrove Walkthrough & $5,000 Payout",
